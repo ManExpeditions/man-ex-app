@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express';
 
 class App {
   // reference to Express instance
@@ -16,8 +16,8 @@ class App {
   }
 
   private routes(): void {
-    this.express.get("/", (_req: Request, res: Response) => {
-      res.json("Hello from Auth service");
+    this.express.get('/', (_req: Request, res: Response) => {
+      res.json('Hello from Auth service');
     });
   }
 }
