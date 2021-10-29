@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
+import helmet from 'helmet';
 import { LoggerStream } from './lib/logger';
 
 class App {
@@ -15,7 +17,10 @@ class App {
 
   private middleware(): void {
     this.express.use(express.json());
+    // Add logging middleware
     this.express.use(morgan('combined', { stream: new LoggerStream() }));
+    this.express.use(cors());
+    this.express.use(helmet());
   }
 
   private routes(): void {
