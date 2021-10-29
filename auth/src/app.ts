@@ -1,4 +1,6 @@
 import express, { Request, Response } from 'express';
+import morgan from 'morgan';
+import { LoggerStream } from './lib/logger';
 
 class App {
   // reference to Express instance
@@ -13,6 +15,7 @@ class App {
 
   private middleware(): void {
     this.express.use(express.json());
+    this.express.use(morgan('combined', { stream: new LoggerStream() }));
   }
 
   private routes(): void {
