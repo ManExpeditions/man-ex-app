@@ -13,6 +13,7 @@ mongoose();
 
 const server = http.createServer(App);
 server.listen(port);
+logger.info(`Server started on port: ${port}`);
 
 const gracefulStopServer = function () {
   // Wait 10 secs for existing connection(s) to close and then exit.
