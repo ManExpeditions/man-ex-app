@@ -19,19 +19,25 @@ used due to the several benefits microservices come with. See the architecture d
 microservices being used and how they interact with each other.
 
 <p align="center">
-  <img src="https://app.greenrope.com/users/myteam46998/Media912.png?202110291600">
+  <img src="https://app.greenrope.com/users/myteam46998/Media915.png?202110300959">
 </p>
 
 All microservices are containerized using docker to benefit from high portability and easy horizontal scaling. Every microservice
 other than the react client has it's own MongoDB database. In microservices every service has it's own database to ensure
 that the microservices are loosely coupled and independent from each other.
 
+All endpoints go through the proxy. The proxy then manages the routing and traffic to the specific service. 
+
 ## Microservices
 
-### React Client
+### User Client
 
-The frontend is developed using React and Redux. Redux is used for state management and it is selected to separate views 
-logic from state logic.
+This is the frontend application that users will have access to. It is developed using React and Redux. 
+Redux is used for state management and it is selected to separate views logic from state logic.
+
+## Admin Client
+
+This is the frontend for the administrators. It is also developed using React and Redux. 
 
 ### Authentication Service
 
