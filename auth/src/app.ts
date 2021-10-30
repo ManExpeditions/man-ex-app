@@ -24,7 +24,7 @@ class App {
   }
 
   private routes(): void {
-    this.express.get('/', (_req: Request, res: Response) => {
+    this.express.get('/api/auth/v1', (_req: Request, res: Response) => {
       res.json('Hello from Auth service');
     });
   }
