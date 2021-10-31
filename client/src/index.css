@@ -14,6 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #1e1e1e;
+  color: #fff;
 }
 
 code {
@@ -23,4 +24,24 @@ code {
 
 .hidden {
   visibility: hidden;
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: #56c1ff;
+  padding: 1rem;
+  text-transform: uppercase;
+  color: #fff;
+  border-radius: 2rem;
+}
+
+/* Links */
+.link {
+  text-decoration: none;
+  color: #fff;
 }
