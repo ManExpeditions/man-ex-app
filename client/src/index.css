@@ -67,7 +67,8 @@ code {
   width: max-content;
 }
 
-.input {
+.input,
+.selectbox {
   background-color: #363444;
   border-radius: 0.4rem;
   border: none;
@@ -79,7 +80,9 @@ code {
 }
 
 .input:hover,
-.input:focus {
+.input:focus,
+.selectbox:hover,
+.selectbox:focus {
   outline: 1px solid #00f2a8;
 }
 
