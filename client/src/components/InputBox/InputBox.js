@@ -4,9 +4,12 @@ import styles from "./InputBox.module.css";
 export default function InputBox({
   label,
   placeholder,
-  type = "text",
   belowInputText,
   labelHidden,
+  inputState,
+  setInputState,
+  inputValidationError,
+  type = "text",
 }) {
   const [inputType, setInputType] = useState(type);
 
@@ -20,19 +23,26 @@ export default function InputBox({
 
   return (
     <div>
-      <label
-        className={`${styles.label} ${labelHidden && "hidden"}`}
-        htmlFor={label}
-      >
-        {label}
-      </label>
+      <div className={styles.label_wrapper}>
+        <label
+          className={`${styles.label} ${labelHidden && "hidden"}`}
+          htmlFor={label}
+        >
+          {label}
+        </label>
+        <span className={styles.error_message}>{inputValidationError}</span>
+      </div>
       <div className={styles.input_wrapper}>
         <input
-          className={styles.input}
+          className={`${styles.input} ${
+            inputValidationError && styles.input_error
+          }`}
           id={label}
           type={inputType}
           name={label}
           placeholder={placeholder}
+          value={inputState}
+          onChange={(e) => setInputState(e.target.value)}
         ></input>
         {/* If type is password show eye to enable toggling password visibility */}
         {type === "password" && (

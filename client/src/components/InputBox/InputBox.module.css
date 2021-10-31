@@ -3,10 +3,17 @@
   color: #fff;
 }
 
+.label_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .label {
   display: block;
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
+  width: max-content;
 }
 
 .input_wrapper {
@@ -24,7 +31,6 @@
 }
 
 .input:hover,
-.input:active,
 .input:focus {
   outline: 1px solid #00f2a8;
 }
@@ -49,6 +55,21 @@
   font-size: 0.7rem;
   margin-top: 0.6rem;
   max-width: 15rem;
+}
+
+/* Errors */
+.error_message {
+  color: #fd5c52;
+  font-size: 0.7rem;
+}
+
+.input_error {
+  outline: 1px solid #fd5c52;
+}
+
+.input_error:hover,
+.input_error:focus {
+  outline: 1px solid #fd5c52;
 }
 
 /* Placeholder styling */
