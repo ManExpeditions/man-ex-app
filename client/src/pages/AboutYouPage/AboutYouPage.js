@@ -3,7 +3,6 @@ import InputBox from "../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
 import Validator from "../../utils/InputValidator";
 import SelectBox from "../../components/SelectBox/SelectBox";
-import useDidMountEffect from "../../customHooks/useDidMountEffect";
 
 export default function AboutYouPage(props) {
   const [firstName, setFirstName] = useState("");
@@ -16,19 +15,6 @@ export default function AboutYouPage(props) {
   const [genderValidationError, setGenderValidationError] = useState("");
 
   const inputValidator = Validator;
-
-  useDidMountEffect(() => {
-    setFirstNameValidationError(inputValidator.isLength(firstName, 3));
-  }, [firstName, inputValidator]);
-
-  useDidMountEffect(() => {
-    setLastNameValidationError(inputValidator.isLength(lastName, 3));
-  }, [lastName, inputValidator]);
-
-  useDidMountEffect(() => {
-    setGenderValidationError(inputValidator.isLength(gender, 3));
-  }, [gender, inputValidator]);
-
   const onCompleteHandler = () => {
     if (
       inputValidator.areAllNotEmpty([firstName, lastName, gender]) &&
@@ -53,12 +39,16 @@ export default function AboutYouPage(props) {
           inputState={firstName}
           setInputState={setFirstName}
           inputValidationError={firstNameValidationError}
+          setInputValidationError={setFirstNameValidationError}
+          validationType="length"
         ></InputBox>
         <InputBox
           label="Last Name"
           inputState={lastName}
           setInputState={setLastName}
           inputValidationError={lastNameValidationError}
+          setInputValidationError={setLastNameValidationError}
+          validationType="length"
         ></InputBox>
 
         <h3 className={styles.sub_title}>What's your Gender?</h3>
@@ -72,6 +62,8 @@ export default function AboutYouPage(props) {
           inputState={gender}
           setInputState={setGender}
           inputValidationError={genderValidationError}
+          setInputValidationError={setGenderValidationError}
+          validationType="length"
         ></InputBox>
         <SelectBox
           label="Language"

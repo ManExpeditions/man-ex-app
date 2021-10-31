@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
@@ -14,15 +14,9 @@ export default function RegisterPage(props) {
   const [passwordValidationError, setPasswordValidationError] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const inputValidator = Validator;
-
-  useDidMountEffect(() => {
-    setEmailValidationError(inputValidator.isEmail(email));
-  }, [email, inputValidator]);
-
-  useDidMountEffect(() => {
-    setPasswordValidationError(inputValidator.isPassword(password));
-  }, [password, inputValidator]);
 
   useDidMountEffect(() => {
     setPasswordMatchError(
@@ -34,7 +28,7 @@ export default function RegisterPage(props) {
     );
   }, [confirmPassword, inputValidator]);
 
-  const onCreateAccountHandler = () => {
+  useEffect(() => {
     if (
       inputValidator.areAllNotEmpty([email, password, confirmPassword]) &&
       inputValidator.areAllEmpty([
@@ -43,9 +37,23 @@ export default function RegisterPage(props) {
         passwordMatchError,
       ])
     ) {
-      // TODO: Create user account logic.
-      props.history.push("/onboarding/1");
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
     }
+  }, [
+    confirmPassword,
+    email,
+    emailValidationError,
+    inputValidator,
+    password,
+    passwordMatchError,
+    passwordValidationError,
+  ]);
+
+  const onCreateAccountHandler = () => {
+    // TODO: Create user account logic.
+    props.history.push("/onboarding/1");
   };
 
   return (
@@ -71,7 +79,7 @@ export default function RegisterPage(props) {
           setInputState={setEmail}
           inputValidationError={emailValidationError}
           setInputValidationError={setEmailValidationError}
-          validator="email"
+          validationType="email"
         ></InputBox>
         <InputBox
           label="Password"
@@ -79,6 +87,8 @@ export default function RegisterPage(props) {
           inputState={password}
           setInputState={setPassword}
           inputValidationError={passwordValidationError}
+          setInputValidationError={setPasswordValidationError}
+          validationType="password"
         ></InputBox>
         <InputBox
           label="Confirm Password"
@@ -89,7 +99,10 @@ export default function RegisterPage(props) {
         ></InputBox>
       </main>
       <button
-        className={`btn btn-primary ${styles.action_button}`}
+        disabled={buttonDisabled}
+        className={`btn btn-primary ${styles.action_button} ${
+          buttonDisabled && "btn-primary-disabled"
+        }`}
         onClick={onCreateAccountHandler}
       >
         Create Account

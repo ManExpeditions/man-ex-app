@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Validator from "../../utils/InputValidator";
 import styles from "./InputBox.module.css";
 
 export default function InputBox({
@@ -9,6 +10,8 @@ export default function InputBox({
   inputState,
   setInputState,
   inputValidationError,
+  setInputValidationError,
+  validationType,
   type = "text",
 }) {
   const [inputType, setInputType] = useState(type);
@@ -18,6 +21,25 @@ export default function InputBox({
       setInputType("text");
     } else {
       setInputType("password");
+    }
+  };
+
+  const inputValidator = Validator;
+
+  const validateInput = (input) => {
+    setInputState(input);
+    switch (validationType) {
+      case "email":
+        setInputValidationError(inputValidator.isEmail(input));
+        break;
+      case "password":
+        setInputValidationError(inputValidator.isPassword(input));
+        break;
+      case "length":
+        setInputValidationError(inputValidator.isLength(input, 3));
+        break;
+      default:
+        break;
     }
   };
 
@@ -37,7 +59,7 @@ export default function InputBox({
           name={label}
           placeholder={placeholder}
           value={inputState}
-          onChange={(e) => setInputState(e.target.value)}
+          onChange={(e) => validateInput(e.target.value)}
         ></input>
         {/* If type is password show eye to enable toggling password visibility */}
         {type === "password" && (
