@@ -65,7 +65,7 @@ class Validator {
   /* *
    * @param {string} input The input to validate.
    * @param {number} minLength The minimum length to validate.
-   * @return {string } The error message.
+   * @return {string} The error message.
    */
   isLength(input, minLength) {
     if (!this.validator.isLength(input, { min: minLength })) {
@@ -74,6 +74,26 @@ class Validator {
 
     return "";
   }
+
+  /* *
+   * @param {array} fields The string values in array
+   * @return {boolean} True if all strings are not empty
+   */
+  areAllNotEmpty(fields) {
+    console.log("all not empty");
+    console.log(fields.every((element) => element !== ""));
+    return fields.every((element) => element !== "");
+  }
+
+  /* *
+   * @param {array} fields The string values in array
+   * @return {boolean} True if all strings are empty
+   */
+  areAllEmpty(fields) {
+    console.log("all empty");
+    console.log(fields.every((element) => element === ""));
+    return fields.every((element) => element === "");
+  }
 }
 
-export default Validator;
+export default new Validator();
