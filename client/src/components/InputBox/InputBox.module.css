@@ -95,8 +95,8 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  box-shadow: 0 0 0 30px #555464 inset !important;
-  -webkit-box-shadow: 0 0 0 30px #555464 inset !important;
+  box-shadow: 0 0 0 30px #363444 inset !important;
+  -webkit-box-shadow: 0 0 0 30px #363444 inset !important;
 }
 
 /* Change text in autofill textbox*/
