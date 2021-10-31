@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 1rem 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.page_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 20vh;
+  text-align: center;
+}
+
+.action_button {
+  font-size: 1.05rem;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.info {
+  margin-bottom: 4rem;
+}

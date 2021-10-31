@@ -48,6 +48,12 @@ code {
   text-transform: uppercase;
   color: #fff;
   border-radius: 2rem;
+  transition: 300ms ease-in-out;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  opacity: 0.9;
 }
 
 .btn-primary:disabled,
