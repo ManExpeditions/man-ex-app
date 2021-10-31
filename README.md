@@ -56,7 +56,8 @@ the experiences and authentication service.
 
 ## Services Endpoints
 
-- React Client: [/api/v1]()
+- React Client: [/]()
+- Admin Client: [/administrator]()
 - Authentication Service: [/api/auth/v1]()
 - Experiences Service: [/api/experiences/v1]()
 - Admin Service: [/api/admin/v1]()
