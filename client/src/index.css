@@ -32,6 +32,10 @@ code {
   outline: none;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .btn-primary {
   background-color: #56c1ff;
   padding: 1rem;

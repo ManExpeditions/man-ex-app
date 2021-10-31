@@ -30,6 +30,10 @@
   width: 100%;
 }
 
+.facebook_button:hover {
+  cursor: pointer;
+}
+
 .facebook_icon {
   position: absolute;
   left: 1rem;
