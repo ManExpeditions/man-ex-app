@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
 import Validator from "../../utils/InputValidator";
+import useDidMountEffect from "../../customHooks/useDidMountEffect";
 
 export default function RegisterPage(props) {
   const [email, setEmail] = useState("");
@@ -13,25 +14,17 @@ export default function RegisterPage(props) {
   const [passwordValidationError, setPasswordValidationError] = useState("");
   const [passwordMatchError, setPasswordMatchError] = useState("");
 
-  const inputValidator = new Validator();
+  const inputValidator = Validator;
 
-  const isFormValid = () => {
-    if (
-      !emailValidationError &&
-      !passwordValidationError &&
-      !passwordMatchError &&
-      email &&
-      password &&
-      confirmPassword
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const onCreateAccountHandler = () => {
+  useDidMountEffect(() => {
     setEmailValidationError(inputValidator.isEmail(email));
+  }, [email, inputValidator]);
+
+  useDidMountEffect(() => {
     setPasswordValidationError(inputValidator.isPassword(password));
+  }, [password, inputValidator]);
+
+  useDidMountEffect(() => {
     setPasswordMatchError(
       inputValidator.areEqual(
         password,
@@ -39,8 +32,17 @@ export default function RegisterPage(props) {
         "Passwords do not match"
       )
     );
+  }, [confirmPassword, inputValidator]);
 
-    if (isFormValid()) {
+  const onCreateAccountHandler = () => {
+    if (
+      inputValidator.areAllNotEmpty([email, password, confirmPassword]) &&
+      inputValidator.areAllEmpty([
+        emailValidationError,
+        passwordValidationError,
+        passwordMatchError,
+      ])
+    ) {
       // TODO: Create user account logic.
       props.history.push("/onboarding/1");
     }
@@ -68,6 +70,8 @@ export default function RegisterPage(props) {
           inputState={email}
           setInputState={setEmail}
           inputValidationError={emailValidationError}
+          setInputValidationError={setEmailValidationError}
+          validator="email"
         ></InputBox>
         <InputBox
           label="Password"
