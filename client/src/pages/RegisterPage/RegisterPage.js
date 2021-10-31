@@ -4,7 +4,7 @@ import InputBox from "../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
 import Validator from "../../utils/InputValidator";
 
-export default function RegisterPage() {
+export default function RegisterPage(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,6 +14,20 @@ export default function RegisterPage() {
   const [passwordMatchError, setPasswordMatchError] = useState("");
 
   const inputValidator = new Validator();
+
+  const isFormValid = () => {
+    if (
+      !emailValidationError &&
+      !passwordValidationError &&
+      !passwordMatchError &&
+      email &&
+      password &&
+      confirmPassword
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   const onCreateAccountHandler = () => {
     setEmailValidationError(inputValidator.isEmail(email));
@@ -26,8 +40,9 @@ export default function RegisterPage() {
       )
     );
 
-    if (!emailValidationError || !passwordValidationError) {
+    if (isFormValid()) {
       // TODO: Create user account logic.
+      props.history.push("/onboarding/1");
     }
   };
 
