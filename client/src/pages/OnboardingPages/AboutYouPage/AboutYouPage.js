@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import InputBox from "../../components/InputBox/InputBox";
+import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
-import Validator from "../../utils/InputValidator";
-import SelectBox from "../../components/SelectBox/SelectBox";
+import Validator from "../../../utils/InputValidator";
+import SelectBox from "../../../components/SelectBox/SelectBox";
 
 export default function AboutYouPage(props) {
   const [firstName, setFirstName] = useState("");

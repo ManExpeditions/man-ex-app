@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import InputBox from "../../components/InputBox/InputBox";
+import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
-import Validator from "../../utils/InputValidator";
-import useDidMountEffect from "../../customHooks/useDidMountEffect";
+import Validator from "../../../utils/InputValidator";
+import useDidMountEffect from "../../../customHooks/useDidMountEffect";
 
 export default function RegisterPage(props) {
   const [email, setEmail] = useState("");
