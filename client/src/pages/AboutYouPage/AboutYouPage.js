@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
 import Validator from "../../utils/InputValidator";
@@ -14,8 +14,11 @@ export default function AboutYouPage(props) {
   const [lastNameValidationError, setLastNameValidationError] = useState("");
   const [genderValidationError, setGenderValidationError] = useState("");
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
   const inputValidator = Validator;
-  const onCompleteHandler = () => {
+
+  useEffect(() => {
     if (
       inputValidator.areAllNotEmpty([firstName, lastName, gender]) &&
       inputValidator.areAllEmpty([
@@ -24,9 +27,23 @@ export default function AboutYouPage(props) {
         genderValidationError,
       ])
     ) {
-      // TODO: Add logic to store info in DB
-      props.history.push("/onboarding/2");
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
     }
+  }, [
+    firstName,
+    firstNameValidationError,
+    gender,
+    genderValidationError,
+    inputValidator,
+    lastName,
+    lastNameValidationError,
+  ]);
+
+  const onCompleteHandler = () => {
+    // TODO: Add logic to store info in DB
+    props.history.push("/onboarding/2");
   };
 
   return (
@@ -75,6 +92,7 @@ export default function AboutYouPage(props) {
         ></SelectBox>
       </main>
       <button
+        disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >

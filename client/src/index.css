@@ -50,6 +50,11 @@ code {
   border-radius: 2rem;
 }
 
+.btn-primary:disabled,
+.btn-primary[disabled] {
+  opacity: 0.2;
+}
+
 /* Links */
 .link {
   text-decoration: none;
