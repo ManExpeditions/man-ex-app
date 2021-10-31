@@ -24,19 +24,14 @@ export default function InputBox({
   return (
     <div>
       <div className={styles.label_wrapper}>
-        <label
-          className={`${styles.label} ${labelHidden && "hidden"}`}
-          htmlFor={label}
-        >
+        <label className="label" htmlFor={label}>
           {label}
         </label>
-        <span className={styles.error_message}>{inputValidationError}</span>
+        <span className="error-message">{inputValidationError}</span>
       </div>
       <div className={styles.input_wrapper}>
         <input
-          className={`${styles.input} ${
-            inputValidationError && styles.input_error
-          }`}
+          className={`input ${inputValidationError && "input-error"}`}
           id={label}
           type={inputType}
           name={label}
@@ -54,7 +49,7 @@ export default function InputBox({
           </button>
         )}
       </div>
-      <p className={styles.below_text}>{belowInputText}</p>
+      <p className="below-text">{belowInputText}</p>
     </div>
   );
 }
