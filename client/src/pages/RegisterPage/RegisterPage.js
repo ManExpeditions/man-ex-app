@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
+import Validator from "../../utils/InputValidator";
 
 export default function RegisterPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [emailValidationError, setEmailValidationError] = useState("");
+  const [passwordValidationError, setPasswordValidationError] = useState("");
+  const [passwordMatchError, setPasswordMatchError] = useState("");
+
+  const inputValidator = new Validator();
+
+  const onCreateAccountHandler = () => {
+    setEmailValidationError(inputValidator.isEmail(email));
+    setPasswordValidationError(inputValidator.isPassword(password));
+    setPasswordMatchError(
+      inputValidator.areEqual(
+        password,
+        confirmPassword,
+        "Passwords do not match"
+      )
+    );
+
+    if (!emailValidationError || !passwordValidationError) {
+      // TODO: Create user account logic.
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       <img
@@ -20,14 +47,32 @@ export default function RegisterPage() {
         <span>or</span>
       </p>
       <main>
-        <InputBox label="Email" placeholder="Ex. hello@gmail.com"></InputBox>
+        <InputBox
+          label="Email"
+          placeholder="Ex. hello@gmail.com"
+          inputState={email}
+          setInputState={setEmail}
+          inputValidationError={emailValidationError}
+        ></InputBox>
         <InputBox
           label="Password"
           type="password"
-          belowInputText="Password must be at least 8 characters in length."
+          inputState={password}
+          setInputState={setPassword}
+          inputValidationError={passwordValidationError}
+        ></InputBox>
+        <InputBox
+          label="Confirm Password"
+          type="password"
+          inputState={confirmPassword}
+          setInputState={setConfirmPassword}
+          inputValidationError={passwordMatchError}
         ></InputBox>
       </main>
-      <button className={`btn btn-primary ${styles.action_button}`}>
+      <button
+        className={`btn btn-primary ${styles.action_button}`}
+        onClick={onCreateAccountHandler}
+      >
         Create Account
       </button>
       <p className={styles.existing_account}>
