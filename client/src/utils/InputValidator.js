@@ -61,6 +61,19 @@ class Validator {
 
     return "";
   }
+
+  /* *
+   * @param {string} input The input to validate.
+   * @param {number} minLength The minimum length to validate.
+   * @return {string } The error message.
+   */
+  isLength(input, minLength) {
+    if (!this.validator.isLength(input, { min: minLength })) {
+      return `Must be longer than ${minLength} characters`;
+    }
+
+    return "";
+  }
 }
 
 export default Validator;
