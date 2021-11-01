@@ -12,7 +12,6 @@ export default function AboutYouPage(props) {
 
   const [firstNameValidationError, setFirstNameValidationError] = useState("");
   const [lastNameValidationError, setLastNameValidationError] = useState("");
-  const [genderValidationError, setGenderValidationError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -20,11 +19,10 @@ export default function AboutYouPage(props) {
 
   useEffect(() => {
     if (
-      inputValidator.areAllNotEmpty([firstName, lastName, gender]) &&
+      inputValidator.areAllNotEmpty([firstName, lastName]) &&
       inputValidator.areAllEmpty([
         firstNameValidationError,
         lastNameValidationError,
-        genderValidationError,
       ])
     ) {
       setButtonDisabled(false);
@@ -32,12 +30,10 @@ export default function AboutYouPage(props) {
       setButtonDisabled(true);
     }
   }, [
-    firstName,
-    firstNameValidationError,
-    gender,
-    genderValidationError,
     inputValidator,
+    firstName,
     lastName,
+    firstNameValidationError,
     lastNameValidationError,
   ]);
 
@@ -73,22 +69,20 @@ export default function AboutYouPage(props) {
           Man Ex woes all men plus family and friends regardless of gender
         </p>
         <br />
-        <InputBox
+        <SelectBox
           label="Gender"
           type="text"
-          inputState={gender}
-          setInputState={setGender}
-          inputValidationError={genderValidationError}
-          setInputValidationError={setGenderValidationError}
-          validationType="length"
-        ></InputBox>
+          options={["Male", "Female", "Non-binary", "Other"]}
+          optionState={gender}
+          setOptionState={setGender}
+        ></SelectBox>
+        <br />
         <SelectBox
           label="Language"
           type="text"
           options={["English", "Spanish", "Portuguese"]}
           optionState={language}
           setOptionState={setLanguage}
-          inputValidationError={genderValidationError}
         ></SelectBox>
       </main>
       <button
