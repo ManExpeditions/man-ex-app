@@ -1,0 +1,38 @@
+.chip {
+  display: flex;
+  margin: 0.3rem;
+  align-items: center;
+}
+
+.image {
+  width: 1rem;
+  margin-right: 0.1rem;
+}
+
+.chip input[type="checkbox"] {
+  display: none;
+}
+
+.chip input[type="checkbox"] + label {
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 3.125rem;
+  background-color: #fff;
+  color: #1e1e1e;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.chip input[type="checkbox"]:checked + label {
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+  background-color: #00f2a8;
+  color: #1e1e1e;
+  border-color: #00f2a8;
+}
