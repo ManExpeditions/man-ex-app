@@ -32,6 +32,11 @@ code {
   text-align: center;
 }
 
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /* Buttons */
 .btn {
   border: none;
@@ -43,11 +48,14 @@ code {
 }
 
 .btn-primary {
+  display: block;
   background-color: #56c1ff;
-  padding: 1rem;
+  padding: 0.6rem;
   text-transform: uppercase;
+  max-width: 15rem;
   color: #fff;
   border-radius: 2rem;
+  margin: 0 auto;
   transition: 300ms ease-in-out;
 }
 
