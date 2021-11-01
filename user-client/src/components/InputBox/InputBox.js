@@ -6,12 +6,12 @@ export default function InputBox({
   label,
   placeholder,
   belowInputText,
-  labelHidden,
   inputState,
   setInputState,
   inputValidationError,
   setInputValidationError,
   validationType,
+  isLocation,
   type = "text",
 }) {
   const [inputType, setInputType] = useState(type);
@@ -53,6 +53,7 @@ export default function InputBox({
       </div>
       <div className={styles.input_wrapper}>
         <input
+          style={{ paddingLeft: isLocation && "2.2rem" }}
           className={`input ${inputValidationError && "input-error"}`}
           id={label}
           type={inputType}
