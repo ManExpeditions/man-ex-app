@@ -1,0 +1,46 @@
+.page_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 5vh;
+  text-align: center;
+}
+
+.location_wrapper {
+  position: relative;
+}
+
+.location_icon {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  z-index: 2;
+  left: 1rem;
+}
+
+.info {
+  margin: 1rem 0;
+}
+
+.location_button {
+  display: block;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin: 1rem auto;
+}
+
+.interests_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: auto;
+}
+
+.action_button {
+  font-size: 1.05rem;
+  width: 100%;
+  margin: 4rem auto 2rem;
+}

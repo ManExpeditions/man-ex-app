@@ -6,6 +6,7 @@ import MoreQuestionsPage from "./pages/OnboardingPages/MoreQuestionsPage/MoreQue
 import SigninPage from "./pages/SigninPage/SigninPage";
 import InterestsPage from "./pages/OnboardingPages/InterestsPage/InterestsPage";
 import ContinentsPage from "./pages/OnboardingPages/ContinentsPage/ContinentsPage";
+import LocationPage from "./pages/OnboardingPages/LocationPage/LocationPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/onboarding/2" component={MoreQuestionsPage}></Route>
       <Route path="/onboarding/3" component={InterestsPage}></Route>
       <Route path="/onboarding/4" component={ContinentsPage}></Route>
+      <Route path="/onboarding/5" component={LocationPage}></Route>
     </Router>
   );
 }
