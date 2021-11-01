@@ -47,7 +47,7 @@ export default function AboutYouPage(props) {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className="screen">
       <h1 className={styles.page_title}>About You</h1>
       <h3 className={styles.sub_title}>What's your name?</h3>
       <main>

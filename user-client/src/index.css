@@ -37,6 +37,13 @@ code {
   flex-wrap: wrap;
 }
 
+/* Wrapper for each onboarding screens */
+.screen {
+  padding: 1rem 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 /* Buttons */
 .btn {
   border: none;

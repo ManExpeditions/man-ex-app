@@ -57,7 +57,7 @@ export default function RegisterPage(props) {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className="screen">
       <img
         className={styles.logo}
         src="/logo192.png"

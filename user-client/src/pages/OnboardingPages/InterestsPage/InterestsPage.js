@@ -8,7 +8,7 @@ export default function InterestsPage(props) {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div className="screen">
       <Link to="/onboarding/2" className="link link-back">
         <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
