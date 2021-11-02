@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
+import InputValidator from "../../../utils/InputValidator";
 import styles from "./ContinentsPage.module.css";
 
 export default function ContinentsPage(props) {
@@ -10,9 +11,26 @@ export default function ContinentsPage(props) {
   const [asia, setAsia] = useState(false);
   const [southCentralAmerica, setSouthCentralAmerica] = useState(false);
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const validator = InputValidator;
+
   const onCompleteHandler = () => {
     props.history.push("/onboarding/5");
   };
+
+  useEffect(() => {
+    if (
+      validator.atleastXTruthy(
+        [northAmerica, africa, europe, asia, southCentralAmerica],
+        2
+      )
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [validator, northAmerica, africa, europe, asia, southCentralAmerica]);
 
   return (
     <div className="screen">
@@ -57,6 +75,7 @@ export default function ContinentsPage(props) {
         </div>
       </main>
       <button
+        disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
