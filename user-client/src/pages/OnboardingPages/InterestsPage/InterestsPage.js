@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
+import InputValidator from "../../../utils/InputValidator";
 import styles from "./InterestsPage.module.css";
 
 export default function InterestsPage(props) {
@@ -8,6 +9,7 @@ export default function InterestsPage(props) {
   const [resortVacations, setResortVacations] = useState(false);
   const [wildlife, setWildlife] = useState(false);
   const [luxuryGetAway, setLuxuryGetAway] = useState(false);
+  const [activeGetAway, setActiveGetAway] = useState(false);
   const [camping, setCamping] = useState(false);
   const [burningMan, setBurningMan] = useState(false);
   const [musicFestivals, setMusicFestivals] = useState(false);
@@ -18,9 +20,57 @@ export default function InterestsPage(props) {
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const validator = InputValidator;
+
   const onCompleteHandler = () => {
     props.history.push("/onboarding/4");
   };
+
+  useEffect(() => {
+    if (
+      validator.atleastXTruthy(
+        [
+          natureAndOutdoors,
+          resortVacations,
+          wildlife,
+          luxuryGetAway,
+          activeGetAway,
+          camping,
+          burningMan,
+          musicFestivals,
+          artAndCulture,
+          prideEvents,
+          wellnessRetreats,
+          volunteeringTrips,
+          cruises,
+          nudistAdventures,
+        ],
+        2
+      )
+    ) {
+      setButtonDisabled(false);
+    } else {
+      setButtonDisabled(true);
+    }
+  }, [
+    artAndCulture,
+    burningMan,
+    camping,
+    cruises,
+    luxuryGetAway,
+    musicFestivals,
+    natureAndOutdoors,
+    nudistAdventures,
+    prideEvents,
+    resortVacations,
+    volunteeringTrips,
+    wellnessRetreats,
+    wildlife,
+    validator,
+    activeGetAway,
+  ]);
 
   return (
     <div className="screen">
@@ -53,14 +103,14 @@ export default function InterestsPage(props) {
             imageSrc="/assets/icons/lion.png"
           ></ChipCheckBox>
           <ChipCheckBox
-            checkboxState={natureAndOutdoors}
-            setCheckboxState={setNatureAndOutdoors}
+            checkboxState={luxuryGetAway}
+            setCheckboxState={setLuxuryGetAway}
             label="Luxury Get-aways"
             imageSrc="/assets/icons/diamond.png"
           ></ChipCheckBox>
           <ChipCheckBox
-            checkboxState={luxuryGetAway}
-            setCheckboxState={setLuxuryGetAway}
+            checkboxState={activeGetAway}
+            setCheckboxState={setActiveGetAway}
             label="Active Get-aways"
             imageSrc="/assets/icons/skiing.png"
           ></ChipCheckBox>
@@ -121,6 +171,7 @@ export default function InterestsPage(props) {
         </div>
       </main>
       <button
+        disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
