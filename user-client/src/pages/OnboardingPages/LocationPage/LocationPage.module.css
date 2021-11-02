@@ -28,15 +28,42 @@
   font-size: 1rem;
   font-weight: bold;
   padding: 0.5rem;
-  margin: 1rem auto;
+  margin: 1rem auto 0;
 }
 
-.interests_container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: auto;
+.subheading_title {
+  padding-left: 2rem;
+  font-size: 1.4rem;
+}
+
+.locations_container {
+  background-color: #363444;
+}
+
+.location_item {
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.location_item_button {
+  width: 100%;
+  padding: 0.5rem 0;
+  text-align: left;
+  padding-left: 2rem;
+  background-color: transparent;
+  color: #fff;
+}
+
+.location_item_button:active,
+.location_item_button:focus {
+  background-color: #555464;
+}
+
+.location_city {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 
 .action_button {
