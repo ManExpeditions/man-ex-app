@@ -86,6 +86,23 @@ class Validator {
   }
 
   /* *
+   * @param {array} fields The array of fields
+   * @param {number} threshold The minimum fields required to be truthy
+   * @return {boolean} True if atleast x (threshold) fields are not empty
+   */
+  atleastXTruthy(fields, threshold) {
+    let count = 0;
+    for (let field of fields) {
+      if (field) {
+        count += 1;
+      }
+    }
+
+    if (count >= threshold) return true;
+    return false;
+  }
+
+  /* *
    * @param {array} fields The string values in array
    * @return {boolean} True if all strings are empty
    */
