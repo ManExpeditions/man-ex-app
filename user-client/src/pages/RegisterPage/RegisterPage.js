@@ -53,7 +53,7 @@ export default function RegisterPage(props) {
 
   const onCreateAccountHandler = () => {
     // TODO: Create user account logic.
-    props.history.push("/onboarding/1");
+    props.history.push("/onboarding/verify/email");
   };
 
   return (
