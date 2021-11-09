@@ -1,0 +1,16 @@
+.wrapper {
+  max-width: max-content;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.input {
+  width: 2.8rem;
+  height: 3rem;
+  text-align: center;
+}
+
+.input_filled {
+  outline: 1px solid #00f2a8;
+}
