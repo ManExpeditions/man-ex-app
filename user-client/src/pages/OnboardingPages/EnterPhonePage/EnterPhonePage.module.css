@@ -1,0 +1,20 @@
+.page_title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 5vh;
+  text-align: center;
+}
+
+.info {
+  margin: 1rem 0;
+}
+
+.input_wrapper {
+  margin: 5rem auto;
+}
+
+.action_button {
+  font-size: 1.05rem;
+  width: 100%;
+  margin: 4rem auto 2rem;
+}

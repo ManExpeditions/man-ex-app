@@ -30,6 +30,23 @@ class Validator {
   /* *
    * @param {string} input The input to validate.
    * @param {string} error The error message.
+   * @return {string } The error message.
+   */
+  isPhoneNumber(input, error = "Please enter a valid phone number") {
+    if (!input) {
+      return error;
+    }
+
+    if (!this.validator.isMobilePhone(input, "any", { strictMode: true })) {
+      return error;
+    }
+
+    return "";
+  }
+
+  /* *
+   * @param {string} input The input to validate.
+   * @param {string} error The error message.
    * @param {number} minLength The minimum length of the password.
    * @return {string } The error message.
    */

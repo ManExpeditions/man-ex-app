@@ -8,6 +8,8 @@ import InterestsPage from "./pages/OnboardingPages/InterestsPage/InterestsPage";
 import ContinentsPage from "./pages/OnboardingPages/ContinentsPage/ContinentsPage";
 import LocationPage from "./pages/OnboardingPages/LocationPage/LocationPage";
 import VerifyEmailPage from "./pages/OnboardingPages/VerifyEmailPage/VerifyEmailPage";
+import VerifyPhonePage from "./pages/OnboardingPages/VerifyPhonePage/VerifyPhonePage";
+import EnterPhonePage from "./pages/OnboardingPages/EnterPhonePage/EnterPhonePage";
 
 function App() {
   return (
@@ -17,6 +19,11 @@ function App() {
       <Route
         path="/onboarding/verify/email"
         component={VerifyEmailPage}
+      ></Route>
+      <Route path="/onboarding/enter/phone" component={EnterPhonePage}></Route>
+      <Route
+        path="/onboarding/verify/phone"
+        component={VerifyPhonePage}
       ></Route>
       <Route path="/onboarding/1" component={AboutYouPage}></Route>
       <Route path="/onboarding/2" component={MoreQuestionsPage}></Route>

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
 import Validator from "../../../utils/InputValidator";
-import styles from "./VerifyEmailPage.module.css";
+import styles from "./VerifyPhonePage.module.css";
 
-export default function VerifyEmailPage(props) {
+export default function VerifyPhonePage(props) {
   const [boxOne, setBoxOne] = useState("");
   const [boxTwo, setBoxTwo] = useState("");
   const [boxThree, setBoxThree] = useState("");
@@ -32,19 +32,19 @@ export default function VerifyEmailPage(props) {
   }, [boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/enter/phone");
+    props.history.push("/onboarding/1");
   };
 
   return (
     <>
       <div className="screen">
-        <Link to="/register" className="link link-back">
+        <Link to="/onboarding/verify/email" className="link link-back">
           <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
-        <h1 className={styles.page_title}>Enter Email Confirmation Code</h1>
+        <h1 className={styles.page_title}>Verify Mobile Number</h1>
         <main>
           <p className={`align-center ${styles.info}`}>
-            Enter the confirmation code we to sent to your email.
+            Enter the confirmation code we to sent to your mobile number.
           </p>
           <div className={styles.verification_wrapper}>
             <DigitVerificationBox
