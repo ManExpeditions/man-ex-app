@@ -13,6 +13,7 @@ import EnterPhonePage from "./pages/OnboardingPages/EnterPhonePage/EnterPhonePag
 import UploadProfilePicPage from "./pages/OnboardingPages/UploadProfilePicPage/UploadProfilePicPage";
 import VerifyProfilePicSocialPage from "./pages/OnboardingPages/VerifyProfilePicSocialPage/VerifyProfilePicSocialPage";
 import VerifyProfilePicManualPage from "./pages/OnboardingPages/VerifyProfilePicManualPage/VerifyProfilePicManualPage";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         path="/onboarding/verify/profilepic/manual"
         component={VerifyProfilePicManualPage}
       ></Route>
+      <Route path="/home" component={HomePage}></Route>
     </Router>
   );
 }
