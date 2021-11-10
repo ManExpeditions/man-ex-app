@@ -12,6 +12,7 @@ export default function InputBox({
   setInputValidationError,
   validationType,
   isLocation,
+  autoFocus,
   type = "text",
 }) {
   const [inputType, setInputType] = useState(type);
@@ -53,6 +54,7 @@ export default function InputBox({
       </div>
       <div className={styles.input_wrapper}>
         <input
+          autoFocus={autoFocus || null}
           style={{ paddingLeft: isLocation && "2.2rem" }}
           className={`input ${inputValidationError && "input-error"}`}
           id={label}

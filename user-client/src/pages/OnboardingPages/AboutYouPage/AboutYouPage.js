@@ -48,6 +48,7 @@ export default function AboutYouPage(props) {
       <h3 className={styles.sub_title}>What's your name?</h3>
       <main>
         <InputBox
+          autoFocus
           label="First Name"
           inputState={firstName}
           setInputState={setFirstName}

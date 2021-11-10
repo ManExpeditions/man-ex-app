@@ -24,6 +24,7 @@ export default function LocationPage(props) {
           <div className={styles.location_wrapper}>
             <i class={`fas fa-map-marker-alt ${styles.location_icon}`}></i>
             <InputBox
+              autoFocus
               isLocation
               inputState={location}
               setInputState={setLocation}
