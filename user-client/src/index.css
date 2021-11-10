@@ -88,6 +88,14 @@ ul {
   color: #fff;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
+.link-blue {
+  color: #56c1ff;
+}
+
 /* ==================
    Forms
 ===================*/

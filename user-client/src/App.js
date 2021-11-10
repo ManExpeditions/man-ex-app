@@ -11,6 +11,7 @@ import VerifyEmailPage from "./pages/OnboardingPages/VerifyEmailPage/VerifyEmail
 import VerifyPhonePage from "./pages/OnboardingPages/VerifyPhonePage/VerifyPhonePage";
 import EnterPhonePage from "./pages/OnboardingPages/EnterPhonePage/EnterPhonePage";
 import UploadProfilePicPage from "./pages/OnboardingPages/UploadProfilePicPage/UploadProfilePicPage";
+import VerifyProfilePicPage from "./pages/OnboardingPages/VerifyProfilePicPage/VerifyProfilePicPage";
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
       <Route
         path="/onboarding/upload/profilepic"
         component={UploadProfilePicPage}
+      ></Route>
+      <Route
+        path="/onboarding/verify/profilepic"
+        component={VerifyProfilePicPage}
       ></Route>
     </Router>
   );
