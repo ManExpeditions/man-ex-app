@@ -10,6 +10,7 @@ import LocationPage from "./pages/OnboardingPages/LocationPage/LocationPage";
 import VerifyEmailPage from "./pages/OnboardingPages/VerifyEmailPage/VerifyEmailPage";
 import VerifyPhonePage from "./pages/OnboardingPages/VerifyPhonePage/VerifyPhonePage";
 import EnterPhonePage from "./pages/OnboardingPages/EnterPhonePage/EnterPhonePage";
+import UploadProfilePicPage from "./pages/OnboardingPages/UploadProfilePicPage/UploadProfilePicPage";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
       <Route path="/onboarding/interests" component={InterestsPage}></Route>
       <Route path="/onboarding/continents" component={ContinentsPage}></Route>
       <Route path="/onboarding/location" component={LocationPage}></Route>
+      <Route
+        path="/onboarding/upload/profilepic"
+        component={UploadProfilePicPage}
+      ></Route>
     </Router>
   );
 }

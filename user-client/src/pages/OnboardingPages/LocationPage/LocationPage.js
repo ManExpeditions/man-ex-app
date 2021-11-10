@@ -7,7 +7,7 @@ export default function LocationPage(props) {
   const [location, setLocation] = useState("");
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/profilepic");
+    props.history.push("/onboarding/upload/profilepic");
   };
 
   return (
