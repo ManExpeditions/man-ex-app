@@ -3,7 +3,7 @@ import styles from "./MoreQuestionsPage.module.css";
 
 export default function MoreQuestionsPage(props) {
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/3");
+    props.history.push("/onboarding/interests");
   };
 
   return (

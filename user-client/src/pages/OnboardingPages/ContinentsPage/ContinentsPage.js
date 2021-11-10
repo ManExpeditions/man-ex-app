@@ -16,7 +16,7 @@ export default function ContinentsPage(props) {
   const validator = InputValidator;
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/5");
+    props.history.push("/onboarding/location");
   };
 
   useEffect(() => {

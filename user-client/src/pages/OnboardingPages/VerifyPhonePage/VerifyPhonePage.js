@@ -32,7 +32,7 @@ export default function VerifyPhonePage(props) {
   }, [boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/1");
+    props.history.push("/onboarding/aboutyou");
   };
 
   return (

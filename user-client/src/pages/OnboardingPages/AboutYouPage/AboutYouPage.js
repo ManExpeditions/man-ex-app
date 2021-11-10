@@ -39,7 +39,7 @@ export default function AboutYouPage(props) {
 
   const onCompleteHandler = () => {
     // TODO: Add logic to store info in DB
-    props.history.push("/onboarding/2");
+    props.history.push("/onboarding/morequestions");
   };
 
   return (

@@ -25,7 +25,7 @@ export default function InterestsPage(props) {
   const validator = InputValidator;
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/4");
+    props.history.push("/onboarding/continents");
   };
 
   useEffect(() => {

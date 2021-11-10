@@ -25,11 +25,14 @@ function App() {
         path="/onboarding/verify/phone"
         component={VerifyPhonePage}
       ></Route>
-      <Route path="/onboarding/1" component={AboutYouPage}></Route>
-      <Route path="/onboarding/2" component={MoreQuestionsPage}></Route>
-      <Route path="/onboarding/3" component={InterestsPage}></Route>
-      <Route path="/onboarding/4" component={ContinentsPage}></Route>
-      <Route path="/onboarding/5" component={LocationPage}></Route>
+      <Route path="/onboarding/aboutyou" component={AboutYouPage}></Route>
+      <Route
+        path="/onboarding/morequestions"
+        component={MoreQuestionsPage}
+      ></Route>
+      <Route path="/onboarding/interests" component={InterestsPage}></Route>
+      <Route path="/onboarding/continents" component={ContinentsPage}></Route>
+      <Route path="/onboarding/location" component={LocationPage}></Route>
     </Router>
   );
 }
