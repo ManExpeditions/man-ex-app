@@ -12,6 +12,7 @@ import VerifyPhonePage from "./pages/OnboardingPages/VerifyPhonePage/VerifyPhone
 import EnterPhonePage from "./pages/OnboardingPages/EnterPhonePage/EnterPhonePage";
 import UploadProfilePicPage from "./pages/OnboardingPages/UploadProfilePicPage/UploadProfilePicPage";
 import VerifyProfilePicSocialPage from "./pages/OnboardingPages/VerifyProfilePicSocialPage/VerifyProfilePicSocialPage";
+import VerifyProfilePicManualPage from "./pages/OnboardingPages/VerifyProfilePicManualPage/VerifyProfilePicManualPage";
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
       <Route
         path="/onboarding/verify/profilepic/social"
         component={VerifyProfilePicSocialPage}
+      ></Route>
+      <Route
+        path="/onboarding/verify/profilepic/manual"
+        component={VerifyProfilePicManualPage}
       ></Route>
     </Router>
   );

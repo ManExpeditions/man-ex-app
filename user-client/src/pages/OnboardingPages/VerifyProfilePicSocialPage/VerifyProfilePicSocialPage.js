@@ -11,7 +11,7 @@ export default function VerifyProfilePicSocialPage(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/verify/profilepic");
+    props.history.push("/home");
   };
 
   const inputValidator = Validator;
@@ -75,7 +75,7 @@ export default function VerifyProfilePicSocialPage(props) {
           <p className={`align-center ${styles.info}`}>
             If you are not on social media tap{" "}
             <Link
-              to="/verify/profilepic/manual"
+              to="/onboarding/verify/profilepic/manual"
               className="link link-blue uppercase"
             >
               here
