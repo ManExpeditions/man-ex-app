@@ -8,7 +8,7 @@ export default function MoreQuestionsPage(props) {
 
   return (
     <div className="screen">
-      <Link to="/onboarding/1" className="link link-back">
+      <Link to="/onboarding/aboutyou" className="link link-back">
         <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
       <h1 className={styles.page_title}>Hi User!</h1>

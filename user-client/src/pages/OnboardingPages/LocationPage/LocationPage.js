@@ -13,7 +13,7 @@ export default function LocationPage(props) {
   return (
     <>
       <div className="screen">
-        <Link to="/onboarding/4" className="link link-back">
+        <Link to="/onboarding/continents" className="link link-back">
           <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Where are you located?</h1>

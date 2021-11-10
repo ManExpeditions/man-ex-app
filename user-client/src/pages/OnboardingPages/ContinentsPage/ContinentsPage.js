@@ -34,7 +34,7 @@ export default function ContinentsPage(props) {
 
   return (
     <div className="screen">
-      <Link to="/onboarding/3" className="link link-back">
+      <Link to="/onboarding/interests" className="link link-back">
         <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
       <h1 className={styles.page_title}>

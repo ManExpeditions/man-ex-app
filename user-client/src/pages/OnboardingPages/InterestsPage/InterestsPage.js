@@ -74,7 +74,7 @@ export default function InterestsPage(props) {
 
   return (
     <div className="screen">
-      <Link to="/onboarding/2" className="link link-back">
+      <Link to="/onboarding/morequestions" className="link link-back">
         <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
       <h1 className={styles.page_title}>What are your travel interests?</h1>
