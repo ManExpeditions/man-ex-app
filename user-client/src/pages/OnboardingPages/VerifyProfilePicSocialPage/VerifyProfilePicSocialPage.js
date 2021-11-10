@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Validator from "../../../utils/InputValidator";
-import styles from "./VerifyProfilePicPage.module.css";
+import styles from "./VerifyProfilePicSocialPage.module.css";
 
-export default function VerifyProfilePicPage(props) {
+export default function VerifyProfilePicSocialPage(props) {
   const [instagramProfile, setInstagramProfile] = useState("");
   const [facebookProfile, setFacebookProfile] = useState("");
   const [linkedinProfile, setLinkedinProfile] = useState("");
@@ -74,7 +74,12 @@ export default function VerifyProfilePicPage(props) {
           </div>
           <p className={`align-center ${styles.info}`}>
             If you are not on social media tap{" "}
-            <Link className="link link-blue uppercase">here</Link>
+            <Link
+              to="/verify/profilepic/manual"
+              className="link link-blue uppercase"
+            >
+              here
+            </Link>
           </p>
         </main>
       </div>

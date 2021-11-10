@@ -7,7 +7,7 @@ export default function UploadProfilePicPage(props) {
   const [profilePic, setProfilePic] = useState("");
 
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/verify/profilepic");
+    props.history.push("/onboarding/verify/profilepic/social");
   };
 
   return (
