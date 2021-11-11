@@ -28,6 +28,10 @@ code {
   visibility: hidden;
 }
 
+.none-pointer {
+  pointer-events: none;
+}
+
 .align-center {
   text-align: center;
 }
