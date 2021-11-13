@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
 import { LoggerStream } from './lib/logger';
+import routes from './routes';
 
 class App {
   // reference to Express instance
@@ -24,6 +25,7 @@ class App {
   }
 
   private routes(): void {
+    this.express.use('/api', routes);
     this.express.get('/api/v1', (_req: Request, res: Response) => {
       res.json('Hello, welcome to Manex');
     });
