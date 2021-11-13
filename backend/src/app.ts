@@ -24,8 +24,8 @@ class App {
   }
 
   private routes(): void {
-    this.express.get('/api/auth/v1', (_req: Request, res: Response) => {
-      res.json('Hello from Auth service');
+    this.express.get('/api/v1', (_req: Request, res: Response) => {
+      res.json('Hello, welcome to Manex');
     });
   }
 }
