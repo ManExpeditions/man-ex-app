@@ -1,27 +1,52 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema(
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  password: string;
+  emailVerified: boolean;
+  phoneVerified: boolean;
+  gender: string;
+  language: string;
+  interests: string;
+  continents: string;
+  city: string;
+  state: string;
+  country: string;
+  profilepic: string;
+  profilepicVerified: boolean;
+  verificationProfilepic: string;
+  socials: string;
+  authType: string;
+  completedOnboarding: boolean;
+  adminUser: boolean;
+}
+
+const userSchema = new mongoose.Schema<User>(
   {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    phone: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    emailVerified: { type: Boolean, default: false, required: true },
-    phoneVerified: { type: Boolean, default: false, required: true },
-    gender: { type: String, required: true },
-    language: { type: String, required: true },
-    interests: { type: [String], required: true },
-    continents: { type: [String], required: true },
-    city: { type: String, required: true },
+    firstName: { type: String },
+    lastName: { type: String },
+    email: { type: String, unique: true },
+    phone: { type: String, unique: true },
+    password: { type: String },
+    emailVerified: { type: Boolean, default: false },
+    phoneVerified: { type: Boolean, default: false },
+    gender: { type: String, default: 'male' },
+    language: { type: String, default: 'english' },
+    interests: { type: [String] },
+    continents: { type: [String] },
+    city: { type: String },
     state: { type: String },
-    country: { type: String, required: true },
-    profilepic: { type: String, required: true },
-    profilepicVerified: { type: Boolean, required: true },
-    verificationProfilepic: { type: Boolean, required: true },
-    socials: { type: [String], required: true },
-    authType: { type: String, required: true },
-    isAdmin: {
+    country: { type: String },
+    profilepic: { type: String },
+    profilepicVerified: { type: Boolean, default: false },
+    verificationProfilepic: { type: Boolean },
+    socials: { type: [String] },
+    authType: { type: String },
+    completedOnboarding: { type: Boolean, default: false },
+    adminUser: {
       type: Boolean,
       default: false
     }
@@ -31,6 +56,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model<User>('User', userSchema);
 
 export default User;
