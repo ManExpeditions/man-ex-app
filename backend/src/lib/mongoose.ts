@@ -1,19 +1,8 @@
 import mongoose from 'mongoose';
-import { devConfig } from '../config/environments/dev';
 import logger from './logger';
 
-const env = process.env.NODE_ENV || 'dev';
-
 // MongoDB connection string.
-let dbURI: string;
-
-switch (env) {
-  case 'production':
-    dbURI = devConfig.mongo.uri as string;
-    break;
-  default:
-    dbURI = devConfig.mongo.uri as string;
-}
+let uri: string;
 
 const options = {
   useNewUrlParser: true,
@@ -21,10 +10,11 @@ const options = {
   useCreateIndex: true
 };
 
-const connect = async (): Promise<void> => {
+const connect = async (dbURI: string): Promise<void> => {
   // Create database connection.
+  uri = dbURI;
   try {
-    await mongoose.connect(dbURI as string, options);
+    await mongoose.connect(dbURI, options);
   } catch (err) {
     logger.error(`Mongoose connection failed at ${dbURI}: ${err}`);
   }
@@ -34,7 +24,7 @@ const connect = async (): Promise<void> => {
 
 // When successfully connected.
 mongoose.connection.on('connected', () => {
-  logger.info(`Mongoose connection open at ${dbURI}`);
+  logger.info(`Mongoose connection open at ${uri}`);
 });
 
 // If the connection throws an error.

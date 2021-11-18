@@ -1,15 +1,13 @@
 import http from 'http';
 import logger from './lib/logger';
 import App from './app';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import env from './env';
+import mongoose from './lib/mongoose';
 
 const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
-import mongoose from './lib/mongoose';
-mongoose();
+mongoose(env.mongo);
 
 const server = http.createServer(App);
 server.listen(port);
