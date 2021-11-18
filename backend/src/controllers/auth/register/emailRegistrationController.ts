@@ -6,12 +6,33 @@ import bcrypt from 'bcrypt';
 import logger from '../../../lib/logger';
 import User from '../../../models/user';
 
+/**
+ * @api {post} /auth/v1/register/email Register user by email
+ * @apiDescription Register a new user by email
+ * @apiPermission none
+ * @apiVersion 1.0.0
+ * @apiName EmailRegister
+ * @apiGroup Auth
+ *
+ * @apiBody {String} email The email.
+ * @apiBody {String} password The password.
+ *
+ * @apiSuccess {String} id Id of the created user.
+ * @apiSuccess {String} email Email of the created user.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": "61964435fd8574d454e26bc3"
+ *       "email": "john@example.com",
+ *     }
+ *
+ * @apiError UserAlreadyExists Cannot register user that already exists.
+ */
 export const emailRegistrationController = [
   // Sanitize and validate body params
-  body('email', 'Please enter a valid email').trim().isEmail().escape(),
-  body('password', 'Please enter a strong password')
-    .isStrongPassword()
-    .escape(),
+  body('email', 'Enter a valid email').trim().isEmail().escape(),
+  body('password', 'Enter a strong password').isStrongPassword().escape(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.

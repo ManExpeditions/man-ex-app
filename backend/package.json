@@ -1,5 +1,5 @@
 {
-  "name": "auth-service",
+  "name": "manex",
   "version": "1.0.0",
   "description": "Man Expeditions Backend.",
   "main": "index.js",
@@ -9,7 +9,8 @@
     "jasmine": "jasmine",
     "test": "npm run build && npm run jasmine",
     "prettier": "npx prettier --write .",
-    "lint": "npx eslint src/**/*.ts"
+    "lint": "npx eslint src/**/*.ts",
+    "doc": "apidoc -i src/controllers -o docs/apidoc/"
   },
   "author": "Ajaydip Singh",
   "license": "ISC",
