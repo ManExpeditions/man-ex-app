@@ -1,7 +1,7 @@
 {
   "name": "auth-service",
   "version": "1.0.0",
-  "description": "Man Expeditions Authentication Service.",
+  "description": "Man Expeditions Backend.",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
