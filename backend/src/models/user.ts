@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema<User>(
     firstName: { type: String },
     lastName: { type: String },
     email: { type: String, unique: true },
-    phone: { type: String, unique: true },
+    phone: { type: String },
     password: { type: String },
     emailVerified: { type: Boolean, default: false },
     phoneVerified: { type: Boolean, default: false },
