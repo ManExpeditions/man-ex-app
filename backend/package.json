@@ -10,7 +10,7 @@
     "test": "npm run build && npm run jasmine",
     "prettier": "npx prettier --write .",
     "lint": "npx eslint src/**/*.ts",
-    "doc": "apidoc -i src/controllers -o docs/apidoc/"
+    "doc": "apidoc -i src/controllers -o docs/"
   },
   "author": "Ajaydip Singh",
   "license": "ISC",
