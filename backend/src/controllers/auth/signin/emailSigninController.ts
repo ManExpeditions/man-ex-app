@@ -6,6 +6,29 @@ import bcrypt from 'bcrypt';
 import logger from '../../../lib/logger';
 import User from '../../../models/user';
 
+/**
+ * @api {post} /auth/v1/signin/email Signin user by email
+ * @apiDescription Signin an existing user by email.
+ * @apiPermission none
+ * @apiVersion 1.0.0
+ * @apiName EmailSignin
+ * @apiGroup Auth
+ *
+ * @apiBody {String} email The email.
+ * @apiBody {String} password The password.
+ *
+ * @apiSuccess {String} id Id of the created user.
+ * @apiSuccess {String} email Email of the created user.
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "id": "61964435fd8574d454e26bc3"
+ *       "email": "john@example.com",
+ *     }
+ *
+ * @apiError UserDoesNotExist Cannot signin user that does not exist.
+ */
 export const emailSigninController = [
   // Sanitize and validate body params
   body('email', 'Please enter a valid email').trim().isEmail().escape(),
