@@ -27,8 +27,8 @@ export const emailRegistrationController = [
     if (existingUser) {
       const err = new Error('User already exists. Please login.');
       res.status(404);
-      logger.error(err);
-      res.status(404).json(err);
+      logger.error(err.message);
+      res.status(404).json({ message: err.message });
       return;
     }
 
@@ -42,9 +42,9 @@ export const emailRegistrationController = [
     });
 
     const createdUser = await user.save();
-    logger.info('Created user');
 
     res.status(200).json({
+      id: createdUser._id,
       email: createdUser.email
     });
     return;
