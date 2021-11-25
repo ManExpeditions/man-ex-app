@@ -4,7 +4,7 @@ import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 
 import logger from '../../../lib/logger';
-import User from '../../../models/user';
+import userDao from '../../../dao/users/userDao';
 
 /**
  * @api {post} /auth/v1/signin/email Signin user by email
@@ -44,7 +44,7 @@ export const emailSigninController = [
     }
 
     // Check if user does not exist
-    const user = await User.findOne({ email: req.body.email });
+    const user = await userDao.find_user_by_email(req.body.email);
     if (!user) {
       const err = new Error('User does not exist. Please register.');
       logger.error(err.message);

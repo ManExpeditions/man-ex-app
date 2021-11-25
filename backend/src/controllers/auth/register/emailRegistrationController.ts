@@ -4,7 +4,7 @@ import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 
 import logger from '../../../lib/logger';
-import User from '../../../models/user';
+import UserDao from '../../../dao/users/userDao';
 
 /**
  * @api {post} /auth/v1/register/email Register user by email
@@ -44,7 +44,7 @@ export const emailRegistrationController = [
     }
 
     // Check if user exists
-    const existingUser = await User.findOne({ email: req.body.email });
+    const existingUser = await UserDao.find_user_by_email(req.body.email);
     if (existingUser) {
       const err = new Error('User already exists. Please login.');
       res.status(404);
@@ -57,12 +57,10 @@ export const emailRegistrationController = [
     const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     // Create new user
-    const user = new User({
-      email: req.body.email,
-      password: encryptedPassword
-    });
-
-    const createdUser = await user.save();
+    const createdUser = await UserDao.create_new_user_by_email(
+      req.body.email,
+      encryptedPassword
+    );
 
     res.status(200).json({
       id: createdUser._id,
