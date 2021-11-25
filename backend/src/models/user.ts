@@ -11,15 +11,15 @@ interface User {
   phoneVerified: boolean;
   gender: string;
   language: string;
-  interests: string;
-  continents: string;
+  interests: [string];
+  continents: [string];
   city: string;
   state: string;
   country: string;
   profilepic: string;
   profilepicVerified: boolean;
   verificationProfilepic: string;
-  socials: string;
+  socials: [string];
   authType: string;
   completedOnboarding: boolean;
   adminUser: boolean;
@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema<User>(
     profilepicVerified: { type: Boolean, default: false },
     verificationProfilepic: { type: Boolean },
     socials: { type: [String] },
-    authType: { type: String },
+    authType: { type: String, default: 'email' },
     completedOnboarding: { type: Boolean, default: false },
     adminUser: {
       type: Boolean,
