@@ -29,6 +29,7 @@
     "mongoose": "^5.13.6",
     "morgan": "^1.10.0",
     "supertest": "^6.1.6",
+    "twilio": "^3.71.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {

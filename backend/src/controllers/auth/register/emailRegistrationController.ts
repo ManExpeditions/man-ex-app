@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
-
 import logger from '../../../lib/logger';
 import UserDao from '../../../dao/users/userDao';
+import Email from '../../../helpers/email';
 
 /**
  * @api {post} /auth/v1/register/email Register user by email
@@ -61,6 +61,17 @@ export const emailRegistrationController = [
       req.body.email,
       encryptedPassword
     );
+
+    // Verify email
+    Email.verifyEmail(req.body.email).catch((err) => {
+      res
+        .status(500)
+        .json({ message: 'Registration Failed. Try again later.' });
+      logger.error(err);
+      // Cleanup if email did not send succesfully.
+      UserDao.delete_user_by_id(createdUser._id);
+      return;
+    });
 
     res.status(200).json({
       id: createdUser._id,
