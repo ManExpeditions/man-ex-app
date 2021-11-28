@@ -4,9 +4,11 @@ import User from '../../models/user';
 class UserDao {
   public async create_new_user_by_email(
     email: string,
-    encryptedPassword: string
+    encryptedPassword: string,
+    id?: mongoose.Types.ObjectId | string
   ): Promise<User> {
     const user = new User({
+      ...(id ? { _id: id } : {}),
       email,
       password: encryptedPassword
     });
@@ -20,19 +22,19 @@ class UserDao {
   }
 
   public async find_user_by_id(
-    id: mongoose.Types.ObjectId
+    id: mongoose.Types.ObjectId | string
   ): Promise<User | null> {
     const user = await User.findById(id);
     return user;
   }
 
-  public async delete_user_by_id(id: mongoose.Types.ObjectId) {
+  public async delete_user_by_id(id: mongoose.Types.ObjectId | string) {
     const deletedUser = await User.findByIdAndDelete(id);
     return deletedUser;
   }
 
   public async update_user(
-    id: mongoose.Types.ObjectId,
+    id: mongoose.Types.ObjectId | string,
     userInfo: User
   ): Promise<User | null> {
     const user = await User.findById(id);
