@@ -67,6 +67,10 @@ class UserDao {
     const updatedUser = await user.save();
     return updatedUser;
   }
+
+  public async delete_all_users(): Promise<void> {
+    await User.deleteMany();
+  }
 }
 
 export default new UserDao();
