@@ -37,7 +37,7 @@ import userDao from '../../dao/users/userDao';
  * @apiError UpdateUserFailed UserUpdateFailed.
  */
 export const userUpdateController = [
-  param('id', 'Id param must be integer').isString().escape(),
+  param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
   body('firstName', 'Enter valid first name')
     .optional()
@@ -129,12 +129,12 @@ export const userUpdateController = [
     // Handle case when empty body
     if (Object.keys(req.body).length === 0) {
       logger.error('Request body is empty');
-      res.status(404).json({ message: 'Request body is empty' });
+      res.status(404).json({ message: 'Request body is empty.' });
       return;
     }
 
     // Check if user does not exist
-    const user = await userDao.find_user_by_id(req.body.id);
+    const user = await userDao.find_user_by_id(req.params.id);
     if (!user) {
       const err = new Error('User does not exist.');
       logger.error(err.message);
@@ -142,9 +142,9 @@ export const userUpdateController = [
       return;
     }
 
-    const updatedUser = await userDao.update_user(req.body.id, req.body);
+    const updatedUser = await userDao.update_user(req.params.id, req.body);
     if (!updatedUser) {
-      const err = new Error('Unable to update user');
+      const err = new Error('Unable to update user.');
       logger.error(err.message);
       res.status(404).json({ message: err.message });
       return;
