@@ -4,7 +4,7 @@ import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import logger from '../../../lib/logger';
 import UserDao from '../../../dao/users/userDao';
-import Email from '../../../helpers/email';
+import TwilioServices from '../../../lib/twilio';
 
 /**
  * @api {post} /auth/v1/register/email Register user by email
@@ -63,7 +63,7 @@ export const emailRegistrationController = [
     );
 
     // Verify email
-    Email.verifyEmail(req.body.email).catch((err) => {
+    TwilioServices.sendVerificationEmail(req.body.email).catch((err) => {
       res
         .status(500)
         .json({ message: 'Registration Failed. Try again later.' });
