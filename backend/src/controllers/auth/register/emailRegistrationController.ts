@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import logger from '../../../lib/logger';
 import UserDao from '../../../dao/users/userDao';
 import TwilioServices from '../../../lib/twilio';
+import generateToken from '../../../lib/jwt';
 
 /**
  * @api {post} /auth/v1/register/email Register user by email
@@ -73,9 +74,13 @@ export const emailRegistrationController = [
       return;
     });
 
+    // Generate authentication token
+    const token = generateToken(createdUser);
+
     res.status(200).json({
       id: createdUser._id,
-      email: createdUser.email
+      email: createdUser.email,
+      token: token
     });
     return;
   })
