@@ -1,5 +1,6 @@
 import { createLogger, transports } from 'winston';
 import moment from 'moment';
+import config from '../env';
 
 // Define the custom settings for each transport.
 const options = {
@@ -16,6 +17,7 @@ const options = {
   }
 };
 const logger = createLogger({
+  silent: config.node_env  === 'test' ? true : false,
   transports: [
     // - Write all logs info (and below) to console.
     new transports.Console(options.console)

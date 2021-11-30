@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
+  node_env: (process.env.NODE_ENV as string) || 'dev',
   mongo:
     process.env.NODE_ENV == 'production'
       ? (process.env.MONGO_URI as string)
