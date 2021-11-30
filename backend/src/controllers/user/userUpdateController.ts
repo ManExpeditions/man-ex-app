@@ -3,11 +3,12 @@ import expressAsyncHandler from 'express-async-handler';
 import { body, param, validationResult } from 'express-validator';
 import logger from '../../lib/logger';
 import userDao from '../../dao/users/userDao';
+import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
  * @api {post} /auth/v1/signin/email Update user
  * @apiDescription Update user information
- * @apiPermission Authenticated
+ * @apiPermission Authentication
  * @apiVersion 1.0.0
  * @apiName UpdateUser
  * @apiGroup User
@@ -37,6 +38,8 @@ import userDao from '../../dao/users/userDao';
  * @apiError UpdateUserFailed UserUpdateFailed.
  */
 export const userUpdateController = [
+  // Requires authentication
+  isAuthenticated,
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
   body('firstName', 'Enter valid first name')
