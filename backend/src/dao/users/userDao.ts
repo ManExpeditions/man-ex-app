@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { userVerificationController } from '../../controllers/user/userVerificationController';
 import User from '../../models/user';
 
 class UserDao {
@@ -70,6 +71,16 @@ class UserDao {
 
   public async delete_all_users(): Promise<void> {
     await User.deleteMany();
+  }
+
+  public async verify_user(user: User, type: string): Promise<User | null> {
+    if (type === 'email') {
+      user.emailVerified = true;
+    } else if (type === 'phone') {
+      user.phoneVerified = true;
+    }
+    const updatedUser = await this.update_user(user._id, user);
+    return updatedUser;
   }
 }
 
