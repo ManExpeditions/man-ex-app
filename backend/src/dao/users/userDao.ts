@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { userVerificationController } from '../../controllers/user/userVerificationController';
 import User from '../../models/user';
 
 class UserDao {
