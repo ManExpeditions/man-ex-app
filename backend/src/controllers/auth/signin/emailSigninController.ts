@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 
 import logger from '../../../lib/logger';
 import userDao from '../../../dao/users/userDao';
+import generateToken from '../../../lib/jwt';
 
 /**
  * @api {post} /auth/v1/signin/email Signin user by email
@@ -64,9 +65,13 @@ export const emailSigninController = [
       return;
     }
 
+    // Generate authentication token
+    const token = generateToken(user);
+
     res.status(200).json({
       id: user._id,
-      email: user.email
+      email: user.email,
+      token: token
     });
     return;
   })
