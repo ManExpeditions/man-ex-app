@@ -7,7 +7,7 @@ import userDao from '../../dao/users/userDao';
 import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /user/v1/:id/verify/code Verify user
+ * @api {post} /user/v1/:id/verify/code Send verification code
  * @apiDescription Receive a verification email or sms to verify a user's email or phone number
  * @apiPermission Authentication
  * @apiVersion 1.0.0
