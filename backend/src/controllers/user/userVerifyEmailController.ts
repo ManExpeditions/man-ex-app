@@ -1,21 +1,20 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import { body, param, query, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import TwilioServices from '../../lib/twilio';
 import logger from '../../lib/logger';
 import userDao from '../../dao/users/userDao';
+import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /user/v1/:id/verify Verify user
- * @apiDescription Verify a user's email or phone number
- * @apiPermission none
+ * @api {post} /user/v1/:id/verify/email Verify email
+ * @apiDescription Verify a user's email.
+ * @apiPermission Authentication
  * @apiVersion 1.0.0
- * @apiName VerifyUser
+ * @apiName VerifyEmail
  * @apiGroup User
  *
  * @apiParam {String} id Users unique ID.
- *
- * @apiQuery {String} type Either email or phone.
  *
  * @apiBody {String} verification_code The verification code sent to the user.
  *
@@ -24,14 +23,14 @@ import userDao from '../../dao/users/userDao';
  * @apiError UserDoesNotExist Cannot signin user that does not exist.
  * @apiError InvalidVerificationCode Cannot verify incorrect code.
  */
-export const userVerificationController = [
-  param('id', 'Id param must be a string').isString().escape(),
-  query(
-    'type',
-    'Invalid value for query param type: type must be either phone or email'
-  )
+export const userVerifyEmailController = [
+  // Requires authentication
+  isAuthenticated,
+
+  // Validate param
+  param('id', 'Id param must be a string')
+    .isLength({ min: 5 })
     .isString()
-    .isIn(['email', 'phone'])
     .escape(),
   // Sanitize and validate body params
   body('verification_code', 'Please enter a valid verification code')
@@ -49,50 +48,29 @@ export const userVerificationController = [
 
     // Check if user does not exist
     const userId = req.params.id;
-
     const user = await userDao.find_user_by_id(userId);
     if (!user) {
       const err = new Error(
         `User not found: User with id ${req.params.id} not found.`
       );
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(400).json({ message: err.message });
       return;
     }
-
-    const type = req.query.type === 'email' ? 'email' : 'phone';
 
     // If user is already verified, no need to verify again
-    if (type === 'email' && user.emailVerified) {
+    if (user.emailVerified) {
       const err = new Error(`User verified: User email is already verified.`);
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
-      return;
-    } else if (type === 'phone' && user.phoneVerified) {
-      const err = new Error(`User verified: User phone is already verified.`);
-      logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(400).json({ message: err.message });
       return;
     }
 
-    // Since mobile phone is not a required field, we have to handle case
-    // where client attempts to verify a number that does not exist
-    if (type === 'phone' && !user.phone) {
-      const err = new Error(
-        `Verification failed: User does not have a mobile number.`
-      );
-      logger.error(err.message);
-      res.status(404).json({ message: err.message });
-      return;
-    }
-
-    const address = type === 'email' ? user.email : user.phone;
-
-    // Verify email or phone accordingly
-    await TwilioServices.verifyEmail(address, req.body.verification_code)
+    // Verify email
+    await TwilioServices.verifyService(user.email, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
-          const updatedUser = await userDao.verify_user(user, type);
+          const updatedUser = await userDao.verify_user_email(user);
           res.send({
             id: updatedUser?._id,
             firstName: updatedUser?.firstName,
