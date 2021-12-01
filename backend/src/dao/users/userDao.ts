@@ -72,12 +72,18 @@ class UserDao {
     await User.deleteMany();
   }
 
-  public async verify_user(user: User, type: string): Promise<User | null> {
-    if (type === 'email') {
-      user.emailVerified = true;
-    } else if (type === 'phone') {
-      user.phoneVerified = true;
-    }
+  public async verify_user_email(user: User): Promise<User | null> {
+    user.emailVerified = true;
+    const updatedUser = await this.update_user(user._id, user);
+    return updatedUser;
+  }
+
+  public async verify_and_update_phone(
+    user: User,
+    phone: string
+  ): Promise<User | null> {
+    user.phone = phone;
+    user.phoneVerified = true;
     const updatedUser = await this.update_user(user._id, user);
     return updatedUser;
   }
