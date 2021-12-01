@@ -9,13 +9,13 @@ class TwilioServices {
     this.client = new Twilio(accoundSid, authToken);
   }
 
-  sendVerificationEmail(email: string) {
+  sendVerificationCode(email: string, channel: string) {
     return this.client.verify
       .services(config.twilio.verifySid)
-      .verifications.create({ to: email, channel: 'email' });
+      .verifications.create({ to: email, channel: channel });
   }
 
-  verifyEmail(to: string, code: string): Promise<VerificationCheckInstance> {
+  verifyService(to: string, code: string): Promise<VerificationCheckInstance> {
     return this.client.verify
       .services(config.twilio.verifySid)
       .verificationChecks.create({
