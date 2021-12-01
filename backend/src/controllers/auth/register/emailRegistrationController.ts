@@ -64,15 +64,17 @@ export const emailRegistrationController = [
     );
 
     // Verify email
-    TwilioServices.sendVerificationEmail(req.body.email).catch((err) => {
-      res
-        .status(500)
-        .json({ message: 'Registration Failed. Try again later.' });
-      logger.error(err);
-      // Cleanup if email did not send succesfully.
-      UserDao.delete_user_by_id(createdUser._id);
-      return;
-    });
+    TwilioServices.sendVerificationCode(req.body.email, 'email').catch(
+      (err) => {
+        res
+          .status(500)
+          .json({ message: 'Registration Failed. Try again later.' });
+        logger.error(err);
+        // Cleanup if email did not send succesfully.
+        UserDao.delete_user_by_id(createdUser._id);
+        return;
+      }
+    );
 
     // Generate authentication token
     const token = generateToken(createdUser);
