@@ -10,6 +10,7 @@ export default function VerifyPhonePage(props) {
   const [boxThree, setBoxThree] = useState("");
   const [boxFour, setBoxFour] = useState("");
   const [boxFive, setBoxFive] = useState("");
+  const [boxSix, setBoxSix] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -23,13 +24,14 @@ export default function VerifyPhonePage(props) {
         boxThree,
         boxFour,
         boxFive,
+        boxSix,
       ])
     ) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
+  }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
   const onCompleteHandler = () => {
     props.history.push("/onboarding/aboutyou");
@@ -54,6 +56,7 @@ export default function VerifyPhonePage(props) {
                 [boxThree, setBoxThree],
                 [boxFour, setBoxFour],
                 [boxFive, setBoxFive],
+                [boxSix, setBoxSix],
               ]}
             ></DigitVerificationBox>
           </div>
