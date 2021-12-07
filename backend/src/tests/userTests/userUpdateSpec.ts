@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import app from '../../app';
 import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
+import generateToken from '../../lib/jwt';
 
 // Wrap express app for testing
 const request = supertest(app);
@@ -13,6 +14,7 @@ describe('Test user update endpoint', () => {
   const user_id = mongoose.Types.ObjectId();
   const user_email = 'john@example.com';
   const user_pass = 'CyKHe3kR';
+  const user_token = generateToken({ _id: user_id, email: user_email });
 
   beforeAll(async () => {
     // Connect to test database
@@ -21,7 +23,9 @@ describe('Test user update endpoint', () => {
   });
 
   it('should throw error if body is empty', async () => {
-    const response = await request.put(endpoint + user_id);
+    const response = await request
+      .put(endpoint + user_id)
+      .set('Authorization', `Bearer ${user_token}`);
     expect(response.status).toBe(404);
     expect(response.body).toEqual({
       message: 'Request body is empty.'
@@ -31,6 +35,7 @@ describe('Test user update endpoint', () => {
   it('should throw error if user id does not exist', async () => {
     const response = await request
       .put(endpoint + '619fa6092269ffea182c1b6a')
+      .set('Authorization', `Bearer ${user_token}`)
       .send({ firstName: 'John' });
     expect(response.status).toBe(404);
     expect(response.body).toEqual({
@@ -41,6 +46,7 @@ describe('Test user update endpoint', () => {
   it('should update user firstname', async () => {
     const response = await request
       .put(endpoint + user_id)
+      .set('Authorization', `Bearer ${user_token}`)
       .send({ firstName: 'John' });
     expect(response.status).toBe(200);
 

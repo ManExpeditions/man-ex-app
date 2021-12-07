@@ -31,7 +31,7 @@ describe('Test registration via email', () => {
     const response = await request
       .post(endpoint)
       .send({ email: 'john@example.com', password: 'CyKHe3kR@' });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(409);
     expect(response.body).toEqual({
       message: 'User already exists. Please login.'
     });
@@ -41,14 +41,14 @@ describe('Test registration via email', () => {
     const response = await request
       .post(endpoint)
       .send({ name: 'chicken', password: 'CyKHe3kR@' });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
   });
 
   it('should throw error on weak password', async () => {
     const response = await request
       .post(endpoint)
       .send({ name: 'john@example.com', password: '' });
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(400);
   });
 
   afterAll(async () => {
