@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
 import Validator from "../../utils/InputValidator";
 import useDidMountEffect from "../../customHooks/useDidMountEffect";
+import {
+  emailRegisterUser,
+  resetEmailRegisterUser,
+} from "../../slices/auth/emailRegisterSlice";
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 export default function RegisterPage(props) {
   const [email, setEmail] = useState("");
@@ -15,6 +21,9 @@ export default function RegisterPage(props) {
   const [passwordMatchError, setPasswordMatchError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const emailRegisterSlice = useSelector((state) => state.emailRegisterSlice);
+  const { createdUser, error } = emailRegisterSlice;
 
   const inputValidator = Validator;
 
@@ -51,10 +60,19 @@ export default function RegisterPage(props) {
     passwordValidationError,
   ]);
 
+  const dispatch = useDispatch();
   const onCreateAccountHandler = () => {
-    // TODO: Create user account logic.
-    props.history.push("/onboarding/verify/email");
+    dispatch(emailRegisterUser({ email, password }));
   };
+
+  useEffect(() => {
+    if (createdUser) {
+      props.history.push("/onboarding/verify/email");
+    }
+    return () => {
+      dispatch(resetEmailRegisterUser());
+    };
+  }, [dispatch, createdUser, props.history]);
 
   return (
     <div className="screen">
@@ -72,6 +90,7 @@ export default function RegisterPage(props) {
         <span>or</span>
       </p>
       <main>
+        {error && <MessageBox variant="error">{error}</MessageBox>}
         <InputBox
           label="Email"
           placeholder="Ex. hello@gmail.com"
