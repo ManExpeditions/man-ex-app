@@ -12,7 +12,9 @@ export const emailRegisterUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     const { email, password } = userData;
     try {
-      return await authAPI.registerByEmail(email, password);
+      const data = await authAPI.registerByEmail(email, password);
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
     } catch (err) {
       if (!err.response) {
         throw err.message;
