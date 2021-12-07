@@ -40,7 +40,7 @@ export const emailRegistrationController = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       logger.error(errors);
-      res.status(404).json(errors);
+      res.status(400).json(errors);
       return;
     }
 
