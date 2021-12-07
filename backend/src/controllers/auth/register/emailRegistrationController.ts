@@ -48,9 +48,8 @@ export const emailRegistrationController = [
     const existingUser = await UserDao.find_user_by_email(req.body.email);
     if (existingUser) {
       const err = new Error('User already exists. Please login.');
-      res.status(404);
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(409).json({ message: err.message });
       return;
     }
 
