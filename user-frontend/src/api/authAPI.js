@@ -8,6 +8,14 @@ class authAPI {
     });
     return data;
   }
+
+  async signinByEmail(email, password) {
+    const { data } = await Axios.post("/api/auth/v1/signin/email", {
+      email,
+      password,
+    });
+    return data;
+  }
 }
 
 export default new authAPI();
