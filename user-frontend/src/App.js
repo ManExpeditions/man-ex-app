@@ -14,41 +14,57 @@ import UploadProfilePicPage from "./pages/OnboardingPages/UploadProfilePicPage/U
 import VerifyProfilePicSocialPage from "./pages/OnboardingPages/VerifyProfilePicSocialPage/VerifyProfilePicSocialPage";
 import VerifyProfilePicManualPage from "./pages/OnboardingPages/VerifyProfilePicManualPage/VerifyProfilePicManualPage";
 import HomePage from "./pages/HomePage/HomePage";
+import OnboardingRoute from "./routes/OnboardingRoute";
 
 function App() {
   return (
     <Router>
       <Route path="/signin" component={SigninPage}></Route>
       <Route path="/register" component={RegisterPage}></Route>
-      <Route
+      <OnboardingRoute
         path="/onboarding/verify/email"
         component={VerifyEmailPage}
-      ></Route>
-      <Route path="/onboarding/enter/phone" component={EnterPhonePage}></Route>
-      <Route
+      ></OnboardingRoute>
+      <OnboardingRoute
+        path="/onboarding/enter/phone"
+        component={EnterPhonePage}
+      ></OnboardingRoute>
+      <OnboardingRoute
         path="/onboarding/verify/phone"
         component={VerifyPhonePage}
-      ></Route>
-      <Route path="/onboarding/aboutyou" component={AboutYouPage}></Route>
-      <Route
+      ></OnboardingRoute>
+      <OnboardingRoute
+        path="/onboarding/aboutyou"
+        component={AboutYouPage}
+      ></OnboardingRoute>
+      <OnboardingRoute
         path="/onboarding/morequestions"
         component={MoreQuestionsPage}
-      ></Route>
-      <Route path="/onboarding/interests" component={InterestsPage}></Route>
-      <Route path="/onboarding/continents" component={ContinentsPage}></Route>
-      <Route path="/onboarding/location" component={LocationPage}></Route>
-      <Route
+      ></OnboardingRoute>
+      <OnboardingRoute
+        path="/onboarding/interests"
+        component={InterestsPage}
+      ></OnboardingRoute>
+      <OnboardingRoute
+        path="/onboarding/continents"
+        component={ContinentsPage}
+      ></OnboardingRoute>
+      <OnboardingRoute
+        path="/onboarding/location"
+        component={LocationPage}
+      ></OnboardingRoute>
+      <OnboardingRoute
         path="/onboarding/upload/profilepic"
         component={UploadProfilePicPage}
-      ></Route>
-      <Route
+      ></OnboardingRoute>
+      <OnboardingRoute
         path="/onboarding/verify/profilepic/social"
         component={VerifyProfilePicSocialPage}
-      ></Route>
-      <Route
+      ></OnboardingRoute>
+      <OnboardingRoute
         path="/onboarding/verify/profilepic/manual"
         component={VerifyProfilePicManualPage}
-      ></Route>
+      ></OnboardingRoute>
       <Route path="/home" component={HomePage}></Route>
     </Router>
   );
