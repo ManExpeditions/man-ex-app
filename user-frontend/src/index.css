@@ -194,3 +194,29 @@ input:-webkit-autofill:active {
 input:-webkit-autofill {
   -webkit-text-fill-color: #fff !important;
 }
+
+/* ==================
+   MessageBox
+===================*/
+
+.msg-box {
+  border-radius: 0.4rem;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  width: 100%;
+}
+
+.msg-box-info {
+  color: #202080;
+  background-color: #e0e0ff;
+}
+
+.msg-box-error {
+  color: #000;
+  background-color: #a02020;
+}
+
+.msg-box-success {
+  color: #000;
+  background-color: #20a020;
+}
