@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import InputBox from "../../components/InputBox/InputBox";
 import styles from "./SigninPage.module.css";
 import Validator from "../../utils/InputValidator";
+import { useDispatch, useSelector } from "react-redux";
+import { resetSigninErrors, signin } from "../../slices/auth/signinSlice";
+import MessageBox from "../../components/MessageBox/MessageBox";
 
 export default function SigninPage(props) {
   const [email, setEmail] = useState("");
@@ -35,10 +38,22 @@ export default function SigninPage(props) {
     passwordValidationError,
   ]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user, error } = signinSlice;
+
+  const dispatch = useDispatch();
   const onSigninHandler = () => {
-    // TODO: Create user authentication logic.
-    props.history.push("/home");
+    dispatch(signin({ email, password }));
   };
+
+  useEffect(() => {
+    if (user) {
+      props.history.push("/home");
+    }
+    return () => {
+      dispatch(resetSigninErrors());
+    };
+  }, [dispatch, user, props.history]);
 
   return (
     <div className="screen">
@@ -56,6 +71,7 @@ export default function SigninPage(props) {
         <span>or</span>
       </p>
       <main>
+        {error && <MessageBox variant="error">{error}</MessageBox>}
         <InputBox
           label="Email"
           placeholder="Ex. hello@gmail.com"
