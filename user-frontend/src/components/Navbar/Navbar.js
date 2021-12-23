@@ -48,9 +48,12 @@ export default function Navbar() {
               </Link>
             </li>
             <li className={styles.nav_item}>
-              <Link to="/contact" className="link link-primary">
+              <a
+                href="mailto:hello@manexpeditions.com?subject=Contact us"
+                className="link link-primary"
+              >
                 Contact
-              </Link>
+              </a>
             </li>
           </ul>
           <div className={styles.nav_item}>
