@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./PressPage.module.css";
 
@@ -12,6 +13,9 @@ export default function PressPage() {
           src="https://app.greenrope.com/users/myteam46998/Media384.jpg?202107301508"
           alt="Group of boys smiling."
         />
+        <Link to="/register" className="btn btn-primary btn-abs-tr">
+          Register for Free
+        </Link>
       </section>
       <section className="bg-white">
         <main className={styles.main}>

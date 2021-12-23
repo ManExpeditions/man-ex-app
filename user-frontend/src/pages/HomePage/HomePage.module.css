@@ -110,14 +110,6 @@
   z-index: 2;
 }
 
-.register_button {
-  position: fixed;
-  z-index: 10;
-  top: 5rem;
-  right: 1rem;
-  text-decoration: none;
-}
-
 @media (max-width: 800px) {
   .register_button {
     font-size: 0.7rem;

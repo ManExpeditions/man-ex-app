@@ -136,10 +136,7 @@ export default function HomePage() {
       <Navbar></Navbar>
       <div className={styles.slider_wrapper}>
         <ImageSlider items={images}></ImageSlider>
-        <Link
-          to="/register"
-          className={`btn btn-primary ${styles.register_button}`}
-        >
+        <Link to="/register" className="btn btn-primary btn-abs-tr">
           Register for Free
         </Link>
       </div>
