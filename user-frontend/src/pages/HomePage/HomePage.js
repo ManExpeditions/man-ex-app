@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./HomePage.module.css";
@@ -135,6 +136,12 @@ export default function HomePage() {
       <Navbar></Navbar>
       <div className={styles.slider_wrapper}>
         <ImageSlider items={images}></ImageSlider>
+        <Link
+          to="/register"
+          className={`btn btn-primary ${styles.register_button}`}
+        >
+          Register for Free
+        </Link>
       </div>
     </div>
   );

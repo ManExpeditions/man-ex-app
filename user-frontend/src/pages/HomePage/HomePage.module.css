@@ -1,12 +1,15 @@
+.slider_wrapper,
+.slider_image {
+  height: calc(100vh - 10rem);
+}
+
 .slider_wrapper {
   position: relative;
   margin-top: 4rem;
-  height: calc(100vh - 6rem);
   overflow: hidden;
 }
 
 .slider_image {
-  height: calc(100vh - 6rem);
   width: 100%;
   object-fit: cover;
   object-position: top center;
@@ -81,7 +84,7 @@
   }
 
   .slider_text_subheading {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     max-width: 18.875rem;
   }
 
@@ -105,4 +108,18 @@
   bottom: 0;
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
   z-index: 2;
+}
+
+.register_button {
+  position: fixed;
+  z-index: 10;
+  top: 5rem;
+  right: 1rem;
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .register_button {
+    font-size: 0.7rem;
+  }
 }
