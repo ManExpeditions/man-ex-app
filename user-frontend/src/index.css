@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "FragileScript";
+  src: url("https://app.greenrope.com/users/myteam46998/Media395.woff2")
+      format("woff2"),
+    url("https://app.greenrope.com/users/myteam46998/Media394.woff")
+      format("woff");
+}
+
 *,
 *::after,
 *::before {

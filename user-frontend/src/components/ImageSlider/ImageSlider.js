@@ -1,33 +1,35 @@
-import { useState } from "react";
 import { FcNext, FcPrevious } from "react-icons/fc";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+
 import styles from "./ImageSlider.module.css";
 
-export default function ImageSlider({ data }) {
-  const [current, setCurrent] = useState(0);
-  const length = data.length;
+export default function ImageSlider(props) {
+  const prevIcon = () => (
+    <FcPrevious
+      color="#fff"
+      size="2.5rem"
+      className={styles.previous}
+    ></FcPrevious>
+  );
 
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-  const previousSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
+  const nextIcon = () => (
+    <FcNext color="#ffffff" size="2.5rem" className={styles.next}></FcNext>
+  );
 
   return (
-    <div className={styles.slider}>
-      <div className={styles.next} onClick={nextSlide}>
-        <FcNext color="#ffffff" size="2.5rem"></FcNext>
-      </div>
-      <FcPrevious
-        color="#fff"
-        size="2.5rem"
-        className={styles.previous}
-        onClick={previousSlide}
-      ></FcPrevious>
-      <img
-        src={data[current].image}
-        alt={data[current].name}
-        className={styles.image}
+    <div className={styles.slider_wrapper}>
+      <AliceCarousel
+        keyboardNavigation={true}
+        animationDuration={800}
+        renderNextButton={() => nextIcon()}
+        renderPrevButton={() => prevIcon()}
+        disableButtonsControls={
+          props.disableButtons ? props.disableButtons : false
+        }
+        disableDotsControls={props.disableDots ? props.disableDots : false}
+        infinite={props.infinite ? props.infinite : true}
+        items={props.items}
       />
     </div>
   );
