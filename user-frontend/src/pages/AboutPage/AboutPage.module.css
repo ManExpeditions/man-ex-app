@@ -1,0 +1,56 @@
+.hero_section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero_image {
+  height: 60vh;
+  margin-top: 4rem;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.hero_heading {
+  font-family: "FragileScript";
+  font-size: 4rem;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 65%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.main {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+.container {
+  padding: 1rem 0;
+}
+
+.heading {
+  text-align: center;
+  font-size: 1.7rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+
+.paragraph {
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+.list {
+  list-style-type: disc;
+  padding-left: 1rem;
+}
+
+.list_item {
+  margin: 1rem 0;
+  line-height: 1.4;
+}

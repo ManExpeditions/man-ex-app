@@ -36,6 +36,11 @@ code {
   visibility: hidden;
 }
 
+.bg-white {
+  background: white;
+  color: #1e1e1e;
+}
+
 .none-pointer {
   pointer-events: none;
 }
