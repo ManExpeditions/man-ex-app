@@ -60,6 +60,14 @@ ul {
   padding: 0;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
 /* Wrapper for each onboarding screens */
 .screen {
   padding: 1rem 2rem;

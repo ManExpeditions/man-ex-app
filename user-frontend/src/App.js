@@ -15,6 +15,7 @@ import VerifyProfilePicSocialPage from "./pages/OnboardingPages/VerifyProfilePic
 import VerifyProfilePicManualPage from "./pages/OnboardingPages/VerifyProfilePicManualPage/VerifyProfilePicManualPage";
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
+import PressPage from "./pages/PressPage/PressPage";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
       ></Route>
       <Route path="/home" component={HomePage}></Route>
       <Route path="/aboutus" component={AboutPage}></Route>
+      <Route path="/press" component={PressPage}></Route>
     </Router>
   );
 }

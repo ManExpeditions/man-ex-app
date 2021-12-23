@@ -1,0 +1,74 @@
+.hero_section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero_image {
+  height: 60vh;
+  margin-top: 4rem;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+
+.hero_heading {
+  font-family: "FragileScript";
+  font-size: 4rem;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 65%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.main {
+  max-width: 55rem;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.container {
+  width: 50%;
+}
+
+@media (max-width: 650px) {
+  .main {
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
+
+.woofd_logo {
+  align-self: center;
+  display: block;
+  justify-self: center;
+  margin: 0 auto;
+  max-width: 15.625rem;
+}
+
+.quote_image {
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.quote {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  max-width: 30rem;
+  text-align: center;
+}
+
+.quote_author {
+  text-align: right;
+  color: #56c1ff;
+}
