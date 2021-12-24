@@ -260,6 +260,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
+  margin: 3rem 0;
 }
 
 .impact_section_blob_img {
