@@ -9,6 +9,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import Toast from "../../components/Toast/Toast";
 import styles from "./HomePage.module.css";
+import BottomNav from "../../components/BottomNav/BottomNav";
 
 const images = [
   <div>
@@ -359,6 +360,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <BottomNav></BottomNav>
     </div>
   );
 }
