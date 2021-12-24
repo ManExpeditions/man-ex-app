@@ -12,6 +12,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  line-height: 1.5;
 }
 
 body {
@@ -38,7 +39,11 @@ code {
 
 .bg-white {
   background: white;
-  color: #1e1e1e;
+  color: #5e5e5e;
+}
+
+.bg-black {
+  background: #000000;
 }
 
 .none-pointer {
@@ -79,6 +84,7 @@ ul {
 .btn {
   border: none;
   outline: none;
+  background-color: transparent;
 }
 
 .btn:hover {
@@ -130,6 +136,27 @@ ul {
 .link-primary:hover,
 .link-primary:focus {
   color: #56c1ff;
+}
+
+.link-long {
+  background: transparent;
+  border: 1px solid #5e5e5e;
+  color: #fff;
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  margin: 1rem auto;
+  padding: 0.7rem 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 300ms ease-in-out;
+  width: 18.75rem;
+}
+
+.link-long:focus,
+.link-long:hover {
+  border: 1px solid #fff;
 }
 
 .uppercase {

@@ -115,3 +115,174 @@
     font-size: 0.7rem;
   }
 }
+
+/* Main Section */
+
+.main {
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.thumbnails_image {
+  width: 100%;
+  max-height: 8rem;
+  margin: 0 auto 2rem;
+}
+
+.main_title {
+  font-size: 2.4rem;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.main_paragraph {
+  font-size: 1.1rem;
+  letter-spacing: 1.1px;
+  margin: 0 auto 3rem;
+  max-width: 36rem;
+  text-align: center;
+}
+
+/* How section */
+.how_section {
+  padding: 4rem 1rem;
+}
+
+.how_section_title {
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 0 0 2rem;
+  padding: 0 2rem;
+  font-weight: 500;
+}
+
+.how_section_container {
+  display: flex;
+  gap: 2rem;
+}
+
+.how_section_image {
+  width: 50%;
+  max-height: 16.875rem;
+}
+
+.see_more_title {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
+
+.see_more_list_item {
+  margin: 0.3rem 0;
+}
+
+/* Popular Experiences section */
+.exp_section_videos_container {
+  display: flex;
+  gap: 2rem;
+}
+
+.video_container {
+  width: 50%;
+}
+
+@media (max-width: 700px) {
+  .how_section_container,
+  .exp_section_videos_container {
+    flex-direction: column;
+  }
+  .how_section_image,
+  .video_container {
+    width: 100%;
+  }
+}
+
+/* Survey section */
+.survey_section {
+  position: relative;
+}
+
+.survey_section_image {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+.survey_section_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.survey_section_title {
+  color: #5e5e5e;
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .survey_section_title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Impact Section */
+.impact_section {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.impact_section_heading {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.impact_section_subheading {
+  font-size: 1.3rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.impact_section_blobs_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.impact_section_blob_img {
+  max-height: 11.25rem;
+}
+
+.impact_section_blob_title {
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.impact_section_blob_text {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1000px) {
+  .impact_section_blobs_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .impact_section_blobs_container {
+    grid-template-columns: 1fr;
+  }
+}
