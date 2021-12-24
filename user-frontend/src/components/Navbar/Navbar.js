@@ -68,22 +68,34 @@ export default function Navbar() {
           <div className={styles.hamburger_menu_wrapper}>
             <ul className={styles.hamburger_menu_list}>
               <li className={styles.nav_item}>
-                <Link to="/experiences" className="link link-primary">
+                <Link
+                  to="/experiences"
+                  className={`link link-primary ${styles.hamburger_link}`}
+                >
                   Experiences
                 </Link>
               </li>
               <li className={styles.nav_item}>
-                <Link to="/aboutus" className="link link-primary">
+                <Link
+                  to="/aboutus"
+                  className={`link link-primary ${styles.hamburger_link}`}
+                >
                   About Us
                 </Link>
               </li>
               <li className={styles.nav_item}>
-                <Link to="/press" className="link link-primary">
+                <Link
+                  to="/press"
+                  className={`link link-primary ${styles.hamburger_link}`}
+                >
                   Press
                 </Link>
               </li>
               <li className={styles.nav_item}>
-                <Link to="/contact" className="link link-primary">
+                <Link
+                  to="/contact"
+                  className={`link link-primary ${styles.hamburger_link}`}
+                >
                   Contact
                 </Link>
               </li>
