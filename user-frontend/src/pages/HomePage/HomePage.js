@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getOnboardingRedirectPage } from "../../utils/common";
+import { toast } from "react-toastify";
 import ImageSlider from "../../components/ImageSlider/ImageSlider";
 import Navbar from "../../components/Navbar/Navbar";
 import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
+import Toast from "../../components/Toast/Toast";
 import styles from "./HomePage.module.css";
 
 const images = [
@@ -134,10 +139,27 @@ const images = [
 
 export default function HomePage() {
   const [seeMore, setSeeMore] = useState(false);
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
+  useEffect(() => {
+    // If user has not completed onboarding, nudge them.
+    if (user && !user.completedOnboarding) {
+      const redirectPage = getOnboardingRedirectPage(user);
+      toast(
+        <div>
+          <Link to={redirectPage} className="link link-blue">
+            Complete your profile.
+          </Link>
+        </div>
+      );
+    }
+  }, [user]);
 
   return (
     <div>
       <Navbar></Navbar>
+      <Toast></Toast>
       <div className={styles.slider_wrapper}>
         <ImageSlider items={images}></ImageSlider>
         <Link to="/register" className="btn btn-primary btn-abs-tr">
@@ -322,7 +344,7 @@ export default function HomePage() {
             <br />
             <h4>
               That's why we need traveller's like you, who seek to go beyond
-              average travel – to travel experiences that leave our world a
+              average travel - to travel experiences that leave our world a
               better place.
             </h4>
             <br />
@@ -330,7 +352,7 @@ export default function HomePage() {
               For 7 years, Man Expeditions has been building a vision that,
               through the support of our travel community, allows us to run
               group trips and experiences that all help fund important wildlife
-              and environmental conservation efforts. We’d like to take you to
+              and environmental conservation efforts. We'd like to take you to
               three continents to discover extraordinary landscapes in a travel
               dream that goes beyond the expected
             </p>

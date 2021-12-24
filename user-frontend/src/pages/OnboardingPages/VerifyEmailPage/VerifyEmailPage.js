@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyEmailPage.module.css";
@@ -40,9 +39,6 @@ export default function VerifyEmailPage(props) {
   return (
     <>
       <div className="screen">
-        <Link to="/register" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
-        </Link>
         <h1 className={styles.page_title}>Enter Email Confirmation Code</h1>
         <main>
           <p className={`align-center ${styles.info}`}>
