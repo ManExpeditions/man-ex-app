@@ -1,0 +1,28 @@
+.container {
+  max-width: 50rem;
+  margin: 0 auto;
+}
+
+.chips_wrapper {
+  position: fixed;
+  top: 4rem;
+  width: 100%;
+  padding: 1rem 0.5rem;
+}
+
+.chips_container {
+  display: flex;
+  gap: 0 0.5rem;
+  overflow: auto;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.chips_container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.chips_container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

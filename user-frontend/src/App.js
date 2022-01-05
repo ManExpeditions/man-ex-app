@@ -19,6 +19,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import PressPage from "./pages/PressPage/PressPage";
 import OnboardingRoute from "./routes/OnboardingRoute";
+import ExperiencesPage from "./pages/ExperiencesPage/ExperiencesPage";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
         component={VerifyProfilePicManualPage}
       ></OnboardingRoute>
       <Route path="/home" component={HomePage}></Route>
+      <Route path="/experiences" component={ExperiencesPage}></Route>
       <Route path="/aboutus" component={AboutPage}></Route>
       <Route path="/press" component={PressPage}></Route>
     </Router>
