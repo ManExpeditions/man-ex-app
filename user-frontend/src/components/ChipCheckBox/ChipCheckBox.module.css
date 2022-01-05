@@ -23,6 +23,7 @@
   color: #1e1e1e;
   padding: 0.4rem 0.8rem;
   display: flex;
+  white-space: nowrap;
   -moz-user-select: -moz-none;
   -webkit-user-select: none;
   -ms-user-select: none;
