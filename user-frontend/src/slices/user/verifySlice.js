@@ -7,14 +7,19 @@ const initialState = {
   error: null,
 };
 
-export const verifyEmail = createAsyncThunk(
-  "verify/verifyEmail",
-  async (verificationCode, { rejectWithValue, getState }) => {
+export const verify = createAsyncThunk(
+  "verify/verify",
+  async (
+    { type, phone = null, verificationCode },
+    { rejectWithValue, getState }
+  ) => {
     const {
       signinSlice: { user },
     } = getState();
     try {
-      const data = await verifyAPI.verifyEmail(
+      const data = await verifyAPI.verify(
+        type,
+        phone,
         user.id,
         user.token,
         verificationCode
@@ -37,13 +42,18 @@ export const verifySlice = createSlice({
     resetVerifyErrors: (state) => {
       state.error = null;
     },
+    resetVerify: (state) => {
+      state.loading = false;
+      state.user = null;
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(verifyEmail.pending, (state) => {
+      .addCase(verify.pending, (state) => {
         state.loading = true;
       })
-      .addCase(verifyEmail.rejected, (state, action) => {
+      .addCase(verify.rejected, (state, action) => {
         state.loading = false;
         if (action.payload) {
           state.error = action.payload;
@@ -51,13 +61,13 @@ export const verifySlice = createSlice({
           state.error = "Verification failed. Try again later.";
         }
       })
-      .addCase(verifyEmail.fulfilled, (state, action) => {
+      .addCase(verify.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       });
   },
 });
 
-export const { resetVerifyErrors } = verifySlice.actions;
+export const { resetVerifyErrors, resetVerify } = verifySlice.actions;
 
 export default verifySlice.reducer;
