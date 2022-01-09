@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
-import { verifyEmail } from "../../../slices/user/verifySlice";
+import Spinner from "../../../components/Spinner/Spinner";
+import {
+  resetVerifyErrors,
+  verifyEmail,
+} from "../../../slices/user/verifySlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyEmailPage.module.css";
 
@@ -34,19 +38,16 @@ export default function VerifyEmailPage(props) {
     }
   }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
-  const signinSlice = useSelector((state) => state.signinSlice);
-  const { user } = signinSlice;
-
   const verifySlice = useSelector((state) => state.verifySlice);
-  const { user: verifyUser, error } = verifySlice;
+  const { loading, user: verifyUser, error } = verifySlice;
 
   const dispatch = useDispatch();
 
   const onSubmitHandler = () => {
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
-    console.log(verificationCode);
-    dispatch(verifyEmail({ userId: user.id, verificationCode }));
+    dispatch(resetVerifyErrors());
+    dispatch(verifyEmail(verificationCode));
   };
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export default function VerifyEmailPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onSubmitHandler}
       >
-        Verify
+        {loading ? <Spinner></Spinner> : "Verify"}
       </button>
     </>
   );
