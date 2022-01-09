@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authAPI from "../../api/authAPI";
+import { verify } from "../user/verifySlice";
 import { emailRegisterUser } from "./emailRegisterSlice";
 
 const initialState = {
@@ -53,6 +54,10 @@ export const signinSlice = createSlice({
       .addCase(signin.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+      })
+      .addCase(verify.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = { ...state.user, ...action.payload };
       });
   },
 });
