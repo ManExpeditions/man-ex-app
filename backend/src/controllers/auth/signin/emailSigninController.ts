@@ -70,8 +70,26 @@ export const emailSigninController = [
 
     res.status(200).json({
       id: user._id,
+      token: token,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
-      token: token
+      phone: user.phone,
+      emailVerified: user.emailVerified,
+      phoneVerified: user.phoneVerified,
+      gender: user.gender,
+      language: user.language,
+      interests: user.interests,
+      continents: user.continents,
+      city: user.city,
+      state: user.state,
+      country: user.country,
+      profilepic: user.profilepic,
+      profilepicVerified: user.profilepicVerified,
+      verificationProfilepic: user.verificationProfilepic,
+      socials: user.socials,
+      authType: user.authType,
+      completedOnboarding: user.completedOnboarding
     });
     return;
   })
