@@ -1,9 +1,12 @@
+import "react-phone-number-input/style.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PhoneInput from "react-phone-number-input";
+import { useDispatch, useSelector } from "react-redux";
+import { verificationCode } from "../../../slices/user/verificationCodeSlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./EnterPhonePage.module.css";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+import Spinner from "../../../components/Spinner/Spinner";
 
 export default function EnterPhonePage(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -13,17 +16,28 @@ export default function EnterPhonePage(props) {
 
   useEffect(() => {
     if (inputValidator.isPhoneNumber(phoneNumber).length <= 0) {
-      console.log(phoneNumber);
       setButtonDisabled(false);
     } else {
-      console.log(phoneNumber);
       setButtonDisabled(true);
     }
   }, [inputValidator, phoneNumber]);
 
+  const verificationCodeSlice = useSelector(
+    (state) => state.verificationCodeSlice
+  );
+  const { loading, success, error } = verificationCodeSlice;
+
+  const dispatch = useDispatch();
+
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/verify/phone");
+    dispatch(verificationCode({ type: "phone", phone: phoneNumber }));
   };
+
+  useEffect(() => {
+    if (success) {
+      props.history.push("/onboarding/verify/phone");
+    }
+  }, [success, props.history, error]);
 
   return (
     <>
@@ -53,7 +67,7 @@ export default function EnterPhonePage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Verify
+        {loading ? <Spinner></Spinner> : "Verify"}
       </button>
     </>
   );
