@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
+import { verifyEmail } from "../../../slices/user/verifySlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyEmailPage.module.css";
 
@@ -32,9 +34,26 @@ export default function VerifyEmailPage(props) {
     }
   }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
-  const onCompleteHandler = () => {
-    props.history.push("/onboarding/enter/phone");
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
+  const verifySlice = useSelector((state) => state.verifySlice);
+  const { user: verifyUser, error } = verifySlice;
+
+  const dispatch = useDispatch();
+
+  const onSubmitHandler = () => {
+    const verificationCode =
+      boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
+    console.log(verificationCode);
+    dispatch(verifyEmail({ userId: user.id, verificationCode }));
   };
+
+  useEffect(() => {
+    if (verifyUser) {
+      props.history.push("/onboarding/enter/phone");
+    }
+  }, [verifyUser, props.history, error]);
 
   return (
     <>
@@ -46,6 +65,7 @@ export default function VerifyEmailPage(props) {
           </p>
           <div className={styles.verification_wrapper}>
             <DigitVerificationBox
+              error={error}
               boxes={[
                 [boxOne, setBoxOne],
                 [boxTwo, setBoxTwo],
@@ -61,7 +81,7 @@ export default function VerifyEmailPage(props) {
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
-        onClick={onCompleteHandler}
+        onClick={onSubmitHandler}
       >
         Verify
       </button>
