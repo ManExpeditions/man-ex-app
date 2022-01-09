@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
 import Validator from "../../../utils/InputValidator";
 import SelectBox from "../../../components/SelectBox/SelectBox";
+import { userUpdate } from "../../../slices/user/userUpdateSlice";
+import Spinner from "../../../components/Spinner/Spinner";
+import MessageBox from "../../../components/MessageBox/MessageBox";
 
 export default function AboutYouPage(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [gender, setGender] = useState("");
-  const [language, setLanguage] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [language, setLanguage] = useState("English");
 
   const [firstNameValidationError, setFirstNameValidationError] = useState("");
   const [lastNameValidationError, setLastNameValidationError] = useState("");
@@ -37,10 +41,27 @@ export default function AboutYouPage(props) {
     lastNameValidationError,
   ]);
 
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user, error } = userUpdateSlice;
+
+  const dispatch = useDispatch();
+
   const onCompleteHandler = () => {
-    // TODO: Add logic to store info in DB
-    props.history.push("/onboarding/morequestions");
+    dispatch(
+      userUpdate({
+        firstName,
+        lastName,
+        gender,
+        language,
+      })
+    );
   };
+
+  useEffect(() => {
+    if (user) {
+      props.history.push("/onboarding/morequestions");
+    }
+  }, [user, props.history]);
 
   return (
     <div className="screen">
@@ -86,12 +107,13 @@ export default function AboutYouPage(props) {
           setOptionState={setLanguage}
         ></SelectBox>
       </main>
+      {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Continue
+        {loading ? <Spinner></Spinner> : "Verify"}
       </button>
     </div>
   );
