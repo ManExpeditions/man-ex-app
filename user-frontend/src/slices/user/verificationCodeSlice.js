@@ -48,7 +48,7 @@ export const verificationCodeSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Verification code not sent. Try again later.";
+          state.error = "Verification code not sent. Try later.";
         }
       })
       .addCase(verificationCode.fulfilled, (state, action) => {
