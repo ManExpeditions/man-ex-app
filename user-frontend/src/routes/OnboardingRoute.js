@@ -6,14 +6,11 @@ export default function OnboardingRoute({ component: Component, ...rest }) {
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
-  const emailRegisterSlice = useSelector((state) => state.emailRegisterSlice);
-  const { createdUser } = emailRegisterSlice;
-
   return (
     <Route
       {...rest}
       render={(props) =>
-        (user && !user.completedOnboarding) || createdUser ? (
+        user && !user.completedOnboarding ? (
           <Component {...props}></Component>
         ) : (
           <Redirect to="/home"></Redirect>
