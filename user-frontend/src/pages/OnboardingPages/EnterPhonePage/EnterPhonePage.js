@@ -26,6 +26,9 @@ export default function EnterPhonePage(props) {
     }
   }, [inputValidator, phoneNumber]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const verificationCodeSlice = useSelector(
     (state) => state.verificationCodeSlice
   );
@@ -38,12 +41,16 @@ export default function EnterPhonePage(props) {
   };
 
   useEffect(() => {
+    if (user.phoneVerified) {
+      props.history.push("/onboarding/aboutyou");
+    }
+
     if (success) {
       props.history.push(
         `/onboarding/verify/phone/${encodeURIComponent(phoneNumber)}`
       );
     }
-  }, [success, props.history, error, phoneNumber]);
+  }, [user, success, props.history, error, phoneNumber]);
 
   useEffect(() => {
     return () => {
