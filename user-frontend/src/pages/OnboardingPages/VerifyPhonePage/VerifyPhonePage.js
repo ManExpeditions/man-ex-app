@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
+import Spinner from "../../../components/Spinner/Spinner";
+import {
+  resetVerify,
+  resetVerifyErrors,
+  verify,
+} from "../../../slices/user/verifySlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyPhonePage.module.css";
 
 export default function VerifyPhonePage(props) {
+  const { phoneNumber } = useParams();
+
   const [boxOne, setBoxOne] = useState("");
   const [boxTwo, setBoxTwo] = useState("");
   const [boxThree, setBoxThree] = useState("");
@@ -33,14 +42,40 @@ export default function VerifyPhonePage(props) {
     }
   }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
+  const verifySlice = useSelector((state) => state.verifySlice);
+  const { loading, user: verifyUser, error } = verifySlice;
+
+  const dispatch = useDispatch();
+
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/aboutyou");
+    const verificationCode =
+      boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
+    dispatch(resetVerifyErrors());
+    const decodedPhoneNumber = decodeURIComponent(phoneNumber);
+    dispatch(
+      verify({ type: "phone", phone: decodedPhoneNumber, verificationCode })
+    );
   };
+
+  useEffect(() => {
+    if (verifyUser || user.phoneVerified) {
+      props.history.push("/onboarding/aboutyou");
+    }
+  }, [verifyUser, props.history, user.phoneVerified]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetVerify());
+    };
+  }, [dispatch]);
 
   return (
     <>
       <div className="screen">
-        <Link to="/onboarding/verify/email" className="link link-back">
+        <Link to="/onboarding/enter/phone" className="link link-back">
           <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Verify Mobile Number</h1>
@@ -50,6 +85,7 @@ export default function VerifyPhonePage(props) {
           </p>
           <div className={styles.verification_wrapper}>
             <DigitVerificationBox
+              error={error}
               boxes={[
                 [boxOne, setBoxOne],
                 [boxTwo, setBoxTwo],
@@ -67,7 +103,7 @@ export default function VerifyPhonePage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Verify
+        {loading ? <Spinner></Spinner> : "Verify"}
       </button>
     </>
   );

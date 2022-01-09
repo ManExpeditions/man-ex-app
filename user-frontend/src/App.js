@@ -35,7 +35,7 @@ function App() {
         component={EnterPhonePage}
       ></OnboardingRoute>
       <OnboardingRoute
-        path="/onboarding/verify/phone"
+        path="/onboarding/verify/phone/:phoneNumber"
         component={VerifyPhonePage}
       ></OnboardingRoute>
       <OnboardingRoute
