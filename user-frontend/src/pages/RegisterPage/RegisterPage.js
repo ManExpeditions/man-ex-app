@@ -67,7 +67,6 @@ export default function RegisterPage(props) {
 
   useEffect(() => {
     if (createdUser) {
-      console.log("going to verify email page");
       props.history.push("/onboarding/verify/email");
     }
     return () => {
