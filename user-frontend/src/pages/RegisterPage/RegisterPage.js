@@ -7,7 +7,7 @@ import Validator from "../../utils/InputValidator";
 import useDidMountEffect from "../../customHooks/useDidMountEffect";
 import {
   emailRegisterUser,
-  resetEmailRegisterUser,
+  resetEmailRegisterErrors,
 } from "../../slices/auth/emailRegisterSlice";
 import MessageBox from "../../components/MessageBox/MessageBox";
 
@@ -67,10 +67,11 @@ export default function RegisterPage(props) {
 
   useEffect(() => {
     if (createdUser) {
+      console.log("going to verify email page");
       props.history.push("/onboarding/verify/email");
     }
     return () => {
-      dispatch(resetEmailRegisterUser());
+      dispatch(resetEmailRegisterErrors());
     };
   }, [dispatch, createdUser, props.history]);
 
