@@ -9,10 +9,16 @@ const initialState = {
 
 export const verifyEmail = createAsyncThunk(
   "verify/verifyEmail",
-  async (userData, { rejectWithValue }) => {
-    const { userId, verificationCode } = userData;
+  async (verificationCode, { rejectWithValue, getState }) => {
+    const {
+      signinSlice: { user },
+    } = getState();
     try {
-      const data = await verifyAPI.verifyEmail(userId, verificationCode);
+      const data = await verifyAPI.verifyEmail(
+        user.id,
+        user.token,
+        verificationCode
+      );
       localStorage.setItem("user", JSON.stringify(data));
       return data;
     } catch (err) {
