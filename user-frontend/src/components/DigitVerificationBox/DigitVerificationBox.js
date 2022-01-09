@@ -1,6 +1,6 @@
 import styles from "./DigitVerificationBox.module.css";
 
-export default function DigitVerificationBox({ boxes }) {
+export default function DigitVerificationBox({ boxes, error }) {
   const changeFocusToBox = (boxNumber) => {
     const nextBox = document.getElementById(`box-${boxNumber}`);
     if (nextBox !== null) {
@@ -22,18 +22,27 @@ export default function DigitVerificationBox({ boxes }) {
   };
 
   return (
-    <div className={styles.wrapper}>
-      {boxes.map(([boxState, setBoxState], i) => (
-        <input
-          autoFocus={i === 0 ? true : false}
-          id={`box-${i + 1}`}
-          value={boxState}
-          className={`input ${styles.input} ${boxState && styles.input_filled}`}
-          onChange={(e) => handleOnChange(i + 1, e.target.value, setBoxState)}
-          onKeyDown={(e) => handleKeyDown(i + 1, e.key, boxState)}
-          maxLength={1}
-        ></input>
-      ))}
+    <div>
+      <div className={styles.container}>
+        {boxes.map(([boxState, setBoxState], i) => (
+          <>
+            <input
+              autoFocus={i === 0 ? true : false}
+              id={`box-${i + 1}`}
+              value={boxState}
+              className={`input ${styles.input} ${
+                boxState && styles.input_filled
+              } ${error && styles.input_error}`}
+              onChange={(e) =>
+                handleOnChange(i + 1, e.target.value, setBoxState)
+              }
+              onKeyDown={(e) => handleKeyDown(i + 1, e.key, boxState)}
+              maxLength={1}
+            ></input>
+          </>
+        ))}
+      </div>
+      <span className="error-message">{error}</span>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-.wrapper {
+.container {
   max-width: max-content;
   display: flex;
   justify-content: space-between;
@@ -13,4 +13,8 @@
 
 .input_filled {
   outline: 1px solid #00f2a8;
+}
+
+.input_error {
+  outline: 1px solid #fd5c52;
 }
