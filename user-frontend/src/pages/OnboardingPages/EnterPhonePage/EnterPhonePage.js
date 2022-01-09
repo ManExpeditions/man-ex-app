@@ -7,6 +7,7 @@ import { verificationCode } from "../../../slices/user/verificationCodeSlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./EnterPhonePage.module.css";
 import Spinner from "../../../components/Spinner/Spinner";
+import MessageBox from "../../../components/MessageBox/MessageBox";
 
 export default function EnterPhonePage(props) {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -51,6 +52,7 @@ export default function EnterPhonePage(props) {
             To help us serve you better, we need your mobile number.
           </p>
           <div className={styles.input_wrapper}>
+            {error && <MessageBox variant="error">{error}</MessageBox>}
             <PhoneInput
               autoFocus
               international
