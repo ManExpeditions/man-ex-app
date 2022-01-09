@@ -39,9 +39,11 @@ export default function EnterPhonePage(props) {
 
   useEffect(() => {
     if (success) {
-      props.history.push("/onboarding/verify/phone");
+      props.history.push(
+        `/onboarding/verify/phone/${encodeURIComponent(phoneNumber)}`
+      );
     }
-  }, [success, props.history, error]);
+  }, [success, props.history, error, phoneNumber]);
 
   useEffect(() => {
     return () => {
