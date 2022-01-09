@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authAPI from "../../api/authAPI";
+import { emailRegisterUser } from "./emailRegisterSlice";
 
 const initialState = {
   loading: false,
@@ -44,6 +45,10 @@ export const signinSlice = createSlice({
         } else {
           state.error = "Signin failed. Try again later.";
         }
+      })
+      .addCase(emailRegisterUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
       })
       .addCase(signin.fulfilled, (state, action) => {
         state.loading = false;
