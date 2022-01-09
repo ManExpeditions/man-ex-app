@@ -97,8 +97,6 @@ class Validator {
    * @return {boolean} True if all strings are not empty
    */
   areAllNotEmpty(fields) {
-    console.log("all not empty");
-    console.log(fields.every((element) => element !== ""));
     return fields.every((element) => element !== "");
   }
 
@@ -124,8 +122,6 @@ class Validator {
    * @return {boolean} True if all strings are empty
    */
   areAllEmpty(fields) {
-    console.log("all empty");
-    console.log(fields.every((element) => element === ""));
     return fields.every((element) => element === "");
   }
 }
