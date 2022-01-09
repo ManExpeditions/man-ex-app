@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import emailRegisterSlice from "../slices/auth/emailRegisterSlice";
 import signinSlice from "../slices/auth/signinSlice";
+import verificationCodeSlice from "../slices/user/verificationCodeSlice";
 import verifySlice from "../slices/user/verifySlice";
 
 export const store = configureStore({
@@ -15,5 +16,6 @@ export const store = configureStore({
     emailRegisterSlice: emailRegisterSlice,
     signinSlice: signinSlice,
     verifySlice: verifySlice,
+    verificationCodeSlice: verificationCodeSlice,
   },
 });
