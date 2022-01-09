@@ -38,6 +38,9 @@ export default function VerifyEmailPage(props) {
     }
   }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const verifySlice = useSelector((state) => state.verifySlice);
   const { loading, user: verifyUser, error } = verifySlice;
 
@@ -51,10 +54,10 @@ export default function VerifyEmailPage(props) {
   };
 
   useEffect(() => {
-    if (verifyUser) {
+    if (verifyUser || user.emailVerified) {
       props.history.push("/onboarding/enter/phone");
     }
-  }, [verifyUser, props.history, error]);
+  }, [user, verifyUser, props.history, error]);
 
   return (
     <>
