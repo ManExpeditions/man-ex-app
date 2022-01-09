@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import verifyAPI from "../../api/verifyAPI";
+import userAPI from "../../api/userAPI";
 
 const initialState = {
   loading: false,
@@ -14,7 +14,7 @@ export const verificationCode = createAsyncThunk(
       signinSlice: { user },
     } = getState();
     try {
-      const data = await verifyAPI.verificationCode(
+      const data = await userAPI.verificationCode(
         user.id,
         user.token,
         type,
