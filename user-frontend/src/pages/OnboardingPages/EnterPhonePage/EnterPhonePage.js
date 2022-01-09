@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PhoneInput from "react-phone-number-input";
 import { useDispatch, useSelector } from "react-redux";
-import { verificationCode } from "../../../slices/user/verificationCodeSlice";
+import {
+  resetVerificationCode,
+  verificationCode,
+} from "../../../slices/user/verificationCodeSlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./EnterPhonePage.module.css";
 import Spinner from "../../../components/Spinner/Spinner";
@@ -39,6 +42,12 @@ export default function EnterPhonePage(props) {
       props.history.push("/onboarding/verify/phone");
     }
   }, [success, props.history, error]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetVerificationCode());
+    };
+  }, [dispatch]);
 
   return (
     <>
