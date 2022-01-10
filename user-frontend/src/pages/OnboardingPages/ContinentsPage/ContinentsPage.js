@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
+import MessageBox from "../../../components/MessageBox/MessageBox";
+import Spinner from "../../../components/Spinner/Spinner";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../slices/user/userUpdateSlice";
 import InputValidator from "../../../utils/InputValidator";
 import styles from "./ContinentsPage.module.css";
 
@@ -15,10 +22,6 @@ export default function ContinentsPage(props) {
 
   const validator = InputValidator;
 
-  const onCompleteHandler = () => {
-    props.history.push("/onboarding/location");
-  };
-
   useEffect(() => {
     if (
       validator.atleastXTruthy(
@@ -32,13 +35,46 @@ export default function ContinentsPage(props) {
     }
   }, [validator, northAmerica, africa, europe, asia, southCentralAmerica]);
 
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user: updatedUser, error } = userUpdateSlice;
+
+  const dispatch = useDispatch();
+
+  const onCompleteHandler = () => {
+    const continents = [
+      northAmerica && "North America",
+      africa && "Africa",
+      europe && "Europe",
+      asia && "Asia",
+      southCentralAmerica && "South/Central America",
+    ].filter((value) => value !== false);
+
+    dispatch(
+      userUpdate({
+        continents,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (updatedUser) {
+      props.history.push("/onboarding/location");
+    }
+  }, [updatedUser, props.history]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserUpdate());
+    };
+  }, [dispatch]);
+
   return (
     <div className="screen">
       <Link to="/onboarding/interests" className="link link-back">
         <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
       <h1 className={styles.page_title}>
-        What continents do you want to travel within?
+        What continents do you want to travel within? (select atleast 2)
       </h1>
       <main>
         <div className={styles.interests_container}>
@@ -74,12 +110,13 @@ export default function ContinentsPage(props) {
           ></ChipCheckBox>
         </div>
       </main>
+      {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Continue
+        {loading ? <Spinner></Spinner> : "Continue"}
       </button>
     </div>
   );
