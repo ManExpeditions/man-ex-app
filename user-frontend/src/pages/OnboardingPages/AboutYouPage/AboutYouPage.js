@@ -4,7 +4,10 @@ import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
 import Validator from "../../../utils/InputValidator";
 import SelectBox from "../../../components/SelectBox/SelectBox";
-import { userUpdate } from "../../../slices/user/userUpdateSlice";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../slices/user/userUpdateSlice";
 import Spinner from "../../../components/Spinner/Spinner";
 import MessageBox from "../../../components/MessageBox/MessageBox";
 
@@ -41,8 +44,11 @@ export default function AboutYouPage(props) {
     lastNameValidationError,
   ]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
-  const { loading, user, error } = userUpdateSlice;
+  const { loading, user: updatedUser, error } = userUpdateSlice;
 
   const dispatch = useDispatch();
 
@@ -58,10 +64,23 @@ export default function AboutYouPage(props) {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user.firstName) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+      setGender(user.gender);
+      setLanguage(user.language);
+    }
+
+    if (updatedUser) {
       props.history.push("/onboarding/morequestions");
     }
-  }, [user, props.history]);
+  }, [user, updatedUser, props.history]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserUpdate());
+    };
+  }, [dispatch]);
 
   return (
     <div className="screen">
