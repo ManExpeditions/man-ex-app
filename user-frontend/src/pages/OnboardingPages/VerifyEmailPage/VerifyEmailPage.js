@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DigitVerificationBox from "../../../components/DigitVerificationBox/DigitVerificationBox";
 import Spinner from "../../../components/Spinner/Spinner";
-import { resetVerifyErrors, verify } from "../../../slices/user/verifySlice";
+import {
+  resetVerify,
+  resetVerifyErrors,
+  verify,
+} from "../../../slices/user/verifySlice";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyEmailPage.module.css";
 
@@ -55,6 +59,12 @@ export default function VerifyEmailPage(props) {
       props.history.push("/onboarding/enter/phone");
     }
   }, [user, verifyUser, props.history, error]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetVerify());
+    };
+  }, [dispatch]);
 
   return (
     <>
