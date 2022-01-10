@@ -79,16 +79,8 @@ export const userUpdateController = [
     .isString()
     .isLength({ min: 3, max: 10 })
     .escape(),
-  body('interests', 'Enter valid interests')
-    .optional()
-    .isArray()
-    .isLength({ min: 2, max: 10 })
-    .escape(),
-  body('continents', 'Enter valid continents')
-    .optional()
-    .isArray()
-    .isLength({ min: 2, max: 10 })
-    .escape(),
+  body('interests', 'Enter valid interests').optional().isArray(),
+  body('continents', 'Enter valid continents').optional().isArray(),
   body('city', 'Enter valid city').optional().isLength({ min: 2 }).escape(),
   body('state', 'Enter valid state')
     .optional()
@@ -152,6 +144,8 @@ export const userUpdateController = [
       res.status(404).json({ message: err.message });
       return;
     }
+
+    console.log(req.body.interests);
 
     res.status(200).json({
       id: updatedUser._id,
