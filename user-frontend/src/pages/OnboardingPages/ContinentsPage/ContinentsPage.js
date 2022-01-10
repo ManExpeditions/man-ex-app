@@ -58,15 +58,10 @@ export default function ContinentsPage(props) {
 
   useEffect(() => {
     if (updatedUser) {
+      dispatch(resetUserUpdate());
       props.history.push("/onboarding/location");
     }
-  }, [updatedUser, props.history]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetUserUpdate());
-    };
-  }, [dispatch]);
+  }, [dispatch, updatedUser, props.history]);
 
   return (
     <div className="screen">

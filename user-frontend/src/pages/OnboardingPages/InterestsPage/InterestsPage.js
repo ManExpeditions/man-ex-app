@@ -107,15 +107,10 @@ export default function InterestsPage(props) {
 
   useEffect(() => {
     if (user) {
+      dispatch(resetUserUpdate());
       props.history.push("/onboarding/continents");
     }
-  }, [user, props.history]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetUserUpdate());
-    };
-  }, [dispatch]);
+  }, [dispatch, user, props.history]);
 
   return (
     <div className="screen">
