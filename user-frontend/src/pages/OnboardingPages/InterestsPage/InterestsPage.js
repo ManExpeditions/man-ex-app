@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
+import MessageBox from "../../../components/MessageBox/MessageBox";
+import Spinner from "../../../components/Spinner/Spinner";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../slices/user/userUpdateSlice";
 import InputValidator from "../../../utils/InputValidator";
 import styles from "./InterestsPage.module.css";
 
@@ -23,10 +30,6 @@ export default function InterestsPage(props) {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const validator = InputValidator;
-
-  const onCompleteHandler = () => {
-    props.history.push("/onboarding/continents");
-  };
 
   useEffect(() => {
     if (
@@ -72,6 +75,48 @@ export default function InterestsPage(props) {
     activeGetAway,
   ]);
 
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user, error } = userUpdateSlice;
+
+  const dispatch = useDispatch();
+
+  const onCompleteHandler = () => {
+    const interests = [
+      artAndCulture && "Arts & Culture",
+      burningMan && "Burning Man",
+      camping && "Camping",
+      cruises && "Cruises",
+      luxuryGetAway && "Luxury Get-aways",
+      musicFestivals && "Music Festivals",
+      natureAndOutdoors && "Nature & Outdoors",
+      nudistAdventures && "Nudist Adventures",
+      prideEvents && "Pride Events",
+      resortVacations && "Resort Vacations",
+      volunteeringTrips && "Volunteering Trips",
+      wellnessRetreats && "Wellness Retreats",
+      wildlife && "Wildlife",
+      activeGetAway && "Active Get-aways",
+    ].filter((value) => value !== false);
+
+    dispatch(
+      userUpdate({
+        interests,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (user) {
+      props.history.push("/onboarding/continents");
+    }
+  }, [user, props.history]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserUpdate());
+    };
+  }, [dispatch]);
+
   return (
     <div className="screen">
       <Link to="/onboarding/morequestions" className="link link-back">
@@ -81,7 +126,7 @@ export default function InterestsPage(props) {
       <main>
         <p className={`align-center ${styles.info}`}>
           This will help us match you with other travelers and travel groups
-          based on the interests you have in common.
+          based on the interests you have in common (select atleast 2).
         </p>
         <div className={styles.interests_container}>
           <ChipCheckBox
@@ -170,12 +215,13 @@ export default function InterestsPage(props) {
           ></ChipCheckBox>
         </div>
       </main>
+      {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Continue
+        {loading ? <Spinner></Spinner> : "Continue"}
       </button>
     </div>
   );
