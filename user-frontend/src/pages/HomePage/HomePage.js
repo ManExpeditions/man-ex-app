@@ -173,6 +173,9 @@ export default function HomePage() {
         <div className={styles.container}>
           {user && (
             <div className={styles.hero_wrapper}>
+              {user && user.firstName && (
+                <p className={styles.hero_text_info}>Hello {user.firstName}</p>
+              )}
               <h1 className={styles.hero_text_heading}>Welcome to</h1>
               <h1 className={styles.hero_text_subheading}>ManEx</h1>
               <p class={styles.hero_text_info}>
@@ -385,7 +388,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <BottomNav></BottomNav>
+      <BottomNav user={user}></BottomNav>
     </div>
   );
 }
