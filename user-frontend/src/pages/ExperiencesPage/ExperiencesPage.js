@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ChipCheckBox from "../../components/ChipCheckBox/ChipCheckBox";
 import Navbar from "../../components/Navbar/Navbar";
+import VideoPlayer from "../../components/VideoPlayer/VideoPlayer";
 import styles from "./ExperiencesPage.module.css";
 
 export default function ExperiencesPage() {
@@ -14,7 +16,7 @@ export default function ExperiencesPage() {
   return (
     <div>
       <Navbar></Navbar>
-      <section className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.chips_wrapper}>
           <div className={styles.chips_container}>
             <ChipCheckBox
@@ -55,8 +57,63 @@ export default function ExperiencesPage() {
             ></ChipCheckBox>
           </div>
         </div>
-        <div></div>
-      </section>
+        <section className={styles.exp_section}>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+          <div>
+            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <Link
+              to="/register"
+              className={`link btn-primary ${styles.btn_video_info}`}
+            >
+              Learn more
+            </Link>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
