@@ -185,7 +185,7 @@ export default function HomePage() {
             </div>
           )}
 
-          <Link to="/register">
+          <Link to={user ? "/members" : "/register"}>
             <img
               className={styles.thumbnails_image}
               src="https://app.greenrope.com/users/myteam46998/Media411.jpg?202108131124"
@@ -193,7 +193,7 @@ export default function HomePage() {
             />
           </Link>
           <Link to="/register" className="link link-long">
-            Join the community
+            {user ? "Explore the community" : "Join the community"}
           </Link>
           <h1 className={styles.main_title}>
             Welcome to <br /> ManEx
