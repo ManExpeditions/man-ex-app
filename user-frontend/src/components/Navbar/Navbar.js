@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import OutsideAlerter from "../OutsideAlerter";
 import styles from "./Navbar.module.css";
+import { FiSettings } from "react-icons/fi";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   return (
@@ -34,34 +35,84 @@ export default function Navbar() {
           <nav className={styles.nav}>
             <ul className={`flex-box ${styles.nav_list_right}`}>
               <li className={styles.nav_item}>
-                <Link to="/experiences" className="link link-primary">
+                <Link
+                  to="/experiences"
+                  className={`link link-primary ${styles.nav_link}`}
+                >
                   Experiences
                 </Link>
               </li>
-              <li className={styles.nav_item}>
-                <Link to="/aboutus" className="link link-primary">
-                  About Us
-                </Link>
-              </li>
-              <li className={styles.nav_item}>
-                <Link to="/press" className="link link-primary">
-                  Press
-                </Link>
-              </li>
-              <li className={styles.nav_item}>
-                <a
-                  href="mailto:hello@manexpeditions.com?subject=Contact us"
-                  className="link link-primary"
-                >
-                  Contact
-                </a>
-              </li>
+              {user ? (
+                <>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/messages"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      Messages
+                    </Link>
+                  </li>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/members"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      Members
+                    </Link>
+                  </li>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/favorites"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      Favorites
+                    </Link>
+                  </li>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/profile"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      <FiSettings size={18}></FiSettings>
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/aboutus"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li className={styles.nav_item}>
+                    <Link
+                      to="/press"
+                      className={`link link-primary ${styles.nav_link}`}
+                    >
+                      Press
+                    </Link>
+                  </li>
+                  <li className={styles.nav_item}>
+                    <a
+                      href="mailto:hello@manexpeditions.com?subject=Contact us"
+                      className="link link-primary"
+                    >
+                      Contact
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
-            <div className={styles.nav_item}>
-              <Link to="/contact" className="link link-primary">
-                Google Translate
-              </Link>
-            </div>
+            {!user && (
+              <div className={styles.nav_item}>
+                <Link to="/contact" className="link link-primary">
+                  Google Translate
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
         {hamburgerOpen && (

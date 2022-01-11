@@ -159,7 +159,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar user={user}></Navbar>
       <Toast></Toast>
       {!user && (
         <div className={styles.slider_wrapper}>
