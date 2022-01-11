@@ -17,7 +17,7 @@ export default function LocationPage(props) {
           <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Where are you located?</h1>
-        <main>
+        <main className={styles.main}>
           <p className={`align-center ${styles.info}`}>
             Enter your location to find events and experiences near you.
           </p>
@@ -35,10 +35,8 @@ export default function LocationPage(props) {
             Use My Current Location
           </button>
         </main>
+        <h1 className={styles.subheading_title}>Popular Locations</h1>
         <div className={styles.locations_container}>
-          <h1 className={`screen ${styles.subheading_title}`}>
-            Popular Locations
-          </h1>
           <ul>
             <li className={styles.location_item}>
               <button className={`btn ${styles.location_item_button}`}>
@@ -51,7 +49,16 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button className={`btn ${styles.location_item_button}`}>
-                <span className={styles.location_city}>San Francisco</span>
+                <span className={styles.location_city}>New York City</span>
+                <br />
+                <span className={styles.location_country}>
+                  New York, United States
+                </span>
+              </button>
+            </li>
+            <li className={styles.location_item}>
+              <button className={`btn ${styles.location_item_button}`}>
+                <span className={styles.location_city}>Los Angeles</span>
                 <br />
                 <span className={styles.location_country}>
                   California, United States
@@ -60,20 +67,16 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button className={`btn ${styles.location_item_button}`}>
-                <span className={styles.location_city}>San Francisco</span>
+                <span className={styles.location_city}>Toronto</span>
                 <br />
-                <span className={styles.location_country}>
-                  California, United States
-                </span>
+                <span className={styles.location_country}>Ontario, Canada</span>
               </button>
             </li>
             <li className={styles.location_item}>
               <button className={`btn ${styles.location_item_button}`}>
-                <span className={styles.location_city}>San Francisco</span>
+                <span className={styles.location_city}>Montreal</span>
                 <br />
-                <span className={styles.location_country}>
-                  California, United States
-                </span>
+                <span className={styles.location_country}>Quebec, Canada</span>
               </button>
             </li>
           </ul>

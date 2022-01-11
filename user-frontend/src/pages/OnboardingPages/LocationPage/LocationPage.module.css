@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.main {
+  margin: 1rem 0;
+}
+
 .location_wrapper {
   position: relative;
 }
@@ -32,8 +36,8 @@
 }
 
 .subheading_title {
-  padding-left: 2rem;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .locations_container {
@@ -41,13 +45,12 @@
 }
 
 .location_item {
-  margin: 0.5rem 0;
   width: 100%;
 }
 
 .location_item_button {
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.3rem 0;
   text-align: left;
   padding-left: 2rem;
   background-color: transparent;
