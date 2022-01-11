@@ -20,7 +20,7 @@ export default function BottomNav({ user }) {
           <>
             <li className={styles.nav_item}>
               <Link
-                to="/signin"
+                to="/messages"
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiEnvelope size={18}></BiEnvelope>
@@ -29,7 +29,7 @@ export default function BottomNav({ user }) {
             </li>
             <li className={styles.nav_item}>
               <Link
-                to="/signin"
+                to="/members"
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <FiUsers size={18}></FiUsers>
@@ -38,7 +38,7 @@ export default function BottomNav({ user }) {
             </li>
             <li className={styles.nav_item}>
               <Link
-                to="/signin"
+                to="/favorites"
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiHeart size={18}></BiHeart>
@@ -47,7 +47,7 @@ export default function BottomNav({ user }) {
             </li>
             <li className={styles.nav_item}>
               <Link
-                to="/signin"
+                to="/profile"
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiUser size={18}></BiUser>
