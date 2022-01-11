@@ -4,6 +4,7 @@
 
 .nav_list {
   position: fixed;
+  display: flex;
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
@@ -32,5 +33,11 @@
 @media (max-width: 800px) {
   .nav {
     display: flex;
+  }
+}
+
+@media (max-width: 325px) {
+  .nav_item {
+    font-size: 0.5rem;
   }
 }
