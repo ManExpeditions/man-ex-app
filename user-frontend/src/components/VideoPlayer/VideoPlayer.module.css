@@ -1,0 +1,6 @@
+.container {
+  border-radius: 1rem;
+  overflow: hidden;
+  max-height: max-content;
+  z-index: 1;
+}
