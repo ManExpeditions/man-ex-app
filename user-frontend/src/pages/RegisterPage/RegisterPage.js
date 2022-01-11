@@ -76,11 +76,13 @@ export default function RegisterPage(props) {
 
   return (
     <div className="screen">
-      <img
-        className={styles.logo}
-        src="/logo192.png"
-        alt="Man Expeditions Logo"
-      />
+      <Link to="/home">
+        <img
+          className={styles.logo}
+          src="/logo192.png"
+          alt="Man Expeditions Logo"
+        />
+      </Link>
       <h1 className={styles.page_title}>Create Account</h1>
       <button className={styles.facebook_button}>
         <i class={`fab fa-facebook fa-lg ${styles.facebook_icon}`}></i>
