@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./BottomNav.module.css";
-import { FaSearch, FaUser } from "react-icons/fa";
-import { BiEnvelope, BiHeart } from "react-icons/bi";
+import { BiSearch, BiUser, BiEnvelope, BiHeart } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
 
 export default function BottomNav({ user }) {
   return (
@@ -12,7 +12,7 @@ export default function BottomNav({ user }) {
             to="/experiences"
             className={`link link-primary ${styles.nav_link}`}
           >
-            <FaSearch size={18}></FaSearch>
+            <BiSearch size={18}></BiSearch>
             Explore
           </Link>
         </li>
@@ -32,7 +32,7 @@ export default function BottomNav({ user }) {
                 to="/signin"
                 className={`link link-primary ${styles.nav_link}`}
               >
-                <FaUser size={18}></FaUser>
+                <FiUsers size={18}></FiUsers>
                 Members
               </Link>
             </li>
@@ -50,7 +50,7 @@ export default function BottomNav({ user }) {
                 to="/signin"
                 className={`link link-primary ${styles.nav_link}`}
               >
-                <FaUser size={18}></FaUser>
+                <BiUser size={18}></BiUser>
                 Profile
               </Link>
             </li>
@@ -61,7 +61,7 @@ export default function BottomNav({ user }) {
               to="/signin"
               className={`link link-primary ${styles.nav_link}`}
             >
-              <FaUser size={18}></FaUser>
+              <BiUser size={18}></BiUser>
               Login/Register
             </Link>
           </li>
