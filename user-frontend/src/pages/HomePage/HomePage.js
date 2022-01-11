@@ -161,14 +161,27 @@ export default function HomePage() {
     <div>
       <Navbar></Navbar>
       <Toast></Toast>
-      <div className={styles.slider_wrapper}>
-        <ImageSlider items={images}></ImageSlider>
-        <Link to="/register" className="btn btn-primary btn-abs-tr">
-          Register for Free
-        </Link>
-      </div>
+      {!user && (
+        <div className={styles.slider_wrapper}>
+          <ImageSlider items={images}></ImageSlider>
+          <Link to="/register" className="btn btn-primary btn-abs-tr">
+            Register for Free
+          </Link>
+        </div>
+      )}
       <main className={`bg-black ${styles.main}`}>
         <div className={styles.container}>
+          {user && (
+            <div className={styles.hero_wrapper}>
+              <h1 className={styles.hero_text_heading}>Welcome to</h1>
+              <h1 className={styles.hero_text_subheading}>ManEx</h1>
+              <p class={styles.hero_text_info}>
+                Get matched with like-minded travel buddies, and create
+                extraordinary memories.
+              </p>
+            </div>
+          )}
+
           <Link to="/register">
             <img
               className={styles.thumbnails_image}

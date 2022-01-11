@@ -29,11 +29,13 @@
   width: 60rem;
 }
 
+.hero_text_heading,
 .slider_text_heading {
   font-size: 4rem;
   font-family: "FragileScript";
 }
 
+.hero_text_subheading,
 .slider_text_subheading {
   font-size: 3.5rem;
   max-width: 53rem;
@@ -98,6 +100,38 @@
   .slider_wrapper,
   .slider_image {
     height: 150vh;
+  }
+}
+
+.hero_wrapper {
+  padding-top: 3rem;
+  text-align: center;
+  background-color: #000;
+  max-width: 40rem;
+  margin: 2rem auto 1rem;
+}
+
+.hero_text_subheading {
+  margin-bottom: 1rem;
+}
+
+.hero_text_info {
+  font-size: 2.4rem;
+  font-weight: 200;
+}
+
+@media (max-width: 800px) {
+  .hero_text_heading {
+    font-size: 2.8rem;
+  }
+
+  .hero_text_subheading {
+    font-size: 2.6rem;
+  }
+
+  .hero_text_info {
+    font-size: 1.7rem;
+    margin: 2rem 0;
   }
 }
 
