@@ -253,9 +253,21 @@ export default function HomePage() {
           <div className={styles.exp_section_videos_container}>
             <div className={styles.video_container}>
               <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+              <Link
+                to="/register"
+                className={`link btn-primary ${styles.btn_video_info}`}
+              >
+                Learn more
+              </Link>
             </div>
             <div className={styles.video_container}>
               <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+              <Link
+                to="/register"
+                className={`link btn-primary ${styles.btn_video_info}`}
+              >
+                Learn more
+              </Link>
             </div>
           </div>
           <Link to="/experiences" className="link link-long">
