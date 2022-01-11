@@ -249,13 +249,13 @@ export default function HomePage() {
       </section>
       <section className="bg-black">
         <div className={styles.container}>
-          <h1>Popular Experience</h1>
+          <h1 className={styles.exp_section_heading}>Popular Experience</h1>
           <div className={styles.exp_section_videos_container}>
             <div className={styles.video_container}>
-              <VideoPlayer src="https://player.vimeo.com/video/581379511"></VideoPlayer>
+              <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
             </div>
             <div className={styles.video_container}>
-              <VideoPlayer src="https://player.vimeo.com/video/588626790"></VideoPlayer>
+              <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
             </div>
           </div>
           <Link to="/experiences" className="link link-long">

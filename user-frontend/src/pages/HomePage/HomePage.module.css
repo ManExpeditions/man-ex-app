@@ -184,6 +184,10 @@
 }
 
 /* Popular Experiences section */
+.exp_section_heading {
+  margin: 1rem 0;
+}
+
 .exp_section_videos_container {
   display: flex;
   gap: 2rem;
