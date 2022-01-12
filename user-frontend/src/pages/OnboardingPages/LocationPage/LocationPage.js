@@ -89,11 +89,10 @@ export default function LocationPage(props) {
                 onClick={() => onLocationClicked("San Francisco, CA, USA")}
                 className={`btn ${styles.location_item_button}`}
               >
-                <span className={styles.location_city}>San Francisco</span>
-                <br />
-                <span className={styles.location_country}>
+                <p className={styles.location_city}>San Francisco</p>
+                <p className={styles.location_country}>
                   California, United States
-                </span>
+                </p>
               </button>
             </li>
             <li className={styles.location_item}>
@@ -101,11 +100,10 @@ export default function LocationPage(props) {
                 onClick={() => onLocationClicked("New York, NY, USA")}
                 className={`btn ${styles.location_item_button}`}
               >
-                <span className={styles.location_city}>New York City</span>
-                <br />
-                <span className={styles.location_country}>
+                <p className={styles.location_city}>New York City</p>
+                <p className={styles.location_country}>
                   New York, United States
-                </span>
+                </p>
               </button>
             </li>
             <li className={styles.location_item}>
@@ -113,11 +111,10 @@ export default function LocationPage(props) {
                 onClick={() => onLocationClicked("Los Angeles, CA, USA")}
                 className={`btn ${styles.location_item_button}`}
               >
-                <span className={styles.location_city}>Los Angeles</span>
-                <br />
-                <span className={styles.location_country}>
+                <p className={styles.location_city}>Los Angeles</p>
+                <p className={styles.location_country}>
                   California, United States
-                </span>
+                </p>
               </button>
             </li>
             <li className={styles.location_item}>
@@ -125,9 +122,8 @@ export default function LocationPage(props) {
                 onClick={() => onLocationClicked("Toronto, ON, Canada")}
                 className={`btn ${styles.location_item_button}`}
               >
-                <span className={styles.location_city}>Toronto</span>
-                <br />
-                <span className={styles.location_country}>Ontario, Canada</span>
+                <p className={styles.location_city}>Toronto</p>
+                <p className={styles.location_country}>Ontario, Canada</p>
               </button>
             </li>
             <li className={styles.location_item}>
@@ -135,9 +131,8 @@ export default function LocationPage(props) {
                 onClick={() => onLocationClicked("Montreal, QC, Canada")}
                 className={`btn ${styles.location_item_button}`}
               >
-                <span className={styles.location_city}>Montreal</span>
-                <br />
-                <span className={styles.location_country}>Quebec, Canada</span>
+                <p className={styles.location_city}>Montreal</p>
+                <p className={styles.location_country}>Quebec, Canada</p>
               </button>
             </li>
           </ul>
