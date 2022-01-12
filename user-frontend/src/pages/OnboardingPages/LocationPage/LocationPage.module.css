@@ -15,24 +15,39 @@
 
 .location_icon {
   position: absolute;
-  top: 55%;
+  top: 50%;
   transform: translateY(-50%);
   z-index: 2;
   left: 1rem;
+}
+
+.location_input {
+  padding-left: 2.5rem;
+  font-size: 1rem;
 }
 
 .info {
   margin: 1rem 0;
 }
 
-.location_button {
-  display: block;
-  background: transparent;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
+.predictions_list {
+  position: absolute;
+  top: 3.5rem;
+  background-color: #fff;
+  width: 90%;
   padding: 0.5rem;
-  margin: 1rem auto 0;
+  border-radius: 0.4rem;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.prediction_button {
+  color: #1e1e1e;
+  padding: 0.1rem 0;
+  text-align: left;
+  width: 100%;
 }
 
 .subheading_title {
