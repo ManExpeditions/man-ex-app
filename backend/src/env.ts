@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
+  google_places: process.env.GOOGLE_PLACES_API_KEY as string,
   node_env: (process.env.NODE_ENV as string) || 'dev',
   mongo:
     process.env.NODE_ENV == 'production'
