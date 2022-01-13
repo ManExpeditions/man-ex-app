@@ -13,17 +13,28 @@ import {
   resetUserUpdate,
   userUpdate,
 } from "../../../slices/user/userUpdateSlice";
+import Validator from "../../../utils/InputValidator";
 import styles from "./LocationPage.module.css";
 
 export default function LocationPage(props) {
   const [place, setPlace] = useState("");
   const [predictionsOpen, setPredictionsOpen] = useState(true);
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const inputValidator = Validator;
+
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user: updatedUser, error } = userUpdateSlice;
+
   const locationSlice = useSelector((state) => state.locationSlice);
   const { places } = locationSlice;
 
   const dispatch = useDispatch();
 
+  // Control the prediction suggestions
   const onLocationTyped = (location) => {
     setPredictionsOpen(true);
     setPlace(location);
@@ -41,16 +52,17 @@ export default function LocationPage(props) {
 
   // If place is empty, reset suggestions
   useDidMountEffect(() => {
+    if (inputValidator.isLength(place, 7)) {
+      setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
+    }
     if (!place) {
       dispatch(resetLocation());
     }
   }, [dispatch, place]);
 
-  const signinSlice = useSelector((state) => state.signinSlice);
-  const { user } = signinSlice;
-
-  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
-  const { loading, user: updatedUser, error } = userUpdateSlice;
+  useEffect(() => {});
 
   const onCompleteHandler = () => {
     const location = place.split(",");
@@ -73,6 +85,7 @@ export default function LocationPage(props) {
     );
   };
 
+  // If location info already exists, autofill.
   useEffect(() => {
     if (user.city) {
       setPlace(`${user.city}, ${user.state}, ${user.country}`);
@@ -183,7 +196,9 @@ export default function LocationPage(props) {
         </div>
       </div>
       {error && <MessageBox variant="error">{error}</MessageBox>}
+
       <button
+        disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
