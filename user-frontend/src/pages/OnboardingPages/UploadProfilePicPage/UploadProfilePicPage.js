@@ -20,7 +20,7 @@ export default function UploadProfilePicPage(props) {
   const [profilePic, setProfilePic] = useState("");
 
   const photoUploadSlice = useSelector((state) => state.photoUploadSlice);
-  const { loading, photo, error } = photoUploadSlice;
+  const { loading, photo } = photoUploadSlice;
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
