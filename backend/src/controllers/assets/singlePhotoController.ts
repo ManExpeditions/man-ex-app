@@ -50,7 +50,7 @@ export const singlePhotoController = [
           unique_filename: false,
           folder: req.query.type === 'profile' ? 'users/profiles' : ''
         });
-        res.send({ url: image.url });
+        res.send({ url: image.secure_url });
         return;
       } catch (err) {
         logger.error(err);

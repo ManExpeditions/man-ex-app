@@ -55,7 +55,9 @@ class UserDao {
     user.city = userInfo.city || user.city;
     user.state = userInfo.state || user.state;
     user.country = userInfo.country || user.country;
-    user.profilepic = userInfo.profilepic || user.profilepic;
+    user.profilepic = userInfo.profilepic
+      ? decodeURIComponent(userInfo.profilepic)
+      : user.profilepic;
     user.profilepicVerified =
       userInfo.profilepicVerified || user.profilepicVerified;
     user.verificationProfilepic =
