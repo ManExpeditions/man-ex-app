@@ -15,9 +15,25 @@
 }
 
 .photobox_wrapper {
+  position: relative;
   display: grid;
   margin: 0 auto;
   justify-content: center;
+}
+
+.loading_box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2rem;
+  height: 2rem;
+  z-index: 3;
+}
+
+.messagebox_wrapper {
+  max-width: max-content;
+  margin: 0 auto;
 }
 
 .action_button {

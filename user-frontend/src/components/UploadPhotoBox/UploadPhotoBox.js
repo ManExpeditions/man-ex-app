@@ -2,7 +2,9 @@ import styles from "./UploadPhotoBox.module.css";
 
 export default function UploadPhotoBox({ photoState, setPhotoState }) {
   const previewPhoto = () => {
-    if (photoState) {
+    if (typeof photoState === "string") {
+      return photoState;
+    } else if (photoState) {
       return URL.createObjectURL(photoState);
     }
   };

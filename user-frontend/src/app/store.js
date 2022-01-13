@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import photoUploadSlice from "../slices/assets/photoUploadSlice";
 import emailRegisterSlice from "../slices/auth/emailRegisterSlice";
 import signinSlice from "../slices/auth/signinSlice";
 import locationSlice from "../slices/services/locationSlice";
@@ -21,5 +22,6 @@ export const store = configureStore({
     verificationCodeSlice: verificationCodeSlice,
     userUpdateSlice: userUpdateSlice,
     locationSlice: locationSlice,
+    photoUploadSlice: photoUploadSlice,
   },
 });
