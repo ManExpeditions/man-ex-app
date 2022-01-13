@@ -13,15 +13,15 @@ import {
   resetUserUpdate,
   userUpdate,
 } from "../../../slices/user/userUpdateSlice";
-import Validator from "../../../utils/InputValidator";
+import validator from "validator";
 import styles from "./LocationPage.module.css";
 
 export default function LocationPage(props) {
   const [place, setPlace] = useState("");
   const [predictionsOpen, setPredictionsOpen] = useState(true);
+  const [validationError, setValidationError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const inputValidator = Validator;
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -52,17 +52,24 @@ export default function LocationPage(props) {
 
   // If place is empty, reset suggestions
   useDidMountEffect(() => {
-    if (inputValidator.isLength(place, 7)) {
-      setButtonDisabled(true);
-    } else {
+    if (
+      validator.isLength(place, { min: 7 }) &&
+      validator.isAlpha(place, "en-US", { ignore: ",s" }) &&
+      !places
+    ) {
+      setValidationError("");
       setButtonDisabled(false);
+    } else if (!validator.isAlpha(place, "en-US", { ignore: ",s" })) {
+      setValidationError("Can only contain alphabets.");
+      setPredictionsOpen(false);
+    } else {
+      setButtonDisabled(true);
     }
     if (!place) {
+      setValidationError("");
       dispatch(resetLocation());
     }
   }, [dispatch, place]);
-
-  useEffect(() => {});
 
   const onCompleteHandler = () => {
     const location = place.split(",");
@@ -120,6 +127,9 @@ export default function LocationPage(props) {
                 onChange={(e) => onLocationTyped(e.target.value)}
               ></input>
             </div>
+            {validationError && (
+              <span className="error-message">{validationError}</span>
+            )}
             {places && predictionsOpen && (
               <OutsideAlerter setState={setPredictionsOpen} stateValue={false}>
                 <ul className={styles.predictions_list}>
@@ -194,9 +204,8 @@ export default function LocationPage(props) {
             </li>
           </ul>
         </div>
+        {error && <MessageBox variant="error">{error}</MessageBox>}
       </div>
-      {error && <MessageBox variant="error">{error}</MessageBox>}
-
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button}`}
