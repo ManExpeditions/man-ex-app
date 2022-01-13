@@ -2,6 +2,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUDNAME as string,
+    apikey: process.env.CLOUDINARY_API_KEY as string,
+    secret: process.env.CLOUDINARY_SECRET as string
+  },
   google_places: process.env.GOOGLE_PLACES_API_KEY as string,
   node_env: (process.env.NODE_ENV as string) || 'dev',
   mongo:
