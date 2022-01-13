@@ -145,8 +145,6 @@ export const userUpdateController = [
       return;
     }
 
-    console.log(req.body.interests);
-
     res.status(200).json({
       id: updatedUser._id,
       firstName: updatedUser.firstName,
