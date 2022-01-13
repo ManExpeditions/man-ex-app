@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import MessageBox from "../../../components/MessageBox/MessageBox";
 import OutsideAlerter from "../../../components/OutsideAlerter";
+import Spinner from "../../../components/Spinner/Spinner";
+import useDidMountEffect from "../../../customHooks/useDidMountEffect";
 import {
   location,
   resetLocation,
 } from "../../../slices/services/locationSlice";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../slices/user/userUpdateSlice";
 import styles from "./LocationPage.module.css";
 
 export default function LocationPage(props) {
   const [place, setPlace] = useState("");
-
   const [predictionsOpen, setPredictionsOpen] = useState(true);
-
-  const onCompleteHandler = () => {
-    props.history.push("/onboarding/upload/profilepic");
-  };
 
   const locationSlice = useSelector((state) => state.locationSlice);
   const { places } = locationSlice;
@@ -32,15 +34,57 @@ export default function LocationPage(props) {
     dispatch(resetLocation());
   };
 
-  useEffect(() => {
+  // Get autocomplete everytime place is changed
+  useDidMountEffect(() => {
     dispatch(location(place));
   }, [dispatch, place]);
 
-  useEffect(() => {
+  // If place is empty, reset suggestions
+  useDidMountEffect(() => {
     if (!place) {
       dispatch(resetLocation());
     }
-  });
+  }, [dispatch, place]);
+
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user: updatedUser, error } = userUpdateSlice;
+
+  const onCompleteHandler = () => {
+    const location = place.split(",");
+
+    let city, state, country;
+    if (location.length === 2) {
+      // For locations with the format: Nairobi, Kenya
+      [city, country] = place.split(",").map((loc) => loc.trim());
+    } else if (location.length === 3) {
+      // For locations with the format: San Francisco, CA, USA
+      [city, state, country] = place.split(",").map((loc) => loc.trim());
+    }
+
+    dispatch(
+      userUpdate({
+        city: city,
+        state: state ? state : city,
+        country: country,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (user.city) {
+      setPlace(`${user.city}, ${user.state}, ${user.country}`);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (updatedUser) {
+      dispatch(resetUserUpdate());
+      props.history.push("/onboarding/upload/profilepic");
+    }
+  }, [dispatch, updatedUser, props.history]);
 
   return (
     <>
@@ -138,11 +182,12 @@ export default function LocationPage(props) {
           </ul>
         </div>
       </div>
+      {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Confirm Location
+        {loading ? <Spinner></Spinner> : "Confirm location"}
       </button>
     </>
   );
