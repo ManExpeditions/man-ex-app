@@ -58,9 +58,11 @@ export default function UploadProfilePicPage(props) {
 
   useEffect(() => {
     if (updatedUser) {
+      dispatch(resetPhotoUpload());
+      dispatch(resetUserUpdate());
       props.history.push("/onboarding/verify/profilepic/social");
     }
-  }, [updatedUser, props.history]);
+  }, [dispatch, updatedUser, props.history]);
 
   // If user already has profile, display it
   useEffect(() => {
@@ -68,14 +70,6 @@ export default function UploadProfilePicPage(props) {
       setProfilePic(user.profilepic);
     }
   }, [user]);
-
-  // Cleanup on exiting page
-  useEffect(() => {
-    return () => {
-      dispatch(resetPhotoUpload());
-      dispatch(resetUserUpdate());
-    };
-  }, [dispatch]);
 
   return (
     <>
