@@ -106,11 +106,7 @@ export const userUpdateController = [
     .isString()
     .isLength({ min: 10 })
     .escape(),
-  body('socials', 'Enter valid profilepicVerified')
-    .optional()
-    .isArray()
-    .isLength({ min: 1 })
-    .escape(),
+  body('socials', 'Enter valid profilepicVerified').optional().isArray(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.
