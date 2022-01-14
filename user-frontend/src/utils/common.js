@@ -22,6 +22,5 @@ export const getOnboardingRedirectPage = (user) => {
   } else {
     redirect = "/home";
   }
-  console.log("redirect value is", redirect);
   return redirect;
 };
