@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Validator from "../../../utils/InputValidator";
 import styles from "./VerifyProfilePicSocialPage.module.css";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../slices/user/userUpdateSlice";
+import Spinner from "../../../components/Spinner/Spinner";
 
 export default function VerifyProfilePicSocialPage(props) {
   const [instagramProfile, setInstagramProfile] = useState("");
@@ -9,10 +15,6 @@ export default function VerifyProfilePicSocialPage(props) {
   const [linkedinProfile, setLinkedinProfile] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const onCompleteHandler = () => {
-    props.history.push("/home");
-  };
 
   const inputValidator = Validator;
 
@@ -28,6 +30,31 @@ export default function VerifyProfilePicSocialPage(props) {
       setButtonDisabled(true);
     }
   }, [facebookProfile, inputValidator, instagramProfile, linkedinProfile]);
+
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user: updatedUser } = userUpdateSlice;
+
+  const dispatch = useDispatch();
+
+  const onCompleteHandler = () => {
+    dispatch(
+      userUpdate({
+        socials: [
+          instagramProfile ? instagramProfile : null,
+          facebookProfile ? facebookProfile : null,
+          linkedinProfile ? linkedinProfile : null,
+        ],
+        completedOnboarding: true,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (updatedUser) {
+      dispatch(resetUserUpdate());
+      props.history.push("/home");
+    }
+  }, [dispatch, updatedUser, props.history]);
 
   return (
     <>
@@ -47,7 +74,7 @@ export default function VerifyProfilePicSocialPage(props) {
             <div className={styles.social_media}>
               <i class="fab fa-instagram fa-2x fa-fw"></i>instagram.com/
               <input
-                placeholder="your profile"
+                placeholder="your username"
                 className="input"
                 value={instagramProfile}
                 onChange={(e) => setInstagramProfile(e.target.value)}
@@ -56,7 +83,7 @@ export default function VerifyProfilePicSocialPage(props) {
             <div className={styles.social_media}>
               <i class="fab fa-facebook fa-2x fa-fw"></i>facebook.com/
               <input
-                placeholder="your profile"
+                placeholder="your username"
                 className="input"
                 value={facebookProfile}
                 onChange={(e) => setFacebookProfile(e.target.value)}
@@ -65,7 +92,7 @@ export default function VerifyProfilePicSocialPage(props) {
             <div className={styles.social_media}>
               <i class="fab fa-linkedin fa-2x fa-fw"></i>linkedin.com/
               <input
-                placeholder="your profile"
+                placeholder="your username"
                 className="input"
                 value={linkedinProfile}
                 onChange={(e) => setLinkedinProfile(e.target.value)}
@@ -88,7 +115,7 @@ export default function VerifyProfilePicSocialPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        Done
+        {loading ? <Spinner></Spinner> : "Done"}
       </button>
     </>
   );
