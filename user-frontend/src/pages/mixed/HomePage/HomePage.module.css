@@ -30,13 +30,15 @@
 }
 
 .hero_text_heading,
-.slider_text_heading {
+.slider_text_heading,
+.global_exp_heading {
   font-size: 4rem;
   font-family: "FragileScript";
 }
 
 .hero_text_subheading,
-.slider_text_subheading {
+.slider_text_subheading,
+.global_exp_subheading {
   font-size: 3.5rem;
   max-width: 53rem;
   margin: auto auto;
@@ -220,6 +222,33 @@
 
 .see_more_list_item {
   margin: 0.3rem 0;
+}
+
+/* Global Experiences section */
+.global_exp {
+  text-align: center;
+}
+
+.global_exp_heading {
+  margin-bottom: 1rem;
+}
+
+.global_exp_section_videos_container {
+  margin: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.global_video_container {
+  max-width: 450px;
+  justify-self: center;
+}
+
+@media (max-width: 750px) {
+  .global_exp_section_videos_container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Popular Experiences section */

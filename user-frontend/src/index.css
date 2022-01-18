@@ -33,6 +33,12 @@ code {
 
 /* General */
 
+@media (max-width: 800px) {
+  .page {
+    padding-bottom: 5rem;
+  }
+}
+
 .hidden {
   visibility: hidden;
 }
