@@ -1,12 +1,17 @@
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import styles from "./VideoPlayer.module.css";
+import { motion } from "framer-motion";
 
 export default function VideoPlayer({ src, thumbnail, videoTitle }) {
   const [thumbnailVisible, setThumbnailVisible] = useState(true);
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      whileHover={{ scale: 1.03 }}
+      transition={{ duration: 0.5 }}
+      className={styles.container}
+    >
       {thumbnailVisible && thumbnail && (
         <img
           className={styles.thumbnail}
@@ -23,6 +28,6 @@ export default function VideoPlayer({ src, thumbnail, videoTitle }) {
         onPlay={() => setThumbnailVisible(false)}
         onEnded={() => setThumbnailVisible(true)}
       ></ReactPlayer>
-    </div>
+    </motion.div>
   );
 }
