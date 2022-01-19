@@ -4,7 +4,7 @@ import OutsideAlerter from "../OutsideAlerter";
 import styles from "./Navbar.module.css";
 import { BiUser } from "react-icons/bi";
 
-export default function Navbar({ user }) {
+export default function Navbar({ user, ...props }) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
 
   return (
@@ -38,6 +38,7 @@ export default function Navbar({ user }) {
                 <Link
                   to="/experiences"
                   className={`link link-primary ${styles.nav_link}`}
+                  style={{ color: props.experiences ? "#56c1ff" : "" }}
                 >
                   Experiences
                 </Link>
@@ -48,6 +49,7 @@ export default function Navbar({ user }) {
                     <Link
                       to="/messages"
                       className={`link link-primary ${styles.nav_link}`}
+                      style={{ color: props.messages ? "#56c1ff" : "" }}
                     >
                       Messages
                     </Link>
@@ -56,6 +58,7 @@ export default function Navbar({ user }) {
                     <Link
                       to="/members"
                       className={`link link-primary ${styles.nav_link}`}
+                      style={{ color: props.members ? "#56c1ff" : "" }}
                     >
                       Members
                     </Link>
@@ -64,6 +67,7 @@ export default function Navbar({ user }) {
                     <Link
                       to="/favorites"
                       className={`link link-primary ${styles.nav_link}`}
+                      style={{ color: props.favorites ? "#56c1ff" : "" }}
                     >
                       Favorites
                     </Link>
@@ -93,6 +97,7 @@ export default function Navbar({ user }) {
                     <Link
                       to="/aboutus"
                       className={`link link-primary ${styles.nav_link}`}
+                      style={{ color: props.aboutus ? "#56c1ff" : "" }}
                     >
                       About Us
                     </Link>
@@ -101,6 +106,7 @@ export default function Navbar({ user }) {
                     <Link
                       to="/press"
                       className={`link link-primary ${styles.nav_link}`}
+                      style={{ color: props.press ? "#56c1ff" : "" }}
                     >
                       Press
                     </Link>
@@ -109,6 +115,7 @@ export default function Navbar({ user }) {
                     <a
                       href="mailto:hello@manexpeditions.com?subject=Contact us"
                       className="link link-primary"
+                      style={{ color: props.contact ? "#56c1ff" : "" }}
                     >
                       Contact
                     </a>
@@ -133,6 +140,7 @@ export default function Navbar({ user }) {
                   <Link
                     to="/experiences"
                     className={`link link-primary ${styles.hamburger_link}`}
+                    style={{ color: props.experiences ? "#56c1ff" : "" }}
                   >
                     Experiences
                   </Link>
@@ -141,6 +149,7 @@ export default function Navbar({ user }) {
                   <Link
                     to="/aboutus"
                     className={`link link-primary ${styles.hamburger_link}`}
+                    style={{ color: props.aboutus ? "#56c1ff" : "" }}
                   >
                     About Us
                   </Link>
@@ -149,6 +158,7 @@ export default function Navbar({ user }) {
                   <Link
                     to="/press"
                     className={`link link-primary ${styles.hamburger_link}`}
+                    style={{ color: props.press ? "#56c1ff" : "" }}
                   >
                     Press
                   </Link>
@@ -157,6 +167,7 @@ export default function Navbar({ user }) {
                   <Link
                     to="/contact"
                     className={`link link-primary ${styles.hamburger_link}`}
+                    style={{ color: props.contact ? "#56c1ff" : "" }}
                   >
                     Contact
                   </Link>

@@ -20,7 +20,7 @@ export default function ExperiencesPage() {
 
   return (
     <div className="page">
-      <Navbar user={user}></Navbar>
+      <Navbar experiences user={user}></Navbar>
       <div className={styles.container}>
         <div className={styles.chips_wrapper}>
           <div className={styles.chips_container}>
