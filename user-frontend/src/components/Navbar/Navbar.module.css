@@ -51,6 +51,27 @@
   width: 5.3125rem;
 }
 
+.nav_profile_container {
+  border: 1px solid #fff;
+  padding: 0.4rem 0.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: 500ms ease-in-out;
+}
+
+.nav_profile_container:focus,
+.nav_profile_container:hover {
+  border-color: #56c1ff;
+}
+
+.nav_profile {
+  width: 2rem;
+  border-radius: 50%;
+}
+
 .hamburger_menu_wrapper {
   position: absolute;
   background-color: #fff;

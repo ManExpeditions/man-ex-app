@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import OutsideAlerter from "../OutsideAlerter";
 import styles from "./Navbar.module.css";
 import { FiSettings } from "react-icons/fi";
+import { BiUser } from "react-icons/bi";
 
 export default function Navbar({ user }) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -73,7 +74,18 @@ export default function Navbar({ user }) {
                       to="/profile"
                       className={`link link-primary ${styles.nav_link}`}
                     >
-                      <FiSettings size={18}></FiSettings>
+                      <div className={styles.nav_profile_container}>
+                        <FiSettings size={18}></FiSettings>
+                        {user.profilepic ? (
+                          <img
+                            className={styles.nav_profile}
+                            src={user.profilepic ? user.profilepic : ""}
+                            alt="profile"
+                          />
+                        ) : (
+                          <BiUser size={18}></BiUser>
+                        )}
+                      </div>
                     </Link>
                   </li>
                 </>
