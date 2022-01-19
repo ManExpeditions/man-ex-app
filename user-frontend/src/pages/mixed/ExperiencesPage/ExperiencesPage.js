@@ -19,8 +19,8 @@ export default function ExperiencesPage() {
   const { user } = signinSlice;
 
   return (
-    <div>
-      <Navbar></Navbar>
+    <div className="page">
+      <Navbar user={user}></Navbar>
       <div className={styles.container}>
         <div className={styles.chips_wrapper}>
           <div className={styles.chips_container}>
