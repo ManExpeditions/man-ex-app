@@ -1,6 +1,14 @@
 .container {
+  position: relative;
   border-radius: 1rem;
   overflow: hidden;
   max-height: max-content;
   z-index: 1;
+}
+
+.thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
