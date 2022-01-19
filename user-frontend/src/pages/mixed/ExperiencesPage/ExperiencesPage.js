@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import BottomNav from "../../../components/BottomNav/BottomNav";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
 import Navbar from "../../../components/Navbar/Navbar";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
@@ -12,6 +14,9 @@ export default function ExperiencesPage() {
   const [americas, setAmericas] = useState();
   const [europe, setEurope] = useState();
   const [asia, setAsia] = useState();
+
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
 
   return (
     <div>
@@ -114,6 +119,7 @@ export default function ExperiencesPage() {
           </div>
         </section>
       </div>
+      <BottomNav experiences user={user}></BottomNav>
     </div>
   );
 }

@@ -52,6 +52,10 @@ code {
   background: #000000;
 }
 
+.accent_color {
+  color: #56c1ff;
+}
+
 .none-pointer {
   pointer-events: none;
 }
