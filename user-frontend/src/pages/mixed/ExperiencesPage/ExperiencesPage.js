@@ -64,7 +64,10 @@ export default function ExperiencesPage() {
         </div>
         <section className={styles.exp_section}>
           <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
+            <VideoPlayer
+              thumbnail="/assets/experiences/puerto_vallarta.jpeg"
+              src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"
+            ></VideoPlayer>
             <Link
               to="/register"
               className={`link btn-primary ${styles.btn_video_info}`}
