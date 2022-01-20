@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "./UserProfilePage.module.css";
-import Navbar from "../../../components/Navbar/Navbar";
+import Navbar from "../../../../components/Navbar/Navbar";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
-import BottomNav from "../../../components/BottomNav/BottomNav";
+import BottomNav from "../../../../components/BottomNav/BottomNav";
 
 export default function UserProfilePage() {
   const signinSlice = useSelector((state) => state.signinSlice);

@@ -21,10 +21,10 @@ import PressPage from "./pages/public/PressPage/PressPage";
 import OnboardingRoute from "./routes/OnboardingRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import ExperiencesPage from "./pages/mixed/ExperiencesPage/ExperiencesPage";
-import UserSettingsPage from "./pages/private/UserSettingsPage/UserSettingsPage";
+import UserSettingsPage from "./pages/private/UserProfilePages/UserSettingsPage/UserSettingsPage";
 import TravelSponsorshipsPage from "./pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage";
 import PrivacyAndServiceTermsPage from "./pages/public/PrivacyAndServiceTermsPage/PrivacyAndServiceTermsPage";
-import UserProfilePage from "./pages/private/UserProfilePage/UserProfilePage";
+import UserProfilePage from "./pages/private/UserProfilePages/UserProfilePage/UserProfilePage";
 
 function App() {
   return (
