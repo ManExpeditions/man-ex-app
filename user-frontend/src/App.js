@@ -19,7 +19,9 @@ import HomePage from "./pages/mixed/HomePage/HomePage";
 import AboutPage from "./pages/public/AboutPage/AboutPage";
 import PressPage from "./pages/public/PressPage/PressPage";
 import OnboardingRoute from "./routes/OnboardingRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 import ExperiencesPage from "./pages/mixed/ExperiencesPage/ExperiencesPage";
+import UserSettingsPage from "./pages/private/UserSettingsPage/UserSettingsPage";
 
 function App() {
   return (
@@ -74,6 +76,10 @@ function App() {
       <Route path="/experiences" component={ExperiencesPage}></Route>
       <Route path="/aboutus" component={AboutPage}></Route>
       <Route path="/press" component={PressPage}></Route>
+      <PrivateRoute
+        path="/profile/settings"
+        component={UserSettingsPage}
+      ></PrivateRoute>
     </Router>
   );
 }

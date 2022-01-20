@@ -12,22 +12,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
       render={(props) =>
         user && user.completedOnboarding ? (
           <Component {...props}></Component>
-        ) : user && !user.emailVerified ? (
-          <Redirect to="onboarding/verify/email"></Redirect>
-        ) : user && !user.phone ? (
-          <Redirect to="/onboarding/enter/phone"></Redirect>
-        ) : user && !user.phoneVerified ? (
-          <Redirect to="/onboarding/verify/phone"></Redirect>
-        ) : user && !user.firstName ? (
-          <Redirect to="/onboarding/aboutyou"></Redirect>
-        ) : user && !user.interests ? (
-          <Redirect to="/onboarding/interests"></Redirect>
-        ) : user && !user.continents ? (
-          <Redirect to="/onboarding/continents"></Redirect>
-        ) : user && !user.city ? (
-          <Redirect to="/onboarding/location"></Redirect>
-        ) : user && !user.continents ? (
-          <Redirect to="/onboarding/continents"></Redirect>
         ) : (
           <Redirect to="/signin"></Redirect>
         )

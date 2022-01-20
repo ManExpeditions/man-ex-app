@@ -1,0 +1,48 @@
+.page_wrapper {
+  padding: 0.5rem 0;
+}
+
+.close_link {
+  display: grid;
+  place-items: center;
+  margin: 2rem 1.2rem 0;
+  padding: 0.3rem;
+  width: 2rem;
+  height: 2rem;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #56c1ff;
+}
+
+.page_heading {
+  padding: 1.5rem 0 1rem;
+  margin: 0 1.2rem;
+  text-decoration: none;
+  color: #000;
+}
+
+.link {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.1rem 0 0.3rem;
+  margin: 0.3rem 1.2rem;
+  color: #1e1e1e;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.no_border {
+  border: none;
+}
+
+.edit_span {
+  color: #56c1ff;
+  font-weight: 700;
+}
+
+.section_heading {
+  padding: 0.1rem 2rem;
+  font-size: 0.8rem;
+  background-color: #e0e0e0;
+  font-weight: 700;
+  color: #000;
+}
