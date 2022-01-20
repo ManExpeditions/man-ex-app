@@ -22,6 +22,7 @@ import OnboardingRoute from "./routes/OnboardingRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import ExperiencesPage from "./pages/mixed/ExperiencesPage/ExperiencesPage";
 import UserSettingsPage from "./pages/private/UserSettingsPage/UserSettingsPage";
+import TravelSponsorshipsPage from "./pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage";
 
 function App() {
   return (
@@ -76,6 +77,10 @@ function App() {
       <Route path="/experiences" component={ExperiencesPage}></Route>
       <Route path="/aboutus" component={AboutPage}></Route>
       <Route path="/press" component={PressPage}></Route>
+      <Route
+        path="/travelsponsorships"
+        component={TravelSponsorshipsPage}
+      ></Route>
       <PrivateRoute
         path="/profile/settings"
         component={UserSettingsPage}

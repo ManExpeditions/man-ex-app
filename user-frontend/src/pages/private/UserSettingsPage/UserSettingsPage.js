@@ -99,7 +99,7 @@ export default function UserSettingsPage() {
             </Link>
           </li>
           <li className={styles.list_item}>
-            <Link className={`link ${styles.link}`}>
+            <Link to="/travelsponsorships" className={`link ${styles.link}`}>
               <div>
                 <h4>Travel Sponsorships</h4>
                 <p>
