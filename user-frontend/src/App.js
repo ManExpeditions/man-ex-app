@@ -23,6 +23,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import ExperiencesPage from "./pages/mixed/ExperiencesPage/ExperiencesPage";
 import UserSettingsPage from "./pages/private/UserSettingsPage/UserSettingsPage";
 import TravelSponsorshipsPage from "./pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage";
+import PrivacyAndServiceTermsPage from "./pages/public/PrivacyAndServiceTermsPage/PrivacyAndServiceTermsPage";
 
 function App() {
   return (
@@ -80,6 +81,10 @@ function App() {
       <Route
         path="/travelsponsorships"
         component={TravelSponsorshipsPage}
+      ></Route>
+      <Route
+        path="/privacy-and-serviceterms"
+        component={PrivacyAndServiceTermsPage}
       ></Route>
       <PrivateRoute
         path="/profile/settings"

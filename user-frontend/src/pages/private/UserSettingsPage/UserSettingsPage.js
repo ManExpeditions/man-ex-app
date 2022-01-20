@@ -111,7 +111,10 @@ export default function UserSettingsPage() {
             </Link>
           </li>
           <li className={styles.list_item}>
-            <Link className={`link ${styles.link}`}>
+            <Link
+              to="/privacy-and-serviceterms"
+              className={`link ${styles.link}`}
+            >
               <div>
                 <h4>Privacy & Service Terms</h4>
                 <p>
