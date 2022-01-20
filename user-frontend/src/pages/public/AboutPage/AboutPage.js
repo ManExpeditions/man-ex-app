@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Navbar from "../../../components/Navbar/Navbar";
 import styles from "./AboutPage.module.css";
 
 export default function AboutPage() {
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
   return (
     <div>
-      <Navbar></Navbar>
+      <Navbar user={user}></Navbar>
       <section className={styles.hero_section}>
         <p className={styles.hero_heading}>About us</p>
         <img
