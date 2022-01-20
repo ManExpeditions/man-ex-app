@@ -10,7 +10,7 @@ export default function UserSettingsPage() {
 
   return (
     <div className={`bg-white ${styles.page_wrapper}`}>
-      <Link className={styles.close_link}>
+      <Link to="/profile" className={styles.close_link}>
         <AiOutlineClose></AiOutlineClose>
       </Link>
       <h2 className={styles.page_heading}>Settings</h2>
