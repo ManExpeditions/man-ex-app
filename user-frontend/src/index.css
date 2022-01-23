@@ -215,6 +215,10 @@ ul {
   max-width: 15rem;
 }
 
+::placeholder {
+  color: rgb(199, 197, 197);
+}
+
 /* Form Error */
 .error-message {
   color: #fd5c52;

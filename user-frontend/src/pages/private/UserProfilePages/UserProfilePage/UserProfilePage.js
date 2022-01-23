@@ -24,7 +24,7 @@ export default function UserProfilePage() {
               src={user.profilepic}
               alt="profile"
             />
-            <Link className={styles.edit_link}>
+            <Link to="/profile/edit" className={styles.edit_link}>
               <MdOutlineModeEdit
                 className={styles.edit_icon}
               ></MdOutlineModeEdit>

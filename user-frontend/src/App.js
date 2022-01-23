@@ -25,6 +25,7 @@ import UserSettingsPage from "./pages/private/UserProfilePages/UserSettingsPage/
 import TravelSponsorshipsPage from "./pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage";
 import PrivacyAndServiceTermsPage from "./pages/public/PrivacyAndServiceTermsPage/PrivacyAndServiceTermsPage";
 import UserProfilePage from "./pages/private/UserProfilePages/UserProfilePage/UserProfilePage";
+import UserEditProfilePage from "./pages/private/UserProfilePages/UserEditProfilePage/UserEditProfilePage";
 
 function App() {
   return (
@@ -91,6 +92,11 @@ function App() {
         path="/profile/settings"
         component={UserSettingsPage}
         exact
+      ></PrivateRoute>
+      <PrivateRoute
+        exact
+        path="/profile/edit"
+        component={UserEditProfilePage}
       ></PrivateRoute>
       <PrivateRoute
         exact
