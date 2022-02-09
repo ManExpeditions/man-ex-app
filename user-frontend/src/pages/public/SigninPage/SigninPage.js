@@ -20,8 +20,8 @@ export default function SigninPage(props) {
 
   useEffect(() => {
     if (
-      inputValidator.areAllNotEmpty([email, password]) &&
-      inputValidator.areAllEmpty([
+      inputValidator.areAllNotEmptyStrings([email, password]) &&
+      inputValidator.areAllEmptyStrings([
         emailValidationError,
         passwordValidationError,
       ])

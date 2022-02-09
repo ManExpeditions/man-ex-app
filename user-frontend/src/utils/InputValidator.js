@@ -4,7 +4,7 @@ import validator from "validator";
  * Validates user input.
  * Supports email and password types.
  */
-class Validator {
+class InputValidator {
   constructor() {
     /** @const The validator instance */
     this.validator = validator;
@@ -40,7 +40,6 @@ class Validator {
     if (!this.validator.isMobilePhone(input, "any", { strictMode: true })) {
       return error;
     }
-
     return "";
   }
 
@@ -50,8 +49,13 @@ class Validator {
    * @param {number} minLength The minimum length of the password.
    * @return {string } The error message.
    */
-  isPassword(input, error = "Please enter a strong password", minLength = 8) {
-    if (!this.validator.isLength(input, { min: minLength })) {
+  isPassword(
+    input,
+    error = "Please enter a strong password",
+    minLength = 8,
+    maxLength = 200
+  ) {
+    if (!this.validator.isLength(input, { min: minLength, max: maxLength })) {
       return `Must be longer than ${minLength} characters`;
     }
 
@@ -84,8 +88,8 @@ class Validator {
    * @param {number} minLength The minimum length to validate.
    * @return {string} The error message.
    */
-  isLength(input, minLength) {
-    if (!this.validator.isLength(input, { min: minLength })) {
+  isLength(input, minLength, maxLength) {
+    if (!this.validator.isLength(input, { min: minLength, max: maxLength })) {
       return `Must be longer than ${minLength} characters`;
     }
 
@@ -96,7 +100,7 @@ class Validator {
    * @param {array} fields The string values in array
    * @return {boolean} True if all strings are not empty
    */
-  areAllNotEmpty(fields) {
+  areAllNotEmptyStrings(fields) {
     return fields.every((element) => element !== "");
   }
 
@@ -121,9 +125,9 @@ class Validator {
    * @param {array} fields The string values in array
    * @return {boolean} True if all strings are empty
    */
-  areAllEmpty(fields) {
+  areAllEmptyStrings(fields) {
     return fields.every((element) => element === "");
   }
 }
 
-export default new Validator();
+export default new InputValidator();

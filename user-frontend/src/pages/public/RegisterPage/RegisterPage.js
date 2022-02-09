@@ -39,8 +39,8 @@ export default function RegisterPage(props) {
 
   useEffect(() => {
     if (
-      inputValidator.areAllNotEmpty([email, password, confirmPassword]) &&
-      inputValidator.areAllEmpty([
+      inputValidator.areAllNotEmptyStrings([email, password, confirmPassword]) &&
+      inputValidator.areAllEmptyStrings([
         emailValidationError,
         passwordValidationError,
         passwordMatchError,
