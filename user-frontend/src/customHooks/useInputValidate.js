@@ -20,11 +20,35 @@ export default function useInputValidate(initialState) {
           };
         }
       case "SET_AND_VALIDATE_PASSWORD":
-        if (validator.isStrongPassword(value) || !value) {
+        if (validator.isStrongPassword(value, { minSymbols: 0 }) || !value) {
           return {
             ...state,
             password: value,
             passwordError: "",
+          };
+        } else if (value.length < 8) {
+          return {
+            ...state,
+            password: value,
+            passwordError: "Password must be atleast 8 characters.",
+          };
+        } else if (value === value.toUpperCase()) {
+          return {
+            ...state,
+            password: value,
+            passwordError: "Password must have atleast one lower case letter.",
+          };
+        } else if (value === value.toLowerCase()) {
+          return {
+            ...state,
+            password: value,
+            passwordError: "Password must have alteast one upper case letter.",
+          };
+        } else if (!/\d/.test(value)) {
+          return {
+            ...state,
+            password: value,
+            passwordError: "Password must have atleast one digit",
           };
         } else {
           return {
