@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DigitVerificationBox from "../../../../components/DigitVerificationBox/DigitVerificationBox";
 import Spinner from "../../../../components/Spinner/Spinner";
+import useInputValidate from "../../../../customHooks/useInputValidate";
 import {
   resetVerify,
   resetVerifyErrors,
   verify,
 } from "../../../../slices/user/verifySlice";
-import Validator from "../../../../utils/InputValidator";
 import styles from "./VerifyEmailPage.module.css";
+
+const initialState = {
+  buttonDisabled: false,
+};
 
 export default function VerifyEmailPage(props) {
   const [boxOne, setBoxOne] = useState("");
@@ -18,26 +22,17 @@ export default function VerifyEmailPage(props) {
   const [boxFive, setBoxFive] = useState("");
   const [boxSix, setBoxSix] = useState("");
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const inputValidator = Validator;
+  const [state, discharge] = useInputValidate(initialState);
+  let { buttonDisabled } = state;
 
   useEffect(() => {
-    if (
-      inputValidator.areAllNotEmpty([
-        boxOne,
-        boxTwo,
-        boxThree,
-        boxFour,
-        boxFive,
-        boxSix,
-      ])
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [boxSix, boxFive, boxFour, boxOne, boxThree, boxTwo, inputValidator]);
+    discharge({
+      type: "CHECK_ALL_FIELDS_VALID",
+      payload: {
+        notEmpty: [boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix],
+      },
+    });
+  }, [boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix, discharge]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
