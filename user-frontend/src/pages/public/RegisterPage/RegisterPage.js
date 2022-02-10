@@ -1,64 +1,65 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./RegisterPage.module.css";
-import Validator from "../../../utils/InputValidator";
-import useDidMountEffect from "../../../customHooks/useDidMountEffect";
+import MessageBox from "../../../components/MessageBox/MessageBox";
+import Input from "../../../components/Input/Input";
+import useInputValidate from "../../../customHooks/useInputValidate";
+import { InputPassword } from "../../../components/Input/Input";
 import {
   emailRegisterUser,
   resetEmailRegisterErrors,
 } from "../../../slices/auth/emailRegisterSlice";
-import MessageBox from "../../../components/MessageBox/MessageBox";
+
+const initialState = {
+  email: "",
+  emailError: "",
+  password: "",
+  passwordError: "",
+  confirmPassword: "",
+  confirmPasswordError: "",
+  buttonDisabled: false,
+};
 
 export default function RegisterPage(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [state, discharge] = useInputValidate(initialState);
+  let {
+    email,
+    emailError,
+    password,
+    passwordError,
+    confirmPassword,
+    confirmPasswordError,
+    buttonDisabled,
+  } = state;
 
-  const [emailValidationError, setEmailValidationError] = useState("");
-  const [passwordValidationError, setPasswordValidationError] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState("");
+  // Focus the email input on first render
+  const focusRef = useRef(null);
+  useEffect(() => {
+    focusRef.current.focus();
+  }, []);
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  // On every render check if all fields are valid
+  useEffect(() => {
+    discharge({
+      type: "CHECK_ALL_FIELDS_VALID",
+      payload: {
+        empty: [emailError, passwordError, confirmPasswordError],
+        notEmpty: [email, password, confirmPassword],
+      },
+    });
+  }, [
+    email,
+    emailError,
+    password,
+    passwordError,
+    confirmPassword,
+    confirmPasswordError,
+    discharge,
+  ]);
 
   const emailRegisterSlice = useSelector((state) => state.emailRegisterSlice);
   const { createdUser, error } = emailRegisterSlice;
-
-  const inputValidator = Validator;
-
-  useDidMountEffect(() => {
-    setPasswordMatchError(
-      inputValidator.areEqual(
-        password,
-        confirmPassword,
-        "Passwords do not match"
-      )
-    );
-  }, [confirmPassword, inputValidator]);
-
-  useEffect(() => {
-    if (
-      inputValidator.areAllNotEmptyStrings([email, password, confirmPassword]) &&
-      inputValidator.areAllEmptyStrings([
-        emailValidationError,
-        passwordValidationError,
-        passwordMatchError,
-      ])
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [
-    confirmPassword,
-    email,
-    emailValidationError,
-    inputValidator,
-    password,
-    passwordMatchError,
-    passwordValidationError,
-  ]);
 
   const dispatch = useDispatch();
   const onCreateAccountHandler = () => {
@@ -93,31 +94,45 @@ export default function RegisterPage(props) {
       </p>
       <main>
         {error && <MessageBox variant="error">{error}</MessageBox>}
-        <InputBox
-          label="Email"
-          placeholder="Ex. hello@gmail.com"
-          inputState={email}
-          setInputState={setEmail}
-          inputValidationError={emailValidationError}
-          setInputValidationError={setEmailValidationError}
-          validationType="email"
-        ></InputBox>
-        <InputBox
-          label="Password"
-          type="password"
-          inputState={password}
-          setInputState={setPassword}
-          inputValidationError={passwordValidationError}
-          setInputValidationError={setPasswordValidationError}
-          validationType="password"
-        ></InputBox>
-        <InputBox
-          label="Confirm Password"
-          type="password"
-          inputState={confirmPassword}
-          setInputState={setConfirmPassword}
-          inputValidationError={passwordMatchError}
-        ></InputBox>
+        <div className={styles.input_wrapper}>
+          <div className={styles.label_wrapper}>
+            <label className="label">Email</label>
+            <span className="error-message">{emailError}</span>
+          </div>
+          <Input
+            className={`input ${emailError && "input-error"}`}
+            ref={focusRef}
+            value={email}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_EMAIL"
+          />
+        </div>
+        <div className={styles.input_wrapper}>
+          <div className={styles.label_wrapper}>
+            <label className="label">Password</label>
+            <span className="error-message">{passwordError}</span>
+          </div>
+          <InputPassword
+            type="password"
+            className={`input ${passwordError && "input-error"}`}
+            value={password}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_PASSWORD"
+          />
+        </div>
+        <div className={styles.input_wrapper}>
+          <div className={styles.label_wrapper}>
+            <label className="label">Confirm Password</label>
+            <span className="error-message">{confirmPasswordError}</span>
+          </div>
+          <InputPassword
+            type="password"
+            className={`input ${confirmPasswordError && "input-error"}`}
+            value={confirmPassword}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_CONFIRM_PASSWORD"
+          />
+        </div>
       </main>
       <button
         disabled={buttonDisabled}

@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import InputBox from "../../../components/InputBox/InputBox";
 import styles from "./SigninPage.module.css";
-import Validator from "../../../utils/InputValidator";
 import { useDispatch, useSelector } from "react-redux";
 import { resetSigninErrors, signin } from "../../../slices/auth/signinSlice";
 import MessageBox from "../../../components/MessageBox/MessageBox";
+import useInputValidate from "../../../customHooks/useInputValidate";
+import Input, { InputPassword } from "../../../components/Input/Input";
+
+const initialState = {
+  email: "",
+  emailError: "",
+  password: "",
+  passwordError: "",
+  buttonDisabled: false,
+};
 
 export default function SigninPage(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, discharge] = useInputValidate(initialState);
+  let { email, emailError, password, passwordError, buttonDisabled } = state;
 
-  const [emailValidationError, setEmailValidationError] = useState("");
-  const [passwordValidationError, setPasswordValidationError] = useState("");
-
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const inputValidator = Validator;
-
+  // Focus the email input on first render
+  const focusRef = useRef(null);
   useEffect(() => {
-    if (
-      inputValidator.areAllNotEmptyStrings([email, password]) &&
-      inputValidator.areAllEmptyStrings([
-        emailValidationError,
-        passwordValidationError,
-      ])
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [
-    email,
-    emailValidationError,
-    inputValidator,
-    password,
-    passwordValidationError,
-  ]);
+    focusRef.current.focus();
+  }, []);
+
+  // On every render check if all fields are valid
+  useEffect(() => {
+    discharge({
+      type: "CHECK_ALL_FIELDS_VALID",
+      payload: {
+        empty: [emailError, passwordError],
+        notEmpty: [email, password],
+      },
+    });
+  }, [email, emailError, password, passwordError, discharge]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user, error } = signinSlice;
@@ -74,23 +72,32 @@ export default function SigninPage(props) {
       </p>
       <main>
         {error && <MessageBox variant="error">{error}</MessageBox>}
-        <InputBox
-          label="Email"
-          placeholder="Ex. hello@gmail.com"
-          inputState={email}
-          setInputState={setEmail}
-          inputValidationError={emailValidationError}
-          setInputValidationError={setEmailValidationError}
-          validationType="email"
-        ></InputBox>
-        <InputBox
-          label="Password"
-          type="password"
-          inputState={password}
-          setInputState={setPassword}
-          inputValidationError={passwordValidationError}
-          setInputValidationError={setPasswordValidationError}
-        ></InputBox>
+        <div className={styles.input_wrapper}>
+          <div className={styles.label_wrapper}>
+            <label className="label">Email</label>
+            <span className="error-message">{emailError}</span>
+          </div>
+          <Input
+            className={`input ${emailError && "input-error"}`}
+            ref={focusRef}
+            value={email}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_EMAIL"
+          />
+        </div>
+        <div className={styles.input_wrapper}>
+          <div className={styles.label_wrapper}>
+            <label className="label">Password</label>
+            <span className="error-message">{passwordError}</span>
+          </div>
+          <InputPassword
+            type="password"
+            className={`input ${passwordError && "input-error"}`}
+            value={password}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_PASSWORD"
+          />
+        </div>
       </main>
       <button
         disabled={buttonDisabled}

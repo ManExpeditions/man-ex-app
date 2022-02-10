@@ -70,6 +70,10 @@ code {
   align-items: center;
 }
 
+.pos-relative {
+  position: relative;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -217,6 +221,22 @@ ul {
 
 ::placeholder {
   color: rgb(199, 197, 197);
+}
+
+/* Password eye styles */
+.eye-button {
+  outline: none;
+  border: none;
+  padding: 0.2rem;
+  position: absolute;
+  background-color: transparent;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1rem;
+}
+
+.eye {
+  color: #fff;
 }
 
 /* Form Error */

@@ -51,6 +51,17 @@ main {
   margin: 2rem 0;
 }
 
+.label_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_wrapper {
+  margin: 1rem 0;
+  position: relative;
+}
+
 .action_button {
   font-size: 1.05rem;
   width: 100%;
