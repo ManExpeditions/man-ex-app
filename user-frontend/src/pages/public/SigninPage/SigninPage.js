@@ -11,13 +11,12 @@ const initialState = {
   email: "",
   emailError: "",
   password: "",
-  passwordError: "",
   buttonDisabled: false,
 };
 
 export default function SigninPage(props) {
   const [state, discharge] = useInputValidate(initialState);
-  let { email, emailError, password, passwordError, buttonDisabled } = state;
+  let { email, emailError, password, buttonDisabled } = state;
 
   // Focus the email input on first render
   const focusRef = useRef(null);
@@ -30,11 +29,11 @@ export default function SigninPage(props) {
     discharge({
       type: "CHECK_ALL_FIELDS_VALID",
       payload: {
-        empty: [emailError, passwordError],
+        empty: [emailError],
         notEmpty: [email, password],
       },
     });
-  }, [email, emailError, password, passwordError, discharge]);
+  }, [email, emailError, password, discharge]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user, error } = signinSlice;
@@ -88,11 +87,10 @@ export default function SigninPage(props) {
         <div className={styles.input_wrapper}>
           <div className={styles.label_wrapper}>
             <label className="label">Password</label>
-            <span className="error-message">{passwordError}</span>
           </div>
           <InputPassword
             type="password"
-            className={`input ${passwordError && "input-error"}`}
+            className="input"
             value={password}
             dispatch={discharge}
             actionType="SET_AND_VALIDATE_PASSWORD"
