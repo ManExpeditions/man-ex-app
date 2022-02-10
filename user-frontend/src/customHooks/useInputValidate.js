@@ -72,10 +72,12 @@ export default function useInputValidate(initialState) {
           };
         }
       case "CHECK_ALL_FIELDS_VALID":
-        const allEmpty = action.payload.empty.every((item) => item === "");
-        const allNotEmpty = action.payload.notEmpty.every(
-          (item) => item !== ""
-        );
+        const allEmpty = action.payload.empty
+          ? action.payload.empty.every((item) => item === "")
+          : true;
+        const allNotEmpty = action.payload.notEmpty
+          ? action.payload.notEmpty.every((item) => item !== "")
+          : true;
         if (allEmpty && allNotEmpty) {
           return { ...state, buttonDisabled: false };
         } else {
