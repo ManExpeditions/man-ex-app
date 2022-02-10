@@ -68,7 +68,7 @@ export default function useInputValidate(initialState) {
           return {
             ...state,
             confirmPassword: value,
-            confirmPasswordError: "Passwords do not much.",
+            confirmPasswordError: "Passwords do not match.",
           };
         }
       case "CHECK_ALL_FIELDS_VALID":
