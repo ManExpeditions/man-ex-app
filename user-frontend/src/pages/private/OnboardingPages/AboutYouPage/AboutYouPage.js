@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputBox from "../../../../components/InputBox/InputBox";
 import styles from "./AboutYouPage.module.css";
-import Validator from "../../../../utils/InputValidator";
 import SelectBox from "../../../../components/SelectBox/SelectBox";
 import {
   resetUserUpdate,
@@ -10,39 +8,30 @@ import {
 } from "../../../../slices/user/userUpdateSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
 import MessageBox from "../../../../components/MessageBox/MessageBox";
+import Input from "../../../../components/Input/Input";
+import useInputValidate from "../../../../customHooks/useInputValidate";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  firstNameError: "",
+  lastNameError: "",
+  buttonDisabled: true,
+};
 
 export default function AboutYouPage(props) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [gender, setGender] = useState("Male");
   const [language, setLanguage] = useState("English");
 
-  const [firstNameValidationError, setFirstNameValidationError] = useState("");
-  const [lastNameValidationError, setLastNameValidationError] = useState("");
-
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const inputValidator = Validator;
+  const focusRef = useRef(null);
 
   useEffect(() => {
-    if (
-      inputValidator.areAllNotEmpty([firstName, lastName]) &&
-      inputValidator.areAllEmpty([
-        firstNameValidationError,
-        lastNameValidationError,
-      ])
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [
-    inputValidator,
-    firstName,
-    lastName,
-    firstNameValidationError,
-    lastNameValidationError,
-  ]);
+    focusRef.current.focus();
+  }, []);
+
+  const [state, discharge] = useInputValidate(initialState);
+  let { firstName, firstNameError, lastName, lastNameError, buttonDisabled } =
+    state;
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -65,16 +54,45 @@ export default function AboutYouPage(props) {
 
   useEffect(() => {
     if (user.firstName) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
+      discharge({
+        type: "SET_AND_VALIDATE_FIRSTNAME",
+        payload: { value: user.firstName },
+      });
+    }
+    if (user.lastName) {
+      discharge({
+        type: "SET_AND_VAlIDATE_LASTNAME",
+        payload: { value: user.lastName },
+      });
+    }
+    if (user.gender) {
       setGender(user.gender);
+    }
+    if (user.language) {
       setLanguage(user.language);
     }
-
     if (updatedUser) {
       props.history.push("/onboarding/morequestions");
     }
-  }, [user, updatedUser, props.history]);
+  }, [
+    discharge,
+    props.history,
+    updatedUser,
+    user.firstName,
+    user.lastName,
+    user.gender,
+    user.language,
+  ]);
+
+  useEffect(() => {
+    discharge({
+      type: "CHECK_ALL_FIELDS_VALID",
+      payload: {
+        empty: [firstNameError, lastNameError],
+        notEmpty: [firstName, lastName],
+      },
+    });
+  }, [firstName, lastName, firstNameError, lastNameError, discharge]);
 
   useEffect(() => {
     return () => {
@@ -87,24 +105,33 @@ export default function AboutYouPage(props) {
       <h1 className={styles.page_title}>About You</h1>
       <h3 className={styles.sub_title}>What's your name?</h3>
       <main>
-        <InputBox
-          autoFocus
-          label="First Name"
-          inputState={firstName}
-          setInputState={setFirstName}
-          inputValidationError={firstNameValidationError}
-          setInputValidationError={setFirstNameValidationError}
-          validationType="length"
-        ></InputBox>
-        <InputBox
-          label="Last Name"
-          inputState={lastName}
-          setInputState={setLastName}
-          inputValidationError={lastNameValidationError}
-          setInputValidationError={setLastNameValidationError}
-          validationType="length"
-        ></InputBox>
-
+        <div className="input-wrapper">
+          <div className="label-wrapper">
+            <label className="label">First Name</label>
+            <span className="error-message">{firstNameError}</span>
+          </div>
+          <Input
+            className={`input ${firstNameError && "input-error"}`}
+            ref={focusRef}
+            value={firstName}
+            dispatch={discharge}
+            actionType="SET_AND_VALIDATE_FIRSTNAME"
+            payload={{ min: 2, max: 30 }}
+          />
+        </div>
+        <div className="input-wrapper">
+          <div className="label-wrapper">
+            <label className="label">Last Name</label>
+            <span className="error-message">{lastNameError}</span>
+          </div>
+          <Input
+            className={`input ${lastNameError && "input-error"}`}
+            value={lastName}
+            dispatch={discharge}
+            actionType="SET_AND_VAlIDATE_LASTNAME"
+            payload={{ min: 3, max: 30 }}
+          />
+        </div>
         <h3 className={styles.sub_title}>What's your Gender?</h3>
         <p className="align-center">
           Man Ex woes all men plus family and friends regardless of gender

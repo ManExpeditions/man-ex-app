@@ -185,6 +185,17 @@ ul {
    Forms
 ===================*/
 
+.label-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-wrapper {
+  margin: 1rem 0;
+  position: relative;
+}
+
 .label {
   display: block;
   font-size: 0.9rem;

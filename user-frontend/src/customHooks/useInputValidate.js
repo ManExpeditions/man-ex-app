@@ -4,6 +4,8 @@ import validator from "validator";
 export default function useInputValidate(initialState) {
   const [state, dispatch] = useReducer((state, action) => {
     const value = action.payload.value;
+    const min = action.payload.min ? action.payload.min : 3;
+    const max = action.payload.max ? action.payload.max : 200;
     switch (action.type) {
       case "SET_AND_VALIDATE_EMAIL":
         if (validator.isEmail(action.payload.value) || !value) {
@@ -17,6 +19,78 @@ export default function useInputValidate(initialState) {
             ...state,
             email: value,
             emailError: "Please enter a valid email.",
+          };
+        }
+      case "SET_AND_VALIDATE_FIRSTNAME":
+        if (
+          (validator.isLength(value, { min, max }) &&
+            validator.isAlpha(value)) ||
+          !value
+        ) {
+          return {
+            ...state,
+            firstName: value,
+            firstNameError: "",
+          };
+        } else if (!validator.isLength(value, { min })) {
+          return {
+            ...state,
+            firstName: value,
+            firstNameError: `Name must be longer than ${min} letters.`,
+          };
+        } else if (!validator.isLength(value, { max })) {
+          return {
+            ...state,
+            firstName: value,
+            firstNameError: `Name must be less than ${max} letters.`,
+          };
+        } else if (value.includes(" ")) {
+          return {
+            ...state,
+            firstName: value,
+            firstNameError: "Name cannot have spaces.",
+          };
+        } else {
+          return {
+            ...state,
+            firstName: value,
+            firstNameError: "Please enter a valid name.",
+          };
+        }
+      case "SET_AND_VAlIDATE_LASTNAME":
+        if (
+          (validator.isLength(value, { min, max }) &&
+            validator.isAlpha(value)) ||
+          !value
+        ) {
+          return {
+            ...state,
+            lastName: value,
+            lastNameError: "",
+          };
+        } else if (!validator.isLength(value, { min })) {
+          return {
+            ...state,
+            lastName: value,
+            lastNameError: `Name must be longer than ${min} letters.`,
+          };
+        } else if (!validator.isLength(value, { max })) {
+          return {
+            ...state,
+            lastName: value,
+            lastNameError: `Name must be less than ${max} letters.`,
+          };
+        } else if (value.includes(" ")) {
+          return {
+            ...state,
+            lastName: value,
+            lastNameError: "Name cannot have spaces.",
+          };
+        } else {
+          return {
+            ...state,
+            lastName: value,
+            lastNameError: "Please enter a valid name.",
           };
         }
       case "SET_AND_VALIDATE_PASSWORD":
