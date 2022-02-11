@@ -15,7 +15,7 @@ export const userUpdate = createAsyncThunk(
     } = getState();
     try {
       const data = await userAPI.updateUser(user.id, user.token, userData);
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify({ ...data, ...user }));
       return data;
     } catch (err) {
       if (!err.response) {
