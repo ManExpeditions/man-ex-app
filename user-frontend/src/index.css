@@ -246,6 +246,11 @@ ul {
   font-size: 0.7rem;
 }
 
+.success-message {
+  color: #20a020;
+  font-size: 0.7rem;
+}
+
 .input-error {
   outline: 1px solid #fd5c52;
 }

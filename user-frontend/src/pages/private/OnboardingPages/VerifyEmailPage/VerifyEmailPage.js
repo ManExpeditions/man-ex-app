@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DigitVerificationBox from "../../../../components/DigitVerificationBox/DigitVerificationBox";
 import Spinner from "../../../../components/Spinner/Spinner";
 import useInputValidate from "../../../../customHooks/useInputValidate";
+import {
+  resetVerificationCode,
+  verificationCode,
+} from "../../../../slices/user/verificationCodeSlice";
 import {
   resetVerify,
   resetVerifyErrors,
@@ -22,6 +26,9 @@ export default function VerifyEmailPage(props) {
   const [boxFive, setBoxFive] = useState("");
   const [boxSix, setBoxSix] = useState("");
 
+  const [counter, setCounter] = useState(30);
+  const intervalRef = useRef(null);
+
   const [state, discharge] = useInputValidate(initialState);
   let { buttonDisabled } = state;
 
@@ -40,13 +47,44 @@ export default function VerifyEmailPage(props) {
   const verifySlice = useSelector((state) => state.verifySlice);
   const { loading, user: verifyUser, error } = verifySlice;
 
+  const verificationCodeSlice = useSelector(
+    (state) => state.verificationCodeSlice
+  );
+  const {
+    loading: loadingVerificationCode,
+    success,
+    error: errorVerificationCodde,
+  } = verificationCodeSlice;
+
   const dispatch = useDispatch();
 
+  const startTimer = () => {
+    const intervalId = setInterval(() => {
+      setCounter((value) => value - 1);
+    }, 1000);
+    return intervalId;
+  };
+
+  useEffect(() => {
+    if (counter < 0) {
+      clearInterval(intervalRef.current);
+      dispatch(resetVerificationCode());
+    }
+  }, [counter, dispatch]);
+
   const onSubmitHandler = () => {
+    intervalRef.current = startTimer();
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
     dispatch(resetVerifyErrors());
     dispatch(verify({ type: "email", verificationCode }));
+  };
+
+  const onResendCode = () => {
+    dispatch(resetVerificationCode());
+    setCounter(60);
+    startTimer();
+    dispatch(verificationCode({ type: "email" }));
   };
 
   useEffect(() => {
@@ -58,6 +96,7 @@ export default function VerifyEmailPage(props) {
   useEffect(() => {
     return () => {
       dispatch(resetVerify());
+      // Set the duration of the counter in local storage
     };
   }, [dispatch]);
 
@@ -91,6 +130,28 @@ export default function VerifyEmailPage(props) {
       >
         {loading ? <Spinner></Spinner> : "Verify"}
       </button>
+      <button
+        disabled={counter > 0}
+        className={`btn ${styles.resend_code_button}`}
+        onClick={onResendCode}
+      >
+        {loadingVerificationCode ? (
+          <Spinner></Spinner>
+        ) : counter > 0 ? (
+          `Resend code in ${counter} seconds`
+        ) : (
+          "Resend code"
+        )}
+      </button>
+      {success ? (
+        <span className={`success-message ${styles.verification_code_error}`}>
+          {success.message}
+        </span>
+      ) : (
+        <span className={`error-message ${styles.verification_code_error}`}>
+          {errorVerificationCodde}
+        </span>
+      )}
     </>
   );
 }

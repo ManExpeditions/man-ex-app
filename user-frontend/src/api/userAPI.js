@@ -20,7 +20,7 @@ class userAPI {
   async verificationCode(userId, userToken, type, phone) {
     const { data } = await Axios.post(
       `/api/user/v1/${userId}/verify/code?type=${type}`,
-      { phone },
+      { ...(phone ? { phone } : {}) },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
