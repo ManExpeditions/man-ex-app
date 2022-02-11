@@ -53,7 +53,7 @@ export default function VerifyEmailPage(props) {
   const {
     loading: loadingVerificationCode,
     success,
-    error: errorVerificationCodde,
+    error: errorVerificationCode,
   } = verificationCodeSlice;
 
   const dispatch = useDispatch();
@@ -149,7 +149,7 @@ export default function VerifyEmailPage(props) {
         </span>
       ) : (
         <span className={`error-message ${styles.verification_code_error}`}>
-          {errorVerificationCodde}
+          {errorVerificationCode}
         </span>
       )}
     </>
