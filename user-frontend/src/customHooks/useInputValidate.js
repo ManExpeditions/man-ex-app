@@ -6,6 +6,7 @@ export default function useInputValidate(initialState) {
     const value = action.payload.value;
     const min = action.payload.min ? action.payload.min : 3;
     const max = action.payload.max ? action.payload.max : 200;
+    const threshold = action.payload.threshold ? action.payload.threshold : 3;
     switch (action.type) {
       case "SET_AND_VALIDATE_EMAIL":
         if (validator.isEmail(action.payload.value) || !value) {
@@ -157,6 +158,16 @@ export default function useInputValidate(initialState) {
         } else {
           return { ...state, buttonDisabled: true };
         }
+      case "VALIDATE_INTERESTS":
+        if (
+          value instanceof Array &&
+          value.filter(Boolean).length >= threshold
+        ) {
+          return { ...state, buttonDisabled: false };
+        } else {
+          return { ...state, buttonDisabled: true };
+        }
+
       default:
         return state;
     }
