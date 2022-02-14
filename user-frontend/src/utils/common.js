@@ -92,3 +92,29 @@ export const setInterestStates = (
     setActiveGetAway(true);
   }
 };
+
+export const setContinentStates = (
+  userContinents,
+  { setNorthAmerica, setAfrica, setEurope, setAsia, setSouthCentralAmerica }
+) => {
+  // If there are no continents, return early
+  if (!userContinents) {
+    return;
+  }
+
+  if (userContinents.includes("North America")) {
+    setNorthAmerica(true);
+  }
+  if (userContinents.includes("Africa")) {
+    setAfrica(true);
+  }
+  if (userContinents.includes("Europe")) {
+    setEurope(true);
+  }
+  if (userContinents.includes("Asia")) {
+    setAsia(true);
+  }
+  if (userContinents.includes("South/Central America")) {
+    setSouthCentralAmerica(true);
+  }
+};

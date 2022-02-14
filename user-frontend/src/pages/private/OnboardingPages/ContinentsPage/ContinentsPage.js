@@ -8,6 +8,7 @@ import {
   resetUserUpdate,
   userUpdate,
 } from "../../../../slices/user/userUpdateSlice";
+import { setContinentStates } from "../../../../utils/common";
 import InputValidator from "../../../../utils/InputValidator";
 import styles from "./ContinentsPage.module.css";
 
@@ -35,6 +36,9 @@ export default function ContinentsPage(props) {
     }
   }, [validator, northAmerica, africa, europe, asia, southCentralAmerica]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
   const { loading, user: updatedUser, error } = userUpdateSlice;
 
@@ -55,6 +59,16 @@ export default function ContinentsPage(props) {
       })
     );
   };
+
+  useEffect(() => {
+    setContinentStates(user.continents, {
+      setNorthAmerica,
+      setAfrica,
+      setEurope,
+      setAsia,
+      setSouthCentralAmerica,
+    });
+  }, [user.continents]);
 
   useEffect(() => {
     if (updatedUser) {
