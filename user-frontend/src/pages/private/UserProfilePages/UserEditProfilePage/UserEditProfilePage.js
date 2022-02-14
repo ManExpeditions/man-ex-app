@@ -1,60 +1,118 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { IoChevronBackSharp } from "react-icons/io5";
 import styles from "./UserEditProfilePage.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import validator from "validator";
+import Input from "../../../../components/Input/Input";
+import useInputValidate from "../../../../customHooks/useInputValidate";
+import { setLocationState } from "../../../../utils/common";
+import OutsideAlerter from "../../../../components/OutsideAlerter";
+import useDidMountEffect from "../../../../customHooks/useDidMountEffect";
+import {
+  location,
+  resetLocation,
+} from "../../../../slices/services/locationSlice";
+
+const initialState = {
+  firstName: "",
+  firstNameError: "",
+  lastName: "",
+  lastNameError: "",
+};
 
 export default function UserEditProfilePage() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [place, setPlace] = useState("");
+  const [predictionsOpen, setPredictionsOpen] = useState(true);
+  const [validationError, setValidationError] = useState("");
+
   const [bio, setBio] = useState("");
   const [instagram, setInstagram] = useState("");
   const [facebook, setFacebook] = useState("");
   const [linkedin, setLinkedin] = useState("");
 
-  const [firstNameError, setFirstNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
   const [bioError, setBioError] = useState("");
   const [instagramError, setInstagramError] = useState("");
   const [facebookError, setFacebookError] = useState("");
   const [linkedinError, setLinkedinError] = useState("");
 
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const [state, discharge] = useInputValidate(initialState);
+  let { firstName, firstNameError, lastName, lastNameError } = state;
+
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
-  const setAndValidate = (
-    fieldValue,
-    setFieldValue,
-    errorValue,
-    setErrorValue,
-    validatorEvaluation
-  ) => {
-    setFieldValue(fieldValue);
-    if (validatorEvaluation) {
-      setErrorValue("");
-    } else {
-      setErrorValue(errorValue);
-    }
+  const locationSlice = useSelector((state) => state.locationSlice);
+  const { places } = locationSlice;
+
+  const dispatch = useDispatch();
+
+  // Control the prediction suggestions
+  const onLocationTyped = (location) => {
+    setPredictionsOpen(true);
+    setPlace(location);
   };
 
-  useEffect(() => {
-    if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
-    }
-  }, [user]);
+  const onLocationClicked = (prediction) => {
+    setPlace(prediction);
+    dispatch(resetLocation());
+  };
 
+  // Get autocomplete everytime place is changed
+  useDidMountEffect(() => {
+    dispatch(location(place));
+  }, [dispatch, place]);
+
+  // Set initial field values if they exist
   useEffect(() => {
-    if (!instagram) {
-      setInstagramError("");
-    } else if (!facebook) {
-      setFacebookError("");
-    } else if (!linkedin) {
-      setLinkedin("");
+    if (user.firstName) {
+      discharge({
+        type: "SET_AND_VALIDATE_FIRSTNAME",
+        payload: { value: user.firstName },
+      });
     }
-  }, [instagram, facebook, linkedin]);
+    if (user.lastName) {
+      discharge({
+        type: "SET_AND_VAlIDATE_LASTNAME",
+        payload: { value: user.lastName },
+      });
+    }
+    // Parse and set location of user
+    setLocationState(user.city, user.state, user.country, {
+      setLocation: setPlace,
+    });
+  }, [
+    discharge,
+    user.firstName,
+    user.lastName,
+    user.city,
+    user.state,
+    user.country,
+  ]);
+
+  // If place is empty, reset suggestions
+  useDidMountEffect(() => {
+    if (
+      validator.isLength(place, { min: 7 }) &&
+      validator.isAlpha(place, "en-US", { ignore: ",s" }) &&
+      !places
+    ) {
+      setValidationError("");
+      setButtonDisabled(false);
+    } else if (!validator.isAlpha(place, "en-US", { ignore: ",s" })) {
+      setValidationError("Can only contain alphabets.");
+      setPredictionsOpen(false);
+    } else {
+      setButtonDisabled(true);
+    }
+    if (!place) {
+      setValidationError("");
+      dispatch(resetLocation());
+    }
+  }, [dispatch, place]);
 
   return (
     <div>
@@ -79,23 +137,13 @@ export default function UserEditProfilePage() {
             <li className={styles.list_item}>
               <p>First Name</p>
               <div className={styles.list_input_container}>
-                <input
+                <Input
                   className={styles.list_input}
                   placeholder="Enter first name"
+                  dispatch={discharge}
                   value={firstName}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setFirstName,
-                      "Must be alteast 3 letters.",
-                      setFirstNameError,
-                      validator.isLength(e.target.value, { min: 3 }) &&
-                        validator.isAlpha(e.target.value, "en-US", {
-                          ignore: " ",
-                        })
-                    )
-                  }
-                ></input>
+                  actionType="SET_AND_VALIDATE_FIRSTNAME"
+                ></Input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {firstNameError}
                 </span>
@@ -104,58 +152,59 @@ export default function UserEditProfilePage() {
             <li className={styles.list_item}>
               <p>Last Name</p>
               <div className={styles.list_input_container}>
-                <input
+                <Input
                   className={styles.list_input}
                   placeholder="Enter last name"
+                  dispatch={discharge}
                   value={lastName}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setLastName,
-                      "Must be alteast 3 letters.",
-                      setLastNameError,
-                      validator.isLength(e.target.value, { min: 3 }) &&
-                        validator.isAlpha(e.target.value, "en-US", {
-                          ignore: " ",
-                        })
-                    )
-                  }
-                ></input>
+                  actionType="SET_AND_VAlIDATE_LASTNAME"
+                ></Input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {lastNameError}
                 </span>
               </div>
             </li>
             <li className={styles.list_item}>
-              <p>Country</p>
-              <p>{user.country}</p>
-            </li>
-            <li className={styles.list_item}>
-              <p>City</p>
-              <p>{user.city}</p>
+              <p>Location</p>
+              <div className={styles.location_input_wrapper}>
+                <input
+                  className={styles.list_input}
+                  value={place}
+                  onChange={(e) => onLocationTyped(e.target.value)}
+                ></input>
+                {validationError && (
+                  <span className="error-message">{validationError}</span>
+                )}
+                {places && predictionsOpen && (
+                  <div className={styles.predictions_wrapper}>
+                    <OutsideAlerter
+                      setState={setPredictionsOpen}
+                      stateValue={false}
+                    >
+                      <ul className={styles.predictions_list}>
+                        {places.map((predLoc) => (
+                          <li>
+                            <button
+                              className={`btn ${styles.prediction_button}`}
+                              onClick={() => onLocationClicked(predLoc)}
+                            >
+                              {predLoc}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </OutsideAlerter>
+                  </div>
+                )}
+              </div>
             </li>
             <li className={styles.list_item}>
               <p>Bio</p>
               <div className={styles.list_input_container}>
                 <textarea
-                  className={styles.list_input}
+                  className={styles.list_textarea}
                   placeholder="Add bio to introduce yourself"
                   value={bio}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setBio,
-                      "Must be between 50 - 200 characters.",
-                      setBioError,
-                      validator.isLength(e.target.value, {
-                        min: 50,
-                        max: 200,
-                      }) &&
-                        validator.isAlphanumeric(e.target.value, "en-US", {
-                          ignore: " ",
-                        })
-                    )
-                  }
                 ></textarea>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {bioError}
@@ -169,16 +218,6 @@ export default function UserEditProfilePage() {
                   className={styles.list_input}
                   placeholder="Enter username"
                   value={instagram}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setInstagram,
-                      "Must be between 3 - 20 characters.",
-                      setInstagramError,
-                      validator.isLength(e.target.value, { min: 3, max: 20 }) &&
-                        validator.isAlphanumeric(e.target.value)
-                    )
-                  }
                 ></input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {instagramError}
@@ -192,16 +231,6 @@ export default function UserEditProfilePage() {
                   className={styles.list_input}
                   placeholder="Enter username"
                   value={facebook}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setFacebook,
-                      "Must be between 3 - 20 characters.",
-                      setFacebookError,
-                      validator.isLength(e.target.value, { min: 3, max: 20 }) &&
-                        validator.isAlphanumeric(e.target.value)
-                    )
-                  }
                 ></input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {facebookError}
@@ -215,16 +244,6 @@ export default function UserEditProfilePage() {
                   className={styles.list_input}
                   placeholder="Enter username"
                   value={linkedin}
-                  onChange={(e) =>
-                    setAndValidate(
-                      e.target.value,
-                      setLinkedin,
-                      "Must be between 3 - 20 characters.",
-                      setLinkedinError,
-                      validator.isLength(e.target.value, { min: 3, max: 20 }) &&
-                        validator.isAlphanumeric(e.target.value)
-                    )
-                  }
                 ></input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {linkedinError}

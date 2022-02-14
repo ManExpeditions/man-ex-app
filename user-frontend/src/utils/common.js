@@ -118,3 +118,16 @@ export const setContinentStates = (
     setSouthCentralAmerica(true);
   }
 };
+
+export const setLocationState = (
+  userCity,
+  userState,
+  userCountry,
+  { setLocation }
+) => {
+  // If there are no continents, return early
+  if (!userCity || !userState || !userCountry) {
+    return;
+  }
+  setLocation(`${userCity}, ${userState}, ${userCountry}`);
+};

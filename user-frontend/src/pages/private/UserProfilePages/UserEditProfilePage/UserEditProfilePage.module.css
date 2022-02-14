@@ -47,6 +47,49 @@
   color: #fff;
   background-color: #1e1e1e;
   font-size: 1rem;
+  padding: 0.2rem 0;
+}
+
+.list_textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  height: max-content;
+  /* border: none; */
+  /* border: 1px solid magenta; */
+  outline: none;
+  color: #fff;
+  background-color: #1e1e1e;
+  white-space: pre-line;
+}
+
+/* Location suggestions */
+.location_input_wrapper {
+  position: relative;
+}
+
+.predictions_wrapper {
+  position: absolute;
+  left: 0;
+  z-index: 3;
+}
+
+.predictions_list {
+  border-radius: 1rem;
+  background-color: #fff;
+  width: 90%;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.prediction_button {
+  color: #1e1e1e;
+  width: 100%;
+  text-align: left;
+  background-color: #fff;
 }
 
 .list_input_error {
