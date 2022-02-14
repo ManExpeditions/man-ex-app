@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
 import MessageBox from "../../../../components/MessageBox/MessageBox";
 import Spinner from "../../../../components/Spinner/Spinner";
+import useInputValidate from "../../../../customHooks/useInputValidate";
 import {
   resetUserUpdate,
   userUpdate,
 } from "../../../../slices/user/userUpdateSlice";
 import { setContinentStates } from "../../../../utils/common";
-import InputValidator from "../../../../utils/InputValidator";
 import styles from "./ContinentsPage.module.css";
+
+const initialState = {
+  buttonDisabled: true,
+};
 
 export default function ContinentsPage(props) {
   const [northAmerica, setNorthAmerica] = useState(false);
@@ -19,22 +23,18 @@ export default function ContinentsPage(props) {
   const [asia, setAsia] = useState(false);
   const [southCentralAmerica, setSouthCentralAmerica] = useState(false);
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const validator = InputValidator;
+  const [state, discharge] = useInputValidate(initialState);
+  let { buttonDisabled } = state;
 
   useEffect(() => {
-    if (
-      validator.atleastXTruthy(
-        [northAmerica, africa, europe, asia, southCentralAmerica],
-        2
-      )
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [validator, northAmerica, africa, europe, asia, southCentralAmerica]);
+    discharge({
+      type: "VALIDATE_CONTINENTS",
+      payload: {
+        value: [northAmerica, africa, europe, asia, southCentralAmerica],
+        thresholdContinents: 2,
+      },
+    });
+  }, [discharge, northAmerica, africa, europe, asia, southCentralAmerica]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
