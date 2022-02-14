@@ -9,7 +9,7 @@ export default function ChipCheckBox({
   return (
     <div className={styles.chip}>
       <input
-        defaultChecked={checkboxState}
+        checked={checkboxState}
         onChange={(e) => setCheckboxState(!checkboxState)}
         type="checkbox"
         id={label}
