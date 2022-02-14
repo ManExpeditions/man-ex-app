@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
 import MessageBox from "../../../../components/MessageBox/MessageBox";
 import Spinner from "../../../../components/Spinner/Spinner";
+import useInputValidate from "../../../../customHooks/useInputValidate";
 import {
   resetUserUpdate,
   userUpdate,
 } from "../../../../slices/user/userUpdateSlice";
-import InputValidator from "../../../../utils/InputValidator";
+import { setInterestStates } from "../../../../utils/common";
 import styles from "./InterestsPage.module.css";
+
+const initialState = {
+  buttonDisabled: true,
+};
 
 export default function InterestsPage(props) {
   const [natureAndOutdoors, setNatureAndOutdoors] = useState(false);
@@ -27,14 +32,15 @@ export default function InterestsPage(props) {
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const validator = InputValidator;
+  const [state, discharge] = useInputValidate(initialState);
+  let { buttonDisabled } = state;
 
   useEffect(() => {
-    if (
-      validator.atleastXTruthy(
-        [
+    discharge({
+      type: "VALIDATE_INTERESTS",
+      payload: {
+        threshold: 2,
+        value: [
           natureAndOutdoors,
           resortVacations,
           wildlife,
@@ -50,18 +56,15 @@ export default function InterestsPage(props) {
           cruises,
           nudistAdventures,
         ],
-        2
-      )
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
+      },
+    });
   }, [
+    activeGetAway,
     artAndCulture,
     burningMan,
     camping,
     cruises,
+    discharge,
     luxuryGetAway,
     musicFestivals,
     natureAndOutdoors,
@@ -71,12 +74,13 @@ export default function InterestsPage(props) {
     volunteeringTrips,
     wellnessRetreats,
     wildlife,
-    validator,
-    activeGetAway,
   ]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
-  const { loading, user, error } = userUpdateSlice;
+  const { loading, user: updatedUser, error } = userUpdateSlice;
 
   const dispatch = useDispatch();
 
@@ -106,11 +110,31 @@ export default function InterestsPage(props) {
   };
 
   useEffect(() => {
-    if (user) {
+    // Set already selected interests
+    setInterestStates(user.interests, {
+      setArtAndCulture,
+      setBurningMan,
+      setCamping,
+      setCruises,
+      setLuxuryGetAway,
+      setMusicFestivals,
+      setNatureAndOutdoors,
+      setNudistAdventures,
+      setPrideEvents,
+      setResortVacations,
+      setVolunteeringTrips,
+      setWellnessRetreats,
+      setWildlife,
+      setActiveGetAway,
+    });
+  }, [user.interests]);
+
+  useEffect(() => {
+    if (updatedUser) {
       dispatch(resetUserUpdate());
       props.history.push("/onboarding/continents");
     }
-  }, [dispatch, user, props.history]);
+  }, [dispatch, updatedUser, props.history]);
 
   return (
     <div className="screen">
@@ -121,7 +145,8 @@ export default function InterestsPage(props) {
       <main>
         <p className={`align-center ${styles.info}`}>
           This will help us match you with other travelers and travel groups
-          based on the interests you have in common (select atleast 2).
+          <br />
+          (select atleast 2).
         </p>
         <div className={styles.interests_container}>
           <ChipCheckBox
