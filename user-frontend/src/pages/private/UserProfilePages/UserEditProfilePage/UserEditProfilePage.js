@@ -9,6 +9,7 @@ import validator from "validator";
 import Input from "../../../../components/Input/Input";
 import useInputValidate from "../../../../customHooks/useInputValidate";
 import {
+  parseInterestState,
   parseLocationState,
   setInterestStates,
   setLocationState,
@@ -295,6 +296,23 @@ export default function UserEditProfilePage() {
           facebook,
           linkedin,
         },
+        interests: parseInterestState({
+          activeGetAway,
+          artAndCulture,
+          burningMan,
+          camping,
+          cruises,
+          discharge,
+          luxuryGetAway,
+          musicFestivals,
+          natureAndOutdoors,
+          nudistAdventures,
+          prideEvents,
+          resortVacations,
+          volunteeringTrips,
+          wellnessRetreats,
+          wildlife,
+        }),
       })
     );
   };
@@ -314,6 +332,9 @@ export default function UserEditProfilePage() {
             <IoChevronBackSharp size={25}></IoChevronBackSharp>
             Back
           </Link>
+          {updatedUser && (
+            <span className="success-message">Updated succesfully</span>
+          )}
           <button
             disabled={buttonDisabled}
             onClick={onCompleteHandler}
@@ -324,11 +345,6 @@ export default function UserEditProfilePage() {
           </button>
         </div>
         {error && <MessageBox variant="error">{error}</MessageBox>}
-        {updatedUser && (
-          <div className={styles.success_container}>
-            <span className="success-message">Updated succesfully</span>
-          </div>
-        )}
         <h1 className={styles.page_heading}>Edit Profile</h1>
         <div>
           <ul className={styles.list}>

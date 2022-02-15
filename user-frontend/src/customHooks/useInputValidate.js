@@ -222,9 +222,12 @@ export default function useInputValidate(initialState) {
           value instanceof Array &&
           value.filter(Boolean).length >= threshold
         ) {
-          return { ...state, buttonDisabled: false };
+          return { ...state, interestErrors: "" };
         } else {
-          return { ...state, buttonDisabled: true };
+          return {
+            ...state,
+            interestErrors: `Select atleast ${threshold}.`,
+          };
         }
       case "VALIDATE_CONTINENTS":
         if (

@@ -146,3 +146,40 @@ export const parseLocationState = (place) => {
 
   return { city: city, state: state ? state : city, country: country };
 };
+
+export const parseInterestState = ({
+  activeGetAway,
+  artAndCulture,
+  burningMan,
+  camping,
+  cruises,
+  discharge,
+  luxuryGetAway,
+  musicFestivals,
+  natureAndOutdoors,
+  nudistAdventures,
+  prideEvents,
+  resortVacations,
+  volunteeringTrips,
+  wellnessRetreats,
+  wildlife,
+}) => {
+  const interests = [
+    artAndCulture && "Arts & Culture",
+    burningMan && "Burning Man",
+    camping && "Camping",
+    cruises && "Cruises",
+    luxuryGetAway && "Luxury Get-aways",
+    musicFestivals && "Music Festivals",
+    natureAndOutdoors && "Nature & Outdoors",
+    nudistAdventures && "Nudist Adventures",
+    prideEvents && "Pride Events",
+    resortVacations && "Resort Vacations",
+    volunteeringTrips && "Volunteering Trips",
+    wellnessRetreats && "Wellness Retreats",
+    wildlife && "Wildlife",
+    activeGetAway && "Active Get-aways",
+  ].filter((value) => value !== false);
+
+  return interests;
+};

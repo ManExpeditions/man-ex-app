@@ -1,13 +1,18 @@
 .container {
   padding: 0 1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .top_links {
   position: fixed;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  max-width: 600px;
   background-color: #1e1e1e;
   z-index: 3;
   padding: 1rem 0;
@@ -28,6 +33,10 @@
   right: 1rem;
   color: #fff;
   font-size: 1.1rem;
+}
+
+.save_button[disabled] {
+  color: rgb(90, 90, 90);
 }
 
 .save_button {
@@ -119,6 +128,7 @@
 .list_textarea {
   font-family: inherit;
   font-size: 1rem;
+  width: 100%;
   margin: 0.5rem 0 0;
   padding: 0.2rem;
   outline: none;
@@ -135,6 +145,18 @@
 .list_input_error_bio {
   position: absolute;
   bottom: 2rem;
+}
+
+/* Interests styles */
+.interests_container {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.list_input_error_interests {
+  position: absolute;
+  bottom: 0.2rem;
+  left: 0.5rem;
 }
 
 .list_photo {
