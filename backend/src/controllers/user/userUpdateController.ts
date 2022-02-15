@@ -31,7 +31,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  * @apiBody {String} profilepic The user's profilepic.
  * @apiBody {String} profilepicVerified Whether profilepic is verified.
  * @apiBody {String} verificationProfilepic The verification profile picture.
- * @apiBody {[String]} socials The user's socials e.g. facebook, instagram etc.
+ * @apiBody {{ facebook: String, instagram: String, linkedin: String }} socials The user's socials e.g. facebook, instagram etc.
  * @apiBody {String} completedOnboarding Whether initial onboarding is completed.
  *
  * @apiError UserDoesNotExist Cannot update user that does not exist.
@@ -97,16 +97,27 @@ export const userUpdateController = [
     .isString()
     .isLength({ min: 10 })
     .escape(),
-  body('profilepicVerified', 'Enter valid profilepicVerified')
+  body('profilepicVerified', 'Enter valid value')
     .optional()
     .isBoolean()
     .escape(),
-  body('verificationProfilePic', 'Enter valid profilepicVerified')
+  body('verificationProfilePic', 'Enter valid value')
     .optional()
     .isString()
     .isLength({ min: 10 })
     .escape(),
-  body('socials', 'Enter valid profilepicVerified').optional().isArray(),
+  body('socials', 'Enter valid socials. Socials should be an object.')
+    .optional()
+    .isObject(),
+  body('socials.facebook', 'Enter valid facebook username.')
+    .if(body('socials').exists())
+    .isString(),
+  body('socials.instagram', 'Enter valid instagram username.')
+    .if(body('socials').exists())
+    .isString(),
+  body('socials.linkedin', 'Enter valid linkedin username.')
+    .if(body('socials').exists())
+    .isString(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.

@@ -44,7 +44,11 @@ const userSchema = new mongoose.Schema<User>(
     profilepic: { type: String },
     profilepicVerified: { type: Boolean, default: false },
     verificationProfilepic: { type: Boolean },
-    socials: { type: [String] },
+    socials: {
+      facebook: { type: String },
+      instagram: { type: String },
+      linkedin: { type: String }
+    },
     authType: { type: String, default: 'email' },
     completedOnboarding: { type: Boolean, default: false },
     adminUser: {
