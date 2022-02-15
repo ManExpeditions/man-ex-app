@@ -41,6 +41,7 @@ const initialState = {
   facebookError: "",
   linkedin: "",
   linkedinError: "",
+  interestErrors: "",
   buttonDisabled: true,
 };
 
@@ -80,6 +81,7 @@ export default function UserEditProfilePage() {
     instagramError,
     linkedin,
     linkedinError,
+    interestErrors,
     buttonDisabled,
   } = state;
 
@@ -204,6 +206,48 @@ export default function UserEditProfilePage() {
     }
   }, [dispatch, place]);
 
+  // Validate interests
+  useEffect(() => {
+    discharge({
+      type: "VALIDATE_INTERESTS",
+      payload: {
+        threshold: 2,
+        value: [
+          natureAndOutdoors,
+          resortVacations,
+          wildlife,
+          luxuryGetAway,
+          activeGetAway,
+          camping,
+          burningMan,
+          musicFestivals,
+          artAndCulture,
+          prideEvents,
+          wellnessRetreats,
+          volunteeringTrips,
+          cruises,
+          nudistAdventures,
+        ],
+      },
+    });
+  }, [
+    activeGetAway,
+    artAndCulture,
+    burningMan,
+    camping,
+    cruises,
+    discharge,
+    luxuryGetAway,
+    musicFestivals,
+    natureAndOutdoors,
+    nudistAdventures,
+    prideEvents,
+    resortVacations,
+    volunteeringTrips,
+    wellnessRetreats,
+    wildlife,
+  ]);
+
   // Ensure validation
   useEffect(() => {
     discharge({
@@ -217,6 +261,7 @@ export default function UserEditProfilePage() {
           instagramError,
           facebookError,
           linkedinError,
+          interestErrors,
         ],
         notEmpty: [firstName, lastName, location, bio],
       },
@@ -233,6 +278,7 @@ export default function UserEditProfilePage() {
     lastNameError,
     linkedinError,
     placeError,
+    interestErrors,
   ]);
 
   // When save is clicked
@@ -514,6 +560,11 @@ export default function UserEditProfilePage() {
                   label="Nudist Adventures"
                   imageSrc="/assets/icons/nudist.png"
                 ></ChipCheckBox>
+                <span
+                  className={`error-message ${styles.list_input_error_interests}`}
+                >
+                  {interestErrors}
+                </span>
               </div>
             </li>
           </ul>
