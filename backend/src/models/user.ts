@@ -19,6 +19,7 @@ interface User {
   profilepic: string;
   profilepicVerified: boolean;
   verificationProfilepic: string;
+  bio: string;
   socials: [string];
   authType: string;
   completedOnboarding: boolean;
@@ -44,6 +45,7 @@ const userSchema = new mongoose.Schema<User>(
     profilepic: { type: String },
     profilepicVerified: { type: Boolean, default: false },
     verificationProfilepic: { type: Boolean },
+    bio: { type: String },
     socials: {
       facebook: { type: String },
       instagram: { type: String },

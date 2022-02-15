@@ -62,6 +62,7 @@ class UserDao {
       userInfo.profilepicVerified || user.profilepicVerified;
     user.verificationProfilepic =
       userInfo.verificationProfilepic || user.verificationProfilepic;
+    user.bio = userInfo.bio || user.bio;
     user.socials = userInfo.socials || user.socials;
     user.completedOnboarding =
       userInfo.completedOnboarding || user.completedOnboarding;

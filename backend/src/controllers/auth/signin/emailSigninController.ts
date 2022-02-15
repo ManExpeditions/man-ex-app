@@ -87,6 +87,7 @@ export const emailSigninController = [
       profilepic: user.profilepic,
       profilepicVerified: user.profilepicVerified,
       verificationProfilepic: user.verificationProfilepic,
+      bio: user.bio,
       socials: user.socials,
       authType: user.authType,
       completedOnboarding: user.completedOnboarding

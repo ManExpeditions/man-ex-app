@@ -31,6 +31,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  * @apiBody {String} profilepic The user's profilepic.
  * @apiBody {String} profilepicVerified Whether profilepic is verified.
  * @apiBody {String} verificationProfilepic The verification profile picture.
+ * @apiBody {String} Bio The bio of user.
  * @apiBody {{ facebook: String, instagram: String, linkedin: String }} socials The user's socials e.g. facebook, instagram etc.
  * @apiBody {String} completedOnboarding Whether initial onboarding is completed.
  *
@@ -106,6 +107,10 @@ export const userUpdateController = [
     .isString()
     .isLength({ min: 10 })
     .escape(),
+  body('bio', 'Enter valid value for bio')
+    .optional()
+    .isString()
+    .isLength({ min: 200, max: 300 }),
   body('socials', 'Enter valid socials. Socials should be an object.')
     .optional()
     .isObject(),
@@ -170,6 +175,7 @@ export const userUpdateController = [
       profilepic: updatedUser.profilepic,
       profilepicVerified: updatedUser.profilepicVerified,
       verificationProfilepic: updatedUser.verificationProfilepic,
+      bio: updatedUser.bio,
       socials: updatedUser.socials,
       authType: updatedUser.authType,
       completedOnboarding: updatedUser.completedOnboarding
