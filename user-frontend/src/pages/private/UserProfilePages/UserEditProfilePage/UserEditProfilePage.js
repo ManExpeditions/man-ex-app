@@ -41,6 +41,7 @@ const initialState = {
   facebookError: "",
   linkedin: "",
   linkedinError: "",
+  buttonDisabled: true,
 };
 
 export default function UserEditProfilePage() {
@@ -63,9 +64,7 @@ export default function UserEditProfilePage() {
   const [photo, setPhoto] = useState("");
   const [place, setPlace] = useState("");
   const [predictionsOpen, setPredictionsOpen] = useState(true);
-  const [validationError, setValidationError] = useState("");
-
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [placeError, setPlaceError] = useState("");
 
   const [state, discharge] = useInputValidate(initialState);
   let {
@@ -81,6 +80,7 @@ export default function UserEditProfilePage() {
     instagramError,
     linkedin,
     linkedinError,
+    buttonDisabled,
   } = state;
 
   const signinSlice = useSelector((state) => state.signinSlice);
@@ -191,20 +191,51 @@ export default function UserEditProfilePage() {
       validator.isAlpha(place, "en-US", { ignore: ",s" }) &&
       !places
     ) {
-      setValidationError("");
-      setButtonDisabled(false);
+      setPlaceError("");
     } else if (!validator.isAlpha(place, "en-US", { ignore: ",s" })) {
-      setValidationError("Can only contain alphabets.");
+      setPlaceError("Can only contain alphabets.");
       setPredictionsOpen(false);
     } else {
-      setButtonDisabled(true);
+      setPlaceError("There is an error");
     }
     if (!place) {
-      setValidationError("");
+      setPlaceError("");
       dispatch(resetLocation());
     }
   }, [dispatch, place]);
 
+  // Ensure validation
+  useEffect(() => {
+    discharge({
+      type: "CHECK_ALL_FIELDS_VALID",
+      payload: {
+        empty: [
+          firstNameError,
+          lastNameError,
+          placeError,
+          bioError,
+          instagramError,
+          facebookError,
+          linkedinError,
+        ],
+        notEmpty: [firstName, lastName, location, bio],
+      },
+    });
+  }, [
+    bioError,
+    bio,
+    discharge,
+    facebookError,
+    firstName,
+    firstNameError,
+    instagramError,
+    lastName,
+    lastNameError,
+    linkedinError,
+    placeError,
+  ]);
+
+  // When save is clicked
   const onCompleteHandler = () => {
     dispatch(
       userUpdate({
@@ -238,6 +269,7 @@ export default function UserEditProfilePage() {
             Back
           </Link>
           <button
+            disabled={buttonDisabled}
             onClick={onCompleteHandler}
             className={`btn ${styles.save_button}`}
             to="/profile"
@@ -299,8 +331,8 @@ export default function UserEditProfilePage() {
                   value={place}
                   onChange={(e) => onLocationTyped(e.target.value)}
                 ></input>
-                {validationError && (
-                  <span className="error-message">{validationError}</span>
+                {placeError && (
+                  <span className="error-message">{placeError}</span>
                 )}
                 {places && predictionsOpen && (
                   <div className={styles.predictions_wrapper}>
