@@ -8,7 +8,11 @@ import { useEffect } from "react";
 import validator from "validator";
 import Input from "../../../../components/Input/Input";
 import useInputValidate from "../../../../customHooks/useInputValidate";
-import { setInterestStates, setLocationState } from "../../../../utils/common";
+import {
+  parseLocationState,
+  setInterestStates,
+  setLocationState,
+} from "../../../../utils/common";
 import OutsideAlerter from "../../../../components/OutsideAlerter";
 import useDidMountEffect from "../../../../customHooks/useDidMountEffect";
 import {
@@ -17,6 +21,12 @@ import {
 } from "../../../../slices/services/locationSlice";
 import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
 import UploadPhotoBox from "../../../../components/UploadPhotoBox/UploadPhotoBox";
+import {
+  resetUserUpdate,
+  userUpdate,
+} from "../../../../slices/user/userUpdateSlice";
+import Spinner from "../../../../components/Spinner/Spinner";
+import MessageBox from "../../../../components/MessageBox/MessageBox";
 
 const initialState = {
   firstName: "",
@@ -78,6 +88,9 @@ export default function UserEditProfilePage() {
 
   const locationSlice = useSelector((state) => state.locationSlice);
   const { places } = locationSlice;
+
+  const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
+  const { loading, user: updatedUser, error } = userUpdateSlice;
 
   const dispatch = useDispatch();
 
@@ -192,6 +205,30 @@ export default function UserEditProfilePage() {
     }
   }, [dispatch, place]);
 
+  const onCompleteHandler = () => {
+    dispatch(
+      userUpdate({
+        firstName,
+        lastName,
+        location,
+        ...parseLocationState(place),
+        bio,
+        socials: {
+          instagram,
+          facebook,
+          linkedin,
+        },
+      })
+    );
+  };
+
+  // On cleanup
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserUpdate());
+    };
+  }, [dispatch]);
+
   return (
     <div>
       <section className={styles.container}>
@@ -200,10 +237,20 @@ export default function UserEditProfilePage() {
             <IoChevronBackSharp size={25}></IoChevronBackSharp>
             Back
           </Link>
-          <button className={`btn ${styles.save_button}`} to="/profile">
-            Save
+          <button
+            onClick={onCompleteHandler}
+            className={`btn ${styles.save_button}`}
+            to="/profile"
+          >
+            {loading ? <Spinner></Spinner> : "Save"}
           </button>
         </div>
+        {error && <MessageBox variant="error">{error}</MessageBox>}
+        {updatedUser && (
+          <div className={styles.success_container}>
+            <span className="success-message">Updated succesfully</span>
+          </div>
+        )}
         <h1 className={styles.page_heading}>Edit Profile</h1>
         <div>
           <ul className={styles.list}>
