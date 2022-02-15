@@ -32,6 +32,7 @@ import {
   photoUpload,
   resetPhotoUpload,
 } from "../../../../slices/assets/photoUploadSlice";
+import SelectBox from "../../../../components/SelectBox/SelectBox";
 
 const initialState = {
   firstName: "",
@@ -67,6 +68,7 @@ export default function UserEditProfilePage() {
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
+  const [gender, setGender] = useState("Male");
   const [photo, setPhoto] = useState("");
   const [place, setPlace] = useState("");
   const [predictionsOpen, setPredictionsOpen] = useState(true);
@@ -137,6 +139,9 @@ export default function UserEditProfilePage() {
         payload: { value: user.lastName },
       });
     }
+    if (user.gender) {
+      setGender(user.gender);
+    }
     if (user.socials.instagram) {
       discharge({
         type: "SET_AND_VALIDATE_INSTAGRAM",
@@ -192,6 +197,7 @@ export default function UserEditProfilePage() {
     user.socials,
     user.interests,
     user.bio,
+    user.gender,
   ]);
 
   // Uploading profilepic logic
@@ -306,6 +312,7 @@ export default function UserEditProfilePage() {
       userUpdate({
         firstName,
         lastName,
+        gender,
         location,
         ...parseLocationState(place),
         bio,
@@ -413,6 +420,20 @@ export default function UserEditProfilePage() {
                   value={lastName}
                   actionType="SET_AND_VAlIDATE_LASTNAME"
                 ></Input>
+                <span className={`error-message ${styles.list_input_error}`}>
+                  {lastNameError}
+                </span>
+              </div>
+            </li>
+            <li className={styles.list_item}>
+              <p>Gender</p>
+              <div className={styles.list_input_container}>
+                <SelectBox
+                  type="text"
+                  options={["Male", "Female", "Non-binary", "Other"]}
+                  optionState={gender}
+                  setOptionState={setGender}
+                ></SelectBox>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {lastNameError}
                 </span>
