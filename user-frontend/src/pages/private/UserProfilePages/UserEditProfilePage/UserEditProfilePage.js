@@ -28,6 +28,10 @@ import {
 } from "../../../../slices/user/userUpdateSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
 import MessageBox from "../../../../components/MessageBox/MessageBox";
+import {
+  photoUpload,
+  resetPhotoUpload,
+} from "../../../../slices/assets/photoUploadSlice";
 
 const initialState = {
   firstName: "",
@@ -88,6 +92,9 @@ export default function UserEditProfilePage() {
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
+
+  const photoUploadSlice = useSelector((state) => state.photoUploadSlice);
+  const { loading: loadingPhoto, photo: profilepic } = photoUploadSlice;
 
   const locationSlice = useSelector((state) => state.locationSlice);
   const { places } = locationSlice;
@@ -187,6 +194,15 @@ export default function UserEditProfilePage() {
     user.bio,
   ]);
 
+  // Uploading profilepic logic
+  // Upload photo to cloud service as user selects it
+  useDidMountEffect(() => {
+    dispatch(resetPhotoUpload());
+    const photoFormData = new FormData();
+    photoFormData.append("photo", photo);
+    dispatch(photoUpload({ type: "profile", photoFormData }));
+  }, [photo, dispatch]);
+
   // If place is empty, reset suggestions
   useDidMountEffect(() => {
     if (
@@ -263,6 +279,7 @@ export default function UserEditProfilePage() {
           facebookError,
           linkedinError,
           interestErrors,
+          !loadingPhoto ? "" : null,
         ],
         notEmpty: [firstName, lastName, location, bio],
       },
@@ -270,6 +287,7 @@ export default function UserEditProfilePage() {
   }, [
     bioError,
     bio,
+    loadingPhoto,
     discharge,
     facebookError,
     firstName,
@@ -313,6 +331,13 @@ export default function UserEditProfilePage() {
           wellnessRetreats,
           wildlife,
         }),
+        profilepic: encodeURIComponent(
+          profilepic
+            ? profilepic.url
+            : user.hasOwnProperty("profilepic")
+            ? user.profilepic
+            : ""
+        ),
       })
     );
   };
@@ -320,6 +345,7 @@ export default function UserEditProfilePage() {
   // On cleanup
   useEffect(() => {
     return () => {
+      dispatch(resetPhotoUpload());
       dispatch(resetUserUpdate());
     };
   }, [dispatch]);
@@ -350,10 +376,17 @@ export default function UserEditProfilePage() {
           <ul className={styles.list}>
             <li className={styles.list_item}>
               <p>Profile Photo</p>
-              <UploadPhotoBox
-                photoState={photo}
-                setPhotoState={setPhoto}
-              ></UploadPhotoBox>
+              <div className={styles.photobox_wrapper}>
+                {loadingPhoto && (
+                  <div className={styles.loading_box}>
+                    <Spinner style={{ color: "#56c1ff" }}></Spinner>
+                  </div>
+                )}
+                <UploadPhotoBox
+                  photoState={photo}
+                  setPhotoState={setPhoto}
+                ></UploadPhotoBox>
+              </div>
             </li>
             <li className={styles.list_item}>
               <p>First Name</p>

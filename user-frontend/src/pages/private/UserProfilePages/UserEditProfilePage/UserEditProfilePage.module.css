@@ -84,6 +84,22 @@
   color: rgb(199, 197, 197);
 }
 
+/* Profilepic */
+.photobox_wrapper {
+  position: relative;
+  max-width: max-content;
+}
+
+.loading_box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 2rem;
+  height: 2rem;
+  z-index: 3;
+}
+
 /* Location suggestions */
 .location_input_wrapper {
   position: relative;
