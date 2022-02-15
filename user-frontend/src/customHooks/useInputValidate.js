@@ -149,6 +149,62 @@ export default function useInputValidate(initialState) {
             confirmPasswordError: "Passwords do not match.",
           };
         }
+      case "SET_AND_VALIDATE_BIO":
+        if (validator.isLength(value, { min, max }) || !value) {
+          return {
+            ...state,
+            bio: value,
+            bioError: "",
+          };
+        } else {
+          return {
+            ...state,
+            bio: value,
+            bioError: `Must be ${min}-${max} characters.`,
+          };
+        }
+      case "SET_AND_VALIDATE_INSTAGRAM":
+        if (validator.isLength(value, { min, max }) || !value) {
+          return {
+            ...state,
+            instagram: value,
+            instagramError: "",
+          };
+        } else {
+          return {
+            ...state,
+            instagram: value,
+            instagramError: "Not valid handle.",
+          };
+        }
+      case "SET_AND_VALIDATE_FACEBOOK":
+        if (validator.isLength(value, { min, max }) || !value) {
+          return {
+            ...state,
+            facebook: value,
+            facebookError: "",
+          };
+        } else {
+          return {
+            ...state,
+            facebook: value,
+            facebookError: "Not valid handle.",
+          };
+        }
+      case "SET_AND_VALIDATE_LINKEDIN":
+        if (validator.isLength(value, { min, max }) || !value) {
+          return {
+            ...state,
+            linkedin: value,
+            linkedinError: "",
+          };
+        } else {
+          return {
+            ...state,
+            linkedin: value,
+            linkedinError: "Not valid handle.",
+          };
+        }
       case "CHECK_ALL_FIELDS_VALID":
         const allEmpty = action.payload.empty
           ? action.payload.empty.every((item) => item === "")
