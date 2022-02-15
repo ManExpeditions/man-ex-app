@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { IoChevronBackSharp } from "react-icons/io5";
+import TextareaAutosize from "react-textarea-autosize";
 import styles from "./UserEditProfilePage.module.css";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -20,6 +21,14 @@ const initialState = {
   firstNameError: "",
   lastName: "",
   lastNameError: "",
+  bio: "",
+  bioError: "",
+  instagram: "",
+  instagramError: "",
+  facebook: "",
+  facebookError: "",
+  linkedin: "",
+  linkedinError: "",
 };
 
 export default function UserEditProfilePage() {
@@ -27,20 +36,23 @@ export default function UserEditProfilePage() {
   const [predictionsOpen, setPredictionsOpen] = useState(true);
   const [validationError, setValidationError] = useState("");
 
-  const [bio, setBio] = useState("");
-  const [instagram, setInstagram] = useState("");
-  const [facebook, setFacebook] = useState("");
-  const [linkedin, setLinkedin] = useState("");
-
-  const [bioError, setBioError] = useState("");
-  const [instagramError, setInstagramError] = useState("");
-  const [facebookError, setFacebookError] = useState("");
-  const [linkedinError, setLinkedinError] = useState("");
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const [state, discharge] = useInputValidate(initialState);
-  let { firstName, firstNameError, lastName, lastNameError } = state;
+  let {
+    firstName,
+    firstNameError,
+    lastName,
+    lastNameError,
+    bio,
+    bioError,
+    facebook,
+    facebookError,
+    instagram,
+    instagramError,
+    linkedin,
+    linkedinError,
+  } = state;
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -80,10 +92,30 @@ export default function UserEditProfilePage() {
         payload: { value: user.lastName },
       });
     }
+    if (user.socials.instagram) {
+      discharge({
+        type: "SET_AND_VALIDATE_INSTAGRAM",
+        payload: { value: user.socials.instagram },
+      });
+    }
+    if (user.socials.facebook) {
+      discharge({
+        type: "SET_AND_VALIDATE_FACEBOOK",
+        payload: { value: user.socials.facebook },
+      });
+    }
+    if (user.socials.linkedin) {
+      discharge({
+        type: "SET_AND_VALIDATE_LINKEDIN",
+        payload: { value: user.socials.linkedin },
+      });
+    }
     // Parse and set location of user
     setLocationState(user.city, user.state, user.country, {
       setLocation: setPlace,
     });
+    // Parse and set social usernames
+    // setSocialStates(user.socials, { setInstagram, setFacebook, setLinkedin });
   }, [
     discharge,
     user.firstName,
@@ -91,6 +123,7 @@ export default function UserEditProfilePage() {
     user.city,
     user.state,
     user.country,
+    user.socials,
   ]);
 
   // If place is empty, reset suggestions
@@ -198,27 +231,39 @@ export default function UserEditProfilePage() {
                 )}
               </div>
             </li>
-            <li className={styles.list_item}>
+            <li className={`${styles.list_item} ${styles.list_item_bio}`}>
               <p>Bio</p>
               <div className={styles.list_input_container}>
-                <textarea
+                <TextareaAutosize
                   className={styles.list_textarea}
                   placeholder="Add bio to introduce yourself"
                   value={bio}
-                ></textarea>
-                <span className={`error-message ${styles.list_input_error}`}>
-                  {bioError}
-                </span>
+                  onChange={(e) => {
+                    discharge({
+                      type: "SET_AND_VALIDATE_BIO",
+                      payload: { value: e.target.value, min: 100, max: 300 },
+                    });
+                  }}
+                ></TextareaAutosize>
+                <div className={styles.list_input_error_container}>
+                  <span
+                    className={`error-message ${styles.list_input_error} ${styles.list_input_error_bio}`}
+                  >
+                    {bioError}
+                  </span>
+                </div>
               </div>
             </li>
             <li className={styles.list_item}>
               <p>Instagram</p>
               <div className={styles.list_input_container}>
-                <input
+                <Input
                   className={styles.list_input}
-                  placeholder="Enter username"
+                  placeholder="Enter instagram handle"
+                  dispatch={discharge}
                   value={instagram}
-                ></input>
+                  actionType="SET_AND_VALIDATE_INSTAGRAM"
+                ></Input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {instagramError}
                 </span>
@@ -227,11 +272,14 @@ export default function UserEditProfilePage() {
             <li className={styles.list_item}>
               <p>Facebook</p>
               <div className={styles.list_input_container}>
-                <input
+                <Input
                   className={styles.list_input}
-                  placeholder="Enter username"
+                  placeholder="Enter facebook handle"
+                  dispatch={discharge}
                   value={facebook}
-                ></input>
+                  actionType="SET_AND_VALIDATE_FACEBOOK"
+                  payload={{ min: 2, max: 100 }}
+                ></Input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {facebookError}
                 </span>
@@ -240,11 +288,14 @@ export default function UserEditProfilePage() {
             <li className={styles.list_item}>
               <p>Linkedin</p>
               <div className={styles.list_input_container}>
-                <input
+                <Input
                   className={styles.list_input}
-                  placeholder="Enter username"
+                  placeholder="Enter linkedin handle"
+                  dispatch={discharge}
                   value={linkedin}
-                ></input>
+                  actionType="SET_AND_VALIDATE_LINKEDIN"
+                  payload={{ min: 2, max: 100 }}
+                ></Input>
                 <span className={`error-message ${styles.list_input_error}`}>
                   {linkedinError}
                 </span>

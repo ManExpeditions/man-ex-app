@@ -50,16 +50,8 @@
   padding: 0.2rem 0;
 }
 
-.list_textarea {
-  font-family: inherit;
-  font-size: 1rem;
-  height: max-content;
-  /* border: none; */
-  /* border: 1px solid magenta; */
-  outline: none;
-  color: #fff;
-  background-color: #1e1e1e;
-  white-space: pre-line;
+::placeholder {
+  color: rgb(199, 197, 197);
 }
 
 /* Location suggestions */
@@ -96,6 +88,32 @@
   position: absolute;
   top: 80%;
   left: 0;
+}
+
+/* Bio styles */
+.list_item_bio {
+  padding: 0 0 1rem;
+}
+
+.list_textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  margin: 0.5rem 0 0;
+  padding: 0.2rem;
+  outline: none;
+  color: #fff;
+  background-color: #1e1e1e;
+  white-space: pre-line;
+  border: 0.001rem solid rgb(199, 197, 197);
+}
+
+.list_input_error_container {
+  position: relative;
+}
+
+.list_input_error_bio {
+  position: absolute;
+  bottom: 2rem;
 }
 
 .list_photo {
