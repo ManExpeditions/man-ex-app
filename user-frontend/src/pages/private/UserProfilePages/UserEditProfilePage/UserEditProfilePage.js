@@ -16,6 +16,7 @@ import {
   resetLocation,
 } from "../../../../slices/services/locationSlice";
 import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
+import UploadPhotoBox from "../../../../components/UploadPhotoBox/UploadPhotoBox";
 
 const initialState = {
   firstName: "",
@@ -49,6 +50,7 @@ export default function UserEditProfilePage() {
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
+  const [photo, setPhoto] = useState("");
   const [place, setPlace] = useState("");
   const [predictionsOpen, setPredictionsOpen] = useState(true);
   const [validationError, setValidationError] = useState("");
@@ -97,6 +99,9 @@ export default function UserEditProfilePage() {
 
   // Set initial field values if they exist
   useEffect(() => {
+    if (user.profilepic) {
+      setPhoto(user.profilepic);
+    }
     if (user.firstName) {
       discharge({
         type: "SET_AND_VALIDATE_FIRSTNAME",
@@ -155,6 +160,7 @@ export default function UserEditProfilePage() {
     });
   }, [
     discharge,
+    user.profilepic,
     user.firstName,
     user.lastName,
     user.city,
@@ -194,17 +200,19 @@ export default function UserEditProfilePage() {
             <IoChevronBackSharp size={25}></IoChevronBackSharp>
             Back
           </Link>
+          <button className={`btn ${styles.save_button}`} to="/profile">
+            Save
+          </button>
         </div>
         <h1 className={styles.page_heading}>Edit Profile</h1>
         <div>
           <ul className={styles.list}>
             <li className={styles.list_item}>
               <p>Profile Photo</p>
-              <img
-                className={styles.list_photo}
-                src={user.profilepic}
-                alt="profile"
-              />
+              <UploadPhotoBox
+                photoState={photo}
+                setPhotoState={setPhoto}
+              ></UploadPhotoBox>
             </li>
             <li className={styles.list_item}>
               <p>First Name</p>
