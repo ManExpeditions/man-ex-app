@@ -131,3 +131,18 @@ export const setLocationState = (
   }
   setLocation(`${userCity}, ${userState}, ${userCountry}`);
 };
+
+export const parseLocationState = (place) => {
+  const location = place.split(",");
+
+  let city, state, country;
+  if (location.length === 2) {
+    // For locations with the format: Nairobi, Kenya
+    [city, country] = place.split(",").map((loc) => loc.trim());
+  } else if (location.length === 3) {
+    // For locations with the format: San Francisco, CA, USA
+    [city, state, country] = place.split(",").map((loc) => loc.trim());
+  }
+
+  return { city: city, state: state ? state : city, country: country };
+};
