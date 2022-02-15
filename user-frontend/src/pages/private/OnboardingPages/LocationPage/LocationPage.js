@@ -15,6 +15,7 @@ import {
 } from "../../../../slices/user/userUpdateSlice";
 import validator from "validator";
 import styles from "./LocationPage.module.css";
+import { parseLocationState } from "../../../../utils/common";
 
 export default function LocationPage(props) {
   const [place, setPlace] = useState("");
@@ -72,24 +73,7 @@ export default function LocationPage(props) {
   }, [dispatch, place]);
 
   const onCompleteHandler = () => {
-    const location = place.split(",");
-
-    let city, state, country;
-    if (location.length === 2) {
-      // For locations with the format: Nairobi, Kenya
-      [city, country] = place.split(",").map((loc) => loc.trim());
-    } else if (location.length === 3) {
-      // For locations with the format: San Francisco, CA, USA
-      [city, state, country] = place.split(",").map((loc) => loc.trim());
-    }
-
-    dispatch(
-      userUpdate({
-        city: city,
-        state: state ? state : city,
-        country: country,
-      })
-    );
+    dispatch(userUpdate(parseLocationState(place)));
   };
 
   // If location info already exists, autofill.

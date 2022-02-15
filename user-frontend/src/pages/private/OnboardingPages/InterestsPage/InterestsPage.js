@@ -9,11 +9,14 @@ import {
   resetUserUpdate,
   userUpdate,
 } from "../../../../slices/user/userUpdateSlice";
-import { setInterestStates } from "../../../../utils/common";
+import {
+  parseInterestState,
+  setInterestStates,
+} from "../../../../utils/common";
 import styles from "./InterestsPage.module.css";
 
 const initialState = {
-  buttonDisabled: true,
+  interestErrors: "",
 };
 
 export default function InterestsPage(props) {
@@ -33,7 +36,7 @@ export default function InterestsPage(props) {
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
   const [state, discharge] = useInputValidate(initialState);
-  let { buttonDisabled } = state;
+  let { interestErrors } = state;
 
   useEffect(() => {
     discharge({
@@ -85,26 +88,25 @@ export default function InterestsPage(props) {
   const dispatch = useDispatch();
 
   const onCompleteHandler = () => {
-    const interests = [
-      artAndCulture && "Arts & Culture",
-      burningMan && "Burning Man",
-      camping && "Camping",
-      cruises && "Cruises",
-      luxuryGetAway && "Luxury Get-aways",
-      musicFestivals && "Music Festivals",
-      natureAndOutdoors && "Nature & Outdoors",
-      nudistAdventures && "Nudist Adventures",
-      prideEvents && "Pride Events",
-      resortVacations && "Resort Vacations",
-      volunteeringTrips && "Volunteering Trips",
-      wellnessRetreats && "Wellness Retreats",
-      wildlife && "Wildlife",
-      activeGetAway && "Active Get-aways",
-    ].filter((value) => value !== false);
-
     dispatch(
       userUpdate({
-        interests,
+        interests: parseInterestState({
+          activeGetAway,
+          artAndCulture,
+          burningMan,
+          camping,
+          cruises,
+          discharge,
+          luxuryGetAway,
+          musicFestivals,
+          natureAndOutdoors,
+          nudistAdventures,
+          prideEvents,
+          resortVacations,
+          volunteeringTrips,
+          wellnessRetreats,
+          wildlife,
+        }),
       })
     );
   };
@@ -237,7 +239,7 @@ export default function InterestsPage(props) {
       </main>
       {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
-        disabled={buttonDisabled}
+        disabled={interestErrors === "" ? false : true}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
