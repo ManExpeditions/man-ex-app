@@ -27,7 +27,6 @@ import {
   userUpdate,
 } from "../../../../slices/user/userUpdateSlice";
 import Spinner from "../../../../components/Spinner/Spinner";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
 import {
   photoUpload,
   resetPhotoUpload,
@@ -273,6 +272,7 @@ export default function UserEditProfilePage() {
 
   // Ensure validation
   useEffect(() => {
+    console.log("vaue of disabled button", buttonDisabled);
     discharge({
       type: "CHECK_ALL_FIELDS_VALID",
       payload: {
@@ -287,10 +287,11 @@ export default function UserEditProfilePage() {
           interestErrors,
           !loadingPhoto ? "" : null,
         ],
-        notEmpty: [firstName, lastName, location, bio],
+        notEmpty: [firstName, lastName, location],
       },
     });
   }, [
+    buttonDisabled,
     bioError,
     bio,
     loadingPhoto,
@@ -315,11 +316,11 @@ export default function UserEditProfilePage() {
         gender,
         location,
         ...parseLocationState(place),
-        bio,
+        ...(bio ? { bio } : {}),
         socials: {
-          instagram,
-          facebook,
-          linkedin,
+          instagram: instagram ? instagram : "",
+          facebook: facebook ? facebook : "",
+          linkedin: linkedin ? linkedin : "",
         },
         interests: parseInterestState({
           activeGetAway,
@@ -365,8 +366,10 @@ export default function UserEditProfilePage() {
             <IoChevronBackSharp size={25}></IoChevronBackSharp>
             Back
           </Link>
-          {updatedUser && (
+          {updatedUser ? (
             <span className="success-message">Updated succesfully</span>
+          ) : (
+            error && <span className="error-message">{error}</span>
           )}
           <button
             disabled={buttonDisabled}
@@ -377,7 +380,6 @@ export default function UserEditProfilePage() {
             {loading ? <Spinner></Spinner> : "Save"}
           </button>
         </div>
-        {error && <MessageBox variant="error">{error}</MessageBox>}
         <h1 className={styles.page_heading}>Edit Profile</h1>
         <div>
           <ul className={styles.list}>
@@ -434,9 +436,6 @@ export default function UserEditProfilePage() {
                   optionState={gender}
                   setOptionState={setGender}
                 ></SelectBox>
-                <span className={`error-message ${styles.list_input_error}`}>
-                  {lastNameError}
-                </span>
               </div>
             </li>
             <li className={styles.list_item}>
