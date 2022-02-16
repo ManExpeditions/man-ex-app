@@ -1,6 +1,10 @@
 import styles from "./DigitVerificationBox.module.css";
 
-export default function DigitVerificationBox({ boxes, error }) {
+export default function DigitVerificationBox({
+  boxes,
+  error,
+  isAutoFocus = true,
+}) {
   const changeFocusToBox = (boxNumber) => {
     const nextBox = document.getElementById(`box-${boxNumber}`);
     if (nextBox !== null) {
@@ -27,7 +31,7 @@ export default function DigitVerificationBox({ boxes, error }) {
         {boxes.map(([boxState, setBoxState], i) => (
           <>
             <input
-              autoFocus={i === 0 ? true : false}
+              autoFocus={i === 0 && isAutoFocus ? true : false}
               id={`box-${i + 1}`}
               value={boxState}
               className={`input ${styles.input} ${
