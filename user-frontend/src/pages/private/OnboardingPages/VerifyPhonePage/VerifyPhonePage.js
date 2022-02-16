@@ -92,7 +92,7 @@ export default function VerifyPhonePage(props) {
     setCounter(60);
     startTimer();
     const decodedPhoneNumber = decodeURIComponent(phoneNumber);
-    dispatch(verificationCode({ type: "phone", phone: decodedPhoneNumber }));
+    dispatch(verificationCode({ type: "phone", payload: decodedPhoneNumber }));
   };
 
   useEffect(() => {

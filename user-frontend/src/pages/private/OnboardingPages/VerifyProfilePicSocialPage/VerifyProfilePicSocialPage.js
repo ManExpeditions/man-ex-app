@@ -32,18 +32,18 @@ export default function VerifyProfilePicSocialPage(props) {
   }, [facebookProfile, inputValidator, instagramProfile, linkedinProfile]);
 
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
-  const { loading, user: updatedUser } = userUpdateSlice;
+  const { loading, user: updatedUser, error } = userUpdateSlice;
 
   const dispatch = useDispatch();
 
   const onCompleteHandler = () => {
     dispatch(
       userUpdate({
-        socials: [
-          instagramProfile ? instagramProfile : null,
-          facebookProfile ? facebookProfile : null,
-          linkedinProfile ? linkedinProfile : null,
-        ],
+        socials: {
+          instagram: instagramProfile ? instagramProfile : "",
+          facebook: facebookProfile ? facebookProfile : "",
+          linkedin: linkedinProfile ? linkedinProfile : "",
+        },
         completedOnboarding: true,
       })
     );
@@ -117,6 +117,7 @@ export default function VerifyProfilePicSocialPage(props) {
       >
         {loading ? <Spinner></Spinner> : "Done"}
       </button>
+      <span className="error-message margin-auto">{error}</span>
     </>
   );
 }

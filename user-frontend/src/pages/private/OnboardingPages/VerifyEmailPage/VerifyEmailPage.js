@@ -84,7 +84,7 @@ export default function VerifyEmailPage(props) {
     dispatch(resetVerificationCode());
     setCounter(60);
     startTimer();
-    dispatch(verificationCode({ type: "email" }));
+    dispatch(verificationCode({ type: "email", payload: user.email }));
   };
 
   useEffect(() => {

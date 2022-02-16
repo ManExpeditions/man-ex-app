@@ -37,7 +37,7 @@ export default function EnterPhonePage(props) {
   const dispatch = useDispatch();
 
   const onCompleteHandler = () => {
-    dispatch(verificationCode({ type: "phone", phone: phoneNumber }));
+    dispatch(verificationCode({ type: "phone", payload: phoneNumber }));
   };
 
   useEffect(() => {
