@@ -17,10 +17,12 @@ class userAPI {
     return data;
   }
 
-  async verificationCode(userId, userToken, type, phone) {
+  async verificationCode(userId, userToken, type, payload) {
     const { data } = await Axios.post(
       `/api/user/v1/${userId}/verify/code?type=${type}`,
-      { ...(phone ? { phone } : {}) },
+      {
+        ...(type === "email" ? { email: payload } : { phone: payload }),
+      },
       {
         headers: {
           Authorization: `Bearer ${userToken}`,
