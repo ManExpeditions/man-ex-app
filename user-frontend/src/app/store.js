@@ -4,6 +4,7 @@ import emailRegisterSlice from "../slices/auth/emailRegisterSlice";
 import signinSlice from "../slices/auth/signinSlice";
 import locationSlice from "../slices/services/locationSlice";
 import userUpdateSlice from "../slices/user/userUpdateSlice";
+import userValidateSlice from "../slices/user/userValidateSlice";
 import verificationCodeSlice from "../slices/user/verificationCodeSlice";
 import verifySlice from "../slices/user/verifySlice";
 
@@ -21,6 +22,7 @@ export const store = configureStore({
     verifySlice: verifySlice,
     verificationCodeSlice: verificationCodeSlice,
     userUpdateSlice: userUpdateSlice,
+    userValidateSlice: userValidateSlice,
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
   },

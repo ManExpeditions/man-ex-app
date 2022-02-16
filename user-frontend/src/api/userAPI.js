@@ -30,6 +30,19 @@ class userAPI {
     return data;
   }
 
+  async validateUser(userId, userToken, password) {
+    const { data } = await Axios.post(
+      `/api/user/v1/${userId}/validate`,
+      { password },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      }
+    );
+    return data;
+  }
+
   async updateUser(userId, userToken, userData) {
     const { data } = await Axios.put(`/api/user/v1/${userId}`, userData, {
       headers: {
