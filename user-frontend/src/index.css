@@ -79,6 +79,12 @@ ul {
   padding: 0;
 }
 
+.margin-auto {
+  display: block;
+  width: max-content;
+  margin: 0 auto;
+}
+
 .text-center {
   text-align: center;
 }
