@@ -19,6 +19,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  * @apiQuery {String} type Either email or phone.
  *
  * @apiBody {String} Phone The mobile phone to send verification code (only required if type = phone)
+ * @apiBody {String} Email The email to send verification code (only required if type = email)
  *
  * @apiSuccess {Object} User.
  *
@@ -46,6 +47,7 @@ export const userVerificationCodeController = [
     .optional()
     .isMobilePhone('any', { strictMode: true })
     .escape(),
+  body('email', 'Enter valid email').optional().isEmail().escape(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.
@@ -72,11 +74,31 @@ export const userVerificationCodeController = [
 
     // If type is email, and email already verified, avoid
     // sending verification code.
-    if (type === 'email' && user.emailVerified) {
-      const err = new Error('User email is already verified.');
+
+    // Ensure that email exists if sending verification
+    // code to email.
+    const email = req.body.email;
+    if (type === 'email' && !email) {
+      const err = new Error('Invalid Request: Enter a valid email in body.');
       logger.error(err.message);
       res.status(400).json({ message: err.message });
       return;
+    } else if (type === 'email' && email === user.email) {
+      const err = new Error('Invalid Request: Email already verified.');
+      logger.error(err.message);
+      res.status(400).json({ message: err.message });
+      return;
+    }
+
+    // We need to make sure that the email is not being used by another user
+    if (type === 'email') {
+      const user = await userDao.find_user_by_email(email);
+      if (user) {
+        const err = new Error('Invalid Request: Email already being used.');
+        logger.error(err.message);
+        res.status(400).json({ message: err.message });
+        return;
+      }
     }
 
     // Ensure that phone exists if sending verification
@@ -91,7 +113,7 @@ export const userVerificationCodeController = [
       return;
     }
 
-    const address = type === 'email' ? user.email : phone;
+    const address = type === 'email' ? email : phone;
 
     // Send verification code to phone or email accordingly
     await TwilioServices.sendVerificationCode(
