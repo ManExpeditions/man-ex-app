@@ -9,7 +9,7 @@ const initialState = {
 
 export const verificationCode = createAsyncThunk(
   "verificationCode/verificationCode",
-  async ({ type, phone = null }, { rejectWithValue, getState }) => {
+  async ({ type, payload }, { rejectWithValue, getState }) => {
     const {
       signinSlice: { user },
     } = getState();
@@ -18,7 +18,7 @@ export const verificationCode = createAsyncThunk(
         user.id,
         user.token,
         type,
-        phone
+        payload
       );
       return data;
     } catch (err) {
