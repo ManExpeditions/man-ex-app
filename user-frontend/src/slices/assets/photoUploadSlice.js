@@ -43,9 +43,12 @@ export const photoUploadSlice = createSlice({
     builder
       .addCase(photoUpload.pending, (state) => {
         state.loading = true;
+        state.photo = null;
+        state.error = null;
       })
       .addCase(photoUpload.rejected, (state, action) => {
         state.loading = false;
+        state.photo = null;
         if (action.payload) {
           state.error = action.payload;
         } else {
@@ -55,6 +58,7 @@ export const photoUploadSlice = createSlice({
       .addCase(photoUpload.fulfilled, (state, action) => {
         state.loading = false;
         state.photo = action.payload;
+        state.error = null;
       });
   },
 });
