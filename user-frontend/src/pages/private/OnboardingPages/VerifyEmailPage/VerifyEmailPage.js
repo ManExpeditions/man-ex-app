@@ -77,7 +77,7 @@ export default function VerifyEmailPage(props) {
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
     dispatch(resetVerifyErrors());
-    dispatch(verify({ type: "email", verificationCode }));
+    dispatch(verify({ type: "email", payload: user.email, verificationCode }));
   };
 
   const onResendCode = () => {

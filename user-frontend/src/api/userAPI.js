@@ -1,11 +1,11 @@
 import Axios from "axios";
 
 class userAPI {
-  async verify(type, phone, userId, userToken, verificationCode) {
+  async verify(type, payload, userId, userToken, verificationCode) {
     const { data } = await Axios.post(
       `/api/user/v1/${userId}/verify/${type}`,
       {
-        phone,
+        ...(type === "email" ? { email: payload } : { phone: payload }),
         verification_code: verificationCode,
       },
       {

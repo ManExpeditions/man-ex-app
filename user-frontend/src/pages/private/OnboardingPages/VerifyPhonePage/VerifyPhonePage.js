@@ -76,7 +76,7 @@ export default function VerifyPhonePage(props) {
     dispatch(resetVerifyErrors());
     const decodedPhoneNumber = decodeURIComponent(phoneNumber);
     dispatch(
-      verify({ type: "phone", phone: decodedPhoneNumber, verificationCode })
+      verify({ type: "phone", payload: decodedPhoneNumber, verificationCode })
     );
   };
 
