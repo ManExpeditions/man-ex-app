@@ -16,6 +16,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  *
  * @apiParam {String} id Users unique ID.
  *
+ * @apiBody {String} email The email to verify.
  * @apiBody {String} verification_code The verification code sent to the user.
  *
  * @apiSuccess {Object} User.
@@ -36,6 +37,7 @@ export const userVerifyEmailController = [
   body('verification_code', 'Please enter a valid verification code')
     .isNumeric()
     .escape(),
+  body('email', 'Please enter a valid email').isEmail().escape(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.
@@ -58,8 +60,9 @@ export const userVerifyEmailController = [
       return;
     }
 
-    // If user is already verified, no need to verify again
-    if (user.emailVerified) {
+    // If email is already verified, no need to verify again
+    const email = req.body.email;
+    if (user.emailVerified === email) {
       const err = new Error(`User verified: User email is already verified.`);
       logger.error(err.message);
       res.status(400).json({ message: err.message });
@@ -67,7 +70,7 @@ export const userVerifyEmailController = [
     }
 
     // Verify email
-    await TwilioServices.verifyService(user.email, req.body.verification_code)
+    await TwilioServices.verifyService(email, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
           const updatedUser = await userDao.verify_user_email(user);
