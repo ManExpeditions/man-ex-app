@@ -88,6 +88,7 @@ export const userVerifyEmailController = [
             country: updatedUser?.country,
             profilepic: updatedUser?.profilepic,
             profilepicVerified: updatedUser?.profilepicVerified,
+            bio: updatedUser?.bio,
             verificationProfilepic: updatedUser?.verificationProfilepic,
             socials: updatedUser?.socials,
             authType: updatedUser?.authType,
