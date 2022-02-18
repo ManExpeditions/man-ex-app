@@ -26,7 +26,9 @@ export const userValidateController = [
   // Has to an authenticated request
   isAuthenticated,
   // Sanitize and validate body params
-  body('password', 'Please enter a password').isLength({ min: 1 }).escape(),
+  body('password', 'Please enter a password')
+    .isLength({ min: 1, max: 30 })
+    .escape(),
   // Validate param
   param('id', 'Id param must be a string')
     .isLength({ min: 5 })

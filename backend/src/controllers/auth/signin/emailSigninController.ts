@@ -33,7 +33,9 @@ import generateToken from '../../../lib/jwt';
 export const emailSigninController = [
   // Sanitize and validate body params
   body('email', 'Please enter a valid email').trim().isEmail().escape(),
-  body('password', 'Please enter a password').isLength({ min: 1 }).escape(),
+  body('password', 'Please enter a password')
+    .isLength({ min: 1, max: 30 })
+    .escape(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.

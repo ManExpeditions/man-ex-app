@@ -60,7 +60,7 @@ export const userUpdateController = [
     .escape(),
   body('password', 'Enter valid password')
     .optional()
-    .isStrongPassword()
+    .isStrongPassword({ minSymbols: 0 })
     .escape(),
   body('emailVerified', 'Enter valid emailVerified value')
     .optional()
