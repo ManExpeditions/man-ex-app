@@ -194,7 +194,7 @@ export default function UpdatePhonePage(props) {
             <div className={styles.input_wrapper}>
               <div className={styles.label_wrapper}>
                 <label className="label">New Phone</label>
-                <div className={styles.email_error_container}>
+                <div className={styles.phone_error_container}>
                   {phoneError && (
                     <span className="error-message">{phoneError}</span>
                   )}
