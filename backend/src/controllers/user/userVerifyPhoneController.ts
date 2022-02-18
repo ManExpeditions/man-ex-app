@@ -62,19 +62,17 @@ export const userVerifyPhoneController = [
       return;
     }
 
-    // If user is already verified, no need to verify again
-    if (user.phoneVerified) {
+    // If phone is already verified, no need to verify again
+    const phone = req.body.phone;
+    if (user.phone === phone && user.phoneVerified) {
       const err = new Error(`User verified: User phone is already verified.`);
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(400).json({ message: err.message });
       return;
     }
 
     // Verify phone
-    await TwilioServices.verifyService(
-      req.body.phone,
-      req.body.verification_code
-    )
+    await TwilioServices.verifyService(phone, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
           const updatedUser = await userDao.verify_and_update_phone(
