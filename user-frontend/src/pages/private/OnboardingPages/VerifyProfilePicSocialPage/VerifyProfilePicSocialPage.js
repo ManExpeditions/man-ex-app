@@ -51,10 +51,16 @@ export default function VerifyProfilePicSocialPage(props) {
 
   useEffect(() => {
     if (updatedUser) {
-      dispatch(resetUserUpdate());
       props.history.push("/home");
     }
   }, [dispatch, updatedUser, props.history]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserUpdate());
+    };
+  }, [dispatch]);
 
   return (
     <>
