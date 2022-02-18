@@ -114,7 +114,7 @@ export default function UpdatePasswordPage(props) {
         </Link>
       </div>
       <div className={styles.container}>
-        <h1>Update Phone</h1>
+        <h1>Change Password</h1>
 
         {updatedUser ? (
           <MessageBox>
