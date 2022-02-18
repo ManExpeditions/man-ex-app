@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 import User from '../../models/user';
 
 class UserDao {
@@ -41,11 +42,21 @@ class UserDao {
     if (!user) {
       return null;
     }
+
+    const saltRounds = 10;
+    const isHashed = (password: string): boolean => {
+      if (password.length <= 30) return false;
+      return true;
+    };
+
     user.firstName = userInfo.firstName || user.firstName;
     user.lastName = userInfo.lastName || user.lastName;
     user.email = userInfo.email || user.email;
     user.phone = userInfo.phone || user.phone;
-    user.password = userInfo.password || user.password;
+    user.password =
+      userInfo.password && !isHashed(userInfo.password)
+        ? await bcrypt.hash(userInfo.password, saltRounds)
+        : user.password;
     user.emailVerified = userInfo.emailVerified || user.emailVerified;
     user.phoneVerified = userInfo.phoneVerified || user.phoneVerified;
     user.gender = userInfo.gender || user.gender;
