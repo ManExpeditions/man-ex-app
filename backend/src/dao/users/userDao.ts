@@ -75,7 +75,11 @@ class UserDao {
     await User.deleteMany();
   }
 
-  public async verify_user_email(user: User): Promise<User | null> {
+  public async verify_user_email(
+    user: User,
+    email: string
+  ): Promise<User | null> {
+    user.email = email;
     user.emailVerified = true;
     const updatedUser = await this.update_user(user._id, user);
     return updatedUser;
