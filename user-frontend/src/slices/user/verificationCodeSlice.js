@@ -34,6 +34,10 @@ export const verificationCodeSlice = createSlice({
   name: "verificationCode",
   initialState,
   reducers: {
+    resetVerificationCodeErrors: (state) => {
+      state.loading = false;
+      state.error = null;
+    },
     resetVerificationCode: (state) => {
       state.loading = false;
       state.success = null;
@@ -60,6 +64,7 @@ export const verificationCodeSlice = createSlice({
   },
 });
 
-export const { resetVerificationCode } = verificationCodeSlice.actions;
+export const { resetVerificationCode, resetVerificationCodeErrors } =
+  verificationCodeSlice.actions;
 
 export default verificationCodeSlice.reducer;

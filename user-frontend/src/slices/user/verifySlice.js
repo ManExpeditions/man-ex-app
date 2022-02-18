@@ -10,7 +10,7 @@ const initialState = {
 export const verify = createAsyncThunk(
   "verify/verify",
   async (
-    { type, phone = null, verificationCode },
+    { type, payload, verificationCode },
     { rejectWithValue, getState }
   ) => {
     const {
@@ -19,12 +19,13 @@ export const verify = createAsyncThunk(
     try {
       const data = await userAPI.verify(
         type,
-        phone,
+        payload,
         user.id,
         user.token,
         verificationCode
       );
-      localStorage.setItem("user", JSON.stringify(data));
+      const token = user.token;
+      localStorage.setItem("user", JSON.stringify({ ...data, token }));
       return data;
     } catch (err) {
       if (!err.response) {

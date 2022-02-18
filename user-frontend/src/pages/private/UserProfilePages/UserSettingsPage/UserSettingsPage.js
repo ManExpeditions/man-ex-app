@@ -17,7 +17,10 @@ export default function UserSettingsPage() {
       <section>
         <ul>
           <li className={styles.list_item}>
-            <Link to="" className={`link ${styles.link}`}>
+            <Link
+              to="/profile/settings/email"
+              className={`link ${styles.link}`}
+            >
               <div>
                 <h4>Email address</h4>
                 <p>{user.email}</p>

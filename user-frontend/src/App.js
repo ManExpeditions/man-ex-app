@@ -26,6 +26,7 @@ import TravelSponsorshipsPage from "./pages/public/TravelSponsorshipsPage/Travel
 import PrivacyAndServiceTermsPage from "./pages/public/PrivacyAndServiceTermsPage/PrivacyAndServiceTermsPage";
 import UserProfilePage from "./pages/private/UserProfilePages/UserProfilePage/UserProfilePage";
 import UserEditProfilePage from "./pages/private/UserProfilePages/UserEditProfilePage/UserEditProfilePage";
+import UpdateEmailPage from "./pages/private/UserProfilePages/UpdateEmailPage/UpdateEmailPage";
 
 function App() {
   return (
@@ -88,6 +89,11 @@ function App() {
         path="/privacy-and-serviceterms"
         component={PrivacyAndServiceTermsPage}
       ></Route>
+      <PrivateRoute
+        path="/profile/settings/email"
+        component={UpdateEmailPage}
+        exact
+      ></PrivateRoute>
       <PrivateRoute
         path="/profile/settings"
         component={UserSettingsPage}
