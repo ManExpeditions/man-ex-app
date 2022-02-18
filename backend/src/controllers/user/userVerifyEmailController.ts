@@ -62,7 +62,7 @@ export const userVerifyEmailController = [
 
     // If email is already verified, no need to verify again
     const email = req.body.email;
-    if (user.emailVerified === email) {
+    if (user.email === email && user.emailVerified) {
       const err = new Error(`User verified: User email is already verified.`);
       logger.error(err.message);
       res.status(400).json({ message: err.message });
