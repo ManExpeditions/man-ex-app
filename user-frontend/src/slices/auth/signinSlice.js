@@ -31,6 +31,12 @@ export const signinSlice = createSlice({
   name: "signin",
   initialState,
   reducers: {
+    resetSignin: (state) => {
+      localStorage.removeItem("user");
+      state.loading = false;
+      state.error = null;
+      state.user = null;
+    },
     resetSigninErrors: (state) => {
       state.error = null;
     },
@@ -67,6 +73,6 @@ export const signinSlice = createSlice({
   },
 });
 
-export const { resetSigninErrors } = signinSlice.actions;
+export const { resetSignin, resetSigninErrors } = signinSlice.actions;
 
 export default signinSlice.reducer;
