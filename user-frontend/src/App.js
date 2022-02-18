@@ -27,6 +27,7 @@ import PrivacyAndServiceTermsPage from "./pages/public/PrivacyAndServiceTermsPag
 import UserProfilePage from "./pages/private/UserProfilePages/UserProfilePage/UserProfilePage";
 import UserEditProfilePage from "./pages/private/UserProfilePages/UserEditProfilePage/UserEditProfilePage";
 import UpdateEmailPage from "./pages/private/UserProfilePages/UpdateEmailPage/UpdateEmailPage";
+import UpdatePhonePage from "./pages/private/UserProfilePages/UpdatePhonePage/UpdatePhonePage";
 
 function App() {
   return (
@@ -92,6 +93,11 @@ function App() {
       <PrivateRoute
         path="/profile/settings/email"
         component={UpdateEmailPage}
+        exact
+      ></PrivateRoute>
+      <PrivateRoute
+        path="/profile/settings/phone"
+        component={UpdatePhonePage}
         exact
       ></PrivateRoute>
       <PrivateRoute

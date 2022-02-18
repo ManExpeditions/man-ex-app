@@ -29,7 +29,10 @@ export default function UserSettingsPage() {
             </Link>
           </li>
           <li className={styles.list_item}>
-            <Link to="" className={`link ${styles.link}`}>
+            <Link
+              to="/profile/settings/phone"
+              className={`link ${styles.link}`}
+            >
               <div>
                 <h4>Phone number</h4>
                 <p>{user.phone}</p>
