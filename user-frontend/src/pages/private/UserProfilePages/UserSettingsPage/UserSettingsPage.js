@@ -42,7 +42,10 @@ export default function UserSettingsPage() {
               </Link>
             </li>
             <li className={styles.list_item}>
-              <Link to="" className={`link ${styles.link}`}>
+              <Link
+                to="/profile/settings/password"
+                className={`link ${styles.link}`}
+              >
                 <div>
                   <h4>Password</h4>
                   <p>******</p>
