@@ -64,7 +64,6 @@ export default function VerifyPhonePage(props) {
   useEffect(() => {
     if (counter < 0) {
       clearInterval(intervalRef.current);
-      console.log("this ran");
       dispatch(resetVerificationCode());
     }
   }, [counter, dispatch]);

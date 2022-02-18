@@ -1,5 +1,4 @@
 export const getOnboardingRedirectPage = (user) => {
-  console.log("this ran");
   let redirect;
   if (!user.emailVerified) {
     redirect = "/onboarding/verify/email";

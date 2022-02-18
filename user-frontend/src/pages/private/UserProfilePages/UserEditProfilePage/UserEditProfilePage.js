@@ -272,7 +272,6 @@ export default function UserEditProfilePage() {
 
   // Ensure validation
   useEffect(() => {
-    console.log("vaue of disabled button", buttonDisabled);
     discharge({
       type: "CHECK_ALL_FIELDS_VALID",
       payload: {
