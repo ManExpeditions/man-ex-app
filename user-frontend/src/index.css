@@ -350,3 +350,33 @@ input:-webkit-autofill {
     transform: rotate(360deg);
   }
 }
+
+/* ==================
+   Modal
+===================*/
+
+.modal {
+  background-color: #fff;
+  color: #000;
+  padding: 0.8rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.modal-text {
+  margin: 0 0 1rem;
+  font-size: 1.02rem;
+}
+
+.modal-button {
+  color: #000;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.5rem;
+}
+
+.modal-button.red {
+  color: #fd5c52;
+  border: 1px solid #fd5c52;
+}
