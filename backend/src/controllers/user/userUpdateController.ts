@@ -43,7 +43,10 @@ export const userUpdateController = [
   isAuthenticated,
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
-  body('isActive', 'Enter valid isActive value').isBoolean().escape(),
+  body('isActive', 'Enter valid isActive value')
+    .optional()
+    .isBoolean()
+    .escape(),
   body('firstName', 'Enter valid first name')
     .optional()
     .isAlphanumeric()
