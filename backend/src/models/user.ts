@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 interface User {
   _id: mongoose.Types.ObjectId;
+  isActive: boolean;
   firstName: string;
   lastName: string;
   email: string;
@@ -28,6 +29,7 @@ interface User {
 
 const userSchema = new mongoose.Schema<User>(
   {
+    isActive: { type: Boolean, default: true },
     firstName: { type: String },
     lastName: { type: String },
     email: { type: String, unique: true },

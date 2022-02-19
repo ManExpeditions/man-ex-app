@@ -73,6 +73,7 @@ export const emailSigninController = [
     res.status(200).json({
       id: user._id,
       token: token,
+      isActive: user.isActive,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

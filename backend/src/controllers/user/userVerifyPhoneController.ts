@@ -81,6 +81,7 @@ export const userVerifyPhoneController = [
           );
           res.send({
             id: updatedUser?._id,
+            isActive: updatedUser?.isActive,
             firstName: updatedUser?.firstName,
             lastName: updatedUser?.lastName,
             email: updatedUser?.email,

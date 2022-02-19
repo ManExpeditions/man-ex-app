@@ -49,6 +49,7 @@ class UserDao {
       return true;
     };
 
+    user.isActive = userInfo.isActive || user.isActive;
     user.firstName = userInfo.firstName || user.firstName;
     user.lastName = userInfo.lastName || user.lastName;
     user.email = userInfo.email || user.email;

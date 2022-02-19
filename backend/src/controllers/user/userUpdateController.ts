@@ -43,6 +43,7 @@ export const userUpdateController = [
   isAuthenticated,
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
+  body('isActive', 'Enter valid isActive value').isBoolean().escape(),
   body('firstName', 'Enter valid first name')
     .optional()
     .isAlphanumeric()
@@ -159,6 +160,7 @@ export const userUpdateController = [
 
     res.status(200).json({
       id: updatedUser._id,
+      isActive: updatedUser.isActive,
       firstName: updatedUser.firstName,
       lastName: updatedUser.lastName,
       email: updatedUser.email,

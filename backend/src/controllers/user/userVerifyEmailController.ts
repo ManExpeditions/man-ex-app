@@ -76,6 +76,7 @@ export const userVerifyEmailController = [
           const updatedUser = await userDao.verify_user_email(user, email);
           res.send({
             id: updatedUser?._id,
+            isActive: updatedUser?.isActive,
             firstName: updatedUser?.firstName,
             lastName: updatedUser?.lastName,
             email: updatedUser?.email,
