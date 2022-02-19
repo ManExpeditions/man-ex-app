@@ -70,6 +70,10 @@ code {
   align-items: center;
 }
 
+.display-block {
+  display: block;
+}
+
 .pos-relative {
   position: relative;
 }

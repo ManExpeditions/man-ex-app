@@ -70,8 +70,9 @@ export default function ManageAccountPage(props) {
     dispatch(validateUser(password));
   };
 
-  const onPasswordUpdateHandler = () => {
-    dispatch(userUpdate({ password }));
+  // What to do on deactivate
+  const onDeactivateHandler = () => {
+    dispatch(userUpdate({ isActive: false }));
   };
 
   // On every render check if all fields are valid
@@ -95,7 +96,7 @@ export default function ManageAccountPage(props) {
   useEffect(() => {
     if (updatedUser) {
       window.setTimeout(() => {
-        props.history.push("/profile/settings");
+        dispatch(resetSignin());
       }, 2000);
     }
   }, [dispatch, props.history, updatedUser]);
@@ -119,10 +120,9 @@ export default function ManageAccountPage(props) {
       </div>
       <div className={styles.container}>
         <h1>Manage Account</h1>
-
         {updatedUser ? (
           <MessageBox>
-            Password updated. Redirecting...
+            Account deactivated. Redirecting{" "}
             <div className={styles.spinner_wrapper}>
               <Spinner></Spinner>{" "}
             </div>{" "}
@@ -168,10 +168,15 @@ export default function ManageAccountPage(props) {
                   <div className="flex-box">
                     <button
                       className="btn modal-button red"
-                      onClick={() => dispatch(resetSignin())}
+                      onClick={onDeactivateHandler}
                     >
                       Deactivate Account
                     </button>
+                    {errorUpdatedUser && (
+                      <span className="error-message display-block">
+                        {errorUpdatedUser}
+                      </span>
+                    )}
                   </div>
                 </div>
               </Modal>
@@ -224,9 +229,6 @@ export default function ManageAccountPage(props) {
                 </button>
               </li>
             </ul>
-            {errorUpdatedUser && (
-              <span className="error-message">{errorUpdatedUser}</span>
-            )}
           </>
         )}
         <button
