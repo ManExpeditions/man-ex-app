@@ -67,33 +67,46 @@ export const emailSigninController = [
       return;
     }
 
+    // Make sure user isActive if signing in
+    const userId = user._id;
+    const updatedUser = await userDao.update_user(userId, {
+      ...user,
+      isActive: true
+    });
+    if (!updatedUser) {
+      const err = new Error('Unable to update user.');
+      logger.error(err.message);
+      res.status(404).json({ message: err.message });
+      return;
+    }
+
     // Generate authentication token
-    const token = generateToken(user);
+    const token = generateToken(updatedUser);
 
     res.status(200).json({
-      id: user._id,
+      id: updatedUser._id,
       token: token,
-      isActive: user.isActive,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone,
-      emailVerified: user.emailVerified,
-      phoneVerified: user.phoneVerified,
-      gender: user.gender,
-      language: user.language,
-      interests: user.interests,
-      continents: user.continents,
-      city: user.city,
-      state: user.state,
-      country: user.country,
-      profilepic: user.profilepic,
-      profilepicVerified: user.profilepicVerified,
-      verificationProfilepic: user.verificationProfilepic,
-      bio: user.bio,
-      socials: user.socials,
-      authType: user.authType,
-      completedOnboarding: user.completedOnboarding
+      isActive: updatedUser.isActive,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+      emailVerified: updatedUser.emailVerified,
+      phoneVerified: updatedUser.phoneVerified,
+      gender: updatedUser.gender,
+      language: updatedUser.language,
+      interests: updatedUser.interests,
+      continents: updatedUser.continents,
+      city: updatedUser.city,
+      state: updatedUser.state,
+      country: updatedUser.country,
+      profilepic: updatedUser.profilepic,
+      profilepicVerified: updatedUser.profilepicVerified,
+      verificationProfilepic: updatedUser.verificationProfilepic,
+      bio: updatedUser.bio,
+      socials: updatedUser.socials,
+      authType: updatedUser.authType,
+      completedOnboarding: updatedUser.completedOnboarding
     });
     return;
   })
