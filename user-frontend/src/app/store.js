@@ -3,6 +3,7 @@ import photoUploadSlice from "../slices/assets/photoUploadSlice";
 import emailRegisterSlice from "../slices/auth/emailRegisterSlice";
 import signinSlice from "../slices/auth/signinSlice";
 import locationSlice from "../slices/services/locationSlice";
+import userDeleteSlice from "../slices/user/userDeleteSlice";
 import userUpdateSlice from "../slices/user/userUpdateSlice";
 import userValidateSlice from "../slices/user/userValidateSlice";
 import verificationCodeSlice from "../slices/user/verificationCodeSlice";
@@ -23,6 +24,7 @@ export const store = configureStore({
     verificationCodeSlice: verificationCodeSlice,
     userUpdateSlice: userUpdateSlice,
     userValidateSlice: userValidateSlice,
+    userDeleteSlice: userDeleteSlice,
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
   },

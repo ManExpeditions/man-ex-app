@@ -45,6 +45,15 @@ class userAPI {
     return data;
   }
 
+  async deleteUser(userId, userToken) {
+    const { data } = await Axios.delete(`/api/user/v1/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
+    return data;
+  }
+
   async updateUser(userId, userToken, userData) {
     const { data } = await Axios.put(`/api/user/v1/${userId}`, userData, {
       headers: {

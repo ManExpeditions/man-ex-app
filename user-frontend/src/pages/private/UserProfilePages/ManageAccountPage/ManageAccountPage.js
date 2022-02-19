@@ -18,6 +18,10 @@ import {
 import { resetVerify } from "../../../../slices/user/verifySlice";
 import { resetSignin } from "../../../../slices/auth/signinSlice";
 import Modal from "../../../../components/Modal/Modal";
+import {
+  deleteUser,
+  resetUserDelete,
+} from "../../../../slices/user/userDeleteSlice";
 
 const initialState = {
   password: "",
@@ -51,6 +55,13 @@ export default function ManageAccountPage(props) {
     error: errorUpdatedUser,
   } = userUpdateSlice;
 
+  const userDeleteSlice = useSelector((state) => state.userDeleteSlice);
+  const {
+    loading: loadingDeletedUser,
+    success: deletedSuccess,
+    error: errorDeletedUser,
+  } = userDeleteSlice;
+
   const dispatch = useDispatch();
 
   // Focus ref on phone
@@ -68,6 +79,11 @@ export default function ManageAccountPage(props) {
   // What to do on deactivate
   const onDeactivateHandler = () => {
     dispatch(userUpdate({ isActive: false }));
+  };
+
+  // What to do on deactivate
+  const onDeleteHandler = () => {
+    dispatch(deleteUser({}));
   };
 
   // On every render check if all fields are valid
@@ -89,17 +105,18 @@ export default function ManageAccountPage(props) {
 
   // If everything was succesfull then
   useEffect(() => {
-    if (updatedUser) {
+    if (updatedUser || deletedSuccess) {
       window.setTimeout(() => {
         dispatch(resetSignin());
       }, 2000);
     }
-  }, [dispatch, props.history, updatedUser]);
+  }, [dispatch, props.history, updatedUser, deletedSuccess]);
 
   useEffect(() => {
     // Cleanup on exit of page
     return () => {
       dispatch(resetUserValidate());
+      dispatch(resetUserDelete());
       dispatch(resetUserUpdate());
       dispatch(resetVerify());
     };
@@ -115,9 +132,9 @@ export default function ManageAccountPage(props) {
       </div>
       <div className={styles.container}>
         <h1>Manage Account</h1>
-        {updatedUser ? (
+        {updatedUser || deletedSuccess ? (
           <MessageBox>
-            Account deactivated. Redirecting{" "}
+            Account {updatedUser ? "deactivated" : "deleted"}. Redirecting{" "}
             <div className={styles.spinner_wrapper}>
               <Spinner></Spinner>{" "}
             </div>{" "}
@@ -190,10 +207,19 @@ export default function ManageAccountPage(props) {
                   <div className="flex-box">
                     <button
                       className="btn modal-button red"
-                      onClick={() => dispatch(resetSignin())}
+                      onClick={onDeleteHandler}
                     >
-                      Delete Account
+                      {loadingDeletedUser ? (
+                        <Spinner></Spinner>
+                      ) : (
+                        "Delete Account"
+                      )}
                     </button>
+                    {errorDeletedUser && (
+                      <span className="error-message display-block">
+                        {errorDeletedUser}
+                      </span>
+                    )}
                   </div>
                 </div>
               </Modal>
