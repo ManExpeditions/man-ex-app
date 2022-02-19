@@ -29,6 +29,7 @@ import UserEditProfilePage from "./pages/private/UserProfilePages/UserEditProfil
 import UpdateEmailPage from "./pages/private/UserProfilePages/UpdateEmailPage/UpdateEmailPage";
 import UpdatePhonePage from "./pages/private/UserProfilePages/UpdatePhonePage/UpdatePhonePage";
 import UpdatePasswordPage from "./pages/private/UserProfilePages/UpdatePasswordPage/UpdatePasswordPage";
+import ManageAccountPage from "./pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage";
 
 function App() {
   return (
@@ -104,6 +105,11 @@ function App() {
       <PrivateRoute
         path="/profile/settings/password"
         component={UpdatePasswordPage}
+        exact
+      ></PrivateRoute>
+      <PrivateRoute
+        path="/profile/settings/account"
+        component={ManageAccountPage}
         exact
       ></PrivateRoute>
       <PrivateRoute

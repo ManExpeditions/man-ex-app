@@ -72,10 +72,13 @@ export default function UserSettingsPage() {
               </Link>
             </li>
             <li className={styles.list_item}>
-              <Link className={`link ${styles.link} ${styles.no_border}`}>
+              <Link
+                to="/profile/settings/account"
+                className={`link ${styles.link} ${styles.no_border}`}
+              >
                 <div>
                   <h4>Manage account</h4>
-                  <p>{user.language}</p>
+                  <p>Logout, deactivate, delete account</p>
                 </div>
                 <BiChevronRight size={24}></BiChevronRight>
               </Link>
