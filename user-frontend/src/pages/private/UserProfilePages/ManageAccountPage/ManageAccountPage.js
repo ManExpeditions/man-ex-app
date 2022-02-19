@@ -34,13 +34,8 @@ export default function ManageAccountPage(props) {
 
   const passwordRef = useRef(null);
 
-  let {
-    password,
-    passwordError,
-    confirmPassword,
-    confirmPasswordError,
-    buttonDisabled,
-  } = state;
+  let { password, passwordError, confirmPassword, confirmPasswordError } =
+    state;
 
   const userValidateSlice = useSelector((state) => state.userValidateSlice);
   const {
@@ -170,7 +165,11 @@ export default function ManageAccountPage(props) {
                       className="btn modal-button red"
                       onClick={onDeactivateHandler}
                     >
-                      Deactivate Account
+                      {loadingUpdatedUser ? (
+                        <Spinner></Spinner>
+                      ) : (
+                        "Deactivate Account"
+                      )}
                     </button>
                     {errorUpdatedUser && (
                       <span className="error-message display-block">
