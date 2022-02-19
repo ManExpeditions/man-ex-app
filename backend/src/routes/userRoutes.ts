@@ -4,10 +4,12 @@ import { userVerifyEmailController } from '../controllers/user/userVerifyEmailCo
 import { userVerifyPhoneController } from '../controllers/user/userVerifyPhoneController';
 import { userVerificationCodeController } from '../controllers/user/userVerificationCodeController';
 import { userValidateController } from '../controllers/user/userValidateController';
+import { userDeleteController } from '../controllers/user/userDeleteController';
 
 const router = express.Router();
 
 router.put('/:id', userUpdateController);
+router.delete('/:id', userDeleteController);
 router.post('/:id/verify/email', userVerifyEmailController);
 router.post('/:id/verify/phone', userVerifyPhoneController);
 router.post('/:id/verify/code', userVerificationCodeController);
