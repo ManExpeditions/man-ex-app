@@ -220,7 +220,7 @@ export default function UserEditProfilePage() {
       setPlaceError("Can only contain alphabets.");
       setPredictionsOpen(false);
     } else {
-      setPlaceError("There is an error");
+      setPlaceError("Enter a valid location");
     }
     if (!place) {
       setPlaceError("");
@@ -440,14 +440,12 @@ export default function UserEditProfilePage() {
             <li className={styles.list_item}>
               <p>Location</p>
               <div className={styles.location_input_wrapper}>
+                <span className="error-message">{placeError}</span>
                 <input
                   className={styles.list_input}
                   value={place}
                   onChange={(e) => onLocationTyped(e.target.value)}
                 ></input>
-                {placeError && (
-                  <span className="error-message">{placeError}</span>
-                )}
                 {places && predictionsOpen && (
                   <div className={styles.predictions_wrapper}>
                     <OutsideAlerter
