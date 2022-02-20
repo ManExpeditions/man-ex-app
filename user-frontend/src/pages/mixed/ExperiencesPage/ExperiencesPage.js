@@ -79,11 +79,11 @@ export default function ExperiencesPage() {
             experiences.map((experience) => (
               <div key={experience._id}>
                 <VideoPlayer
-                  thumbnail="/assets/experiences/puerto_vallarta.jpeg"
-                  src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"
+                  thumbnail={experience.videoThumbnailImage}
+                  src={experience.video}
                 ></VideoPlayer>
                 <Link
-                  to="/register"
+                  to={user ? `/experiences/${experience._id}` : "/register"}
                   className={`link btn-primary ${styles.btn_video_info}`}
                 >
                   Learn more
