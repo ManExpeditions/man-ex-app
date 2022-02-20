@@ -20,6 +20,7 @@ export default function ImageSlider(props) {
   return (
     <div className={styles.slider_wrapper}>
       <AliceCarousel
+        activeIndex={props.activeIndex ? props.activeIndex : 0}
         keyboardNavigation={true}
         animationDuration={800}
         renderNextButton={() => nextIcon()}

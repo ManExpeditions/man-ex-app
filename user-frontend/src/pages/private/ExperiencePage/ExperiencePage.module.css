@@ -79,6 +79,7 @@
 }
 
 .carousel_wrapper {
+  cursor: pointer;
   display: grid;
   place-items: center;
   width: 100%;
@@ -101,6 +102,7 @@
   overflow: hidden;
   width: 95vw;
   z-index: 3;
+  cursor: default;
 }
 
 .slider_image {

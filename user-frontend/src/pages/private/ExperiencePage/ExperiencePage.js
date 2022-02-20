@@ -15,9 +15,16 @@ export default function ExperiencePage() {
 
   const [isSeeMoreImages, setIsSeeMoreImages] = useState(false);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(false);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { loading, experience, error } = experienceGetSlice;
+
+  const handleImageClick = (imageIdx) => {
+    console.log(imageIdx);
+    setActiveIndex(imageIdx);
+    setIsCarouselVisible(true);
+  };
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -71,6 +78,7 @@ export default function ExperiencePage() {
                     <div className={styles.carousel_container}>
                       <ImageSlider
                         disableDots
+                        activeIndex={activeIndex}
                         items={experience.images.map((img, idx) => (
                           <img
                             className={styles.slider_image}
@@ -90,7 +98,7 @@ export default function ExperiencePage() {
                         className={styles.image}
                         key={idx}
                         src={image}
-                        onClick={() => setIsCarouselVisible(true)}
+                        onClick={() => handleImageClick(idx)}
                         alt={`${experience.name}-${idx}`}
                       />
                     </div>
@@ -102,10 +110,8 @@ export default function ExperiencePage() {
                           className={`${styles.image}`}
                           key={idx}
                           src={image}
-                          onClick={() => {
-                            console.log("make me bigger");
-                          }}
-                          alt={`${experience.name}-${idx}`}
+                          onClick={() => handleImageClick(idx + 6)}
+                          alt={`${experience.name}-${idx + 6}`}
                         />
                       </div>
                     ))}
