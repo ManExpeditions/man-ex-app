@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 import Experience from '../../models/experience';
 
 class ExperienceDao {
+  public async get_experiences(): Promise<Experience[] | null> {
+    const experiences = await Experience.find({});
+    return experiences;
+  }
+
   public async create_new_experience(
     id?: mongoose.Types.ObjectId | string
   ): Promise<Experience> {
