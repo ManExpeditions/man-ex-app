@@ -1,0 +1,156 @@
+.page_wrapper {
+  background-color: #000;
+  min-height: 100vh;
+}
+
+.container {
+  padding: 0 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.close_link {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  margin: 1rem 1.2rem 0;
+  padding: 0.3rem;
+  width: 2rem;
+  height: 2rem;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #56c1ff;
+  z-index: 3;
+}
+
+.hero_image_wrapper {
+  position: relative;
+}
+
+.hero_image {
+  width: 100%;
+  object-fit: cover;
+  height: 40vh;
+}
+
+.vignette {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 15vh;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 1)
+  );
+}
+
+/* hero styles */
+.days {
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-right: 1rem;
+}
+
+.continent {
+  padding: 0.2rem 1rem;
+  background-color: #fff;
+  color: #1e1e1e;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.name {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.location {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Images section */
+
+/* Carousel */
+.images_section {
+  margin: 1rem 0;
+}
+
+.carousel_wrapper {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 3;
+}
+
+.carousel_container,
+.slider_image {
+  height: 80vh;
+}
+
+.carousel_container {
+  border-radius: 1rem;
+  overflow: hidden;
+  width: 95vw;
+  z-index: 3;
+}
+
+.slider_image {
+  width: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.images {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.image_container {
+  position: relative;
+  width: 1f;
+}
+.image_container:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.big {
+  position: absolute;
+  border: 1px solid magenta;
+  top: 50%;
+  left: 50%;
+  max-width: 90%;
+  transform: translateX(-50%) translateX(-50%);
+}
+
+.see_more_button {
+  display: block;
+  margin: 0.4rem 0 0 auto;
+  padding: 0.5rem;
+  color: #56c1ff;
+}

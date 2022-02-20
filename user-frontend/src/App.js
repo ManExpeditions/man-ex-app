@@ -30,6 +30,7 @@ import UpdateEmailPage from "./pages/private/UserProfilePages/UpdateEmailPage/Up
 import UpdatePhonePage from "./pages/private/UserProfilePages/UpdatePhonePage/UpdatePhonePage";
 import UpdatePasswordPage from "./pages/private/UserProfilePages/UpdatePasswordPage/UpdatePasswordPage";
 import ManageAccountPage from "./pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage";
+import ExperiencePage from "./pages/private/ExperiencePage/ExperiencePage";
 
 function App() {
   return (
@@ -81,7 +82,8 @@ function App() {
         component={VerifyProfilePicManualPage}
       ></OnboardingRoute>
       <Route path="/home" component={HomePage}></Route>
-      <Route path="/experiences" component={ExperiencesPage}></Route>
+      <Route path="/experiences/:id" exact component={ExperiencePage}></Route>
+      <Route path="/experiences" exact component={ExperiencesPage}></Route>
       <Route path="/aboutus" component={AboutPage}></Route>
       <Route path="/press" component={PressPage}></Route>
       <Route
