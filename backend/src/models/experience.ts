@@ -14,7 +14,7 @@ interface experience {
   videoThumbnailImage: string;
   video: string;
   heroImage: string;
-  images: [string];
+  images: string[];
   itinerary: object;
   accomodations: object;
   activities: object;

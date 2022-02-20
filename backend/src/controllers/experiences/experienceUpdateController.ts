@@ -46,7 +46,11 @@ export const experienceUpdateController = [
     .optional()
     .isBoolean()
     .escape(),
-  body('name', 'Enter valid name').isString().isLength({ min: 3 }).escape(),
+  body('name', 'Enter valid name')
+    .optional()
+    .isString()
+    .isLength({ min: 3 })
+    .escape(),
   body('description', 'Enter valid description')
     .optional()
     .isString()

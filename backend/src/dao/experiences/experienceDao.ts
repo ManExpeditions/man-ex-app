@@ -62,11 +62,18 @@ class ExperienceDao {
     experience.season = experienceInfo.season || experience.season;
     experience.pricing = experienceInfo.pricing || experience.pricing;
     experience.deposit = experienceInfo.deposit || experience.deposit;
-    experience.videoThumbnailImage =
-      experienceInfo.videoThumbnailImage || experience.videoThumbnailImage;
-    experience.video = experienceInfo.video || experience.video;
-    experience.heroImage = experienceInfo.heroImage || experience.heroImage;
-    experience.images = experienceInfo.images || experience.images;
+    experience.videoThumbnailImage = experienceInfo.videoThumbnailImage
+      ? decodeURIComponent(experienceInfo.videoThumbnailImage)
+      : experience.videoThumbnailImage;
+    experience.video = experienceInfo.video
+      ? decodeURIComponent(experienceInfo.video)
+      : experience.video;
+    experience.heroImage = experienceInfo.heroImage
+      ? decodeURIComponent(experienceInfo.heroImage)
+      : experience.heroImage;
+    experience.images = experienceInfo.images
+      ? experienceInfo.images.map((image) => decodeURIComponent(image))
+      : experience.images;
     experience.itinerary = experienceInfo.itinerary || experience.itinerary;
     experience.accomodations =
       experienceInfo.accomodations || experience.accomodations;
