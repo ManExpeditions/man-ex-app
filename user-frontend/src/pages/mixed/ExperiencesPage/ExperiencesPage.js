@@ -31,7 +31,7 @@ export default function ExperiencesPage() {
   }, [dispatch, experiences]);
 
   return (
-    <div className="page">
+    <div className={`page ${styles.page_wrapper}`}>
       <Navbar experiences user={user}></Navbar>
       <div className={styles.container}>
         <div className={styles.chips_wrapper}>
