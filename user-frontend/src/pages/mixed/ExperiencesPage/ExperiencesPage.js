@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import BottomNav from "../../../components/BottomNav/BottomNav";
 import ChipCheckBox from "../../../components/ChipCheckBox/ChipCheckBox";
 import Navbar from "../../../components/Navbar/Navbar";
 import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
+import { experiencesGet } from "../../../slices/experience/experiencesGetSlice";
 import styles from "./ExperiencesPage.module.css";
 
 export default function ExperiencesPage() {
@@ -17,6 +18,17 @@ export default function ExperiencesPage() {
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
+
+  const experiencesGetSlice = useSelector((state) => state.experiencesGetSlice);
+  const { experiences } = experiencesGetSlice;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!experiences) {
+      dispatch(experiencesGet({}));
+    }
+  }, [dispatch, experiences]);
 
   return (
     <div className="page">
@@ -63,63 +75,21 @@ export default function ExperiencesPage() {
           </div>
         </div>
         <section className={styles.exp_section}>
-          <div>
-            <VideoPlayer
-              thumbnail="/assets/experiences/puerto_vallarta.jpeg"
-              src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"
-            ></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
-          <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
-          <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
-          <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
-          <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
-          <div>
-            <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-            <Link
-              to="/register"
-              className={`link btn-primary ${styles.btn_video_info}`}
-            >
-              Learn more
-            </Link>
-          </div>
+          {experiences &&
+            experiences.map((experience) => (
+              <div key={experience._id}>
+                <VideoPlayer
+                  thumbnail="/assets/experiences/puerto_vallarta.jpeg"
+                  src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"
+                ></VideoPlayer>
+                <Link
+                  to="/register"
+                  className={`link btn-primary ${styles.btn_video_info}`}
+                >
+                  Learn more
+                </Link>
+              </div>
+            ))}
         </section>
       </div>
       <BottomNav experiences user={user}></BottomNav>
