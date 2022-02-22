@@ -57,7 +57,7 @@ export default function ExperiencePage() {
           </div>
           <div className={styles.container}>
             <div>
-              <div className="flex-box">
+              <div className={styles.days_continent_wrapper}>
                 <p className={styles.days}>
                   {experience.numberOfDays}-day experience
                 </p>
@@ -82,7 +82,7 @@ export default function ExperiencePage() {
                         items={experience.images.map((img, idx) => (
                           <img
                             className={styles.slider_image}
-                            src={img}
+                            src={img.url}
                             alt={`${experience.name}-${idx}`}
                           />
                         ))}
@@ -97,7 +97,7 @@ export default function ExperiencePage() {
                       <img
                         className={styles.image}
                         key={idx}
-                        src={image}
+                        src={image.url}
                         onClick={() => handleImageClick(idx)}
                         alt={`${experience.name}-${idx}`}
                       />
@@ -117,16 +117,18 @@ export default function ExperiencePage() {
                     ))}
                 </div>
               )}
-
-              <button
-                className={`btn ${styles.see_more_button}`}
-                onClick={() => setIsSeeMoreImages((prevValue) => !prevValue)}
-              >
-                {isSeeMoreImages ? "See less" : "See more"}
-              </button>
+              {experience.images.length > 6 && (
+                <button
+                  className={`btn ${styles.see_more_button}`}
+                  onClick={() => setIsSeeMoreImages((prevValue) => !prevValue)}
+                >
+                  {isSeeMoreImages ? "See less" : "See more"}
+                </button>
+              )}
             </div>
             <div className={styles.description}>{experience.description}</div>
           </div>
+          <div className={styles.info_section}></div>
         </>
       )}
     </div>
