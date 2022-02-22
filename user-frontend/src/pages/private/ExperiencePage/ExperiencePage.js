@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link, useParams } from "react-router-dom";
+import { BsChevronCompactUp, BsChevronCompactDown } from "react-icons/bs";
 import styles from "./ExperiencePage.module.css";
 import {
   experienceGet,
@@ -16,6 +17,8 @@ export default function ExperiencePage() {
   const [isSeeMoreImages, setIsSeeMoreImages] = useState(false);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(false);
+
+  const [isItineraryVisible, setIsItineraryVisible] = useState(false);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { loading, experience, error } = experienceGetSlice;
@@ -127,8 +130,48 @@ export default function ExperiencePage() {
               )}
             </div>
             <div className={styles.description}>{experience.description}</div>
+            <div className={styles.itinerary}>
+              <div
+                className={styles.card}
+                onClick={() => setIsItineraryVisible((prev) => !prev)}
+              >
+                <h2>Itinerary</h2>
+                {isItineraryVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+              <div className={styles.itinerary_container}>
+                {isItineraryVisible &&
+                  experience.itinerary.map((day, idx) => (
+                    <div className={styles.itinerary_content} key={idx}>
+                      <span className={styles.circle}></span>
+                      <p className={styles.itinerary_day}>{day.title}</p>
+                      <img
+                        className={styles.itinerary_image}
+                        src={day.image}
+                        alt=""
+                      />
+                      <ul>
+                        {day.activities.map((activity, idx) => (
+                          <li className={styles.itinerary_activity} key={idx}>
+                            <p className={styles.itinerary_activity_time}>
+                              {activity.time}
+                            </p>
+                            <p
+                              className={styles.itinerary_activity_description}
+                            >
+                              {activity.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
-          <div className={styles.info_section}></div>
         </>
       )}
     </div>
