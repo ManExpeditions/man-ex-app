@@ -19,6 +19,12 @@ export default function ExperiencePage() {
   const [activeIndex, setActiveIndex] = useState(false);
 
   const [isItineraryVisible, setIsItineraryVisible] = useState(false);
+  const [isAccomodationsVisible, setIsAccomodationsVisible] = useState(false);
+  const [isActivitiesVisible, setIsActivitiesVisible] = useState(false);
+  const [isReviewsVisible, setIsReviewsVisible] = useState(false);
+  const [isWhatsIncludedVisible, setIsWhatsIncludedVisible] = useState(false);
+  const [isPricingVisible, setIsPricingVisible] = useState(false);
+  const [isTermsVisible, setIsTermsVisible] = useState(false);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { loading, experience, error } = experienceGetSlice;
@@ -130,7 +136,7 @@ export default function ExperiencePage() {
               )}
             </div>
             <div className={styles.description}>{experience.description}</div>
-            <div className={styles.itinerary}>
+            <div className={styles.info}>
               <div
                 className={styles.card}
                 onClick={() => setIsItineraryVisible((prev) => !prev)}
@@ -169,6 +175,84 @@ export default function ExperiencePage() {
                       </ul>
                     </div>
                   ))}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsAccomodationsVisible((prev) => !prev)}
+              >
+                <h2>Accomodations</h2>
+                {isAccomodationsVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsActivitiesVisible((prev) => !prev)}
+              >
+                <h2>Activities</h2>
+                {isActivitiesVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsReviewsVisible((prev) => !prev)}
+              >
+                <h2>Reviews</h2>
+                {isReviewsVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsActivitiesVisible((prev) => !prev)}
+              >
+                <h2>What's Included</h2>
+                {isWhatsIncludedVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsPricingVisible((prev) => !prev)}
+              >
+                <h2>Pricing</h2>
+                {isPricingVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
+              </div>
+            </div>
+            <div className={styles.info}>
+              <div
+                className={styles.card}
+                onClick={() => setIsTermsVisible((prev) => !prev)}
+              >
+                <h2>Terms</h2>
+                {isTermsVisible ? (
+                  <BsChevronCompactUp></BsChevronCompactUp>
+                ) : (
+                  <BsChevronCompactDown></BsChevronCompactDown>
+                )}
               </div>
             </div>
           </div>

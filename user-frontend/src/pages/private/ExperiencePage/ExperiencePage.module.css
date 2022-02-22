@@ -182,7 +182,8 @@
 }
 
 /* Itinerary section */
-.itinerary {
+.info {
+  margin: 1rem 0;
   background: #1e1e1e;
   border-radius: 0.5rem;
   padding: 1rem;
