@@ -36,7 +36,7 @@ const experienceSchema = new mongoose.Schema<experience>(
     videoThumbnailImage: { type: String },
     video: { type: String },
     heroImage: { type: String },
-    images: { type: [String] },
+    images: { type: [Object] },
     itinerary: { type: Object },
     accomodations: { type: Object },
     activities: { type: Object },
@@ -48,6 +48,10 @@ const experienceSchema = new mongoose.Schema<experience>(
   }
 );
 
-const experience = mongoose.model<experience>('experience', experienceSchema);
+const experience = mongoose.model<experience>(
+  'experience',
+  experienceSchema,
+  'manex_experience'
+);
 
 export default experience;
