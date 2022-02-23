@@ -26,6 +26,9 @@ export default function ExperiencePage() {
   const [isPricingVisible, setIsPricingVisible] = useState(false);
   const [isTermsVisible, setIsTermsVisible] = useState(false);
 
+  const [thriveCartReady, setThriveCartReady] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
+
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { loading, experience, error } = experienceGetSlice;
 
@@ -41,6 +44,20 @@ export default function ExperiencePage() {
       dispatch(experienceGet(id));
     }
   }, [dispatch, experience, id]);
+
+  useEffect(() => {
+    const addThrivecartScript = () => {
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "//tinder.thrivecart.com/embed/v1/thrivecart.js";
+      script.id = "tc-guestlist-upmostexperiences-97-FSYU54";
+      script.onload = () => {
+        setThriveCartReady(true);
+      };
+      document.body.appendChild(script);
+    };
+    addThrivecartScript();
+  });
 
   // Cleanup
   useEffect(() => {
@@ -76,6 +93,54 @@ export default function ExperiencePage() {
               <p className={styles.location}>
                 <i class="fas fa-map-marker-alt"></i> {experience.location}
               </p>
+            </div>
+            {showCheckout && (
+              <div className={styles.checkout_form}>
+                <div className={styles.checkout_form_container}>
+                  <OutsideAlerter setState={setShowCheckout} stateValue={false}>
+                    {thriveCartReady && (
+                      <div
+                        data-thrivecart-account="guestlist-upmostexperiences"
+                        data-thrivecart-tpl="v2"
+                        data-thrivecart-product="97"
+                        class="thrivecart-embeddable"
+                        data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-FSYU54"
+                      ></div>
+                    )}
+                  </OutsideAlerter>
+                </div>
+              </div>
+            )}
+
+            <div className={styles.groups_section}>
+              {experience.groups.map((group) => (
+                <div className={styles.group}>
+                  <div className={styles.group_lead}>
+                    <img
+                      className={styles.group_profile}
+                      src={group.leadProfilepic}
+                      alt="Group Lead"
+                    />
+                    <span>{group.leadName}</span>
+                  </div>
+                  <div>
+                    <h4>{group.name}</h4>
+                    <h4>{group.date}</h4>
+                    <p className={styles.group_description}>
+                      "{group.description}"
+                    </p>
+                    <button
+                      onClick={() => {
+                        console.log("clicks");
+                        setShowCheckout(true);
+                      }}
+                      className={`btn btn-primary ${styles.book_button}`}
+                    >
+                      Book with this group
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className={styles.images_section}>
               {isCarouselVisible ? (
@@ -219,7 +284,7 @@ export default function ExperiencePage() {
             <div className={styles.info}>
               <div
                 className={styles.card}
-                onClick={() => setIsActivitiesVisible((prev) => !prev)}
+                onClick={() => setIsWhatsIncludedVisible((prev) => !prev)}
               >
                 <h2>What's Included</h2>
                 {isWhatsIncludedVisible ? (
