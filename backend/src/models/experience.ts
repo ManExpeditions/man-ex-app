@@ -20,6 +20,22 @@ interface experience {
   activities: object;
   whatsIncluded: object;
   terms: string;
+  groups: [
+    {
+      label: string;
+      isActive: boolean;
+      name: string;
+      date: string;
+      registrationEndDate: Date;
+      price: number;
+      capacity: number;
+      description: string;
+      leadName: string;
+      leadProfilepic: string;
+      goingUsers: [mongoose.Types.ObjectId];
+      interestedUsers: [mongoose.Types.ObjectId];
+    }
+  ];
 }
 
 const experienceSchema = new mongoose.Schema<experience>(
@@ -41,7 +57,23 @@ const experienceSchema = new mongoose.Schema<experience>(
     accomodations: { type: Object },
     activities: { type: Object },
     whatsIncluded: { type: Object },
-    terms: { type: String }
+    terms: { type: String },
+    groups: [
+      {
+        label: { type: String },
+        isActive: { type: Boolean },
+        name: { type: String },
+        date: { type: String },
+        registrationEndDate: { type: Date },
+        price: { type: Number },
+        capacity: { type: Number },
+        description: { type: String },
+        leadName: { type: String },
+        leadProfilepic: { type: String },
+        goingUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+        interestedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+      }
+    ]
   },
   {
     timestamps: true
