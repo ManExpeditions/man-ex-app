@@ -32,7 +32,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  * @apiBody {String} profilepicVerified Whether profilepic is verified.
  * @apiBody {String} verificationProfilepic The verification profile picture.
  * @apiBody {String} Bio The bio of user.
- * @apiBody {{ facebook: String, instagram: String, linkedin: String }} socials The user's socials e.g. facebook, instagram etc.
+ * @apiBody {Object} socials The user's socials e.g. facebook, instagram etc.
  * @apiBody {String} completedOnboarding Whether initial onboarding is completed.
  *
  * @apiError UserDoesNotExist Cannot update user that does not exist.
