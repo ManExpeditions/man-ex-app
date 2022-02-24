@@ -1,4 +1,4 @@
-import validator from "validator";
+import validator from 'validator';
 
 /* *
  * Validates user input.
@@ -15,7 +15,7 @@ class InputValidator {
    * @param {string} error The error message.
    * @return {string } The error message.
    */
-  isEmail(input, error = "Please enter a valid email") {
+  isEmail(input, error = 'Please enter a valid email') {
     if (!input) {
       return error;
     }
@@ -24,7 +24,7 @@ class InputValidator {
       return error;
     }
 
-    return "";
+    return '';
   }
 
   /* *
@@ -32,15 +32,15 @@ class InputValidator {
    * @param {string} error The error message.
    * @return {string } The error message.
    */
-  isPhoneNumber(input, error = "Please enter a valid phone number") {
+  isPhoneNumber(input, error = 'Please enter a valid phone number') {
     if (!input) {
       return error;
     }
 
-    if (!this.validator.isMobilePhone(input, "any", { strictMode: true })) {
+    if (!this.validator.isMobilePhone(input, 'any', { strictMode: true })) {
       return error;
     }
-    return "";
+    return '';
   }
 
   /* *
@@ -51,7 +51,7 @@ class InputValidator {
    */
   isPassword(
     input,
-    error = "Please enter a strong password",
+    error = 'Please enter a strong password',
     minLength = 8,
     maxLength = 200
   ) {
@@ -63,7 +63,7 @@ class InputValidator {
       return error;
     }
 
-    return "";
+    return '';
   }
 
   /* *
@@ -72,7 +72,7 @@ class InputValidator {
    * @param {string} error The error message.
    * @return {string } The error message.
    */
-  areEqual(input1, input2, error = "Inputs do not match") {
+  areEqual(input1, input2, error = 'Inputs do not match') {
     if (!input1 || !input2) {
       return error;
     }
@@ -80,7 +80,7 @@ class InputValidator {
       return error;
     }
 
-    return "";
+    return '';
   }
 
   /* *
@@ -93,7 +93,7 @@ class InputValidator {
       return `Must be longer than ${minLength} characters`;
     }
 
-    return "";
+    return '';
   }
 
   /* *
@@ -101,7 +101,7 @@ class InputValidator {
    * @return {boolean} True if all strings are not empty
    */
   areAllNotEmptyStrings(fields) {
-    return fields.every((element) => element !== "");
+    return fields.every((element) => element !== '');
   }
 
   /* *
@@ -126,7 +126,7 @@ class InputValidator {
    * @return {boolean} True if all strings are empty
    */
   areAllEmptyStrings(fields) {
-    return fields.every((element) => element === "");
+    return fields.every((element) => element === '');
   }
 }
 

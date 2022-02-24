@@ -1,17 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import userAPI from "../../api/userAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import userAPI from '../../api/userAPI';
 
 const initialState = {
   loading: false,
   success: null,
-  error: null,
+  error: null
 };
 
 export const validateUser = createAsyncThunk(
-  "validateUser/validateUser",
+  'validateUser/validateUser',
   async (password, { rejectWithValue, getState }) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await userAPI.validateUser(user.id, user.token, password);
@@ -26,14 +26,14 @@ export const validateUser = createAsyncThunk(
 );
 
 export const userValidateSlice = createSlice({
-  name: "validateUser",
+  name: 'validateUser',
   initialState,
   reducers: {
     resetUserValidate: (state) => {
       state.loading = false;
       state.success = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -47,7 +47,7 @@ export const userValidateSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Validation failed. Try again later.";
+          state.error = 'Validation failed. Try again later.';
         }
       })
       .addCase(validateUser.fulfilled, (state, action) => {
@@ -55,7 +55,7 @@ export const userValidateSlice = createSlice({
         state.success = action.payload;
         state.error = null;
       });
-  },
+  }
 });
 
 export const { resetUserValidate } = userValidateSlice.actions;

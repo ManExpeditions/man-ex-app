@@ -1,28 +1,28 @@
-import React, { useEffect, useRef } from "react";
-import { IoChevronBackSharp } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { InputPassword } from "../../../../components/Input/Input";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import React, { useEffect, useRef } from 'react';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { InputPassword } from '../../../../components/Input/Input';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserValidate,
-  validateUser,
-} from "../../../../slices/user/userValidateSlice";
-import styles from "./UpdatePasswordPage.module.css";
+  validateUser
+} from '../../../../slices/user/userValidateSlice';
+import styles from './UpdatePasswordPage.module.css';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import { resetVerify } from "../../../../slices/user/verifySlice";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import { resetVerify } from '../../../../slices/user/verifySlice';
 
 const initialState = {
-  password: "",
-  passwordError: "",
-  confirmPassword: "",
-  confirmPasswordError: "",
-  buttonDisabled: true,
+  password: '',
+  passwordError: '',
+  confirmPassword: '',
+  confirmPasswordError: '',
+  buttonDisabled: true
 };
 
 export default function UpdatePasswordPage(props) {
@@ -35,21 +35,21 @@ export default function UpdatePasswordPage(props) {
     passwordError,
     confirmPassword,
     confirmPasswordError,
-    buttonDisabled,
+    buttonDisabled
   } = state;
 
   const userValidateSlice = useSelector((state) => state.userValidateSlice);
   const {
     loading: loadingValidatedUser,
     success: validatedUser,
-    error: errorValidatedUser,
+    error: errorValidatedUser
   } = userValidateSlice;
 
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
   const {
     loading: loadingUpdatedUser,
     user: updatedUser,
-    error: errorUpdatedUser,
+    error: errorUpdatedUser
   } = userUpdateSlice;
 
   const dispatch = useDispatch();
@@ -73,25 +73,25 @@ export default function UpdatePasswordPage(props) {
   // On every render check if all fields are valid
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [passwordError, confirmPasswordError],
-        notEmpty: [password, confirmPassword],
-      },
+        notEmpty: [password, confirmPassword]
+      }
     });
   }, [
     password,
     passwordError,
     confirmPassword,
     confirmPasswordError,
-    discharge,
+    discharge
   ]);
 
   // If everything was succesfull then
   useEffect(() => {
     if (updatedUser) {
       window.setTimeout(() => {
-        props.history.push("/profile/settings");
+        props.history.push('/profile/settings');
       }, 2000);
     }
   }, [dispatch, props.history, updatedUser]);
@@ -120,8 +120,8 @@ export default function UpdatePasswordPage(props) {
           <MessageBox>
             Password updated. Redirecting...
             <div className={styles.spinner_wrapper}>
-              <Spinner></Spinner>{" "}
-            </div>{" "}
+              <Spinner></Spinner>{' '}
+            </div>{' '}
           </MessageBox>
         ) : !validatedUser ? (
           <>
@@ -145,11 +145,11 @@ export default function UpdatePasswordPage(props) {
               <span className="error-message">{errorValidatedUser}</span>
             </div>
             <button
-              disabled={password === "" ? true : false}
+              disabled={password === '' ? true : false}
               className={`btn ${styles.action_button}`}
               onClick={onValidatePassword}
             >
-              {loadingValidatedUser ? <Spinner></Spinner> : "Validate Password"}
+              {loadingValidatedUser ? <Spinner></Spinner> : 'Validate Password'}
             </button>
           </>
         ) : (
@@ -161,7 +161,7 @@ export default function UpdatePasswordPage(props) {
               </div>
               <InputPassword
                 type="password"
-                className={`input ${passwordError && "input-error"}`}
+                className={`input ${passwordError && 'input-error'}`}
                 value={password}
                 dispatch={discharge}
                 actionType="SET_AND_VALIDATE_PASSWORD"
@@ -174,7 +174,7 @@ export default function UpdatePasswordPage(props) {
               </div>
               <InputPassword
                 type="password"
-                className={`input ${confirmPasswordError && "input-error"}`}
+                className={`input ${confirmPasswordError && 'input-error'}`}
                 value={confirmPassword}
                 dispatch={discharge}
                 actionType="SET_AND_VALIDATE_CONFIRM_PASSWORD"
@@ -188,7 +188,7 @@ export default function UpdatePasswordPage(props) {
               className={`btn ${styles.action_button}`}
               onClick={onPasswordUpdateHandler}
             >
-              {loadingUpdatedUser ? <Spinner></Spinner> : "Update Password"}
+              {loadingUpdatedUser ? <Spinner></Spinner> : 'Update Password'}
             </button>
           </>
         )}

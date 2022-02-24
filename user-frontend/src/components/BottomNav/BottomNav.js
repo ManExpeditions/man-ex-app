@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import styles from "./BottomNav.module.css";
-import { BiSearch, BiUser, BiEnvelope, BiHeart } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
+import { Link } from 'react-router-dom';
+import styles from './BottomNav.module.css';
+import { BiSearch, BiUser, BiEnvelope, BiHeart } from 'react-icons/bi';
+import { FiUsers } from 'react-icons/fi';
 
 export default function BottomNav({ user, ...props }) {
   return (
@@ -13,10 +13,10 @@ export default function BottomNav({ user, ...props }) {
             className={`link link-primary ${styles.nav_link}`}
           >
             <BiSearch
-              className={props.experiences ? "accent_color" : ""}
+              className={props.experiences ? 'accent_color' : ''}
               size={18}
             ></BiSearch>
-            <span className={props.experiences ? "accent_color" : ""}>
+            <span className={props.experiences ? 'accent_color' : ''}>
               Explore
             </span>
           </Link>
@@ -29,10 +29,10 @@ export default function BottomNav({ user, ...props }) {
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiEnvelope
-                  class={props.messages ? "accent_color" : ""}
+                  class={props.messages ? 'accent_color' : ''}
                   size={18}
                 ></BiEnvelope>
-                <span class={props.messages ? "accent_color" : ""}>
+                <span class={props.messages ? 'accent_color' : ''}>
                   Messages
                 </span>
               </Link>
@@ -43,10 +43,10 @@ export default function BottomNav({ user, ...props }) {
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <FiUsers
-                  class={props.members ? "accent_color" : ""}
+                  class={props.members ? 'accent_color' : ''}
                   size={18}
                 ></FiUsers>
-                <span class={props.members ? "accent_color" : ""}>Members</span>
+                <span class={props.members ? 'accent_color' : ''}>Members</span>
               </Link>
             </li>
             <li className={styles.nav_item}>
@@ -55,10 +55,10 @@ export default function BottomNav({ user, ...props }) {
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiHeart
-                  class={props.favorites ? "accent_color" : ""}
+                  class={props.favorites ? 'accent_color' : ''}
                   size={18}
                 ></BiHeart>
-                <span class={props.favorites ? "accent_color" : ""}>
+                <span class={props.favorites ? 'accent_color' : ''}>
                   Favorites
                 </span>
               </Link>
@@ -69,10 +69,10 @@ export default function BottomNav({ user, ...props }) {
                 className={`link link-primary ${styles.nav_link}`}
               >
                 <BiUser
-                  class={props.profile ? "accent_color" : ""}
+                  class={props.profile ? 'accent_color' : ''}
                   size={18}
                 ></BiUser>
-                <span class={props.profile ? "accent_color" : ""}>Profile</span>
+                <span class={props.profile ? 'accent_color' : ''}>Profile</span>
               </Link>
             </li>
           </>
@@ -83,14 +83,14 @@ export default function BottomNav({ user, ...props }) {
               className={`link link-primary ${styles.nav_link}`}
             >
               <BiUser
-                class={props.login || props.register ? "accent_color" : ""}
+                class={props.login || props.register ? 'accent_color' : ''}
                 size={18}
               ></BiUser>
               <span
-                className={props.login || props.register ? "accent_color" : ""}
+                className={props.login || props.register ? 'accent_color' : ''}
               >
                 Login/Regiser
-              </span>{" "}
+              </span>{' '}
             </Link>
           </li>
         )}

@@ -1,4 +1,4 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 class assetsAPI {
   async singlePhotoUpload(userToken, type, photoFormData) {
@@ -7,8 +7,8 @@ class assetsAPI {
       photoFormData,
       {
         headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+          Authorization: `Bearer ${userToken}`
+        }
       }
     );
     return data;

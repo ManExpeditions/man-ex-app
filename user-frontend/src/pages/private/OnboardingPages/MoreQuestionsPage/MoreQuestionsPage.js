@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import styles from "./MoreQuestionsPage.module.css";
+import { Link } from 'react-router-dom';
+import styles from './MoreQuestionsPage.module.css';
 
 export default function MoreQuestionsPage(props) {
   const onCompleteHandler = () => {
-    props.history.push("/onboarding/interests");
+    props.history.push('/onboarding/interests');
   };
 
   return (

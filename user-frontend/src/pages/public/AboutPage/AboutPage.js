@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Navbar from "../../../components/Navbar/Navbar";
-import styles from "./AboutPage.module.css";
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Navbar from '../../../components/Navbar/Navbar';
+import styles from './AboutPage.module.css';
 
 export default function AboutPage() {
   const signinSlice = useSelector((state) => state.signinSlice);

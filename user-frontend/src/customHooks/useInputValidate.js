@@ -1,5 +1,5 @@
-import { useReducer } from "react";
-import validator from "validator";
+import { useReducer } from 'react';
+import validator from 'validator';
 
 export default function useInputValidate(initialState) {
   const [state, dispatch] = useReducer((state, action) => {
@@ -11,21 +11,21 @@ export default function useInputValidate(initialState) {
       ? action.payload.thresholdContinents
       : 2;
     switch (action.type) {
-      case "SET_AND_VALIDATE_EMAIL":
+      case 'SET_AND_VALIDATE_EMAIL':
         if (validator.isEmail(action.payload.value) || !value) {
           return {
             ...state,
             email: value,
-            emailError: "",
+            emailError: ''
           };
         } else {
           return {
             ...state,
             email: value,
-            emailError: "Please enter a valid email.",
+            emailError: 'Please enter a valid email.'
           };
         }
-      case "SET_AND_VALIDATE_FIRSTNAME":
+      case 'SET_AND_VALIDATE_FIRSTNAME':
         if (
           (validator.isLength(value, { min, max }) &&
             validator.isAlpha(value)) ||
@@ -34,34 +34,34 @@ export default function useInputValidate(initialState) {
           return {
             ...state,
             firstName: value,
-            firstNameError: "",
+            firstNameError: ''
           };
         } else if (!validator.isLength(value, { min })) {
           return {
             ...state,
             firstName: value,
-            firstNameError: `Name must be longer than ${min} letters.`,
+            firstNameError: `Name must be longer than ${min} letters.`
           };
         } else if (!validator.isLength(value, { max })) {
           return {
             ...state,
             firstName: value,
-            firstNameError: `Name must be less than ${max} letters.`,
+            firstNameError: `Name must be less than ${max} letters.`
           };
-        } else if (value.includes(" ")) {
+        } else if (value.includes(' ')) {
           return {
             ...state,
             firstName: value,
-            firstNameError: "Name cannot have spaces.",
+            firstNameError: 'Name cannot have spaces.'
           };
         } else {
           return {
             ...state,
             firstName: value,
-            firstNameError: "Please enter a valid name.",
+            firstNameError: 'Please enter a valid name.'
           };
         }
-      case "SET_AND_VAlIDATE_LASTNAME":
+      case 'SET_AND_VAlIDATE_LASTNAME':
         if (
           (validator.isLength(value, { min, max }) &&
             validator.isAlpha(value)) ||
@@ -70,166 +70,166 @@ export default function useInputValidate(initialState) {
           return {
             ...state,
             lastName: value,
-            lastNameError: "",
+            lastNameError: ''
           };
         } else if (!validator.isLength(value, { min })) {
           return {
             ...state,
             lastName: value,
-            lastNameError: `Name must be longer than ${min} letters.`,
+            lastNameError: `Name must be longer than ${min} letters.`
           };
         } else if (!validator.isLength(value, { max })) {
           return {
             ...state,
             lastName: value,
-            lastNameError: `Name must be less than ${max} letters.`,
+            lastNameError: `Name must be less than ${max} letters.`
           };
-        } else if (value.includes(" ")) {
+        } else if (value.includes(' ')) {
           return {
             ...state,
             lastName: value,
-            lastNameError: "Name cannot have spaces.",
+            lastNameError: 'Name cannot have spaces.'
           };
         } else {
           return {
             ...state,
             lastName: value,
-            lastNameError: "Please enter a valid name.",
+            lastNameError: 'Please enter a valid name.'
           };
         }
-      case "SET_AND_VALIDATE_PASSWORD":
+      case 'SET_AND_VALIDATE_PASSWORD':
         if (validator.isStrongPassword(value, { minSymbols: 0 }) || !value) {
           return {
             ...state,
             password: value,
-            passwordError: "",
+            passwordError: ''
           };
         } else if (value.length < 8) {
           return {
             ...state,
             password: value,
-            passwordError: "Password must be atleast 8 characters.",
+            passwordError: 'Password must be atleast 8 characters.'
           };
         } else if (value === value.toUpperCase()) {
           return {
             ...state,
             password: value,
-            passwordError: "Password must have atleast one lower case letter.",
+            passwordError: 'Password must have atleast one lower case letter.'
           };
         } else if (value === value.toLowerCase()) {
           return {
             ...state,
             password: value,
-            passwordError: "Password must have alteast one upper case letter.",
+            passwordError: 'Password must have alteast one upper case letter.'
           };
         } else if (!/\d/.test(value)) {
           return {
             ...state,
             password: value,
-            passwordError: "Password must have atleast one digit",
+            passwordError: 'Password must have atleast one digit'
           };
         } else {
           return {
             ...state,
             password: value,
-            passwordError: "Please enter a valid password.",
+            passwordError: 'Please enter a valid password.'
           };
         }
-      case "SET_AND_VALIDATE_CONFIRM_PASSWORD":
+      case 'SET_AND_VALIDATE_CONFIRM_PASSWORD':
         if (state.password === value || !value) {
           return {
             ...state,
             confirmPassword: value,
-            confirmPasswordError: "",
+            confirmPasswordError: ''
           };
         } else {
           return {
             ...state,
             confirmPassword: value,
-            confirmPasswordError: "Passwords do not match.",
+            confirmPasswordError: 'Passwords do not match.'
           };
         }
-      case "SET_AND_VALIDATE_BIO":
+      case 'SET_AND_VALIDATE_BIO':
         if (validator.isLength(value, { min, max }) || !value) {
           return {
             ...state,
             bio: value,
-            bioError: "",
+            bioError: ''
           };
         } else {
           return {
             ...state,
             bio: value,
-            bioError: `Must be ${min}-${max} characters.`,
+            bioError: `Must be ${min}-${max} characters.`
           };
         }
-      case "SET_AND_VALIDATE_INSTAGRAM":
+      case 'SET_AND_VALIDATE_INSTAGRAM':
         if (validator.isLength(value, { min, max }) || !value) {
           return {
             ...state,
             instagram: value,
-            instagramError: "",
+            instagramError: ''
           };
         } else {
           return {
             ...state,
             instagram: value,
-            instagramError: "Not valid handle.",
+            instagramError: 'Not valid handle.'
           };
         }
-      case "SET_AND_VALIDATE_FACEBOOK":
+      case 'SET_AND_VALIDATE_FACEBOOK':
         if (validator.isLength(value, { min, max }) || !value) {
           return {
             ...state,
             facebook: value,
-            facebookError: "",
+            facebookError: ''
           };
         } else {
           return {
             ...state,
             facebook: value,
-            facebookError: "Not valid handle.",
+            facebookError: 'Not valid handle.'
           };
         }
-      case "SET_AND_VALIDATE_LINKEDIN":
+      case 'SET_AND_VALIDATE_LINKEDIN':
         if (validator.isLength(value, { min, max }) || !value) {
           return {
             ...state,
             linkedin: value,
-            linkedinError: "",
+            linkedinError: ''
           };
         } else {
           return {
             ...state,
             linkedin: value,
-            linkedinError: "Not valid handle.",
+            linkedinError: 'Not valid handle.'
           };
         }
-      case "CHECK_ALL_FIELDS_VALID":
+      case 'CHECK_ALL_FIELDS_VALID':
         const allEmpty = action.payload.empty
-          ? action.payload.empty.every((item) => item === "")
+          ? action.payload.empty.every((item) => item === '')
           : true;
         const allNotEmpty = action.payload.notEmpty
-          ? action.payload.notEmpty.every((item) => item !== "")
+          ? action.payload.notEmpty.every((item) => item !== '')
           : true;
         if (allEmpty && allNotEmpty) {
           return { ...state, buttonDisabled: false };
         } else {
           return { ...state, buttonDisabled: true };
         }
-      case "VALIDATE_INTERESTS":
+      case 'VALIDATE_INTERESTS':
         if (
           value instanceof Array &&
           value.filter(Boolean).length >= threshold
         ) {
-          return { ...state, interestErrors: "" };
+          return { ...state, interestErrors: '' };
         } else {
           return {
             ...state,
-            interestErrors: `Select atleast ${threshold}.`,
+            interestErrors: `Select atleast ${threshold}.`
           };
         }
-      case "VALIDATE_CONTINENTS":
+      case 'VALIDATE_CONTINENTS':
         if (
           value instanceof Array &&
           value.filter(Boolean).length >= thresholdContinents

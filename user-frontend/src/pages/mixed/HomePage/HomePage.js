@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getOnboardingRedirectPage } from "../../../utils/common";
-import { toast } from "react-toastify";
-import ImageSlider from "../../../components/ImageSlider/ImageSlider";
-import Navbar from "../../../components/Navbar/Navbar";
-import VideoPlayer from "../../../components/VideoPlayer/VideoPlayer";
-import Toast from "../../../components/Toast/Toast";
-import styles from "./HomePage.module.css";
-import BottomNav from "../../../components/BottomNav/BottomNav";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getOnboardingRedirectPage } from '../../../utils/common';
+import { toast } from 'react-toastify';
+import ImageSlider from '../../../components/ImageSlider/ImageSlider';
+import Navbar from '../../../components/Navbar/Navbar';
+import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
+import Toast from '../../../components/Toast/Toast';
+import styles from './HomePage.module.css';
+import BottomNav from '../../../components/BottomNav/BottomNav';
 
 const images = [
   <div>
@@ -135,7 +135,7 @@ const images = [
     </div>
 
     <div className={styles.vignette}></div>
-  </div>,
+  </div>
 ];
 
 export default function HomePage() {
@@ -185,7 +185,7 @@ export default function HomePage() {
             </div>
           )}
 
-          <Link to={user ? "/members" : "/register"}>
+          <Link to={user ? '/members' : '/register'}>
             <img
               className={styles.thumbnails_image}
               src="https://app.greenrope.com/users/myteam46998/Media411.jpg?202108131124"
@@ -193,7 +193,7 @@ export default function HomePage() {
             />
           </Link>
           <Link to="/register" className="link link-long">
-            {user ? "Explore the community" : "Join the community"}
+            {user ? 'Explore the community' : 'Join the community'}
           </Link>
           {!user && (
             <>
@@ -247,7 +247,7 @@ export default function HomePage() {
                   className="btn link link-blue"
                   onClick={() => setSeeMore(() => !seeMore)}
                 >
-                  {seeMore ? "Hide" : "See more"}
+                  {seeMore ? 'Hide' : 'See more'}
                 </button>
                 {seeMore && (
                   <>

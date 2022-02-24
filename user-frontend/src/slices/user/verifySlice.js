@@ -1,20 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import userAPI from "../../api/userAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import userAPI from '../../api/userAPI';
 
 const initialState = {
   loading: false,
   user: null,
-  error: null,
+  error: null
 };
 
 export const verify = createAsyncThunk(
-  "verify/verify",
+  'verify/verify',
   async (
     { type, payload, verificationCode },
     { rejectWithValue, getState }
   ) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await userAPI.verify(
@@ -25,7 +25,7 @@ export const verify = createAsyncThunk(
         verificationCode
       );
       const token = user.token;
-      localStorage.setItem("user", JSON.stringify({ ...data, token }));
+      localStorage.setItem('user', JSON.stringify({ ...data, token }));
       return data;
     } catch (err) {
       if (!err.response) {
@@ -37,7 +37,7 @@ export const verify = createAsyncThunk(
 );
 
 export const verifySlice = createSlice({
-  name: "verify",
+  name: 'verify',
   initialState,
   reducers: {
     resetVerifyErrors: (state) => {
@@ -47,7 +47,7 @@ export const verifySlice = createSlice({
       state.loading = false;
       state.user = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -59,14 +59,14 @@ export const verifySlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Verification failed. Try again later.";
+          state.error = 'Verification failed. Try again later.';
         }
       })
       .addCase(verify.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       });
-  },
+  }
 });
 
 export const { resetVerifyErrors, resetVerify } = verifySlice.actions;

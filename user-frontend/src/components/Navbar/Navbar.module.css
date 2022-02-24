@@ -86,7 +86,7 @@
 .hamburger_menu_wrapper::before {
   position: absolute;
   display: inline-block;
-  content: "";
+  content: '';
   top: -8px;
   left: 6px;
   width: 0;

@@ -1,10 +1,10 @@
-import styles from "./ChipCheckBox.module.css";
+import styles from './ChipCheckBox.module.css';
 
 export default function ChipCheckBox({
   checkboxState,
   setCheckboxState,
   label,
-  imageSrc,
+  imageSrc
 }) {
   return (
     <div className={styles.chip}>

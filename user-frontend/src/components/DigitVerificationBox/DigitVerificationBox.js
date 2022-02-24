@@ -1,9 +1,9 @@
-import styles from "./DigitVerificationBox.module.css";
+import styles from './DigitVerificationBox.module.css';
 
 export default function DigitVerificationBox({
   boxes,
   error,
-  isAutoFocus = true,
+  isAutoFocus = true
 }) {
   const changeFocusToBox = (boxNumber) => {
     const nextBox = document.getElementById(`box-${boxNumber}`);
@@ -13,7 +13,7 @@ export default function DigitVerificationBox({
   };
 
   const handleKeyDown = (boxNumber, key, boxState) => {
-    if (key === "Backspace" && !boxState) {
+    if (key === 'Backspace' && !boxState) {
       changeFocusToBox(boxNumber - 1);
     }
   };

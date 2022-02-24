@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import OutsideAlerter from "../../../../components/OutsideAlerter";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useDidMountEffect from "../../../../customHooks/useDidMountEffect";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import OutsideAlerter from '../../../../components/OutsideAlerter';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useDidMountEffect from '../../../../customHooks/useDidMountEffect';
 import {
   location,
-  resetLocation,
-} from "../../../../slices/services/locationSlice";
+  resetLocation
+} from '../../../../slices/services/locationSlice';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import validator from "validator";
-import styles from "./LocationPage.module.css";
-import { parseLocationState } from "../../../../utils/common";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import validator from 'validator';
+import styles from './LocationPage.module.css';
+import { parseLocationState } from '../../../../utils/common';
 
 export default function LocationPage(props) {
-  const [place, setPlace] = useState("");
+  const [place, setPlace] = useState('');
   const [predictionsOpen, setPredictionsOpen] = useState(true);
-  const [validationError, setValidationError] = useState("");
+  const [validationError, setValidationError] = useState('');
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -55,19 +55,19 @@ export default function LocationPage(props) {
   useDidMountEffect(() => {
     if (
       validator.isLength(place, { min: 7 }) &&
-      validator.isAlpha(place, "en-US", { ignore: ",s" }) &&
+      validator.isAlpha(place, 'en-US', { ignore: ',s' }) &&
       !places
     ) {
-      setValidationError("");
+      setValidationError('');
       setButtonDisabled(false);
-    } else if (!validator.isAlpha(place, "en-US", { ignore: ",s" })) {
-      setValidationError("Can only contain alphabets.");
+    } else if (!validator.isAlpha(place, 'en-US', { ignore: ',s' })) {
+      setValidationError('Can only contain alphabets.');
       setPredictionsOpen(false);
     } else {
       setButtonDisabled(true);
     }
     if (!place) {
-      setValidationError("");
+      setValidationError('');
       dispatch(resetLocation());
     }
   }, [dispatch, place]);
@@ -86,7 +86,7 @@ export default function LocationPage(props) {
   useEffect(() => {
     if (updatedUser) {
       dispatch(resetUserUpdate());
-      props.history.push("/onboarding/upload/profilepic");
+      props.history.push('/onboarding/upload/profilepic');
     }
   }, [dispatch, updatedUser, props.history]);
 
@@ -137,7 +137,7 @@ export default function LocationPage(props) {
           <ul>
             <li className={styles.location_item}>
               <button
-                onClick={() => onLocationClicked("San Francisco, CA, USA")}
+                onClick={() => onLocationClicked('San Francisco, CA, USA')}
                 className={`btn ${styles.location_item_button}`}
               >
                 <p className={styles.location_city}>San Francisco</p>
@@ -148,7 +148,7 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button
-                onClick={() => onLocationClicked("New York, NY, USA")}
+                onClick={() => onLocationClicked('New York, NY, USA')}
                 className={`btn ${styles.location_item_button}`}
               >
                 <p className={styles.location_city}>New York City</p>
@@ -159,7 +159,7 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button
-                onClick={() => onLocationClicked("Los Angeles, CA, USA")}
+                onClick={() => onLocationClicked('Los Angeles, CA, USA')}
                 className={`btn ${styles.location_item_button}`}
               >
                 <p className={styles.location_city}>Los Angeles</p>
@@ -170,7 +170,7 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button
-                onClick={() => onLocationClicked("Toronto, ON, Canada")}
+                onClick={() => onLocationClicked('Toronto, ON, Canada')}
                 className={`btn ${styles.location_item_button}`}
               >
                 <p className={styles.location_city}>Toronto</p>
@@ -179,7 +179,7 @@ export default function LocationPage(props) {
             </li>
             <li className={styles.location_item}>
               <button
-                onClick={() => onLocationClicked("Montreal, QC, Canada")}
+                onClick={() => onLocationClicked('Montreal, QC, Canada')}
                 className={`btn ${styles.location_item_button}`}
               >
                 <p className={styles.location_city}>Montreal</p>
@@ -195,7 +195,7 @@ export default function LocationPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Confirm location"}
+        {loading ? <Spinner></Spinner> : 'Confirm location'}
       </button>
     </>
   );

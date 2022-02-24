@@ -1,53 +1,53 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { IoChevronBackSharp } from "react-icons/io5";
-import TextareaAutosize from "react-textarea-autosize";
-import styles from "./UserEditProfilePage.module.css";
-import { useState } from "react";
-import { useEffect } from "react";
-import validator from "validator";
-import Input from "../../../../components/Input/Input";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import TextareaAutosize from 'react-textarea-autosize';
+import styles from './UserEditProfilePage.module.css';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import validator from 'validator';
+import Input from '../../../../components/Input/Input';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   parseInterestState,
   parseLocationState,
   setInterestStates,
-  setLocationState,
-} from "../../../../utils/common";
-import OutsideAlerter from "../../../../components/OutsideAlerter";
-import useDidMountEffect from "../../../../customHooks/useDidMountEffect";
+  setLocationState
+} from '../../../../utils/common';
+import OutsideAlerter from '../../../../components/OutsideAlerter';
+import useDidMountEffect from '../../../../customHooks/useDidMountEffect';
 import {
   location,
-  resetLocation,
-} from "../../../../slices/services/locationSlice";
-import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
-import UploadPhotoBox from "../../../../components/UploadPhotoBox/UploadPhotoBox";
+  resetLocation
+} from '../../../../slices/services/locationSlice';
+import ChipCheckBox from '../../../../components/ChipCheckBox/ChipCheckBox';
+import UploadPhotoBox from '../../../../components/UploadPhotoBox/UploadPhotoBox';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import Spinner from "../../../../components/Spinner/Spinner";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import Spinner from '../../../../components/Spinner/Spinner';
 import {
   photoUpload,
-  resetPhotoUpload,
-} from "../../../../slices/assets/photoUploadSlice";
-import SelectBox from "../../../../components/SelectBox/SelectBox";
+  resetPhotoUpload
+} from '../../../../slices/assets/photoUploadSlice';
+import SelectBox from '../../../../components/SelectBox/SelectBox';
 
 const initialState = {
-  firstName: "",
-  firstNameError: "",
-  lastName: "",
-  lastNameError: "",
-  bio: "",
-  bioError: "",
-  instagram: "",
-  instagramError: "",
-  facebook: "",
-  facebookError: "",
-  linkedin: "",
-  linkedinError: "",
-  interestErrors: "",
-  buttonDisabled: true,
+  firstName: '',
+  firstNameError: '',
+  lastName: '',
+  lastNameError: '',
+  bio: '',
+  bioError: '',
+  instagram: '',
+  instagramError: '',
+  facebook: '',
+  facebookError: '',
+  linkedin: '',
+  linkedinError: '',
+  interestErrors: '',
+  buttonDisabled: true
 };
 
 export default function UserEditProfilePage() {
@@ -67,11 +67,11 @@ export default function UserEditProfilePage() {
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
 
-  const [gender, setGender] = useState("Male");
-  const [photo, setPhoto] = useState("");
-  const [place, setPlace] = useState("");
+  const [gender, setGender] = useState('Male');
+  const [photo, setPhoto] = useState('');
+  const [place, setPlace] = useState('');
   const [predictionsOpen, setPredictionsOpen] = useState(true);
-  const [placeError, setPlaceError] = useState("");
+  const [placeError, setPlaceError] = useState('');
 
   const [state, discharge] = useInputValidate(initialState);
   let {
@@ -88,7 +88,7 @@ export default function UserEditProfilePage() {
     linkedin,
     linkedinError,
     interestErrors,
-    buttonDisabled,
+    buttonDisabled
   } = state;
 
   const signinSlice = useSelector((state) => state.signinSlice);
@@ -128,14 +128,14 @@ export default function UserEditProfilePage() {
     }
     if (user.firstName) {
       discharge({
-        type: "SET_AND_VALIDATE_FIRSTNAME",
-        payload: { value: user.firstName },
+        type: 'SET_AND_VALIDATE_FIRSTNAME',
+        payload: { value: user.firstName }
       });
     }
     if (user.lastName) {
       discharge({
-        type: "SET_AND_VAlIDATE_LASTNAME",
-        payload: { value: user.lastName },
+        type: 'SET_AND_VAlIDATE_LASTNAME',
+        payload: { value: user.lastName }
       });
     }
     if (user.gender) {
@@ -143,31 +143,31 @@ export default function UserEditProfilePage() {
     }
     if (user.socials.instagram) {
       discharge({
-        type: "SET_AND_VALIDATE_INSTAGRAM",
-        payload: { value: user.socials.instagram },
+        type: 'SET_AND_VALIDATE_INSTAGRAM',
+        payload: { value: user.socials.instagram }
       });
     }
     if (user.socials.facebook) {
       discharge({
-        type: "SET_AND_VALIDATE_FACEBOOK",
-        payload: { value: user.socials.facebook },
+        type: 'SET_AND_VALIDATE_FACEBOOK',
+        payload: { value: user.socials.facebook }
       });
     }
     if (user.socials.linkedin) {
       discharge({
-        type: "SET_AND_VALIDATE_LINKEDIN",
-        payload: { value: user.socials.linkedin },
+        type: 'SET_AND_VALIDATE_LINKEDIN',
+        payload: { value: user.socials.linkedin }
       });
     }
     if (user.bio) {
       discharge({
-        type: "SET_AND_VALIDATE_BIO",
-        payload: { value: user.bio, min: 200, max: 300 },
+        type: 'SET_AND_VALIDATE_BIO',
+        payload: { value: user.bio, min: 200, max: 300 }
       });
     }
     // Parse and set location of user
     setLocationState(user.city, user.state, user.country, {
-      setLocation: setPlace,
+      setLocation: setPlace
     });
     setInterestStates(user.interests, {
       setArtAndCulture,
@@ -183,7 +183,7 @@ export default function UserEditProfilePage() {
       setVolunteeringTrips,
       setWellnessRetreats,
       setWildlife,
-      setActiveGetAway,
+      setActiveGetAway
     });
   }, [
     discharge,
@@ -196,7 +196,7 @@ export default function UserEditProfilePage() {
     user.socials,
     user.interests,
     user.bio,
-    user.gender,
+    user.gender
   ]);
 
   // Uploading profilepic logic
@@ -204,26 +204,26 @@ export default function UserEditProfilePage() {
   useDidMountEffect(() => {
     dispatch(resetPhotoUpload());
     const photoFormData = new FormData();
-    photoFormData.append("photo", photo);
-    dispatch(photoUpload({ type: "profile", photoFormData }));
+    photoFormData.append('photo', photo);
+    dispatch(photoUpload({ type: 'profile', photoFormData }));
   }, [photo, dispatch]);
 
   // If place is empty, reset suggestions
   useDidMountEffect(() => {
     if (
       validator.isLength(place, { min: 7 }) &&
-      validator.isAlpha(place, "en-US", { ignore: ",s" }) &&
+      validator.isAlpha(place, 'en-US', { ignore: ',s' }) &&
       !places
     ) {
-      setPlaceError("");
-    } else if (!validator.isAlpha(place, "en-US", { ignore: ",s" })) {
-      setPlaceError("Can only contain alphabets.");
+      setPlaceError('');
+    } else if (!validator.isAlpha(place, 'en-US', { ignore: ',s' })) {
+      setPlaceError('Can only contain alphabets.');
       setPredictionsOpen(false);
     } else {
-      setPlaceError("Enter a valid location");
+      setPlaceError('Enter a valid location');
     }
     if (!place) {
-      setPlaceError("");
+      setPlaceError('');
       dispatch(resetLocation());
     }
   }, [dispatch, place]);
@@ -231,7 +231,7 @@ export default function UserEditProfilePage() {
   // Validate interests
   useEffect(() => {
     discharge({
-      type: "VALIDATE_INTERESTS",
+      type: 'VALIDATE_INTERESTS',
       payload: {
         threshold: 2,
         value: [
@@ -248,9 +248,9 @@ export default function UserEditProfilePage() {
           wellnessRetreats,
           volunteeringTrips,
           cruises,
-          nudistAdventures,
-        ],
-      },
+          nudistAdventures
+        ]
+      }
     });
   }, [
     activeGetAway,
@@ -267,13 +267,13 @@ export default function UserEditProfilePage() {
     resortVacations,
     volunteeringTrips,
     wellnessRetreats,
-    wildlife,
+    wildlife
   ]);
 
   // Ensure validation
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [
           firstNameError,
@@ -284,10 +284,10 @@ export default function UserEditProfilePage() {
           facebookError,
           linkedinError,
           interestErrors,
-          !loadingPhoto ? "" : null,
+          !loadingPhoto ? '' : null
         ],
-        notEmpty: [firstName, lastName, location],
-      },
+        notEmpty: [firstName, lastName, location]
+      }
     });
   }, [
     buttonDisabled,
@@ -303,7 +303,7 @@ export default function UserEditProfilePage() {
     lastNameError,
     linkedinError,
     placeError,
-    interestErrors,
+    interestErrors
   ]);
 
   // When save is clicked
@@ -317,9 +317,9 @@ export default function UserEditProfilePage() {
         ...parseLocationState(place),
         ...(bio ? { bio } : {}),
         socials: {
-          instagram: instagram ? instagram : "",
-          facebook: facebook ? facebook : "",
-          linkedin: linkedin ? linkedin : "",
+          instagram: instagram ? instagram : '',
+          facebook: facebook ? facebook : '',
+          linkedin: linkedin ? linkedin : ''
         },
         interests: parseInterestState({
           activeGetAway,
@@ -336,15 +336,15 @@ export default function UserEditProfilePage() {
           resortVacations,
           volunteeringTrips,
           wellnessRetreats,
-          wildlife,
+          wildlife
         }),
         profilepic: encodeURIComponent(
           profilepic
             ? profilepic.url
-            : user.hasOwnProperty("profilepic")
+            : user.hasOwnProperty('profilepic')
             ? user.profilepic
-            : ""
-        ),
+            : ''
+        )
       })
     );
   };
@@ -376,7 +376,7 @@ export default function UserEditProfilePage() {
             className={`btn ${styles.save_button}`}
             to="/profile"
           >
-            {loading ? <Spinner></Spinner> : "Save"}
+            {loading ? <Spinner></Spinner> : 'Save'}
           </button>
         </div>
         <h1 className={styles.page_heading}>Edit Profile</h1>
@@ -387,7 +387,7 @@ export default function UserEditProfilePage() {
               <div className={styles.photobox_wrapper}>
                 {loadingPhoto && (
                   <div className={styles.loading_box}>
-                    <Spinner style={{ color: "#56c1ff" }}></Spinner>
+                    <Spinner style={{ color: '#56c1ff' }}></Spinner>
                   </div>
                 )}
                 <UploadPhotoBox
@@ -431,7 +431,7 @@ export default function UserEditProfilePage() {
               <div className={styles.list_input_container}>
                 <SelectBox
                   type="text"
-                  options={["Male", "Female", "Non-binary", "Other"]}
+                  options={['Male', 'Female', 'Non-binary', 'Other']}
                   optionState={gender}
                   setOptionState={setGender}
                 ></SelectBox>
@@ -478,8 +478,8 @@ export default function UserEditProfilePage() {
                   value={bio}
                   onChange={(e) => {
                     discharge({
-                      type: "SET_AND_VALIDATE_BIO",
-                      payload: { value: e.target.value, min: 200, max: 300 },
+                      type: 'SET_AND_VALIDATE_BIO',
+                      payload: { value: e.target.value, min: 200, max: 300 }
                     });
                   }}
                 ></TextareaAutosize>

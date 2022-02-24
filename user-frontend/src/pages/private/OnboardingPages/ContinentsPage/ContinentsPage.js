@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ChipCheckBox from '../../../../components/ChipCheckBox/ChipCheckBox';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import { setContinentStates } from "../../../../utils/common";
-import styles from "./ContinentsPage.module.css";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import { setContinentStates } from '../../../../utils/common';
+import styles from './ContinentsPage.module.css';
 
 const initialState = {
-  buttonDisabled: true,
+  buttonDisabled: true
 };
 
 export default function ContinentsPage(props) {
@@ -28,11 +28,11 @@ export default function ContinentsPage(props) {
 
   useEffect(() => {
     discharge({
-      type: "VALIDATE_CONTINENTS",
+      type: 'VALIDATE_CONTINENTS',
       payload: {
         value: [northAmerica, africa, europe, asia, southCentralAmerica],
-        thresholdContinents: 2,
-      },
+        thresholdContinents: 2
+      }
     });
   }, [discharge, northAmerica, africa, europe, asia, southCentralAmerica]);
 
@@ -46,16 +46,16 @@ export default function ContinentsPage(props) {
 
   const onCompleteHandler = () => {
     const continents = [
-      northAmerica && "North America",
-      africa && "Africa",
-      europe && "Europe",
-      asia && "Asia",
-      southCentralAmerica && "South/Central America",
+      northAmerica && 'North America',
+      africa && 'Africa',
+      europe && 'Europe',
+      asia && 'Asia',
+      southCentralAmerica && 'South/Central America'
     ].filter((value) => value !== false);
 
     dispatch(
       userUpdate({
-        continents,
+        continents
       })
     );
   };
@@ -66,14 +66,14 @@ export default function ContinentsPage(props) {
       setAfrica,
       setEurope,
       setAsia,
-      setSouthCentralAmerica,
+      setSouthCentralAmerica
     });
   }, [user.continents]);
 
   useEffect(() => {
     if (updatedUser) {
       dispatch(resetUserUpdate());
-      props.history.push("/onboarding/location");
+      props.history.push('/onboarding/location');
     }
   }, [dispatch, updatedUser, props.history]);
 
@@ -125,7 +125,7 @@ export default function ContinentsPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Continue"}
+        {loading ? <Spinner></Spinner> : 'Continue'}
       </button>
     </div>
   );

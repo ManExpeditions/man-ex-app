@@ -1,42 +1,42 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IoChevronBackSharp } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import DigitVerificationBox from "../../../../components/DigitVerificationBox/DigitVerificationBox";
-import Input, { InputPassword } from "../../../../components/Input/Input";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import React, { useEffect, useRef, useState } from 'react';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import DigitVerificationBox from '../../../../components/DigitVerificationBox/DigitVerificationBox';
+import Input, { InputPassword } from '../../../../components/Input/Input';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserValidate,
-  validateUser,
-} from "../../../../slices/user/userValidateSlice";
+  validateUser
+} from '../../../../slices/user/userValidateSlice';
 import {
   resetVerificationCode,
   resetVerificationCodeErrors,
-  verificationCode,
-} from "../../../../slices/user/verificationCodeSlice";
+  verificationCode
+} from '../../../../slices/user/verificationCodeSlice';
 import {
   resetVerify,
   resetVerifyErrors,
-  verify,
-} from "../../../../slices/user/verifySlice";
-import styles from "./UpdateEmailPage.module.css";
+  verify
+} from '../../../../slices/user/verifySlice';
+import styles from './UpdateEmailPage.module.css';
 
 const initialState = {
-  password: "",
-  email: "",
-  emailError: "",
-  buttonDisabled: true,
+  password: '',
+  email: '',
+  emailError: '',
+  buttonDisabled: true
 };
 
 export default function UpdateEmailPage(props) {
-  const [boxOne, setBoxOne] = useState("");
-  const [boxTwo, setBoxTwo] = useState("");
-  const [boxThree, setBoxThree] = useState("");
-  const [boxFour, setBoxFour] = useState("");
-  const [boxFive, setBoxFive] = useState("");
-  const [boxSix, setBoxSix] = useState("");
+  const [boxOne, setBoxOne] = useState('');
+  const [boxTwo, setBoxTwo] = useState('');
+  const [boxThree, setBoxThree] = useState('');
+  const [boxFour, setBoxFour] = useState('');
+  const [boxFive, setBoxFive] = useState('');
+  const [boxSix, setBoxSix] = useState('');
 
   const [counter, setCounter] = useState(30);
   const [state, discharge] = useInputValidate(initialState);
@@ -51,14 +51,14 @@ export default function UpdateEmailPage(props) {
   const {
     loading: loadingValidatedUser,
     success: validatedUser,
-    error: errorValidatedUser,
+    error: errorValidatedUser
   } = userValidateSlice;
 
   const verifySlice = useSelector((state) => state.verifySlice);
   const {
     loading: loadingVerifyUser,
     user: verifyUser,
-    error: errorVerifyUser,
+    error: errorVerifyUser
   } = verifySlice;
 
   const verificationCodeSlice = useSelector(
@@ -67,7 +67,7 @@ export default function UpdateEmailPage(props) {
   const {
     loading: loadingVerificationCode,
     success: verificationCodeSuccess,
-    error: errorVerificationCode,
+    error: errorVerificationCode
   } = verificationCodeSlice;
 
   const dispatch = useDispatch();
@@ -104,7 +104,7 @@ export default function UpdateEmailPage(props) {
     intervalRef.current = startTimer();
     setCounter(30);
     dispatch(resetVerificationCodeErrors());
-    dispatch(verificationCode({ type: "email", payload: email }));
+    dispatch(verificationCode({ type: 'email', payload: email }));
   };
 
   // Verify the code the user provided
@@ -112,14 +112,14 @@ export default function UpdateEmailPage(props) {
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
     dispatch(resetVerifyErrors());
-    dispatch(verify({ type: "email", payload: email, verificationCode }));
+    dispatch(verify({ type: 'email', payload: email, verificationCode }));
   };
 
   // If everything was succesfull then
   useEffect(() => {
     if (verifyUser) {
       window.setTimeout(() => {
-        props.history.push("/profile/settings");
+        props.history.push('/profile/settings');
       }, 2000);
     }
   }, [dispatch, props.history, verifyUser]);
@@ -148,8 +148,8 @@ export default function UpdateEmailPage(props) {
           <MessageBox>
             Email updated. Redirecting...
             <div className={styles.spinner_wrapper}>
-              <Spinner></Spinner>{" "}
-            </div>{" "}
+              <Spinner></Spinner>{' '}
+            </div>{' '}
           </MessageBox>
         ) : !validatedUser ? (
           <>
@@ -173,11 +173,11 @@ export default function UpdateEmailPage(props) {
               <span className="error-message">{errorValidatedUser}</span>
             </div>
             <button
-              disabled={password === "" ? true : false}
+              disabled={password === '' ? true : false}
               className={`btn ${styles.action_button}`}
               onClick={onValidatePassword}
             >
-              {loadingValidatedUser ? <Spinner></Spinner> : "Validate Password"}
+              {loadingValidatedUser ? <Spinner></Spinner> : 'Validate Password'}
             </button>
           </>
         ) : (
@@ -202,7 +202,7 @@ export default function UpdateEmailPage(props) {
                 </div>
               </div>
               <Input
-                className={`input ${emailError && "input-error"}`}
+                className={`input ${emailError && 'input-error'}`}
                 ref={emailRef}
                 value={email}
                 dispatch={discharge}
@@ -211,12 +211,12 @@ export default function UpdateEmailPage(props) {
             </div>
             <button
               disabled={
-                emailError === "" && email && counter === 30 ? false : true
+                emailError === '' && email && counter === 30 ? false : true
               }
               className={`btn ${styles.action_button}`}
               onClick={onSendCode}
             >
-              {loadingVerificationCode ? <Spinner></Spinner> : "Send Code"}
+              {loadingVerificationCode ? <Spinner></Spinner> : 'Send Code'}
             </button>
             <p className={styles.resend_text}>Resend in {counter} seconds</p>
             {verificationCodeSuccess !== null && (
@@ -237,7 +237,7 @@ export default function UpdateEmailPage(props) {
                       [boxThree, setBoxThree],
                       [boxFour, setBoxFour],
                       [boxFive, setBoxFive],
-                      [boxSix, setBoxSix],
+                      [boxSix, setBoxSix]
                     ]}
                   ></DigitVerificationBox>
                 </div>
@@ -252,7 +252,7 @@ export default function UpdateEmailPage(props) {
                   className={`btn margin-auto ${styles.action_button} ${styles.verification_button}`}
                   onClick={onVerifyCode}
                 >
-                  {loadingVerifyUser ? <Spinner></Spinner> : "Verify code"}
+                  {loadingVerifyUser ? <Spinner></Spinner> : 'Verify code'}
                 </button>
               </div>
             )}

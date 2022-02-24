@@ -1,25 +1,25 @@
 export const getOnboardingRedirectPage = (user) => {
   let redirect;
   if (!user.emailVerified) {
-    redirect = "/onboarding/verify/email";
+    redirect = '/onboarding/verify/email';
   } else if (!user.phone) {
-    redirect = "/onboarding/enter/phone";
+    redirect = '/onboarding/enter/phone';
   } else if (!user.phoneVerified) {
-    redirect = "/onboarding/verify/phone";
+    redirect = '/onboarding/verify/phone';
   } else if (!user.firstName) {
-    redirect = "/onboarding/aboutyou";
+    redirect = '/onboarding/aboutyou';
   } else if (!user.interests) {
-    redirect = "/onboarding/interests";
+    redirect = '/onboarding/interests';
   } else if (!user.continents) {
-    redirect = "/onboarding/continents";
+    redirect = '/onboarding/continents';
   } else if (!user.city) {
-    redirect = "/onboarding/location";
+    redirect = '/onboarding/location';
   } else if (!user.profilepic) {
-    redirect = "/onboarding/upload/profilepic";
+    redirect = '/onboarding/upload/profilepic';
   } else if (!user.profilepicVerified) {
-    redirect = "/onboarding/verify/profilepic/social";
+    redirect = '/onboarding/verify/profilepic/social';
   } else {
-    redirect = "/home";
+    redirect = '/home';
   }
   return redirect;
 };
@@ -40,7 +40,7 @@ export const setInterestStates = (
     setVolunteeringTrips,
     setWellnessRetreats,
     setWildlife,
-    setActiveGetAway,
+    setActiveGetAway
   }
 ) => {
   // If there are no interests, return early
@@ -48,46 +48,46 @@ export const setInterestStates = (
     return;
   }
 
-  if (userInterests.includes("Arts & Culture")) {
+  if (userInterests.includes('Arts & Culture')) {
     setArtAndCulture(true);
   }
-  if (userInterests.includes("Burning Man")) {
+  if (userInterests.includes('Burning Man')) {
     setBurningMan(true);
   }
-  if (userInterests.includes("Camping")) {
+  if (userInterests.includes('Camping')) {
     setCamping(true);
   }
-  if (userInterests.includes("Cruises")) {
+  if (userInterests.includes('Cruises')) {
     setCruises(true);
   }
-  if (userInterests.includes("Luxury Get-aways")) {
+  if (userInterests.includes('Luxury Get-aways')) {
     setLuxuryGetAway(true);
   }
-  if (userInterests.includes("Music Festivals")) {
+  if (userInterests.includes('Music Festivals')) {
     setMusicFestivals(true);
   }
-  if (userInterests.includes("Nature & Outdoors")) {
+  if (userInterests.includes('Nature & Outdoors')) {
     setNatureAndOutdoors(true);
   }
-  if (userInterests.includes("Nudist Adventures")) {
+  if (userInterests.includes('Nudist Adventures')) {
     setNudistAdventures(true);
   }
-  if (userInterests.includes("Pride Events")) {
+  if (userInterests.includes('Pride Events')) {
     setPrideEvents(true);
   }
-  if (userInterests.includes("Resort Vacations")) {
+  if (userInterests.includes('Resort Vacations')) {
     setResortVacations(true);
   }
-  if (userInterests.includes("Volunteering Trips")) {
+  if (userInterests.includes('Volunteering Trips')) {
     setVolunteeringTrips(true);
   }
-  if (userInterests.includes("Wellness Retreats")) {
+  if (userInterests.includes('Wellness Retreats')) {
     setWellnessRetreats(true);
   }
-  if (userInterests.includes("Wildlife")) {
+  if (userInterests.includes('Wildlife')) {
     setWildlife(true);
   }
-  if (userInterests.includes("Active Get-aways")) {
+  if (userInterests.includes('Active Get-aways')) {
     setActiveGetAway(true);
   }
 };
@@ -101,19 +101,19 @@ export const setContinentStates = (
     return;
   }
 
-  if (userContinents.includes("North America")) {
+  if (userContinents.includes('North America')) {
     setNorthAmerica(true);
   }
-  if (userContinents.includes("Africa")) {
+  if (userContinents.includes('Africa')) {
     setAfrica(true);
   }
-  if (userContinents.includes("Europe")) {
+  if (userContinents.includes('Europe')) {
     setEurope(true);
   }
-  if (userContinents.includes("Asia")) {
+  if (userContinents.includes('Asia')) {
     setAsia(true);
   }
-  if (userContinents.includes("South/Central America")) {
+  if (userContinents.includes('South/Central America')) {
     setSouthCentralAmerica(true);
   }
 };
@@ -132,15 +132,15 @@ export const setLocationState = (
 };
 
 export const parseLocationState = (place) => {
-  const location = place.split(",");
+  const location = place.split(',');
 
   let city, state, country;
   if (location.length === 2) {
     // For locations with the format: Nairobi, Kenya
-    [city, country] = place.split(",").map((loc) => loc.trim());
+    [city, country] = place.split(',').map((loc) => loc.trim());
   } else if (location.length === 3) {
     // For locations with the format: San Francisco, CA, USA
-    [city, state, country] = place.split(",").map((loc) => loc.trim());
+    [city, state, country] = place.split(',').map((loc) => loc.trim());
   }
 
   return { city: city, state: state ? state : city, country: country };
@@ -161,23 +161,23 @@ export const parseInterestState = ({
   resortVacations,
   volunteeringTrips,
   wellnessRetreats,
-  wildlife,
+  wildlife
 }) => {
   const interests = [
-    artAndCulture && "Arts & Culture",
-    burningMan && "Burning Man",
-    camping && "Camping",
-    cruises && "Cruises",
-    luxuryGetAway && "Luxury Get-aways",
-    musicFestivals && "Music Festivals",
-    natureAndOutdoors && "Nature & Outdoors",
-    nudistAdventures && "Nudist Adventures",
-    prideEvents && "Pride Events",
-    resortVacations && "Resort Vacations",
-    volunteeringTrips && "Volunteering Trips",
-    wellnessRetreats && "Wellness Retreats",
-    wildlife && "Wildlife",
-    activeGetAway && "Active Get-aways",
+    artAndCulture && 'Arts & Culture',
+    burningMan && 'Burning Man',
+    camping && 'Camping',
+    cruises && 'Cruises',
+    luxuryGetAway && 'Luxury Get-aways',
+    musicFestivals && 'Music Festivals',
+    natureAndOutdoors && 'Nature & Outdoors',
+    nudistAdventures && 'Nudist Adventures',
+    prideEvents && 'Pride Events',
+    resortVacations && 'Resort Vacations',
+    volunteeringTrips && 'Volunteering Trips',
+    wellnessRetreats && 'Wellness Retreats',
+    wildlife && 'Wildlife',
+    activeGetAway && 'Active Get-aways'
   ].filter((value) => value !== false);
 
   return interests;

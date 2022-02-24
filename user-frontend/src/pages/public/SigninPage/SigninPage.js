@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import styles from "./SigninPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { resetSigninErrors, signin } from "../../../slices/auth/signinSlice";
-import MessageBox from "../../../components/MessageBox/MessageBox";
-import useInputValidate from "../../../customHooks/useInputValidate";
-import Input, { InputPassword } from "../../../components/Input/Input";
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import styles from './SigninPage.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetSigninErrors, signin } from '../../../slices/auth/signinSlice';
+import MessageBox from '../../../components/MessageBox/MessageBox';
+import useInputValidate from '../../../customHooks/useInputValidate';
+import Input, { InputPassword } from '../../../components/Input/Input';
 
 const initialState = {
-  email: "",
-  emailError: "",
-  password: "",
-  buttonDisabled: false,
+  email: '',
+  emailError: '',
+  password: '',
+  buttonDisabled: false
 };
 
 export default function SigninPage(props) {
@@ -27,11 +27,11 @@ export default function SigninPage(props) {
   // On every render check if all fields are valid
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [emailError],
-        notEmpty: [email, password],
-      },
+        notEmpty: [email, password]
+      }
     });
   }, [email, emailError, password, discharge]);
 
@@ -45,7 +45,7 @@ export default function SigninPage(props) {
 
   useEffect(() => {
     if (user) {
-      props.history.push("/home");
+      props.history.push('/home');
     }
     return () => {
       dispatch(resetSigninErrors());
@@ -77,7 +77,7 @@ export default function SigninPage(props) {
             <span className="error-message">{emailError}</span>
           </div>
           <Input
-            className={`input ${emailError && "input-error"}`}
+            className={`input ${emailError && 'input-error'}`}
             ref={focusRef}
             value={email}
             dispatch={discharge}
@@ -100,14 +100,14 @@ export default function SigninPage(props) {
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button} ${
-          buttonDisabled && "btn-primary-disabled"
+          buttonDisabled && 'btn-primary-disabled'
         }`}
         onClick={onSigninHandler}
       >
         Sign in
       </button>
       <p className={styles.existing_account}>
-        Don't have an account?{" "}
+        Don't have an account?{' '}
         <Link to="/register" className={`link ${styles.navigation_link}`}>
           SIGN UP
         </Link>

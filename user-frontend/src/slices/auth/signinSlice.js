@@ -1,22 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import authAPI from "../../api/authAPI";
-import { userUpdate } from "../user/userUpdateSlice";
-import { verify } from "../user/verifySlice";
-import { emailRegisterUser } from "./emailRegisterSlice";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import authAPI from '../../api/authAPI';
+import { userUpdate } from '../user/userUpdateSlice';
+import { verify } from '../user/verifySlice';
+import { emailRegisterUser } from './emailRegisterSlice';
 
 const initialState = {
   loading: false,
   user: null,
-  error: null,
+  error: null
 };
 
 export const signin = createAsyncThunk(
-  "signin/signin",
+  'signin/signin',
   async (userData, { rejectWithValue }) => {
     const { email, password } = userData;
     try {
       const data = await authAPI.signinByEmail(email, password);
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       return data;
     } catch (err) {
       if (!err.response) {
@@ -28,18 +28,18 @@ export const signin = createAsyncThunk(
 );
 
 export const signinSlice = createSlice({
-  name: "signin",
+  name: 'signin',
   initialState,
   reducers: {
     resetSignin: (state) => {
-      localStorage.removeItem("user");
+      localStorage.removeItem('user');
       state.loading = false;
       state.error = null;
       state.user = null;
     },
     resetSigninErrors: (state) => {
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -51,7 +51,7 @@ export const signinSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Signin failed. Try again later.";
+          state.error = 'Signin failed. Try again later.';
         }
       })
       .addCase(emailRegisterUser.fulfilled, (state, action) => {
@@ -70,7 +70,7 @@ export const signinSlice = createSlice({
         state.loading = false;
         state.user = { ...state.user, ...action.payload };
       });
-  },
+  }
 });
 
 export const { resetSignin, resetSigninErrors } = signinSlice.actions;

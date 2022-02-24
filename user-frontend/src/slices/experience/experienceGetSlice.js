@@ -1,14 +1,14 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import experienceAPI from "../../api/experienceAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import experienceAPI from '../../api/experienceAPI';
 
 const initialState = {
   loading: false,
   experience: null,
-  error: null,
+  error: null
 };
 
 export const experienceGet = createAsyncThunk(
-  "experienceGet/experienceGet",
+  'experienceGet/experienceGet',
   async (id, { rejectWithValue }) => {
     try {
       const data = await experienceAPI.getExperience(id);
@@ -23,14 +23,14 @@ export const experienceGet = createAsyncThunk(
 );
 
 export const experienceGetSlice = createSlice({
-  name: "experienceGet",
+  name: 'experienceGet',
   initialState,
   reducers: {
     resetExperienceGet: (state) => {
       state.loading = false;
       state.experience = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -45,7 +45,7 @@ export const experienceGetSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Unable to get experience. Try later.";
+          state.error = 'Unable to get experience. Try later.';
         }
       })
       .addCase(experienceGet.fulfilled, (state, action) => {
@@ -53,7 +53,7 @@ export const experienceGetSlice = createSlice({
         state.experience = action.payload;
         state.error = null;
       });
-  },
+  }
 });
 
 export const { resetExperienceGet } = experienceGetSlice.actions;

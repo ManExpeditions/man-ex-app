@@ -1,19 +1,19 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import authAPI from "../../api/authAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import authAPI from '../../api/authAPI';
 
 const initialState = {
   loading: false,
   createdUser: null,
-  error: null,
+  error: null
 };
 
 export const emailRegisterUser = createAsyncThunk(
-  "emailRegister/emailRegisterUser",
+  'emailRegister/emailRegisterUser',
   async (userData, { rejectWithValue }) => {
     const { email, password } = userData;
     try {
       const data = await authAPI.registerByEmail(email, password);
-      localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       return data;
     } catch (err) {
       if (!err.response) {
@@ -25,12 +25,12 @@ export const emailRegisterUser = createAsyncThunk(
 );
 
 export const emailRegisterSlice = createSlice({
-  name: "emailRegister",
+  name: 'emailRegister',
   initialState,
   reducers: {
     resetEmailRegisterErrors: (state) => {
       state.loading = false;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -42,14 +42,14 @@ export const emailRegisterSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Signup failed. Try again later.";
+          state.error = 'Signup failed. Try again later.';
         }
       })
       .addCase(emailRegisterUser.fulfilled, (state, action) => {
         state.loading = false;
         state.createdUser = action.payload;
       });
-  },
+  }
 });
 
 export const { resetEmailRegisterErrors } = emailRegisterSlice.actions;

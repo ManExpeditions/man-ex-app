@@ -1,23 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit";
-import photoUploadSlice from "../slices/assets/photoUploadSlice";
-import emailRegisterSlice from "../slices/auth/emailRegisterSlice";
-import signinSlice from "../slices/auth/signinSlice";
-import experienceGetSlice from "../slices/experience/experienceGetSlice";
-import experiencesGetSlice from "../slices/experience/experiencesGetSlice";
-import locationSlice from "../slices/services/locationSlice";
-import userDeleteSlice from "../slices/user/userDeleteSlice";
-import userUpdateSlice from "../slices/user/userUpdateSlice";
-import userValidateSlice from "../slices/user/userValidateSlice";
-import verificationCodeSlice from "../slices/user/verificationCodeSlice";
-import verifySlice from "../slices/user/verifySlice";
+import { configureStore } from '@reduxjs/toolkit';
+import photoUploadSlice from '../slices/assets/photoUploadSlice';
+import emailRegisterSlice from '../slices/auth/emailRegisterSlice';
+import signinSlice from '../slices/auth/signinSlice';
+import experienceGetSlice from '../slices/experience/experienceGetSlice';
+import experiencesGetSlice from '../slices/experience/experiencesGetSlice';
+import locationSlice from '../slices/services/locationSlice';
+import userDeleteSlice from '../slices/user/userDeleteSlice';
+import userUpdateSlice from '../slices/user/userUpdateSlice';
+import userValidateSlice from '../slices/user/userValidateSlice';
+import verificationCodeSlice from '../slices/user/verificationCodeSlice';
+import verifySlice from '../slices/user/verifySlice';
 
 export const store = configureStore({
   preloadedState: {
     signinSlice: {
-      user: localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user"))
-        : null,
-    },
+      user: localStorage.getItem('user')
+        ? JSON.parse(localStorage.getItem('user'))
+        : null
+    }
   },
   reducer: {
     emailRegisterSlice: emailRegisterSlice,
@@ -30,6 +30,6 @@ export const store = configureStore({
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
     experiencesGetSlice: experiencesGetSlice,
-    experienceGetSlice: experienceGetSlice,
-  },
+    experienceGetSlice: experienceGetSlice
+  }
 });

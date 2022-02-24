@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { Route } from "react-router-dom/cjs/react-router-dom.min";
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function OnboardingRoute({ component: Component, ...rest }) {
   const signinSlice = useSelector((state) => state.signinSlice);

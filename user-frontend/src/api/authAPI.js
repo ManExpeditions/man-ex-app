@@ -1,18 +1,18 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 class authAPI {
   async registerByEmail(email, password) {
-    const { data } = await Axios.post("/api/auth/v1/register/email", {
+    const { data } = await Axios.post('/api/auth/v1/register/email', {
       email,
-      password,
+      password
     });
     return data;
   }
 
   async signinByEmail(email, password) {
-    const { data } = await Axios.post("/api/auth/v1/signin/email", {
+    const { data } = await Axios.post('/api/auth/v1/signin/email', {
       email,
-      password,
+      password
     });
     return data;
   }

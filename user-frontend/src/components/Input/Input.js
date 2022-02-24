@@ -1,6 +1,6 @@
-import React from "react";
-import { forwardRef } from "react";
-import withPasswordToggle from "../../higherOrderComponents/withPasswordToggle";
+import React from 'react';
+import { forwardRef } from 'react';
+import withPasswordToggle from '../../higherOrderComponents/withPasswordToggle';
 
 const Input = forwardRef(
   ({ value, placeholder, dispatch, actionType, payload, ...props }, ref) => {
@@ -13,7 +13,7 @@ const Input = forwardRef(
         onChange={(e) =>
           dispatch({
             type: actionType,
-            payload: { ...payload, value: e.target.value },
+            payload: { ...payload, value: e.target.value }
           })
         }
       />

@@ -1,34 +1,34 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IoChevronBackSharp } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { InputPassword } from "../../../../components/Input/Input";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import React, { useEffect, useRef, useState } from 'react';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { InputPassword } from '../../../../components/Input/Input';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserValidate,
-  validateUser,
-} from "../../../../slices/user/userValidateSlice";
-import styles from "./ManageAccountPage.module.css";
+  validateUser
+} from '../../../../slices/user/userValidateSlice';
+import styles from './ManageAccountPage.module.css';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import { resetVerify } from "../../../../slices/user/verifySlice";
-import { resetSignin } from "../../../../slices/auth/signinSlice";
-import Modal from "../../../../components/Modal/Modal";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import { resetVerify } from '../../../../slices/user/verifySlice';
+import { resetSignin } from '../../../../slices/auth/signinSlice';
+import Modal from '../../../../components/Modal/Modal';
 import {
   deleteUser,
-  resetUserDelete,
-} from "../../../../slices/user/userDeleteSlice";
+  resetUserDelete
+} from '../../../../slices/user/userDeleteSlice';
 
 const initialState = {
-  password: "",
-  passwordError: "",
-  confirmPassword: "",
-  confirmPasswordError: "",
-  buttonDisabled: true,
+  password: '',
+  passwordError: '',
+  confirmPassword: '',
+  confirmPasswordError: '',
+  buttonDisabled: true
 };
 
 export default function ManageAccountPage(props) {
@@ -45,21 +45,21 @@ export default function ManageAccountPage(props) {
   const {
     loading: loadingValidatedUser,
     success: validatedUser,
-    error: errorValidatedUser,
+    error: errorValidatedUser
   } = userValidateSlice;
 
   const userUpdateSlice = useSelector((state) => state.userUpdateSlice);
   const {
     loading: loadingUpdatedUser,
     user: updatedUser,
-    error: errorUpdatedUser,
+    error: errorUpdatedUser
   } = userUpdateSlice;
 
   const userDeleteSlice = useSelector((state) => state.userDeleteSlice);
   const {
     loading: loadingDeletedUser,
     success: deletedSuccess,
-    error: errorDeletedUser,
+    error: errorDeletedUser
   } = userDeleteSlice;
 
   const dispatch = useDispatch();
@@ -89,18 +89,18 @@ export default function ManageAccountPage(props) {
   // On every render check if all fields are valid
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [passwordError, confirmPasswordError],
-        notEmpty: [password, confirmPassword],
-      },
+        notEmpty: [password, confirmPassword]
+      }
     });
   }, [
     password,
     passwordError,
     confirmPassword,
     confirmPasswordError,
-    discharge,
+    discharge
   ]);
 
   // If everything was succesfull then
@@ -134,10 +134,10 @@ export default function ManageAccountPage(props) {
         <h1>Manage Account</h1>
         {updatedUser || deletedSuccess ? (
           <MessageBox>
-            Account {updatedUser ? "deactivated" : "deleted"}. Redirecting{" "}
+            Account {updatedUser ? 'deactivated' : 'deleted'}. Redirecting{' '}
             <div className={styles.spinner_wrapper}>
-              <Spinner></Spinner>{" "}
-            </div>{" "}
+              <Spinner></Spinner>{' '}
+            </div>{' '}
           </MessageBox>
         ) : !validatedUser ? (
           <>
@@ -162,11 +162,11 @@ export default function ManageAccountPage(props) {
               <span className="error-message">{errorValidatedUser}</span>
             </div>
             <button
-              disabled={password === "" ? true : false}
+              disabled={password === '' ? true : false}
               className={`btn ${styles.action_button}`}
               onClick={onValidatePassword}
             >
-              {loadingValidatedUser ? <Spinner></Spinner> : "Validate Password"}
+              {loadingValidatedUser ? <Spinner></Spinner> : 'Validate Password'}
             </button>
           </>
         ) : (
@@ -185,7 +185,7 @@ export default function ManageAccountPage(props) {
                       {loadingUpdatedUser ? (
                         <Spinner></Spinner>
                       ) : (
-                        "Deactivate Account"
+                        'Deactivate Account'
                       )}
                     </button>
                     {errorUpdatedUser && (
@@ -212,7 +212,7 @@ export default function ManageAccountPage(props) {
                       {loadingDeletedUser ? (
                         <Spinner></Spinner>
                       ) : (
-                        "Delete Account"
+                        'Delete Account'
                       )}
                     </button>
                     {errorDeletedUser && (

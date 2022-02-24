@@ -180,7 +180,7 @@
   width: 1f;
 }
 .image_container:after {
-  content: "";
+  content: '';
   display: block;
   padding-bottom: 100%;
 }

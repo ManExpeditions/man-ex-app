@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Navbar from "../../../components/Navbar/Navbar";
-import styles from "./PrivacyAndServiceTermsPage.module.css";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Navbar from '../../../components/Navbar/Navbar';
+import styles from './PrivacyAndServiceTermsPage.module.css';
 
 export default function PrivacyAndServiceTermsPage() {
   const signinSlice = useSelector((state) => state.signinSlice);

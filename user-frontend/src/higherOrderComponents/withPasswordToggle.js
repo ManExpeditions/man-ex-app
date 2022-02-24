@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useState } from 'react';
 
 const withPasswordToggle = (component) => {
   const Component = component;
@@ -6,17 +6,17 @@ const withPasswordToggle = (component) => {
     const [inputType, setInputType] = useState(type);
 
     const togglePasswordVisibility = () => {
-      if (inputType === "password") {
-        setInputType("text");
+      if (inputType === 'password') {
+        setInputType('text');
       } else {
-        setInputType("password");
+        setInputType('password');
       }
     };
 
     return (
       <div className="pos-relative">
         <Component type={inputType} {...props} ref={ref} />
-        {type === "password" && (
+        {type === 'password' && (
           <button className="eye-button" onClick={togglePasswordVisibility}>
             <i class="fa fa-eye eye" aria-hidden="true"></i>
           </button>

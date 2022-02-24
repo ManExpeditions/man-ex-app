@@ -3,7 +3,7 @@ export default function SelectBox({
   options,
   optionState,
   setOptionState,
-  labelHidden,
+  labelHidden
 }) {
   return (
     <div>

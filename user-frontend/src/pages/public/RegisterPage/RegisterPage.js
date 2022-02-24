@@ -1,24 +1,24 @@
-import React, { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import styles from "./RegisterPage.module.css";
-import MessageBox from "../../../components/MessageBox/MessageBox";
-import Input from "../../../components/Input/Input";
-import useInputValidate from "../../../customHooks/useInputValidate";
-import { InputPassword } from "../../../components/Input/Input";
+import React, { useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styles from './RegisterPage.module.css';
+import MessageBox from '../../../components/MessageBox/MessageBox';
+import Input from '../../../components/Input/Input';
+import useInputValidate from '../../../customHooks/useInputValidate';
+import { InputPassword } from '../../../components/Input/Input';
 import {
   emailRegisterUser,
-  resetEmailRegisterErrors,
-} from "../../../slices/auth/emailRegisterSlice";
+  resetEmailRegisterErrors
+} from '../../../slices/auth/emailRegisterSlice';
 
 const initialState = {
-  email: "",
-  emailError: "",
-  password: "",
-  passwordError: "",
-  confirmPassword: "",
-  confirmPasswordError: "",
-  buttonDisabled: false,
+  email: '',
+  emailError: '',
+  password: '',
+  passwordError: '',
+  confirmPassword: '',
+  confirmPasswordError: '',
+  buttonDisabled: false
 };
 
 export default function RegisterPage(props) {
@@ -30,7 +30,7 @@ export default function RegisterPage(props) {
     passwordError,
     confirmPassword,
     confirmPasswordError,
-    buttonDisabled,
+    buttonDisabled
   } = state;
 
   // Focus the email input on first render
@@ -42,11 +42,11 @@ export default function RegisterPage(props) {
   // On every render check if all fields are valid
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [emailError, passwordError, confirmPasswordError],
-        notEmpty: [email, password, confirmPassword],
-      },
+        notEmpty: [email, password, confirmPassword]
+      }
     });
   }, [
     email,
@@ -55,7 +55,7 @@ export default function RegisterPage(props) {
     passwordError,
     confirmPassword,
     confirmPasswordError,
-    discharge,
+    discharge
   ]);
 
   const emailRegisterSlice = useSelector((state) => state.emailRegisterSlice);
@@ -68,7 +68,7 @@ export default function RegisterPage(props) {
 
   useEffect(() => {
     if (createdUser) {
-      props.history.push("/onboarding/verify/email");
+      props.history.push('/onboarding/verify/email');
     }
     return () => {
       dispatch(resetEmailRegisterErrors());
@@ -100,7 +100,7 @@ export default function RegisterPage(props) {
             <span className="error-message">{emailError}</span>
           </div>
           <Input
-            className={`input ${emailError && "input-error"}`}
+            className={`input ${emailError && 'input-error'}`}
             ref={focusRef}
             value={email}
             dispatch={discharge}
@@ -114,7 +114,7 @@ export default function RegisterPage(props) {
           </div>
           <InputPassword
             type="password"
-            className={`input ${passwordError && "input-error"}`}
+            className={`input ${passwordError && 'input-error'}`}
             value={password}
             dispatch={discharge}
             actionType="SET_AND_VALIDATE_PASSWORD"
@@ -127,7 +127,7 @@ export default function RegisterPage(props) {
           </div>
           <InputPassword
             type="password"
-            className={`input ${confirmPasswordError && "input-error"}`}
+            className={`input ${confirmPasswordError && 'input-error'}`}
             value={confirmPassword}
             dispatch={discharge}
             actionType="SET_AND_VALIDATE_CONFIRM_PASSWORD"
@@ -137,14 +137,14 @@ export default function RegisterPage(props) {
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button} ${
-          buttonDisabled && "btn-primary-disabled"
+          buttonDisabled && 'btn-primary-disabled'
         }`}
         onClick={onCreateAccountHandler}
       >
         Create Account
       </button>
       <p className={styles.existing_account}>
-        Already have an account?{" "}
+        Already have an account?{' '}
         <Link to="/signin" className={`link ${styles.navigation_link}`}>
           SIGN IN
         </Link>

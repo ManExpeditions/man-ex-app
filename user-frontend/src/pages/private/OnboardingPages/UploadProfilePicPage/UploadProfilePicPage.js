@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import UploadPhotoBox from "../../../../components/UploadPhotoBox/UploadPhotoBox";
-import styles from "./UploadProfilePicPage.module.css";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import UploadPhotoBox from '../../../../components/UploadPhotoBox/UploadPhotoBox';
+import styles from './UploadProfilePicPage.module.css';
 import {
   photoUpload,
-  resetPhotoUpload,
-} from "../../../../slices/assets/photoUploadSlice";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useDidMountEffect from "../../../../customHooks/useDidMountEffect";
+  resetPhotoUpload
+} from '../../../../slices/assets/photoUploadSlice';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useDidMountEffect from '../../../../customHooks/useDidMountEffect';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import { useEffect } from "react";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import { useEffect } from 'react';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
 
 export default function UploadProfilePicPage(props) {
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState('');
 
   const photoUploadSlice = useSelector((state) => state.photoUploadSlice);
   const { loading, photo } = photoUploadSlice;
@@ -29,7 +29,7 @@ export default function UploadProfilePicPage(props) {
   const {
     loading: updateLoading,
     user: updatedUser,
-    error: updateError,
+    error: updateError
   } = userUpdateSlice;
 
   const dispatch = useDispatch();
@@ -38,8 +38,8 @@ export default function UploadProfilePicPage(props) {
   useDidMountEffect(() => {
     dispatch(resetPhotoUpload());
     const photoFormData = new FormData();
-    photoFormData.append("photo", profilePic);
-    dispatch(photoUpload({ type: "profile", photoFormData }));
+    photoFormData.append('photo', profilePic);
+    dispatch(photoUpload({ type: 'profile', photoFormData }));
   }, [profilePic, dispatch]);
 
   const onCompleteHandler = () => {
@@ -48,10 +48,10 @@ export default function UploadProfilePicPage(props) {
         profilepic: encodeURIComponent(
           photo
             ? photo.url
-            : user.hasOwnProperty("profilepic")
+            : user.hasOwnProperty('profilepic')
             ? user.profilepic
-            : ""
-        ),
+            : ''
+        )
       })
     );
   };
@@ -60,13 +60,13 @@ export default function UploadProfilePicPage(props) {
     if (updatedUser) {
       dispatch(resetPhotoUpload());
       dispatch(resetUserUpdate());
-      props.history.push("/onboarding/verify/profilepic/social");
+      props.history.push('/onboarding/verify/profilepic/social');
     }
   }, [dispatch, updatedUser, props.history]);
 
   // If user already has profile, display it
   useEffect(() => {
-    if (user.hasOwnProperty("profilepic")) {
+    if (user.hasOwnProperty('profilepic')) {
       setProfilePic(user.profilepic);
     }
   }, [user]);
@@ -86,7 +86,7 @@ export default function UploadProfilePicPage(props) {
             <div className={styles.photobox_wrapper}>
               {loading && (
                 <div className={styles.loading_box}>
-                  <Spinner style={{ color: "#56c1ff" }}></Spinner>
+                  <Spinner style={{ color: '#56c1ff' }}></Spinner>
                 </div>
               )}
               <UploadPhotoBox
@@ -103,11 +103,11 @@ export default function UploadProfilePicPage(props) {
         </div>
       )}
       <button
-        disabled={photo || user.hasOwnProperty("profilepic") ? false : true}
+        disabled={photo || user.hasOwnProperty('profilepic') ? false : true}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {updateLoading ? <Spinner></Spinner> : "Confirm Profile Photo"}
+        {updateLoading ? <Spinner></Spinner> : 'Confirm Profile Photo'}
       </button>
     </>
   );

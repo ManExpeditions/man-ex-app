@@ -1,16 +1,16 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 class servicesAPI {
   async locationAutoComplete(userToken, location) {
     const { data } = await Axios.post(
-      "/api/services/v1/location",
+      '/api/services/v1/location',
       {
-        location,
+        location
       },
       {
         headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+          Authorization: `Bearer ${userToken}`
+        }
       }
     );
     return data;

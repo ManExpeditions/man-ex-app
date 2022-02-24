@@ -1,7 +1,7 @@
-import { useState } from "react";
-import ReactPlayer from "react-player";
-import styles from "./VideoPlayer.module.css";
-import { motion } from "framer-motion";
+import { useState } from 'react';
+import ReactPlayer from 'react-player';
+import styles from './VideoPlayer.module.css';
+import { motion } from 'framer-motion';
 
 export default function VideoPlayer({ src, thumbnail, videoTitle }) {
   const [thumbnailVisible, setThumbnailVisible] = useState(true);
@@ -16,7 +16,7 @@ export default function VideoPlayer({ src, thumbnail, videoTitle }) {
         <img
           className={styles.thumbnail}
           src={thumbnail}
-          alt={videoTitle ? videoTitle : "Video thumbnail."}
+          alt={videoTitle ? videoTitle : 'Video thumbnail.'}
         />
       )}
       <ReactPlayer

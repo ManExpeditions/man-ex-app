@@ -1,44 +1,44 @@
-import React, { useEffect, useRef, useState } from "react";
-import { IoChevronBackSharp } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
-import validator from "validator";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import DigitVerificationBox from "../../../../components/DigitVerificationBox/DigitVerificationBox";
-import { InputPassword } from "../../../../components/Input/Input";
-import PhoneInput from "react-phone-number-input";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import React, { useEffect, useRef, useState } from 'react';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import validator from 'validator';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import DigitVerificationBox from '../../../../components/DigitVerificationBox/DigitVerificationBox';
+import { InputPassword } from '../../../../components/Input/Input';
+import PhoneInput from 'react-phone-number-input';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserValidate,
-  validateUser,
-} from "../../../../slices/user/userValidateSlice";
+  validateUser
+} from '../../../../slices/user/userValidateSlice';
 import {
   resetVerificationCode,
   resetVerificationCodeErrors,
-  verificationCode,
-} from "../../../../slices/user/verificationCodeSlice";
+  verificationCode
+} from '../../../../slices/user/verificationCodeSlice';
 import {
   resetVerify,
   resetVerifyErrors,
-  verify,
-} from "../../../../slices/user/verifySlice";
-import styles from "./UpdatePhonePage.module.css";
+  verify
+} from '../../../../slices/user/verifySlice';
+import styles from './UpdatePhonePage.module.css';
 
 const initialState = {
-  password: "",
+  password: ''
 };
 
 export default function UpdatePhonePage(props) {
-  const [boxOne, setBoxOne] = useState("");
-  const [boxTwo, setBoxTwo] = useState("");
-  const [boxThree, setBoxThree] = useState("");
-  const [boxFour, setBoxFour] = useState("");
-  const [boxFive, setBoxFive] = useState("");
-  const [boxSix, setBoxSix] = useState("");
+  const [boxOne, setBoxOne] = useState('');
+  const [boxTwo, setBoxTwo] = useState('');
+  const [boxThree, setBoxThree] = useState('');
+  const [boxFour, setBoxFour] = useState('');
+  const [boxFive, setBoxFive] = useState('');
+  const [boxSix, setBoxSix] = useState('');
 
-  const [phone, setPhone] = useState("");
-  const [phoneError, setPhoneError] = useState("");
+  const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [counter, setCounter] = useState(30);
   const [state, discharge] = useInputValidate(initialState);
 
@@ -51,14 +51,14 @@ export default function UpdatePhonePage(props) {
   const {
     loading: loadingValidatedUser,
     success: validatedUser,
-    error: errorValidatedUser,
+    error: errorValidatedUser
   } = userValidateSlice;
 
   const verifySlice = useSelector((state) => state.verifySlice);
   const {
     loading: loadingVerifyUser,
     user: verifyUser,
-    error: errorVerifyUser,
+    error: errorVerifyUser
   } = verifySlice;
 
   const verificationCodeSlice = useSelector(
@@ -67,7 +67,7 @@ export default function UpdatePhonePage(props) {
   const {
     loading: loadingVerificationCode,
     success: verificationCodeSuccess,
-    error: errorVerificationCode,
+    error: errorVerificationCode
   } = verificationCodeSlice;
 
   const dispatch = useDispatch();
@@ -96,11 +96,11 @@ export default function UpdatePhonePage(props) {
   // // Validate phonenumber
   useEffect(() => {
     if (
-      validator.isMobilePhone(phone ? phone : "", "any", { strictMode: true })
+      validator.isMobilePhone(phone ? phone : '', 'any', { strictMode: true })
     ) {
-      setPhoneError("");
+      setPhoneError('');
     } else {
-      setPhoneError("Enter valid phone number");
+      setPhoneError('Enter valid phone number');
     }
   }, [phone]);
 
@@ -113,7 +113,7 @@ export default function UpdatePhonePage(props) {
     intervalRef.current = startTimer();
     setCounter(30);
     dispatch(resetVerificationCodeErrors());
-    dispatch(verificationCode({ type: "phone", payload: phone }));
+    dispatch(verificationCode({ type: 'phone', payload: phone }));
   };
 
   // Verify the code the user provided
@@ -121,14 +121,14 @@ export default function UpdatePhonePage(props) {
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
     dispatch(resetVerifyErrors());
-    dispatch(verify({ type: "phone", payload: phone, verificationCode }));
+    dispatch(verify({ type: 'phone', payload: phone, verificationCode }));
   };
 
   // If everything was succesfull then
   useEffect(() => {
     if (verifyUser) {
       window.setTimeout(() => {
-        props.history.push("/profile/settings");
+        props.history.push('/profile/settings');
       }, 2000);
     }
   }, [dispatch, props.history, verifyUser]);
@@ -157,8 +157,8 @@ export default function UpdatePhonePage(props) {
           <MessageBox>
             Phone updated. Redirecting...
             <div className={styles.spinner_wrapper}>
-              <Spinner></Spinner>{" "}
-            </div>{" "}
+              <Spinner></Spinner>{' '}
+            </div>{' '}
           </MessageBox>
         ) : !validatedUser ? (
           <>
@@ -182,11 +182,11 @@ export default function UpdatePhonePage(props) {
               <span className="error-message">{errorValidatedUser}</span>
             </div>
             <button
-              disabled={password === "" ? true : false}
+              disabled={password === '' ? true : false}
               className={`btn ${styles.action_button}`}
               onClick={onValidatePassword}
             >
-              {loadingValidatedUser ? <Spinner></Spinner> : "Validate Password"}
+              {loadingValidatedUser ? <Spinner></Spinner> : 'Validate Password'}
             </button>
           </>
         ) : (
@@ -221,12 +221,12 @@ export default function UpdatePhonePage(props) {
             </div>
             <button
               disabled={
-                phoneError === "" && phone && counter === 30 ? false : true
+                phoneError === '' && phone && counter === 30 ? false : true
               }
               className={`btn ${styles.action_button}`}
               onClick={onSendCode}
             >
-              {loadingVerificationCode ? <Spinner></Spinner> : "Send Code"}
+              {loadingVerificationCode ? <Spinner></Spinner> : 'Send Code'}
             </button>
             <p className={styles.resend_text}>Resend in {counter} seconds</p>
             {verificationCodeSuccess !== null && (
@@ -247,7 +247,7 @@ export default function UpdatePhonePage(props) {
                       [boxThree, setBoxThree],
                       [boxFour, setBoxFour],
                       [boxFive, setBoxFive],
-                      [boxSix, setBoxSix],
+                      [boxSix, setBoxSix]
                     ]}
                   ></DigitVerificationBox>
                 </div>
@@ -262,7 +262,7 @@ export default function UpdatePhonePage(props) {
                   className={`btn margin-auto ${styles.action_button} ${styles.verification_button}`}
                   onClick={onVerifyCode}
                 >
-                  {loadingVerifyUser ? <Spinner></Spinner> : "Verify code"}
+                  {loadingVerifyUser ? <Spinner></Spinner> : 'Verify code'}
                 </button>
               </div>
             )}

@@ -1,13 +1,13 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
 
-import React from "react";
+import React from 'react';
 
 export default function Toast({
-  postion = "top-right",
+  postion = 'top-right',
   autoClose = 5000,
   hideProgressBar = false,
   newestOnTop = true,
-  pauseOnHover = true,
+  pauseOnHover = true
 }) {
   return (
     <ToastContainer

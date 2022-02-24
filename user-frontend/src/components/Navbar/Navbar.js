@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import OutsideAlerter from "../OutsideAlerter";
-import styles from "./Navbar.module.css";
-import { BiUser } from "react-icons/bi";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import OutsideAlerter from '../OutsideAlerter';
+import styles from './Navbar.module.css';
+import { BiUser } from 'react-icons/bi';
 
 export default function Navbar({ user, ...props }) {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -15,7 +15,7 @@ export default function Navbar({ user, ...props }) {
             <ul className="flex-box">
               <li className={styles.hamburger_btn}>
                 <div
-                  className={hamburgerOpen && "none-pointer"}
+                  className={hamburgerOpen && 'none-pointer'}
                   onClick={() => setHamburgerOpen(true)}
                 >
                   <i class="fas fa-bars fa-2x"></i>
@@ -38,7 +38,7 @@ export default function Navbar({ user, ...props }) {
                 <Link
                   to="/experiences"
                   className={`link link-primary ${styles.nav_link}`}
-                  style={{ color: props.experiences ? "#56c1ff" : "" }}
+                  style={{ color: props.experiences ? '#56c1ff' : '' }}
                 >
                   Experiences
                 </Link>
@@ -49,7 +49,7 @@ export default function Navbar({ user, ...props }) {
                     <Link
                       to="/messages"
                       className={`link link-primary ${styles.nav_link}`}
-                      style={{ color: props.messages ? "#56c1ff" : "" }}
+                      style={{ color: props.messages ? '#56c1ff' : '' }}
                     >
                       Messages
                     </Link>
@@ -58,7 +58,7 @@ export default function Navbar({ user, ...props }) {
                     <Link
                       to="/members"
                       className={`link link-primary ${styles.nav_link}`}
-                      style={{ color: props.members ? "#56c1ff" : "" }}
+                      style={{ color: props.members ? '#56c1ff' : '' }}
                     >
                       Members
                     </Link>
@@ -67,7 +67,7 @@ export default function Navbar({ user, ...props }) {
                     <Link
                       to="/favorites"
                       className={`link link-primary ${styles.nav_link}`}
-                      style={{ color: props.favorites ? "#56c1ff" : "" }}
+                      style={{ color: props.favorites ? '#56c1ff' : '' }}
                     >
                       Favorites
                     </Link>
@@ -81,7 +81,7 @@ export default function Navbar({ user, ...props }) {
                         {user.profilepic ? (
                           <img
                             className={styles.nav_profile}
-                            src={user.profilepic ? user.profilepic : ""}
+                            src={user.profilepic ? user.profilepic : ''}
                             alt="profile"
                           />
                         ) : (
@@ -97,7 +97,7 @@ export default function Navbar({ user, ...props }) {
                     <Link
                       to="/aboutus"
                       className={`link link-primary ${styles.nav_link}`}
-                      style={{ color: props.aboutus ? "#56c1ff" : "" }}
+                      style={{ color: props.aboutus ? '#56c1ff' : '' }}
                     >
                       About Us
                     </Link>
@@ -106,7 +106,7 @@ export default function Navbar({ user, ...props }) {
                     <Link
                       to="/press"
                       className={`link link-primary ${styles.nav_link}`}
-                      style={{ color: props.press ? "#56c1ff" : "" }}
+                      style={{ color: props.press ? '#56c1ff' : '' }}
                     >
                       Press
                     </Link>
@@ -115,7 +115,7 @@ export default function Navbar({ user, ...props }) {
                     <a
                       href="mailto:hello@manexpeditions.com?subject=Contact us"
                       className="link link-primary"
-                      style={{ color: props.contact ? "#56c1ff" : "" }}
+                      style={{ color: props.contact ? '#56c1ff' : '' }}
                     >
                       Contact
                     </a>
@@ -140,7 +140,7 @@ export default function Navbar({ user, ...props }) {
                   <Link
                     to="/experiences"
                     className={`link link-primary ${styles.hamburger_link}`}
-                    style={{ color: props.experiences ? "#56c1ff" : "" }}
+                    style={{ color: props.experiences ? '#56c1ff' : '' }}
                   >
                     Experiences
                   </Link>
@@ -149,7 +149,7 @@ export default function Navbar({ user, ...props }) {
                   <Link
                     to="/aboutus"
                     className={`link link-primary ${styles.hamburger_link}`}
-                    style={{ color: props.aboutus ? "#56c1ff" : "" }}
+                    style={{ color: props.aboutus ? '#56c1ff' : '' }}
                   >
                     About Us
                   </Link>
@@ -158,7 +158,7 @@ export default function Navbar({ user, ...props }) {
                   <Link
                     to="/press"
                     className={`link link-primary ${styles.hamburger_link}`}
-                    style={{ color: props.press ? "#56c1ff" : "" }}
+                    style={{ color: props.press ? '#56c1ff' : '' }}
                   >
                     Press
                   </Link>
@@ -167,7 +167,7 @@ export default function Navbar({ user, ...props }) {
                   <Link
                     to="/contact"
                     className={`link link-primary ${styles.hamburger_link}`}
-                    style={{ color: props.contact ? "#56c1ff" : "" }}
+                    style={{ color: props.contact ? '#56c1ff' : '' }}
                   >
                     Contact
                   </Link>

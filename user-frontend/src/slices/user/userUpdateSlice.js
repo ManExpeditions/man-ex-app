@@ -1,22 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import userAPI from "../../api/userAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import userAPI from '../../api/userAPI';
 
 const initialState = {
   loading: false,
   user: null,
-  error: null,
+  error: null
 };
 
 export const userUpdate = createAsyncThunk(
-  "userUpdate/userUpdate",
+  'userUpdate/userUpdate',
   async (userData, { rejectWithValue, getState }) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await userAPI.updateUser(user.id, user.token, userData);
       const token = user.token;
-      localStorage.setItem("user", JSON.stringify({ ...data, token }));
+      localStorage.setItem('user', JSON.stringify({ ...data, token }));
       return data;
     } catch (err) {
       if (!err.response) {
@@ -28,14 +28,14 @@ export const userUpdate = createAsyncThunk(
 );
 
 export const userUpdateSlice = createSlice({
-  name: "userUpdate",
+  name: 'userUpdate',
   initialState,
   reducers: {
     resetUserUpdate: (state) => {
       state.loading = false;
       state.user = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -47,14 +47,14 @@ export const userUpdateSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Information not updated. Try later.";
+          state.error = 'Information not updated. Try later.';
         }
       })
       .addCase(userUpdate.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
       });
-  },
+  }
 });
 
 export const { resetUserUpdate } = userUpdateSlice.actions;

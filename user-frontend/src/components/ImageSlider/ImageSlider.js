@@ -1,8 +1,8 @@
-import { FcNext, FcPrevious } from "react-icons/fc";
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
+import { FcNext, FcPrevious } from 'react-icons/fc';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
-import styles from "./ImageSlider.module.css";
+import styles from './ImageSlider.module.css';
 
 export default function ImageSlider(props) {
   const prevIcon = () => (

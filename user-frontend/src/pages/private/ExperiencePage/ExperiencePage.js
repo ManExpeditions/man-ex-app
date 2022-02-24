@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineClose } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
-import { BsChevronCompactUp, BsChevronCompactDown } from "react-icons/bs";
-import styles from "./ExperiencePage.module.css";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineClose } from 'react-icons/ai';
+import { Link, useParams } from 'react-router-dom';
+import { BsChevronCompactUp, BsChevronCompactDown } from 'react-icons/bs';
+import styles from './ExperiencePage.module.css';
 import {
   experienceGet,
-  resetExperienceGet,
-} from "../../../slices/experience/experienceGetSlice";
-import OutsideAlerter from "../../../components/OutsideAlerter";
-import ImageSlider from "../../../components/ImageSlider/ImageSlider";
+  resetExperienceGet
+} from '../../../slices/experience/experienceGetSlice';
+import OutsideAlerter from '../../../components/OutsideAlerter';
+import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -29,6 +29,9 @@ export default function ExperiencePage() {
   const [thriveCartReady, setThriveCartReady] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { loading, experience, error } = experienceGetSlice;
 
@@ -47,10 +50,10 @@ export default function ExperiencePage() {
 
   useEffect(() => {
     const addThrivecartScript = () => {
-      const script = document.createElement("script");
+      const script = document.createElement('script');
       script.async = true;
-      script.src = "//tinder.thrivecart.com/embed/v1/thrivecart.js";
-      script.id = "tc-guestlist-upmostexperiences-97-3ONRWZ";
+      script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
+      script.id = 'tc-guestlist-upmostexperiences-97-3ONRWZ';
       script.onload = () => {
         setThriveCartReady(true);
       };
@@ -103,6 +106,7 @@ export default function ExperiencePage() {
                         data-thrivecart-account="guestlist-upmostexperiences"
                         data-thrivecart-tpl="v2"
                         data-thrivecart-product="97"
+                        data-thrivecart-querystring="customer_firstname=VIPOFFER"
                         class="thrivecart-embeddable"
                         data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
                       ></div>
@@ -131,7 +135,7 @@ export default function ExperiencePage() {
                     </p>
                     <button
                       onClick={() => {
-                        console.log("clicks");
+                        console.log('clicks');
                         setShowCheckout(true);
                       }}
                       className={`btn btn-primary ${styles.book_button}`}
@@ -200,7 +204,7 @@ export default function ExperiencePage() {
                   className={`btn ${styles.see_more_button}`}
                   onClick={() => setIsSeeMoreImages((prevValue) => !prevValue)}
                 >
-                  {isSeeMoreImages ? "See less" : "See more"}
+                  {isSeeMoreImages ? 'See less' : 'See more'}
                 </button>
               )}
             </div>

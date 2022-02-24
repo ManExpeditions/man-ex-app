@@ -1,17 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import userAPI from "../../api/userAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import userAPI from '../../api/userAPI';
 
 const initialState = {
   loading: false,
   success: null,
-  error: null,
+  error: null
 };
 
 export const verificationCode = createAsyncThunk(
-  "verificationCode/verificationCode",
+  'verificationCode/verificationCode',
   async ({ type, payload }, { rejectWithValue, getState }) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await userAPI.verificationCode(
@@ -31,7 +31,7 @@ export const verificationCode = createAsyncThunk(
 );
 
 export const verificationCodeSlice = createSlice({
-  name: "verificationCode",
+  name: 'verificationCode',
   initialState,
   reducers: {
     resetVerificationCodeErrors: (state) => {
@@ -42,7 +42,7 @@ export const verificationCodeSlice = createSlice({
       state.loading = false;
       state.success = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -54,14 +54,14 @@ export const verificationCodeSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Verification code not sent. Try later.";
+          state.error = 'Verification code not sent. Try later.';
         }
       })
       .addCase(verificationCode.fulfilled, (state, action) => {
         state.loading = false;
         state.success = action.payload;
       });
-  },
+  }
 });
 
 export const { resetVerificationCode, resetVerificationCodeErrors } =

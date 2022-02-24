@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { BiChevronRight } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
-import styles from "./UserSettingsPage.module.css";
-import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { BiChevronRight } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
+import styles from './UserSettingsPage.module.css';
+import { Link } from 'react-router-dom';
 
 export default function UserSettingsPage() {
   const signinSlice = useSelector((state) => state.signinSlice);

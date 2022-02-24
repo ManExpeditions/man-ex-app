@@ -1,6 +1,6 @@
-import React from "react";
-import OutsideAlerter from "../OutsideAlerter";
-import styles from "./Modal.module.css";
+import React from 'react';
+import OutsideAlerter from '../OutsideAlerter';
+import styles from './Modal.module.css';
 
 export default function Modal({ children, setIsOpen, ...props }) {
   return (

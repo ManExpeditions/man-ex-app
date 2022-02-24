@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import ChipCheckBox from "../../../../components/ChipCheckBox/ChipCheckBox";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import ChipCheckBox from '../../../../components/ChipCheckBox/ChipCheckBox';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
 import {
   parseInterestState,
-  setInterestStates,
-} from "../../../../utils/common";
-import styles from "./InterestsPage.module.css";
+  setInterestStates
+} from '../../../../utils/common';
+import styles from './InterestsPage.module.css';
 
 const initialState = {
-  interestErrors: "",
+  interestErrors: ''
 };
 
 export default function InterestsPage(props) {
@@ -40,7 +40,7 @@ export default function InterestsPage(props) {
 
   useEffect(() => {
     discharge({
-      type: "VALIDATE_INTERESTS",
+      type: 'VALIDATE_INTERESTS',
       payload: {
         threshold: 2,
         value: [
@@ -57,9 +57,9 @@ export default function InterestsPage(props) {
           wellnessRetreats,
           volunteeringTrips,
           cruises,
-          nudistAdventures,
-        ],
-      },
+          nudistAdventures
+        ]
+      }
     });
   }, [
     activeGetAway,
@@ -76,7 +76,7 @@ export default function InterestsPage(props) {
     resortVacations,
     volunteeringTrips,
     wellnessRetreats,
-    wildlife,
+    wildlife
   ]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
@@ -105,8 +105,8 @@ export default function InterestsPage(props) {
           resortVacations,
           volunteeringTrips,
           wellnessRetreats,
-          wildlife,
-        }),
+          wildlife
+        })
       })
     );
   };
@@ -127,14 +127,14 @@ export default function InterestsPage(props) {
       setVolunteeringTrips,
       setWellnessRetreats,
       setWildlife,
-      setActiveGetAway,
+      setActiveGetAway
     });
   }, [user.interests]);
 
   useEffect(() => {
     if (updatedUser) {
       dispatch(resetUserUpdate());
-      props.history.push("/onboarding/continents");
+      props.history.push('/onboarding/continents');
     }
   }, [dispatch, updatedUser, props.history]);
 
@@ -239,11 +239,11 @@ export default function InterestsPage(props) {
       </main>
       {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
-        disabled={interestErrors === "" ? false : true}
+        disabled={interestErrors === '' ? false : true}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Continue"}
+        {loading ? <Spinner></Spinner> : 'Continue'}
       </button>
     </div>
   );

@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Validator from "../../../../utils/InputValidator";
-import styles from "./VerifyProfilePicSocialPage.module.css";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Validator from '../../../../utils/InputValidator';
+import styles from './VerifyProfilePicSocialPage.module.css';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import Spinner from "../../../../components/Spinner/Spinner";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import Spinner from '../../../../components/Spinner/Spinner';
 
 export default function VerifyProfilePicSocialPage(props) {
-  const [instagramProfile, setInstagramProfile] = useState("");
-  const [facebookProfile, setFacebookProfile] = useState("");
-  const [linkedinProfile, setLinkedinProfile] = useState("");
+  const [instagramProfile, setInstagramProfile] = useState('');
+  const [facebookProfile, setFacebookProfile] = useState('');
+  const [linkedinProfile, setLinkedinProfile] = useState('');
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
@@ -40,18 +40,18 @@ export default function VerifyProfilePicSocialPage(props) {
     dispatch(
       userUpdate({
         socials: {
-          instagram: instagramProfile ? instagramProfile : "",
-          facebook: facebookProfile ? facebookProfile : "",
-          linkedin: linkedinProfile ? linkedinProfile : "",
+          instagram: instagramProfile ? instagramProfile : '',
+          facebook: facebookProfile ? facebookProfile : '',
+          linkedin: linkedinProfile ? linkedinProfile : ''
         },
-        completedOnboarding: true,
+        completedOnboarding: true
       })
     );
   };
 
   useEffect(() => {
     if (updatedUser) {
-      props.history.push("/home");
+      props.history.push('/home');
     }
   }, [dispatch, updatedUser, props.history]);
 
@@ -106,7 +106,7 @@ export default function VerifyProfilePicSocialPage(props) {
             </div>
           </div>
           <p className={`align-center ${styles.info}`}>
-            If you are not on social media tap{" "}
+            If you are not on social media tap{' '}
             <Link
               to="/onboarding/verify/profilepic/manual"
               className="link link-blue uppercase"
@@ -121,7 +121,7 @@ export default function VerifyProfilePicSocialPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Done"}
+        {loading ? <Spinner></Spinner> : 'Done'}
       </button>
       <span className="error-message margin-auto">{error}</span>
     </>

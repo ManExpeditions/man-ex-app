@@ -1,19 +1,19 @@
-import "react-phone-number-input/style.css";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import PhoneInput from "react-phone-number-input";
-import { useDispatch, useSelector } from "react-redux";
+import 'react-phone-number-input/style.css';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import PhoneInput from 'react-phone-number-input';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   resetVerificationCode,
-  verificationCode,
-} from "../../../../slices/user/verificationCodeSlice";
-import Validator from "../../../../utils/InputValidator";
-import styles from "./EnterPhonePage.module.css";
-import Spinner from "../../../../components/Spinner/Spinner";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
+  verificationCode
+} from '../../../../slices/user/verificationCodeSlice';
+import Validator from '../../../../utils/InputValidator';
+import styles from './EnterPhonePage.module.css';
+import Spinner from '../../../../components/Spinner/Spinner';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
 
 export default function EnterPhonePage(props) {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const inputValidator = Validator;
@@ -37,12 +37,12 @@ export default function EnterPhonePage(props) {
   const dispatch = useDispatch();
 
   const onCompleteHandler = () => {
-    dispatch(verificationCode({ type: "phone", payload: phoneNumber }));
+    dispatch(verificationCode({ type: 'phone', payload: phoneNumber }));
   };
 
   useEffect(() => {
     if (user.phoneVerified) {
-      props.history.push("/onboarding/aboutyou");
+      props.history.push('/onboarding/aboutyou');
     }
 
     if (success) {
@@ -87,7 +87,7 @@ export default function EnterPhonePage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Verify"}
+        {loading ? <Spinner></Spinner> : 'Verify'}
       </button>
     </>
   );

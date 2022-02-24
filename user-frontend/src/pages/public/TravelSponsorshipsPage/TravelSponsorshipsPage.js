@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import Navbar from "../../../components/Navbar/Navbar";
-import styles from "./TravelSponsorshipsPage.module.css";
+import { useSelector } from 'react-redux';
+import Navbar from '../../../components/Navbar/Navbar';
+import styles from './TravelSponsorshipsPage.module.css';
 
 export default function TravelSponsorshipsPage() {
   const signinSlice = useSelector((state) => state.signinSlice);

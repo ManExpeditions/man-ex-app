@@ -1,30 +1,30 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DigitVerificationBox from "../../../../components/DigitVerificationBox/DigitVerificationBox";
-import Spinner from "../../../../components/Spinner/Spinner";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import DigitVerificationBox from '../../../../components/DigitVerificationBox/DigitVerificationBox';
+import Spinner from '../../../../components/Spinner/Spinner';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
   resetVerificationCode,
-  verificationCode,
-} from "../../../../slices/user/verificationCodeSlice";
+  verificationCode
+} from '../../../../slices/user/verificationCodeSlice';
 import {
   resetVerify,
   resetVerifyErrors,
-  verify,
-} from "../../../../slices/user/verifySlice";
-import styles from "./VerifyEmailPage.module.css";
+  verify
+} from '../../../../slices/user/verifySlice';
+import styles from './VerifyEmailPage.module.css';
 
 const initialState = {
-  buttonDisabled: false,
+  buttonDisabled: false
 };
 
 export default function VerifyEmailPage(props) {
-  const [boxOne, setBoxOne] = useState("");
-  const [boxTwo, setBoxTwo] = useState("");
-  const [boxThree, setBoxThree] = useState("");
-  const [boxFour, setBoxFour] = useState("");
-  const [boxFive, setBoxFive] = useState("");
-  const [boxSix, setBoxSix] = useState("");
+  const [boxOne, setBoxOne] = useState('');
+  const [boxTwo, setBoxTwo] = useState('');
+  const [boxThree, setBoxThree] = useState('');
+  const [boxFour, setBoxFour] = useState('');
+  const [boxFive, setBoxFive] = useState('');
+  const [boxSix, setBoxSix] = useState('');
 
   const [counter, setCounter] = useState(30);
   const intervalRef = useRef(null);
@@ -34,10 +34,10 @@ export default function VerifyEmailPage(props) {
 
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
-        notEmpty: [boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix],
-      },
+        notEmpty: [boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix]
+      }
     });
   }, [boxOne, boxTwo, boxThree, boxFour, boxFive, boxSix, discharge]);
 
@@ -53,7 +53,7 @@ export default function VerifyEmailPage(props) {
   const {
     loading: loadingVerificationCode,
     success,
-    error: errorVerificationCode,
+    error: errorVerificationCode
   } = verificationCodeSlice;
 
   const dispatch = useDispatch();
@@ -77,19 +77,19 @@ export default function VerifyEmailPage(props) {
     const verificationCode =
       boxOne + boxTwo + boxThree + boxFour + boxFive + boxSix;
     dispatch(resetVerifyErrors());
-    dispatch(verify({ type: "email", payload: user.email, verificationCode }));
+    dispatch(verify({ type: 'email', payload: user.email, verificationCode }));
   };
 
   const onResendCode = () => {
     dispatch(resetVerificationCode());
     setCounter(60);
     startTimer();
-    dispatch(verificationCode({ type: "email", payload: user.email }));
+    dispatch(verificationCode({ type: 'email', payload: user.email }));
   };
 
   useEffect(() => {
     if (verifyUser || user.emailVerified) {
-      props.history.push("/onboarding/enter/phone");
+      props.history.push('/onboarding/enter/phone');
     }
   }, [user, verifyUser, props.history, error]);
 
@@ -117,7 +117,7 @@ export default function VerifyEmailPage(props) {
                 [boxThree, setBoxThree],
                 [boxFour, setBoxFour],
                 [boxFive, setBoxFive],
-                [boxSix, setBoxSix],
+                [boxSix, setBoxSix]
               ]}
             ></DigitVerificationBox>
           </div>
@@ -128,7 +128,7 @@ export default function VerifyEmailPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onSubmitHandler}
       >
-        {loading ? <Spinner></Spinner> : "Verify"}
+        {loading ? <Spinner></Spinner> : 'Verify'}
       </button>
       <button
         disabled={counter > 0}
@@ -140,7 +140,7 @@ export default function VerifyEmailPage(props) {
         ) : counter > 0 ? (
           `Resend code in ${counter} seconds`
         ) : (
-          "Resend code"
+          'Resend code'
         )}
       </button>
       {success ? (

@@ -1,17 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import userAPI from "../../api/userAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import userAPI from '../../api/userAPI';
 
 const initialState = {
   loading: false,
   success: null,
-  error: null,
+  error: null
 };
 
 export const deleteUser = createAsyncThunk(
-  "deleteUser/deleteUser",
+  'deleteUser/deleteUser',
   async (_, { rejectWithValue, getState }) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await userAPI.deleteUser(user.id, user.token);
@@ -26,14 +26,14 @@ export const deleteUser = createAsyncThunk(
 );
 
 export const userDeleteSlice = createSlice({
-  name: "deleteUser",
+  name: 'deleteUser',
   initialState,
   reducers: {
     resetUserDelete: (state) => {
       state.loading = false;
       state.success = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -47,7 +47,7 @@ export const userDeleteSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Delete failed. Try again later.";
+          state.error = 'Delete failed. Try again later.';
         }
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
@@ -55,7 +55,7 @@ export const userDeleteSlice = createSlice({
         state.success = action.payload;
         state.error = null;
       });
-  },
+  }
 });
 
 export const { resetUserDelete } = userDeleteSlice.actions;

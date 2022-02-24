@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import UploadPhotoBox from "../../../../components/UploadPhotoBox/UploadPhotoBox";
-import styles from "./VerifyProfilePicManualPage.module.css";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import UploadPhotoBox from '../../../../components/UploadPhotoBox/UploadPhotoBox';
+import styles from './VerifyProfilePicManualPage.module.css';
 
 export default function VerifyProfilePicManualPage(props) {
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState('');
 
   const onCompleteHandler = () => {
-    props.history.push("/home");
+    props.history.push('/home');
   };
 
   return (

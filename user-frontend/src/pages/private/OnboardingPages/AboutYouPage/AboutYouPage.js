@@ -1,27 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styles from "./AboutYouPage.module.css";
-import SelectBox from "../../../../components/SelectBox/SelectBox";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from './AboutYouPage.module.css';
+import SelectBox from '../../../../components/SelectBox/SelectBox';
 import {
   resetUserUpdate,
-  userUpdate,
-} from "../../../../slices/user/userUpdateSlice";
-import Spinner from "../../../../components/Spinner/Spinner";
-import MessageBox from "../../../../components/MessageBox/MessageBox";
-import Input from "../../../../components/Input/Input";
-import useInputValidate from "../../../../customHooks/useInputValidate";
+  userUpdate
+} from '../../../../slices/user/userUpdateSlice';
+import Spinner from '../../../../components/Spinner/Spinner';
+import MessageBox from '../../../../components/MessageBox/MessageBox';
+import Input from '../../../../components/Input/Input';
+import useInputValidate from '../../../../customHooks/useInputValidate';
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  firstNameError: "",
-  lastNameError: "",
-  buttonDisabled: true,
+  firstName: '',
+  lastName: '',
+  firstNameError: '',
+  lastNameError: '',
+  buttonDisabled: true
 };
 
 export default function AboutYouPage(props) {
-  const [gender, setGender] = useState("Male");
-  const [language, setLanguage] = useState("English");
+  const [gender, setGender] = useState('Male');
+  const [language, setLanguage] = useState('English');
 
   const focusRef = useRef(null);
 
@@ -47,7 +47,7 @@ export default function AboutYouPage(props) {
         firstName,
         lastName,
         gender,
-        language,
+        language
       })
     );
   };
@@ -55,14 +55,14 @@ export default function AboutYouPage(props) {
   useEffect(() => {
     if (user.firstName) {
       discharge({
-        type: "SET_AND_VALIDATE_FIRSTNAME",
-        payload: { value: user.firstName },
+        type: 'SET_AND_VALIDATE_FIRSTNAME',
+        payload: { value: user.firstName }
       });
     }
     if (user.lastName) {
       discharge({
-        type: "SET_AND_VAlIDATE_LASTNAME",
-        payload: { value: user.lastName },
+        type: 'SET_AND_VAlIDATE_LASTNAME',
+        payload: { value: user.lastName }
       });
     }
     if (user.gender) {
@@ -72,7 +72,7 @@ export default function AboutYouPage(props) {
       setLanguage(user.language);
     }
     if (updatedUser) {
-      props.history.push("/onboarding/morequestions");
+      props.history.push('/onboarding/morequestions');
     }
   }, [
     discharge,
@@ -81,16 +81,16 @@ export default function AboutYouPage(props) {
     user.firstName,
     user.lastName,
     user.gender,
-    user.language,
+    user.language
   ]);
 
   useEffect(() => {
     discharge({
-      type: "CHECK_ALL_FIELDS_VALID",
+      type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [firstNameError, lastNameError],
-        notEmpty: [firstName, lastName],
-      },
+        notEmpty: [firstName, lastName]
+      }
     });
   }, [firstName, lastName, firstNameError, lastNameError, discharge]);
 
@@ -111,7 +111,7 @@ export default function AboutYouPage(props) {
             <span className="error-message">{firstNameError}</span>
           </div>
           <Input
-            className={`input ${firstNameError && "input-error"}`}
+            className={`input ${firstNameError && 'input-error'}`}
             ref={focusRef}
             value={firstName}
             dispatch={discharge}
@@ -125,7 +125,7 @@ export default function AboutYouPage(props) {
             <span className="error-message">{lastNameError}</span>
           </div>
           <Input
-            className={`input ${lastNameError && "input-error"}`}
+            className={`input ${lastNameError && 'input-error'}`}
             value={lastName}
             dispatch={discharge}
             actionType="SET_AND_VAlIDATE_LASTNAME"
@@ -140,7 +140,7 @@ export default function AboutYouPage(props) {
         <SelectBox
           label="Gender"
           type="text"
-          options={["Male", "Female", "Non-binary", "Other"]}
+          options={['Male', 'Female', 'Non-binary', 'Other']}
           optionState={gender}
           setOptionState={setGender}
         ></SelectBox>
@@ -148,7 +148,7 @@ export default function AboutYouPage(props) {
         <SelectBox
           label="Language"
           type="text"
-          options={["English", "Spanish", "Portuguese"]}
+          options={['English', 'Spanish', 'Portuguese']}
           optionState={language}
           setOptionState={setLanguage}
         ></SelectBox>
@@ -159,7 +159,7 @@ export default function AboutYouPage(props) {
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >
-        {loading ? <Spinner></Spinner> : "Verify"}
+        {loading ? <Spinner></Spinner> : 'Verify'}
       </button>
     </div>
   );

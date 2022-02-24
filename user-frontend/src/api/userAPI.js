@@ -1,17 +1,17 @@
-import Axios from "axios";
+import Axios from 'axios';
 
 class userAPI {
   async verify(type, payload, userId, userToken, verificationCode) {
     const { data } = await Axios.post(
       `/api/user/v1/${userId}/verify/${type}`,
       {
-        ...(type === "email" ? { email: payload } : { phone: payload }),
-        verification_code: verificationCode,
+        ...(type === 'email' ? { email: payload } : { phone: payload }),
+        verification_code: verificationCode
       },
       {
         headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+          Authorization: `Bearer ${userToken}`
+        }
       }
     );
     return data;
@@ -21,12 +21,12 @@ class userAPI {
     const { data } = await Axios.post(
       `/api/user/v1/${userId}/verify/code?type=${type}`,
       {
-        ...(type === "email" ? { email: payload } : { phone: payload }),
+        ...(type === 'email' ? { email: payload } : { phone: payload })
       },
       {
         headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+          Authorization: `Bearer ${userToken}`
+        }
       }
     );
     return data;
@@ -38,8 +38,8 @@ class userAPI {
       { password },
       {
         headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+          Authorization: `Bearer ${userToken}`
+        }
       }
     );
     return data;
@@ -48,8 +48,8 @@ class userAPI {
   async deleteUser(userId, userToken) {
     const { data } = await Axios.delete(`/api/user/v1/${userId}`, {
       headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
+        Authorization: `Bearer ${userToken}`
+      }
     });
     return data;
   }
@@ -57,8 +57,8 @@ class userAPI {
   async updateUser(userId, userToken, userData) {
     const { data } = await Axios.put(`/api/user/v1/${userId}`, userData, {
       headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
+        Authorization: `Bearer ${userToken}`
+      }
     });
     return data;
   }

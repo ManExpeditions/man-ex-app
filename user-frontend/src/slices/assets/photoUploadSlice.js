@@ -1,17 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import assetsAPI from "../../api/assetsAPI";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import assetsAPI from '../../api/assetsAPI';
 
 const initialState = {
   loading: false,
   photo: null,
-  error: null,
+  error: null
 };
 
 export const photoUpload = createAsyncThunk(
-  "photoUpload/photoUpload",
+  'photoUpload/photoUpload',
   async ({ type, photoFormData }, { rejectWithValue, getState }) => {
     const {
-      signinSlice: { user },
+      signinSlice: { user }
     } = getState();
     try {
       const data = await assetsAPI.singlePhotoUpload(
@@ -30,14 +30,14 @@ export const photoUpload = createAsyncThunk(
 );
 
 export const photoUploadSlice = createSlice({
-  name: "photoUpload",
+  name: 'photoUpload',
   initialState,
   reducers: {
     resetPhotoUpload: (state) => {
       state.loading = false;
       state.photo = null;
       state.error = null;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -52,7 +52,7 @@ export const photoUploadSlice = createSlice({
         if (action.payload) {
           state.error = action.payload;
         } else {
-          state.error = "Unable to upload photo.";
+          state.error = 'Unable to upload photo.';
         }
       })
       .addCase(photoUpload.fulfilled, (state, action) => {
@@ -60,7 +60,7 @@ export const photoUploadSlice = createSlice({
         state.photo = action.payload;
         state.error = null;
       });
-  },
+  }
 });
 
 export const { resetPhotoUpload } = photoUploadSlice.actions;
