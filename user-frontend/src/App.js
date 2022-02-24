@@ -1,7 +1,6 @@
-import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import RegisterPage from './pages/public/RegisterPage/RegisterPage';
 import AboutYouPage from './pages/private/OnboardingPages/AboutYouPage/AboutYouPage';
 import MoreQuestionsPage from './pages/private/OnboardingPages/MoreQuestionsPage/MoreQuestionsPage';
@@ -35,100 +34,103 @@ import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
 function App() {
   return (
     <Router>
-      <Route path="/signin" component={SigninPage}></Route>
-      <Route path="/register" component={RegisterPage}></Route>
-      <OnboardingRoute
-        path="/onboarding/verify/email"
-        component={VerifyEmailPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/enter/phone"
-        component={EnterPhonePage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/verify/phone/:phoneNumber"
-        component={VerifyPhonePage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/aboutyou"
-        component={AboutYouPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/morequestions"
-        component={MoreQuestionsPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/interests"
-        component={InterestsPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/continents"
-        component={ContinentsPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/location"
-        component={LocationPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/upload/profilepic"
-        component={UploadProfilePicPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/verify/profilepic/social"
-        component={VerifyProfilePicSocialPage}
-      ></OnboardingRoute>
-      <OnboardingRoute
-        path="/onboarding/verify/profilepic/manual"
-        component={VerifyProfilePicManualPage}
-      ></OnboardingRoute>
-      <Route path="/home" component={HomePage}></Route>
-      <Route path="/experiences/:id" exact component={ExperiencePage}></Route>
-      <Route path="/experiences" exact component={ExperiencesPage}></Route>
-      <Route path="/aboutus" component={AboutPage}></Route>
-      <Route path="/press" component={PressPage}></Route>
-      <Route
-        path="/travelsponsorships"
-        component={TravelSponsorshipsPage}
-      ></Route>
-      <Route
-        path="/privacy-and-serviceterms"
-        component={PrivacyAndServiceTermsPage}
-      ></Route>
-      <PrivateRoute
-        path="/profile/settings/email"
-        component={UpdateEmailPage}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        path="/profile/settings/phone"
-        component={UpdatePhonePage}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        path="/profile/settings/password"
-        component={UpdatePasswordPage}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        path="/profile/settings/account"
-        component={ManageAccountPage}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        path="/profile/settings"
-        component={UserSettingsPage}
-        exact
-      ></PrivateRoute>
-      <PrivateRoute
-        exact
-        path="/profile/edit"
-        component={UserEditProfilePage}
-      ></PrivateRoute>
-      <PrivateRoute
-        exact
-        path="/profile"
-        component={UserProfilePage}
-      ></PrivateRoute>
+      <Switch>
+        <Route path="/signin" component={SigninPage}></Route>
+        <Route path="/register" component={RegisterPage}></Route>
+        <OnboardingRoute
+          path="/onboarding/verify/email"
+          component={VerifyEmailPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/enter/phone"
+          component={EnterPhonePage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/verify/phone/:phoneNumber"
+          component={VerifyPhonePage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/aboutyou"
+          component={AboutYouPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/morequestions"
+          component={MoreQuestionsPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/interests"
+          component={InterestsPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/continents"
+          component={ContinentsPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/location"
+          component={LocationPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/upload/profilepic"
+          component={UploadProfilePicPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/verify/profilepic/social"
+          component={VerifyProfilePicSocialPage}
+        ></OnboardingRoute>
+        <OnboardingRoute
+          path="/onboarding/verify/profilepic/manual"
+          component={VerifyProfilePicManualPage}
+        ></OnboardingRoute>
+        <Route path="/" exact component={HomePage}></Route>
+        <Route path="/home" component={HomePage}></Route>
+        <Route path="/experiences/:id" exact component={ExperiencePage}></Route>
+        <Route path="/experiences" exact component={ExperiencesPage}></Route>
+        <Route path="/aboutus" component={AboutPage}></Route>
+        <Route path="/press" component={PressPage}></Route>
+        <Route
+          path="/travelsponsorships"
+          component={TravelSponsorshipsPage}
+        ></Route>
+        <Route
+          path="/privacy-and-serviceterms"
+          component={PrivacyAndServiceTermsPage}
+        ></Route>
+        <PrivateRoute
+          path="/profile/settings/email"
+          component={UpdateEmailPage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/profile/settings/phone"
+          component={UpdatePhonePage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/profile/settings/password"
+          component={UpdatePasswordPage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/profile/settings/account"
+          component={ManageAccountPage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/profile/settings"
+          component={UserSettingsPage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          exact
+          path="/profile/edit"
+          component={UserEditProfilePage}
+        ></PrivateRoute>
+        <PrivateRoute
+          exact
+          path="/profile"
+          component={UserProfilePage}
+        ></PrivateRoute>
+      </Switch>
     </Router>
   );
 }
