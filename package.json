@@ -11,7 +11,7 @@
     "test": "export NODE_ENV=test && npm run build && npm run jasmine",
     "prettier": "npx prettier --write .",
     "lint": "npx eslint src/**/*.ts",
-    "doc": "apidoc -i src/controllers -o docs/"
+    "doc": "apidoc -i ./backend/src/controllers -o ./backend/docs/"
   },
   "author": "Ajaydip Singh",
   "license": "ISC",
