@@ -1,1 +1,1 @@
-web: node --experimental-modules ./backend/dist/index.js
+web: node --experimental-modules ./backend/dist/server.js
