@@ -17,7 +17,7 @@ const options = {
   }
 };
 const logger = createLogger({
-  silent: config.node_env  === 'test' ? true : false,
+  silent: config.node_env === 'test' ? true : false,
   transports: [
     // - Write all logs info (and below) to console.
     new transports.Console(options.console)

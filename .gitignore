@@ -4,11 +4,19 @@ logs
 npm-debug.log*
 
 # Node
-*/node_modules
+*./node_modules
 
 # Build
 */dist
 
 # Secrets
-*/.env
+*.env
 
+# Django #
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media
+node_modules
