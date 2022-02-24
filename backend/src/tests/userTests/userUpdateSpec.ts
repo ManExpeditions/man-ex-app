@@ -14,7 +14,7 @@ describe('Test user update endpoint', () => {
   const user_id = mongoose.Types.ObjectId();
   const user_email = 'john@example.com';
   const user_pass = 'CyKHe3kR';
-  const user_token = generateToken({ _id: user_id, email: user_email });
+  const user_token = generateToken({ _id: user_id });
 
   beforeAll(async () => {
     // Connect to test database

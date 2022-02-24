@@ -14,7 +14,6 @@ describe('Test user verify email endpoint', () => {
   const user_pass = 'CyKHe3kR';
   const user_token = generateToken({
     _id: user_id,
-    email: user_email
   });
 
   const endpoint = `/api/user/v1/${user_id}/verify/email`;
