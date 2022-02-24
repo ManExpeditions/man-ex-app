@@ -32,8 +32,8 @@ interface experience {
       description: string;
       leadName: string;
       leadProfilepic: string;
-      goingUsers: [mongoose.Types.ObjectId];
-      interestedUsers: [mongoose.Types.ObjectId];
+      goingUsers: [{ userId: string }];
+      interestedUsers: [{ userId: string }];
     }
   ];
 }
@@ -70,8 +70,8 @@ const experienceSchema = new mongoose.Schema<experience>(
         description: { type: String },
         leadName: { type: String },
         leadProfilepic: { type: String },
-        goingUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-        interestedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+        goingUsers: [{ userId: String }],
+        interestedUsers: [{ userId: String }]
       }
     ]
   },
