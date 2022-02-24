@@ -50,7 +50,7 @@ export default function ExperiencePage() {
       const script = document.createElement("script");
       script.async = true;
       script.src = "//tinder.thrivecart.com/embed/v1/thrivecart.js";
-      script.id = "tc-guestlist-upmostexperiences-97-FSYU54";
+      script.id = "tc-guestlist-upmostexperiences-97-3ONRWZ";
       script.onload = () => {
         setThriveCartReady(true);
       };
@@ -104,7 +104,7 @@ export default function ExperiencePage() {
                         data-thrivecart-tpl="v2"
                         data-thrivecart-product="97"
                         class="thrivecart-embeddable"
-                        data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-FSYU54"
+                        data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
                       ></div>
                     )}
                   </OutsideAlerter>
@@ -138,6 +138,10 @@ export default function ExperiencePage() {
                     >
                       Book with this group
                     </button>
+                    <h4>Who's Going/Interested</h4>
+                    {group.goingUsers.map((goingUser) => (
+                      <p>{goingUser._id}</p>
+                    ))}
                   </div>
                 </div>
               ))}
