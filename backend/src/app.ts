@@ -24,7 +24,11 @@ class App {
     // Add logging middleware
     this.express.use(morgan('combined', { stream: new LoggerStream() }));
     this.express.use(cors());
-    this.express.use(helmet());
+    this.express.use(
+      helmet({
+        contentSecurityPolicy: false
+      })
+    );
   }
 
   private routes(): void {
@@ -40,6 +44,7 @@ class App {
         express.static(path.join(__dirname, '../../', '/user-frontend/build'))
       );
       this.express.get('*', (_req: Request, res: Response) => {
+        console.log('frontend endpoint hit-------------------------');
         res.sendFile(
           path.join(__dirname, '../../', '/user-frontend/build/index.html')
         );

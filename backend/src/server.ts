@@ -1,4 +1,3 @@
-import http from 'http';
 import logger from './lib/logger';
 import App from './app';
 import env from './env';
@@ -9,7 +8,7 @@ const port = process.env.PORT || 5000;
 // Connect to MongoDB
 mongoose(env.mongo);
 
-const server = http.createServer(App);
+const server = App;
 server.listen(port);
 logger.info(`Server started on port: ${port}`);
 
