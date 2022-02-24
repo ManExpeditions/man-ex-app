@@ -106,7 +106,12 @@ export default function ExperiencePage() {
                         data-thrivecart-account="guestlist-upmostexperiences"
                         data-thrivecart-tpl="v2"
                         data-thrivecart-product="97"
-                        data-thrivecart-querystring="customer_firstname=VIPOFFER"
+                        data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
+                                                      passthrough[customer_lastname]=${user.lastName}&
+                                                      passthrough[customer_email]=${user.email}&
+                                                      passthrough[customer_contactno]=${user.phone}&
+                                                      passthrough[customer_address_state]=${user.state}&
+                                                      passthrough[customer_address_city]=${user.city}&`}
                         class="thrivecart-embeddable"
                         data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
                       ></div>
