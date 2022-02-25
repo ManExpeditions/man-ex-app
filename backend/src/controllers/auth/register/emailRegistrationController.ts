@@ -81,7 +81,7 @@ export const emailRegistrationController = [
     // Generate authentication token
     const token = generateToken(createdUser);
 
-    res.status(200).json({
+    res.status(201).json({
       id: createdUser._id,
       email: createdUser.email,
       token: token
