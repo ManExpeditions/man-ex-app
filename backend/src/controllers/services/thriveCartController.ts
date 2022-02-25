@@ -11,9 +11,7 @@ export const thriveCartController = [
     const body = req.body;
 
     if (body.event !== 'order.success') {
-      const err = new Error('Event is not of type: order.success');
-      logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(200).json({ message: 'success' });
       return;
     }
 

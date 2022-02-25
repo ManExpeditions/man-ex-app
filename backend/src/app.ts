@@ -44,7 +44,6 @@ class App {
         express.static(path.join(__dirname, '../../', '/user-frontend/build'))
       );
       this.express.get('*', (_req: Request, res: Response) => {
-        console.log('frontend endpoint hit-------------------------');
         res.sendFile(
           path.join(__dirname, '../../', '/user-frontend/build/index.html')
         );
