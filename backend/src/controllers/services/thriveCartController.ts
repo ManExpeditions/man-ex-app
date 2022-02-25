@@ -59,7 +59,7 @@ export const thriveCartController = [
     // Save the new order
     await order.save();
 
-    res.status(200).json(updatedExperience);
+    res.status(200).send({ message: 'success' });
     return;
   })
 ];
