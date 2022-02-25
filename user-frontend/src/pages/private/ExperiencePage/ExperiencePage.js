@@ -53,7 +53,7 @@ export default function ExperiencePage() {
       const script = document.createElement('script');
       script.async = true;
       script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
-      script.id = 'tc-guestlist-upmostexperiences-97-GA9UQY';
+      script.id = 'tc-guestlist-upmostexperiences-97-G6BK9Z';
       script.onload = () => {
         setThriveCartReady(true);
       };
