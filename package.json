@@ -6,9 +6,10 @@
   "scripts": {
     "build-frontend": "cd ./user-frontend && npm install && npm run build",
     "build": "npx tsc && npm run build-frontend",
+    "build-server": "npx tsc",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' backend/src/server.ts",
     "jasmine": "jasmine",
-    "test": "export NODE_ENV=test && npm run build && npm run jasmine",
+    "test": "export NODE_ENV=test && npm run build-server && npm run jasmine",
     "prettier": "npx prettier --write .",
     "lint": "npx eslint src/**/*.ts",
     "doc": "apidoc -i ./backend/src/controllers -o ./backend/docs/"
