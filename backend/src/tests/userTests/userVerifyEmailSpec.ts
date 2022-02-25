@@ -12,9 +12,6 @@ describe('Test user verify email endpoint', () => {
   const user_id = mongoose.Types.ObjectId();
   const user_email = 'john@example.com';
   const user_pass = 'CyKHe3kR';
-  const user_token = generateToken({
-    _id: user_id,
-  });
 
   const endpoint = `/api/user/v1/${user_id}/verify/email`;
 
@@ -25,7 +22,9 @@ describe('Test user verify email endpoint', () => {
   });
 
   it('should throw error if no authorization header', async () => {
-    const response = await request.put(endpoint);
+    const response = await request
+      .post(endpoint)
+      .send({ verification_code: '123432', email: user_email });
     expect(response.status).toBe(401);
     expect(response.body).toEqual({
       message: 'Invalid Request: Request missing Authorization header'
