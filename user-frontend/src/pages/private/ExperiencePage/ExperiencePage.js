@@ -33,7 +33,7 @@ export default function ExperiencePage() {
   const { user } = signinSlice;
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
-  const { loading, experience, error } = experienceGetSlice;
+  const { experience } = experienceGetSlice;
 
   const handleImageClick = (imageIdx) => {
     console.log(imageIdx);
@@ -53,7 +53,7 @@ export default function ExperiencePage() {
       const script = document.createElement('script');
       script.async = true;
       script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
-      script.id = 'tc-guestlist-upmostexperiences-97-3ONRWZ';
+      script.id = 'tc-guestlist-upmostexperiences-97-GA9UQY';
       script.onload = () => {
         setThriveCartReady(true);
       };
@@ -102,19 +102,21 @@ export default function ExperiencePage() {
                 <div className={styles.checkout_form_container}>
                   <OutsideAlerter setState={setShowCheckout} stateValue={false}>
                     {thriveCartReady && (
-                      <div
-                        data-thrivecart-account="guestlist-upmostexperiences"
-                        data-thrivecart-tpl="v2"
-                        data-thrivecart-product="97"
-                        data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
+                      <>
+                        <div
+                          data-thrivecart-account="guestlist-upmostexperiences"
+                          data-thrivecart-tpl="v2"
+                          data-thrivecart-product="97"
+                          data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
                                                       passthrough[customer_lastname]=${user.lastName}&
                                                       passthrough[customer_email]=${user.email}&
                                                       passthrough[customer_contactno]=${user.phone}&
                                                       passthrough[customer_address_state]=${user.state}&
                                                       passthrough[customer_address_city]=${user.city}&`}
-                        class="thrivecart-embeddable"
-                        data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
-                      ></div>
+                          class="thrivecart-embeddable"
+                          data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
+                        ></div>
+                      </>
                     )}
                   </OutsideAlerter>
                 </div>
