@@ -9,6 +9,7 @@ export const thriveCartController = [
   // Requires user to be authenticated
   expressAsyncHandler(async function (req: Request, res: Response) {
     const body = req.body;
+    console.log(body);
 
     if (body.event !== 'order.success') {
       res.status(200).json({ message: 'success' });
