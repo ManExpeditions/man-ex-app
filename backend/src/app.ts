@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -28,6 +28,11 @@ class App {
       helmet({
         contentSecurityPolicy: false
       })
+    );
+    this.express.use(
+      (err: Error, req: Request, res: Response, _next: NextFunction) => {
+        res.status(500).send({ message: err.message });
+      }
     );
   }
 
