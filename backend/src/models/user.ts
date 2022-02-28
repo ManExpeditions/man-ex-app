@@ -21,7 +21,11 @@ interface User {
   profilepicVerified: boolean;
   verificationProfilepic: string;
   bio: string;
-  socials: [string];
+  socials: {
+    facebook: string;
+    instagram: string;
+    linkedin: string;
+  };
   authType: string;
   completedOnboarding: boolean;
   adminUser: boolean;
