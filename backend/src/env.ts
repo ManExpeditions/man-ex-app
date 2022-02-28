@@ -21,6 +21,12 @@ const config = {
     authToken: process.env.TWILIO_AUTH_TOKEN as string,
     accoundSid: process.env.TWILIO_ACCOUNT_SID as string,
     verifySid: process.env.TWILIO_VERIFY_SERVICE_SID as string
+  },
+  test: {
+    base_db_path: 'mongodb://localhost:27017/',
+    user: {
+      base_endpoint: '/api/user/v1/'
+    }
   }
 };
 

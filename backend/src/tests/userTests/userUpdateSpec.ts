@@ -1,5 +1,6 @@
 import supertest from 'supertest';
 import mongoose from 'mongoose';
+import config from '../../env';
 import app from '../../app';
 import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
@@ -10,7 +11,7 @@ import User from '../../models/user';
 const request = supertest(app);
 
 describe('Test user update endpoint', () => {
-  const endpoint = '/api/user/v1/';
+  const endpoint = config.test.user.base_endpoint;
 
   const user_id = mongoose.Types.ObjectId();
   const user_email = 'john@example.com';
@@ -19,7 +20,8 @@ describe('Test user update endpoint', () => {
 
   beforeAll(async () => {
     // Connect to test database
-    connect('mongodb://localhost:27017/user-update');
+    const dbName = 'user-update';
+    connect(config.test.base_db_path + dbName);
     await userDao.create_new_user_by_email(user_email, user_pass, user_id);
   });
 
