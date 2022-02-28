@@ -4,6 +4,7 @@ import app from '../../app';
 import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
 import generateToken from '../../lib/jwt';
+import User from '../../models/user';
 
 // Wrap express app for testing
 const request = supertest(app);
@@ -43,21 +44,70 @@ describe('Test user update endpoint', () => {
     });
   });
 
-  it('should update user firstname', async () => {
-    const response = await request
-      .put(endpoint + user_id)
-      .set('Authorization', `Bearer ${user_token}`)
-      .send({ firstName: 'John' });
-    expect(response.status).toBe(200);
+  describe('Test user fields', async () => {
+    const fields = [
+      { isActive: false },
+      { firstName: 'John' },
+      { lastName: 'Sommers' },
+      { email: 'johnsommers@example.com' },
+      { phone: '+16289462243' },
+      { emailVerified: true },
+      { phoneVerified: false },
+      { gender: 'Male' },
+      { language: 'English' },
+      { interests: ['Arts & Culture', 'Cruises', 'Camping'] },
+      { continents: ['Africa', 'Europe'] },
+      { city: 'San Francisco' },
+      { state: 'California' },
+      { country: 'USA' },
+      { profilepic: 'link to an image' },
+      { profilepicVerified: true },
+      { verificationProfilePic: 'link to an image' },
+      {
+        bio:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing' +
+          'elit, sed do eiusmod tempor incididunt ut labore et' +
+          'dolore magna aliqua. Ut enim ad minim veniam, quis' +
+          'nostrud exercitation ullamco laboris nisi ut aliquip' +
+          'ex ea commodo consequat. Duis aute irure dolor in' +
+          'reprehenderit in voluptate velit esse'
+      },
+      {
+        socials: {
+          instagram: 'ajaydipsingh',
+          facebook: 'ajaydipsingh',
+          linkedin: 'ajaydipsingh'
+        }
+      },
+      { authType: 'email' },
+      { completedOnboarding: true }
+    ];
 
-    const updatedUser = await userDao.find_user_by_id(user_id);
-    expect(updatedUser).toBeTruthy();
-    expect(updatedUser?.firstName).toBe(response.body.firstName);
+    fields.map((field) => {
+      const fieldName = String(Object.keys(field));
+      it(`should update ${fieldName} field`, async () => {
+        const response = await request
+          .put(endpoint + user_id)
+          .set('Authorization', `Bearer ${user_token}`)
+          .send(field);
+        expect(response.status).toBe(200);
+
+        const updatedUser = await userDao.find_user_by_id(user_id);
+        expect(updatedUser).toBeTruthy();
+        if (updatedUser) {
+          expect({ ...Object(updatedUser[fieldName as keyof User]) }).toEqual({
+            ...Object(response.body[fieldName])
+          });
+        }
+      });
+    });
   });
 
   afterAll(async () => {
     // Clean up database after each test
     await userDao.delete_all_users();
+    // Delete the current database
+    await mongoose.connection.db.dropDatabase();
     // Close database connection after all tests
     await mongoose.connection.close();
   });
