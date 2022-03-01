@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import supertest from 'supertest';
-
-// Create interface to be able to index superTest dynamically
-interface SupertestIndex extends supertest.SuperTest<supertest.Test> {
-  [key: string]: any;
-}
+import { SupertestIndex } from './testUtils';
 
 export const testAuthorization = (
   request: SupertestIndex,

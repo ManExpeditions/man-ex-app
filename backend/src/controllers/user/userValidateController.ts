@@ -23,7 +23,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  *
  */
 export const userValidateController = [
-  // Has to an authenticated request
+  // Has to be an authenticated request
   isAuthenticated,
   // Sanitize and validate body params
   body('password', 'Please enter a password')
