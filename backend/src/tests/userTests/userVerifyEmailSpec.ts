@@ -4,17 +4,14 @@ import config from '../../env';
 import app from '../../app';
 import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
-import generateToken from '../../lib/jwt';
 import { testAuthorization } from '../commonTests';
+import { getUser } from '../testUtils';
 
 // Wrap express app for testing
 const request = supertest(app);
 
 describe('Test user verify email endpoint', () => {
-  const user_id = mongoose.Types.ObjectId();
-  const user_email = 'john@example.com';
-  const user_pass = 'CyKHe3kR';
-  const user_token = generateToken({ _id: user_id });
+  const { user_id, user_email, user_pass_encrypted, user_token } = getUser();
 
   const endpoint = config.test.user.base_endpoint + `${user_id}/verify/email`;
 
@@ -23,7 +20,11 @@ describe('Test user verify email endpoint', () => {
     const dbName = 'user-verify-email';
     connect(config.test.base_db_path + dbName);
 
-    await userDao.create_new_user_by_email(user_email, user_pass, user_id);
+    await userDao.create_new_user_by_email(
+      user_email,
+      user_pass_encrypted,
+      user_id
+    );
   });
 
   // User must be authorized for this endpoint

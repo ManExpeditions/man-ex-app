@@ -14,6 +14,7 @@ export const getUser = (): {
   user_email: string;
   user_pass: string;
   user_pass_encrypted: string;
+  user_phone: string;
   user_token: string;
 } => {
   const userId = mongoose.Types.ObjectId();
@@ -22,6 +23,7 @@ export const getUser = (): {
     user_email: 'john@example.com',
     user_pass: 'CyKHe3kR',
     user_pass_encrypted: bcrypt.hashSync('CyKHe3kR', 8),
+    user_phone: '+16289462243',
     user_token: generateToken({ _id: userId })
   };
 };
