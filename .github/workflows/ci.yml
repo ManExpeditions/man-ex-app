@@ -30,7 +30,23 @@ jobs:
       run: npm ci
     - name: Bring Server Up
       run: npm run build
+      env:
+        CLOUDINARY_CLOUDNAME: ${{ secrets.CLOUDINARY_CLOUDNAME }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+        TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
     - name: Test with jasmine
       run: npm run test
-    
-    
+      env:
+        CLOUDINARY_CLOUDNAME: ${{ secrets.CLOUDINARY_CLOUDNAME }}
+        CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+        CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+        TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+        TWILIO_VERIFY_SERVICE_SID: ${{ secrets.TWILIO_VERIFY_SERVICE_SID }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
