@@ -19,7 +19,6 @@
   "dependencies": {
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
-    "apidoc": "^0.50.4",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.28.1",
     "cors": "^2.8.5",
