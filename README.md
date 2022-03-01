@@ -12,23 +12,13 @@ like-minded men you identify with the most.
 
 ## API documentation
 
-Currently the documentation can only be viewed locally. To view the documentation
+The API documentation is available [here](https://manexpeditions.github.io/man-ex-app/). Make sure to change the version to 1.0.0
 
-```
-cd backend/docs/
-```
+## Deployment
 
-View the contents of the `docs` directory
+This application is currently hosted on Heroku. It can be viewed [here](https://manex.herokuapp.com/).
 
-```
-ls
-```
-
-You should see the `index.html` file. Open this file with your favorite browser.
-
-Once on the html page, switch to version `1.0.0`
-
-## Getting Started
+## Getting Started Locally
 
 ### Prerequisites
 
@@ -38,15 +28,9 @@ Make sure you have installed:
 2. [MongoDB Community Server](https://www.mongodb.com/try/download/community)
 3. (Optional) [MongoDB Compass](https://www.mongodb.com/products/compass)
 
-### 1. First start the express server
+### 1. Setup secrets/config
 
-Change to backend directory
-
-```
-cd backend
-```
-
-Create a `.env` file for supplying secrets
+Create a `.env` file in the root directory for supplying secrets.
 
 ```
 touch .env
@@ -60,10 +44,17 @@ SENDGRID_API_KEY=<enter api key here>
 TWILIO_AUTH_TOKEN=<enter auth token here>
 TWILIO_ACCOUNT_SID=<enter account SID here>
 TWILIO_VERIFY_SERVICE_SID=<enter service SID here>
+CLOUDINARY_CLOUDNAME=<enter cloudname>
+CLOUDINARY_API_KEY=<enter api key here>
+CLOUDINARY_SECRET=<enter secret here>
+GOOGLE_PLACES_API_KEY=<enter api key>
+JWT_SECRET=<enter secret here>
 ```
 
-For help obtaining the secrets please see [Twilio verify documentation](https://www.twilio.com/docs/verify/api#).
+For help obtaining the secrets for Twilio please see [Twilio verify documentation](https://www.twilio.com/docs/verify/api#).
 You will need to create a Twilio account and create a verification service.
+
+This project also uses cloudinary for asset management. You can learn more about it [here](https://cloudinary.com/).
 
 Install all dependencies
 
@@ -77,7 +68,7 @@ Now we can start the server
 npm run dev
 ```
 
-To make sure everything is alright, run the tests.
+(optional) To ensure everything is working as expected, run the tests.
 
 ```
 npm run test
@@ -88,7 +79,7 @@ npm run test
 Change to `user-frontend` director
 
 ```
-cd ../user-frontend
+cd ./user-frontend
 ```
 
 Install all dependencies
@@ -102,3 +93,6 @@ Start the react application
 ```
 npm run start
 ```
+
+Now you are ready to start coding and making changes!
+
