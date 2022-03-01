@@ -6,6 +6,7 @@ import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
 import generateToken from '../../lib/jwt';
 import User from '../../models/user';
+import { testAuthorization } from '../commonTests';
 
 // Wrap express app for testing
 const request = supertest(app);
@@ -24,6 +25,9 @@ describe('Test user update endpoint', () => {
     connect(config.test.base_db_path + dbName);
     await userDao.create_new_user_by_email(user_email, user_pass, user_id);
   });
+
+  // User must be authorized for this endpoint
+  testAuthorization(request, 'put', endpoint + user_id, {email: user_email});
 
   it('should throw error if body is empty', async () => {
     const response = await request

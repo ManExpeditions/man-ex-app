@@ -5,6 +5,7 @@ import app from '../../app';
 import connect from '../../lib/mongoose';
 import userDao from '../../dao/users/userDao';
 import generateToken from '../../lib/jwt';
+import { testAuthorization } from '../commonTests';
 
 // Wrap express app for testing
 const request = supertest(app);
@@ -12,6 +13,7 @@ const request = supertest(app);
 describe('Test user verify phone endpoint', () => {
   const user_id = mongoose.Types.ObjectId();
   const user_email = 'john@example.com';
+  const user_phone = '+16289462243';
   const user_pass = 'CyKHe3kR';
   const user_token = generateToken({ _id: user_id });
 
@@ -25,21 +27,17 @@ describe('Test user verify phone endpoint', () => {
     await userDao.create_new_user_by_email(user_email, user_pass, user_id);
   });
 
-  it('should throw error if no authorization header', async () => {
-    const response = await request
-      .post(endpoint)
-      .send({ verification_code: '123432', email: user_email });
-    expect(response.status).toBe(401);
-    expect(response.body).toEqual({
-      message: 'Invalid Request: Request missing Authorization header'
-    });
+  // User must be authorized for this endpoint
+  testAuthorization(request, 'post', endpoint, {
+    verification_code: '123432',
+    phone: user_phone
   });
 
   it('should throw error if no verification code', async () => {
     const response = await request
       .post(endpoint)
       .set('Authorization', `Bearer ${user_token}`)
-      .send({ phone: user_email });
+      .send({ phone: user_phone });
     expect(response.status).toBe(404);
   });
 
