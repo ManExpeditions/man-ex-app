@@ -32,16 +32,16 @@ export const thriveCartController = [
       return;
     }
 
-    const updatedExperience =
-      await experienceDao.add_going_user_to_experience_group(
-        body.base_product_label,
-        user._id
-      );
-    if (!updatedExperience) {
-      const err = new Error('User not added to experience group.');
-      logger.error(err.message);
-      return;
-    }
+    // const updatedExperience =
+    //   await experienceDao.add_going_user_to_experience_group(
+    //     body.base_product_label,
+    //     user._id
+    //   );
+    // if (!updatedExperience) {
+    //   const err = new Error('User not added to experience group.');
+    //   logger.error(err.message);
+    //   return;
+    // }
 
     const order = new Order({
       orderId: body.order_id,

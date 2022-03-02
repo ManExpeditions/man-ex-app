@@ -20,7 +20,7 @@ class ExperienceDao {
       continent: 'Sample Continent',
       season: 'Sample Season',
       pricing: 0,
-      deposit: 0,
+      deposit: 0
     });
     const createdExperience = await experience.save();
     return createdExperience;
@@ -89,17 +89,17 @@ class ExperienceDao {
     return experience;
   }
 
-  public async add_going_user_to_experience_group(
-    label: string,
-    userId: mongoose.Types.ObjectId
-  ) {
-    const experience = await this.find_experience_by_group_label(label);
-    experience?.groups
-      .find((group) => group.label === label)
-      ?.goingUsers.push({ userId: String(userId) });
-    const updatedExperience = await experience?.save();
-    return updatedExperience;
-  }
+  // public async add_going_user_to_experience_group(
+  //   label: string,
+  //   userId: mongoose.Types.ObjectId
+  // ) {
+  //   // const experience = await this.find_experience_by_group_label(label);
+  //   // experience?.groups
+  //   //   .find((group) => group.label === label)
+  //   //   ?.goingUsers.push({ userId: String(userId) });
+  //   // const updatedExperience = await experience?.save();
+  //   // return updatedExperience;
+  // }
 
   public async delete_all_experiences(): Promise<void> {
     await Experience.deleteMany();
