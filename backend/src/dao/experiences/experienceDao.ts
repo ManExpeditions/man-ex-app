@@ -21,10 +21,6 @@ class ExperienceDao {
       season: 'Sample Season',
       pricing: 0,
       deposit: 0,
-      videoThumbnailImage: 'Sample thumbnail Image',
-      video: 'Sample url',
-      heroImage: 'Sample image',
-      images: ['Sample image']
     });
     const createdExperience = await experience.save();
     return createdExperience;

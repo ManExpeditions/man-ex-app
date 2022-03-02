@@ -25,11 +25,7 @@ export const experienceCreateController = [
       continent: createdExperience.continent,
       season: createdExperience.season,
       pricing: createdExperience.pricing,
-      deposit: createdExperience.deposit,
-      videoThumbnailImage: createdExperience.videoThumbnailImage,
-      video: createdExperience.video,
-      heroImage: createdExperience.heroImage,
-      images: createdExperience.images
+      deposit: createdExperience.deposit
     });
     return;
   })
