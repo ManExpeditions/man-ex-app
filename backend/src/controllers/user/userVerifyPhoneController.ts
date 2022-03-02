@@ -101,7 +101,8 @@ export const userVerifyPhoneController = [
             verificationProfilepic: updatedUser?.verificationProfilepic,
             socials: updatedUser?.socials,
             authType: updatedUser?.authType,
-            completedOnboarding: updatedUser?.completedOnboarding
+            completedOnboarding: updatedUser?.completedOnboarding,
+            adminUser: updatedUser?.adminUser
           });
           return;
         } else {

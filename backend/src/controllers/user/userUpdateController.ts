@@ -183,7 +183,8 @@ export const userUpdateController = [
       bio: updatedUser.bio,
       socials: updatedUser.socials,
       authType: updatedUser.authType,
-      completedOnboarding: updatedUser.completedOnboarding
+      completedOnboarding: updatedUser.completedOnboarding,
+      adminUser: updatedUser.adminUser
     });
     return;
   })
