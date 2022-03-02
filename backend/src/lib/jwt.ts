@@ -4,18 +4,12 @@ import mongoose from 'mongoose';
 
 // Generates a JTW token based on user info and secret
 const generateToken = (
-  user: { _id: mongoose.Types.ObjectId },
+  user: { id: mongoose.Types.ObjectId; adminUser?: boolean },
   expiresIn = '30d'
 ): string => {
-  const token = jwt.sign(
-    {
-      _id: user._id
-    },
-    config.jwt_secret,
-    {
-      expiresIn
-    }
-  );
+  const token = jwt.sign(user, config.jwt_secret, {
+    expiresIn
+  });
   return token;
 };
 

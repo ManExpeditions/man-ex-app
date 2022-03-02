@@ -81,7 +81,10 @@ export const emailSigninController = [
     }
 
     // Generate authentication token
-    const token = generateToken(updatedUser);
+    const token = generateToken({
+      id: updatedUser._id,
+      adminUser: updatedUser.adminUser
+    });
 
     res.status(200).json({
       id: updatedUser._id,
