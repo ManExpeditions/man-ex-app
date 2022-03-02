@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface experience {
+interface Experience {
   _id: mongoose.Types.ObjectId;
   isActive: boolean;
   name: string;
@@ -14,31 +14,16 @@ interface experience {
   videoThumbnailImage: string;
   video: string;
   heroImage: string;
-  images: string[];
+  images: [string];
   itinerary: object;
   accomodations: object;
   activities: object;
   whatsIncluded: object;
   terms: string;
-  groups: [
-    {
-      label: string;
-      isActive: boolean;
-      name: string;
-      date: string;
-      registrationEndDate: Date;
-      price: number;
-      capacity: number;
-      description: string;
-      leadName: string;
-      leadProfilepic: string;
-      goingUsers: [{ userId: string }];
-      interestedUsers: [{ userId: string }];
-    }
-  ];
+  groups: [mongoose.Types.ObjectId];
 }
 
-const experienceSchema = new mongoose.Schema<experience>(
+const experienceSchema = new mongoose.Schema<Experience>(
   {
     isActive: { type: Boolean, default: true },
     name: { type: String },
@@ -52,35 +37,20 @@ const experienceSchema = new mongoose.Schema<experience>(
     videoThumbnailImage: { type: String },
     video: { type: String },
     heroImage: { type: String },
-    images: { type: [Object] },
+    images: { type: [String] },
     itinerary: { type: Object },
     accomodations: { type: Object },
     activities: { type: Object },
     whatsIncluded: { type: Object },
     terms: { type: String },
-    groups: [
-      {
-        label: { type: String },
-        isActive: { type: Boolean },
-        name: { type: String },
-        date: { type: String },
-        registrationEndDate: { type: Date },
-        price: { type: Number },
-        capacity: { type: Number },
-        description: { type: String },
-        leadName: { type: String },
-        leadProfilepic: { type: String },
-        goingUsers: [{ userId: String }],
-        interestedUsers: [{ userId: String }]
-      }
-    ]
+    groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]
   },
   {
     timestamps: true
   }
 );
 
-const experience = mongoose.model<experience>(
+const experience = mongoose.model<Experience>(
   'experience',
   experienceSchema,
   'manex_experience'
