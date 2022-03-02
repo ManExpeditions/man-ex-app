@@ -50,10 +50,6 @@ const experienceSchema = new mongoose.Schema<Experience>(
   }
 );
 
-const Experience = mongoose.model<Experience>(
-  'Experience',
-  experienceSchema,
-  'manex_experience'
-);
+const Experience = mongoose.model<Experience>('Experience', experienceSchema);
 
 export default Experience;

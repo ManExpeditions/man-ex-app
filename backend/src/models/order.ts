@@ -31,6 +31,6 @@ const orderSchema = new mongoose.Schema<Order>(
   }
 );
 
-const Order = mongoose.model<Order>('Order', orderSchema, 'manex_order');
+const Order = mongoose.model<Order>('Order', orderSchema);
 
 export default Order;
