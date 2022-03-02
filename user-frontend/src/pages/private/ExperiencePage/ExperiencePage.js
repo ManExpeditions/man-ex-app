@@ -123,7 +123,7 @@ export default function ExperiencePage() {
               </div>
             )}
 
-            <div className={styles.groups_section}>
+            <div id="groups" className={styles.groups_section}>
               {experience.groups.map((group) => (
                 <div className={styles.group}>
                   <div className={styles.group_lead}>
@@ -335,6 +335,18 @@ export default function ExperiencePage() {
                 )}
               </div>
             </div>
+          </div>
+          <div className={styles.deposit_box}>
+            <div>
+              <p>Deposit</p>
+              <p>${experience.deposit}</p>
+            </div>
+            <a
+              className={`btn btn-primary ${styles.view_groups_link}`}
+              href="#groups"
+            >
+              View groups & dates
+            </a>
           </div>
         </>
       )}
