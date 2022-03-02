@@ -17,7 +17,7 @@ export const experienceCreateController = [
   isAdmin,
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Create new experience
-    const createdExperience = await ExperienceDao.create_new_experience();
+    const createdExperience = await ExperienceDao.createNewExperience();
 
     res.status(200).json({
       id: createdExperience._id,

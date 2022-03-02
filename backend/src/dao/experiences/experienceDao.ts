@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 import Experience from '../../models/experience';
 
 class ExperienceDao {
-  public async get_experiences(): Promise<Experience[] | null> {
+  public async getExperiences(): Promise<Experience[] | null> {
     const experiences = await Experience.find({});
     return experiences;
   }
 
-  public async create_new_experience(
+  public async createNewExperience(
     id?: mongoose.Types.ObjectId | string
   ): Promise<Experience> {
     const experience = new Experience({
@@ -26,19 +26,19 @@ class ExperienceDao {
     return createdExperience;
   }
 
-  public async find_experience_by_id(
+  public async findExperienceById(
     id: mongoose.Types.ObjectId | string
   ): Promise<Experience | null> {
     const experience = await Experience.findById(id);
     return experience;
   }
 
-  public async delete_experience_by_id(id: mongoose.Types.ObjectId | string) {
+  public async deleteExperienceById(id: mongoose.Types.ObjectId | string) {
     const deletedExperience = await Experience.findByIdAndDelete(id);
     return deletedExperience;
   }
 
-  public async update_experience(
+  public async updateExperience(
     id: mongoose.Types.ObjectId | string,
     experienceInfo: Experience
   ): Promise<Experience | null> {
@@ -101,7 +101,7 @@ class ExperienceDao {
   //   // return updatedExperience;
   // }
 
-  public async delete_all_experiences(): Promise<void> {
+  public async deleteAllExperiences(): Promise<void> {
     await Experience.deleteMany();
   }
 }

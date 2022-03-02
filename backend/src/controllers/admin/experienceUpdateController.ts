@@ -111,7 +111,7 @@ export const experienceUpdateController = [
       return;
     }
     // Check if experience does not exist
-    const experience = await experienceDao.find_experience_by_id(req.params.id);
+    const experience = await experienceDao.findExperienceById(req.params.id);
     if (!experience) {
       const err = new Error('Experience does not exist.');
       logger.error(err.message);
@@ -119,7 +119,7 @@ export const experienceUpdateController = [
       return;
     }
 
-    const updatedExperience = await experienceDao.update_experience(
+    const updatedExperience = await experienceDao.updateExperience(
       req.params.id,
       req.body
     );
