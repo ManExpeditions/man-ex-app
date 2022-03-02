@@ -45,7 +45,7 @@ export const userValidateController = [
     }
 
     // Check if user does not exist
-    const user = await userDao.find_user_by_id(req.params.id);
+    const user = await userDao.findUserById(req.params.id);
     if (!user) {
       const err = new Error('User does not exist. Please register.');
       logger.error(err.message);

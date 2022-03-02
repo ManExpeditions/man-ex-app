@@ -145,7 +145,7 @@ export const userUpdateController = [
     }
 
     // Check if user does not exist
-    const user = await userDao.find_user_by_id(req.params.id);
+    const user = await userDao.findUserById(req.params.id);
     if (!user) {
       const err = new Error('User does not exist.');
       logger.error(err.message);
@@ -153,7 +153,7 @@ export const userUpdateController = [
       return;
     }
 
-    const updatedUser = await userDao.update_user(req.params.id, req.body);
+    const updatedUser = await userDao.updateUser(req.params.id, req.body);
     if (!updatedUser) {
       const err = new Error('Unable to update user.');
       logger.error(err.message);

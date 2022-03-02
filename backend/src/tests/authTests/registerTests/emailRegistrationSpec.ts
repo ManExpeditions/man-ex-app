@@ -22,7 +22,7 @@ describe('Test registration via email', () => {
     expect(response.status).toBe(201);
 
     // Check the data in the database
-    const user = await userDao.find_user_by_id(response.body.id);
+    const user = await userDao.findUserById(response.body.id);
     expect(user).toBeTruthy();
     expect(user?.email).toBe(response.body.email);
   });
@@ -53,7 +53,7 @@ describe('Test registration via email', () => {
 
   afterAll(async () => {
     // Clean up database after all tests
-    await userDao.delete_all_users();
+    await userDao.deleteAllUsers();
     // Delete the current database
     await mongoose.connection.db.dropDatabase();
 

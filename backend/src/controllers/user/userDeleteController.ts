@@ -38,7 +38,7 @@ export const userDeleteController = [
     }
 
     // Check if user does not exist
-    const user = await userDao.find_user_by_id(req.params.id);
+    const user = await userDao.findUserById(req.params.id);
     if (!user) {
       const err = new Error('User does not exist.');
       logger.error(err.message);
@@ -46,7 +46,7 @@ export const userDeleteController = [
       return;
     }
 
-    const deletedUser = await userDao.delete_user_by_id(req.params.id);
+    const deletedUser = await userDao.deleteUserById(req.params.id);
     if (!deletedUser) {
       const err = new Error('Unable to delete user.');
       logger.error(err.message);

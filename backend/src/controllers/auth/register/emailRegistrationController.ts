@@ -48,7 +48,7 @@ export const emailRegistrationController = [
     }
 
     // Check if user exists
-    const existingUser = await UserDao.find_user_by_email(req.body.email);
+    const existingUser = await UserDao.findUserByEmail(req.body.email);
     if (existingUser) {
       const err = new Error('User already exists. Please login.');
       logger.error(err.message);
@@ -60,7 +60,7 @@ export const emailRegistrationController = [
     const encryptedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     // Create new user
-    const createdUser = await UserDao.create_new_user_by_email(
+    const createdUser = await UserDao.createNewUserByEmail(
       req.body.email,
       encryptedPassword
     );
@@ -73,7 +73,7 @@ export const emailRegistrationController = [
           .json({ message: 'Registration Failed. Try again later.' });
         logger.error(err);
         // Cleanup if email did not send succesfully.
-        UserDao.delete_user_by_id(createdUser._id);
+        UserDao.deleteUserById(createdUser._id);
         return;
       }
     );

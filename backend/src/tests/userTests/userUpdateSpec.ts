@@ -20,7 +20,7 @@ describe('Test user update endpoint', () => {
     // Connect to test database
     const dbName = 'user-update';
     connect(config.test.base_db_path + dbName);
-    await userDao.create_new_user_by_email(
+    await userDao.createNewUserByEmail(
       user_email,
       user_pass_encrypted,
       user_id
@@ -99,7 +99,7 @@ describe('Test user update endpoint', () => {
           .send(field);
         expect(response.status).toBe(200);
 
-        const updatedUser = await userDao.find_user_by_id(user_id);
+        const updatedUser = await userDao.findUserById(user_id);
         expect(updatedUser).toBeTruthy();
         if (updatedUser) {
           expect({ ...Object(updatedUser[fieldName as keyof User]) }).toEqual({
@@ -112,7 +112,7 @@ describe('Test user update endpoint', () => {
 
   afterAll(async () => {
     // Clean up database after each test
-    await userDao.delete_all_users();
+    await userDao.deleteAllUsers();
     // Delete the current database
     await mongoose.connection.db.dropDatabase();
     // Close database connection after all tests

@@ -47,7 +47,7 @@ export const emailSigninController = [
     }
 
     // Check if user does not exist
-    const user = await userDao.find_user_by_email(req.body.email);
+    const user = await userDao.findUserByEmail(req.body.email);
     if (!user) {
       const err = new Error('User does not exist. Please register.');
       logger.error(err.message);
@@ -69,7 +69,7 @@ export const emailSigninController = [
 
     // Make sure user isActive if signing in
     const userId = user._id;
-    const updatedUser = await userDao.update_user(userId, {
+    const updatedUser = await userDao.updateUser(userId, {
       ...user,
       isActive: true
     });

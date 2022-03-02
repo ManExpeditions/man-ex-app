@@ -52,7 +52,7 @@ export const userVerifyPhoneController = [
 
     // Check if user does not exist
     const userId = req.params.id;
-    const user = await userDao.find_user_by_id(userId);
+    const user = await userDao.findUserById(userId);
     if (!user) {
       const err = new Error(
         `User not found: User with id ${req.params.id} not found.`
@@ -75,7 +75,7 @@ export const userVerifyPhoneController = [
     await TwilioServices.verifyService(phone, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
-          const updatedUser = await userDao.verify_and_update_phone(
+          const updatedUser = await userDao.verifyAndUpdatePhone(
             user,
             req.body.phone
           );

@@ -20,7 +20,7 @@ describe('Test user verify email endpoint', () => {
     const dbName = 'user-verify-email';
     connect(config.test.base_db_path + dbName);
 
-    await userDao.create_new_user_by_email(
+    await userDao.createNewUserByEmail(
       user_email,
       user_pass_encrypted,
       user_id
@@ -51,7 +51,7 @@ describe('Test user verify email endpoint', () => {
 
   afterAll(async () => {
     // Clean up database after each test
-    await userDao.delete_all_users();
+    await userDao.deleteAllUsers();
     // Delete the current database
     await mongoose.connection.db.dropDatabase();
     // Close database connection after all tests
