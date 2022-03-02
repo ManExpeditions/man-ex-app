@@ -14,7 +14,7 @@ interface Experience {
   videoThumbnailImage: string;
   video: string;
   heroImage: string;
-  images: [string];
+  images: string[];
   itinerary: object;
   accomodations: object;
   activities: object;
@@ -50,10 +50,10 @@ const experienceSchema = new mongoose.Schema<Experience>(
   }
 );
 
-const experience = mongoose.model<Experience>(
-  'experience',
+const Experience = mongoose.model<Experience>(
+  'Experience',
   experienceSchema,
   'manex_experience'
 );
 
-export default experience;
+export default Experience;

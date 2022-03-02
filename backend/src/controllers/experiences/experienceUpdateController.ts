@@ -5,6 +5,7 @@ import { isValidObjectId } from 'mongoose';
 import logger from '../../lib/logger';
 import experienceDao from '../../dao/experiences/experienceDao';
 import { isAuthenticated } from '../../middleware/authMiddleware';
+import { isAdmin } from '../../middleware/adminMiddleware';
 
 /**
  * @api {put} /experience/v1/:id Update experience
@@ -12,7 +13,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0
  * @apiName UpdateExperience
- * @apiGroup Experience
+ * @apiGroup Admin
  *
  * @apiParam {String} id Experience unique ID.
  *
@@ -39,6 +40,8 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
 export const experienceUpdateController = [
   // Requires authentication
   isAuthenticated,
+  // Needs to be admin
+  isAdmin,
   // Sanitize and validate parms
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
