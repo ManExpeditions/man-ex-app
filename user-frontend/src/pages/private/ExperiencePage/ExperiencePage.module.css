@@ -5,10 +5,28 @@
   padding-bottom: 5rem;
 }
 
+@media (min-width: 800px) {
+  .page_wrapper {
+    padding-bottom: 1rem;
+  }
+}
+
 .container {
   padding: 0 1rem;
   max-width: 600px;
   margin: 0 auto;
+}
+
+@media (min-width: 800px) {
+  .container {
+    max-width: 75%;
+    margin: 0;
+  }
+
+  .container_wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
 }
 
 .close_link {
@@ -33,6 +51,12 @@
   width: 100%;
   object-fit: cover;
   height: 40vh;
+}
+
+@media (min-width: 800px) {
+  .hero_image {
+    height: 60vh;
+  }
 }
 
 .vignette {
@@ -79,6 +103,91 @@
   font-size: 0.9rem;
 }
 
+@media (min-width: 800px) {
+  .days_continent_wrapper {
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .days {
+    font-size: 1.5rem;
+  }
+
+  .continent {
+    font-size: 1.2rem;
+  }
+
+  .name {
+    font-size: 2.6rem;
+    margin-top: 0;
+    line-height: 1;
+  }
+
+  .location {
+    margin-top: 0.2rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .name {
+    font-size: 3.2rem;
+  }
+}
+
+/* Floating box */
+.floating_box_wrapper_absolute {
+  display: none;
+}
+.floating_box {
+  display: none;
+}
+
+.media_button {
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  border: 1px solid #fff;
+  background-color: #000;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+@media (min-width: 800px) {
+  .floating_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    max-width: 20%;
+    height: 120px;
+    min-width: 120px;
+    font-weight: 700;
+    background-color: #fff;
+    color: #1e1e1e;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .media_button {
+    display: block;
+  }
+
+  .floating_box_wrapper_absolute {
+    display: block;
+    position: absolute;
+    right: 2rem;
+  }
+
+  .floating_box_wrapper_fixed {
+    position: fixed;
+    top: 1rem;
+  }
+}
+
 /* Groups section */
 .groups_section {
   margin: 2rem 0;
@@ -86,7 +195,18 @@
 
 .group {
   display: flex;
+  align-items: flex-start;
   gap: 1rem;
+}
+
+.group_lead {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.group_lead_name {
+  margin: 0 auto;
 }
 
 .group_profile {
@@ -102,6 +222,24 @@
   padding: 0.25rem 1rem;
   font-size: 0.9rem;
   margin: 1rem auto 1rem 0;
+}
+
+@media (min-width: 800px) {
+  .group_profile {
+    width: 150px;
+  }
+
+  .group_name,
+  .group_date {
+    font-size: 1.2rem;
+  }
+
+  .group_description {
+    margin-top: 1rem;
+    font-size: 1rem;
+    max-width: 700px;
+    margin-right: auto;
+  }
 }
 
 /* checkout form */
@@ -213,6 +351,12 @@
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
+@media (min-width: 800px) {
+  .description {
+    font-size: 1.1rem;
+    padding: 0.6rem;
+  }
+}
 
 .card {
   display: flex;
@@ -239,6 +383,7 @@
   background: #1e1e1e;
   border-radius: 0.5rem;
   padding: 1rem;
+  font-size: 1.1rem;
 }
 
 .itinerary_container {
@@ -249,6 +394,7 @@
   position: relative;
   margin-top: 2rem;
   padding-left: 1rem;
+  font-size: 1.1rem;
 }
 
 .itinerary_day {
@@ -310,5 +456,12 @@
   font-weight: 400;
   text-transform: none;
   padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
   margin: 0;
+}
+
+@media (min-width: 800px) {
+  .deposit_box {
+    display: none;
+  }
 }
