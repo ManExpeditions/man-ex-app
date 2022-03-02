@@ -6,7 +6,7 @@ export const isAdmin = (
   res: Response,
   next: NextFunction
 ): void => {
-  if (req.user && req.user.isAdmin) {
+  if (req.user && req.user.adminUser) {
     next();
   } else {
     res.status(401).send({ message: "Forbidden: You don't have permission" });
