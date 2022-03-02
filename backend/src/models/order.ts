@@ -4,26 +4,25 @@ interface Order {
   _id: mongoose.Types.ObjectId;
   invoiceId: string;
   productName: string;
-  groupLabel: string;
   orderDate: string;
   orderTimestamp: string;
   currency: string;
   thrivecartCustomerId: string;
   amount: string;
+  group: mongoose.Types.ObjectId;
   user: mongoose.Types.ObjectId;
 }
 
 const orderSchema = new mongoose.Schema<Order>(
   {
-    orderId: { type: String },
     invoiceId: { type: String },
     productName: { type: String },
-    groupLabel: { type: String },
     orderDate: { type: String },
     orderTimestamp: { type: String },
     currency: { type: String },
     thrivecartCustomerId: { type: String },
     amount: { type: String },
+    group: { type: mongoose.Types.ObjectId, ref: 'Group' },
     user: { type: mongoose.Types.ObjectId, ref: 'User' }
   },
   {
