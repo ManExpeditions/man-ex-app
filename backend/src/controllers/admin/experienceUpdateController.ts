@@ -8,7 +8,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
 import { isAdmin } from '../../middleware/adminMiddleware';
 
 /**
- * @api {put} /experience/v1/:id Update experience
+ * @api {put} /admin/v1/experience/:id Update experience
  * @apiDescription Update an existing experience
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0

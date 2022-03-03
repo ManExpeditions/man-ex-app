@@ -5,7 +5,7 @@ import { isAdmin } from '../../middleware/adminMiddleware';
 import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /experience/v1 Create new experience
+ * @api {post} /admin/v1/experience Create new experience
  * @apiDescription Create a new experience
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0
