@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import { param, validationResult } from 'express-validator';
+import { query, validationResult } from 'express-validator';
+import { isValidObjectId } from 'mongoose';
+import experienceDao from '../../dao/experiences/experienceDao';
 import GroupDao from '../../dao/groups/groupDao';
 import logger from '../../lib/logger';
 
@@ -12,11 +14,11 @@ import logger from '../../lib/logger';
  * @apiName GetGroups
  * @apiGroup Group
  *
- * @apiParam {String} experienceId Experience ID.
+ * @apiQuery {String} (optional) id The Experience ID.
  */
 export const groupsGetController = [
   // Validate id param
-  param('experienceId', 'Id must be a string')
+  query('experienceId', 'Experience Id must be a string')
     .optional()
     .isLength({ min: 5 })
     .isString()
@@ -30,8 +32,28 @@ export const groupsGetController = [
       return;
     }
 
+    // If experienceId exists
+    const experienceId = (req.query.experienceId as string) || null;
+    if (experienceId) {
+      // Validate the id param
+      if (!isValidObjectId(req.query.experienceId)) {
+        const err = new Error('Experience id is not valid');
+        logger.error(err.message);
+        res.status(404).json({ message: err.message });
+        return;
+      }
+      // Check if experience does not exist
+      const experience = await experienceDao.findExperienceById(experienceId);
+      if (!experience) {
+        const err = new Error('Experience does not exist.');
+        logger.error(err.message);
+        res.status(404).json({ message: err.message });
+        return;
+      }
+    }
+
     // Find all groups
-    const groups = await GroupDao.getGroups();
+    const groups = await GroupDao.getGroups(experienceId as string);
 
     res.status(200).json(groups);
     return;

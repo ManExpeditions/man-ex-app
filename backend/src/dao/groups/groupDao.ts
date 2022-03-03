@@ -38,6 +38,35 @@ class GroupDao {
     const createdGroup = await group.save();
     return createdGroup;
   }
+
+  public async updateGroup(
+    id: mongoose.Types.ObjectId | string,
+    groupInfo: Group
+  ): Promise<(Group & mongoose.Document<Group>) | null> {
+    const group = await Group.findById(id);
+    if (!group) {
+      return null;
+    }
+
+    group.isActive = groupInfo.isActive || group.isActive;
+    group.name = groupInfo.name || group.name;
+    group.startDate = groupInfo.startDate || group.startDate;
+    group.endDate = groupInfo.endDate || group.endDate;
+    group.registrationEndDate =
+      groupInfo.registrationEndDate || group.registrationEndDate;
+    group.dateText = groupInfo.dateText || group.dateText;
+    group.price = groupInfo.price || group.price;
+    group.thriveCartScriptId =
+      groupInfo.thriveCartScriptId || group.thriveCartScriptId;
+    group.capacity = groupInfo.capacity || group.capacity;
+    group.description = groupInfo.description || group.description;
+    group.groupLead = groupInfo.groupLead || group.groupLead;
+    group.goingUsers = groupInfo.goingUsers || group.goingUsers;
+    group.interestedUsers = groupInfo.interestedUsers || group.interestedUsers;
+
+    const updatedGroup = await group.save();
+    return updatedGroup;
+  }
 }
 
 export default new GroupDao();
