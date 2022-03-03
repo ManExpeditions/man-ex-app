@@ -18,11 +18,13 @@ class GroupDao {
   }
 
   public async createNewGroup(
+    experienceId: string,
     id?: mongoose.Types.ObjectId | string
   ): Promise<Group> {
     const group = new Group({
       ...(id ? { _id: id } : {}),
       isActive: true,
+      experience: mongoose.Types.ObjectId(experienceId),
       name: 'Sample group',
       startDate: Date.now(),
       endDate: Date.now(),

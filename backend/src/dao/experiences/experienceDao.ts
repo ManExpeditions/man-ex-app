@@ -28,8 +28,11 @@ class ExperienceDao {
 
   public async findExperienceById(
     id: mongoose.Types.ObjectId | string
-  ): Promise<Experience | null> {
-    const experience = await Experience.findById(id);
+  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
+    const experience = await Experience.findById(id).populate({
+      path: 'groups',
+      model: 'Group'
+    });
     return experience;
   }
 
@@ -41,7 +44,7 @@ class ExperienceDao {
   public async updateExperience(
     id: mongoose.Types.ObjectId | string,
     experienceInfo: Experience
-  ): Promise<Experience | null> {
+  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
     const experience = await Experience.findById(id);
     if (!experience) {
       return null;
@@ -87,6 +90,14 @@ class ExperienceDao {
       'groups.label': label
     });
     return experience;
+  }
+
+  public async addGroupToExperience(
+    experience: Experience & mongoose.Document<Experience>,
+    groupId: mongoose.Types.ObjectId
+  ) {
+    experience.groups.push(groupId);
+    await experience?.save();
   }
 
   // public async add_going_user_to_experience_group(

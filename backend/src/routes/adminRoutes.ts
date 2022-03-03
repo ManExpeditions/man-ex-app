@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/experience', experienceCreateController);
 router.put('/experience/:id', experienceUpdateController);
-router.post('/group', groupCreateController);
+router.post('/group/:id', groupCreateController);
 
 export default router;
