@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 interface Group {
   _id: mongoose.Types.ObjectId;
   experience: mongoose.Types.ObjectId;
-  iActive: boolean;
+  isActive: boolean;
   name: string;
   startDate: Date;
   endDate: Date;
@@ -20,7 +20,7 @@ interface Group {
 
 const groupSchema = new mongoose.Schema<Group>(
   {
-    experience: { type: mongoose.Types.ObjectId, ref: 'User' },
+    experience: { type: mongoose.Types.ObjectId, ref: 'Experience' },
     isActive: { type: Boolean },
     name: { type: String },
     startDate: { type: Date },
