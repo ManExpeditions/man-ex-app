@@ -1,4 +1,5 @@
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-pro-sidebar/dist/css/styles.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import RegisterPage from './pages/public/RegisterPage/RegisterPage';
