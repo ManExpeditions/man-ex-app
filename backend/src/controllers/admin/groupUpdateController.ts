@@ -50,11 +50,11 @@ export const groupUpdateController = [
     .optional()
     .isBoolean()
     .escape(),
-  body('startDate', 'Enter valid startDate value').optional().isDate(),
-  body('endDate', 'Enter valid endDate value').optional().isDate(),
+  body('startDate', 'Enter valid startDate value').optional().isString(),
+  body('endDate', 'Enter valid endDate value').optional().isString(),
   body('registrationEndDate', 'Enter valid registrationEndDate value')
     .optional()
-    .isDate(),
+    .isString(),
   body('dateText', 'Enter valid dateText value').optional().isString(),
   body('price', 'Enter valid price value').optional().isNumeric().escape(),
   body('thriveCartScriptId', 'Enter valid thriveCartScriptId value')

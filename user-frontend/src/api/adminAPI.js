@@ -33,6 +33,18 @@ class adminAPI {
     );
     return data;
   }
+
+  async updateGroup(groupId, userToken, groupData) {
+    console.log(groupData);
+    const { data } = await Axios.put(
+      `/api/admin/v1/group/${groupId}`,
+      groupData,
+      {
+        headers: { Authorization: `Bearer ${userToken}` }
+      }
+    );
+    return data;
+  }
 }
 
 export default new adminAPI();

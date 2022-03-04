@@ -13,6 +13,7 @@ import userValidateSlice from '../slices/user/userValidateSlice';
 import verificationCodeSlice from '../slices/user/verificationCodeSlice';
 import verifySlice from '../slices/user/verifySlice';
 import adminExperienceUpdateSlice from '../slices/admin/adminExperienceUpdateSlice';
+import adminGroupUpdateSlice from '../slices/admin/adminGroupUpdateSlice';
 
 export const store = configureStore({
   preloadedState: {
@@ -36,6 +37,7 @@ export const store = configureStore({
     experienceGetSlice: experienceGetSlice,
     adminExperienceCreateSlice: adminExperienceCreateSlice,
     adminGroupCreateSlice: adminGroupCreateSlice,
-    adminExperienceUpdateSlice: adminExperienceUpdateSlice
+    adminExperienceUpdateSlice: adminExperienceUpdateSlice,
+    adminGroupUpdateSlice: adminGroupUpdateSlice
   }
 });
