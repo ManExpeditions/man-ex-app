@@ -27,7 +27,8 @@ export default function AdminExperiencePage({ experienceId }) {
   const [videoThumbnailImage, setVideoThumbnailImage] = useState('');
   const [video, setVideo] = useState('');
   const [heroImage, setHeroImage] = useState('');
-  const [images, setImages] = useState(['Enter image url']);
+  const [images, setImages] = useState(['']);
+  const [itinerary, setItinerary] = useState([{ activities: [{}] }]);
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
@@ -56,9 +57,7 @@ export default function AdminExperiencePage({ experienceId }) {
       setVideoThumbnailImage(experience.videoThumbnailImage);
       setVideo(experience.video);
       setHeroImage(experience.heroImage);
-      setImages(
-        experience.images.length > 0 ? experience.images : ['Enter image url']
-      );
+      setImages(experience.images.length > 0 ? experience.images : ['']);
       setGroups(experience.groups);
     }
   }, [dispatch, experienceId, experience, adminGroup]);
@@ -189,9 +188,7 @@ export default function AdminExperiencePage({ experienceId }) {
             <label>Images</label>{' '}
             <button
               className="admin-action-button"
-              onClick={() =>
-                setImages((prevImages) => [...prevImages, 'Enter image url'])
-              }
+              onClick={() => setImages((prevImages) => [...prevImages, ''])}
             >
               +
             </button>
@@ -208,6 +205,104 @@ export default function AdminExperiencePage({ experienceId }) {
                   setImages(_tempImages);
                 }}
               />
+            ))}
+          </div>
+        </div>
+        <div className="admin-input-box">
+          <div>
+            <label>Itinerary</label>{' '}
+            <button
+              className="admin-action-button"
+              onClick={() =>
+                setItinerary((prevItinerary) => [
+                  ...prevItinerary,
+                  { activities: [] }
+                ])
+              }
+            >
+              +
+            </button>
+          </div>
+          <div>
+            {itinerary.map((day, dayIdx) => (
+              <div key={dayIdx} className="">
+                <div>
+                  <div className="admin-input-box">
+                    <label>Day</label>
+                    <input
+                      className="input admin-input-box"
+                      type="number"
+                      value={day.day}
+                      onChange={(e) => {
+                        const _tempItinerary = [...itinerary];
+                        _tempItinerary[dayIdx].day = e.target.value;
+                        setItinerary(_tempItinerary);
+                      }}
+                    />
+                  </div>
+                  <div className="admin-input-box">
+                    <label>Image</label>
+                    <input
+                      className="input admin-input-box"
+                      value={day.image}
+                      onChange={(e) => {
+                        const _tempItinerary = [...itinerary];
+                        _tempItinerary[dayIdx].image = e.target.value;
+                        setItinerary(_tempItinerary);
+                      }}
+                    />
+                  </div>
+                  <div className="admin-input-box">
+                    <div>
+                      <label>Activities</label>{' '}
+                      <button
+                        className="admin-action-button"
+                        onClick={() => {
+                          const _tempItinerary = [...itinerary];
+                          _tempItinerary[dayIdx].activities.push({});
+                          setItinerary(_tempItinerary);
+                        }}
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div>
+                      {day.activities.map((activity, activityIdx) => (
+                        <div>
+                          <div className="admin-input-box">
+                            <label>Time</label>
+                            <input
+                              className="input admin-input-box"
+                              value={day.activities[activityIdx].time}
+                              onChange={(e) => {
+                                const _tempItinerary = [...itinerary];
+                                _tempItinerary[dayIdx].activities[
+                                  activityIdx
+                                ].time = e.target.value;
+                                setItinerary(_tempItinerary);
+                              }}
+                            />
+                          </div>
+                          <div className="admin-input-box">
+                            <label>Description</label>
+                            <TextareaAutosize
+                              className="input admin-input-box"
+                              value={day.activities[activityIdx].description}
+                              onChange={(e) => {
+                                const _tempItinerary = [...itinerary];
+                                _tempItinerary[dayIdx].activities[
+                                  activityIdx
+                                ].description = e.target.value;
+                                setItinerary(_tempItinerary);
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
