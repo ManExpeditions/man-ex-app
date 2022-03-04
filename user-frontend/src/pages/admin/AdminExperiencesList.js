@@ -68,10 +68,10 @@ export default function AdminExperiencesList({ setSubPage }) {
                     })
                   }
                 >
-                  <td> {experience._id}</td>
+                  <td>{experience._id}</td>
                   <td>{experience.name}</td>
                   <td>{experience.continent}</td>
-                  <td>{experience.description}</td>
+                  <td>{experience.location}</td>
                   <td>{experience.numberOfDays} days</td>
                   <td>${experience.deposit}</td>
                 </tr>
