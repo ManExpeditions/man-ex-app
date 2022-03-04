@@ -27,6 +27,7 @@ export default function AdminExperiencePage({ experienceId }) {
   const [videoThumbnailImage, setVideoThumbnailImage] = useState('');
   const [video, setVideo] = useState('');
   const [heroImage, setHeroImage] = useState('');
+  const [images, setImages] = useState(['Enter image url']);
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
@@ -55,6 +56,9 @@ export default function AdminExperiencePage({ experienceId }) {
       setVideoThumbnailImage(experience.videoThumbnailImage);
       setVideo(experience.video);
       setHeroImage(experience.heroImage);
+      setImages(
+        experience.images.length > 0 ? experience.images : ['Enter image url']
+      );
       setGroups(experience.groups);
     }
   }, [dispatch, experienceId, experience, adminGroup]);
@@ -179,6 +183,33 @@ export default function AdminExperiencePage({ experienceId }) {
             value={heroImage}
             onChange={(e) => setHeroImage(e.target.value)}
           />
+        </div>
+        <div className="admin-input-box">
+          <div>
+            <label>Images</label>{' '}
+            <button
+              className="admin-action-button"
+              onClick={() =>
+                setImages((prevImages) => [...prevImages, 'Enter image url'])
+              }
+            >
+              +
+            </button>
+          </div>
+          <div className="margin-1">
+            {images.map((image, imageIdx) => (
+              <input
+                key={imageIdx}
+                className="input admin-input-box"
+                value={image}
+                onChange={(e) => {
+                  const _tempImages = [...images];
+                  _tempImages[imageIdx] = e.target.value;
+                  setImages(_tempImages);
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <div className="flex-box space-between align-center">

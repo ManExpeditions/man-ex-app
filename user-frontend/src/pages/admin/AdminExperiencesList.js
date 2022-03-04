@@ -62,16 +62,21 @@ export default function AdminExperiencesList() {
           </div>
           <table className="admin-table">
             <thead>
-              <th>Experience Id</th>
-              <th>Name</th>
-              <th>Continent</th>
-              <th>Location</th>
-              <th>Duration</th>
-              <th>Deposit</th>
+              <tr>
+                <th>Experience Id</th>
+                <th>Name</th>
+                <th>Continent</th>
+                <th>Location</th>
+                <th>Duration</th>
+                <th>Deposit</th>
+              </tr>
             </thead>
             <tbody>
-              {experiences.map((experience) => (
-                <tr onClick={() => setExperienceId(experience._id)}>
+              {experiences.map((experience, experienceIdx) => (
+                <tr
+                  key={experienceIdx}
+                  onClick={() => setExperienceId(experience._id)}
+                >
                   <td> {experience._id}</td>
                   <td>{experience.name}</td>
                   <td>{experience.continent}</td>
