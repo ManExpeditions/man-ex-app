@@ -32,7 +32,7 @@ import UpdatePhonePage from './pages/private/UserProfilePages/UpdatePhonePage/Up
 import UpdatePasswordPage from './pages/private/UserProfilePages/UpdatePasswordPage/UpdatePasswordPage';
 import ManageAccountPage from './pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage';
 import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
-import AdminPanelPage from './pages/admin/AdminPanelPage/AdminPanelPage';
+import AdminPanelPage from './pages/admin/AdminPanelPage';
 
 function App() {
   return (

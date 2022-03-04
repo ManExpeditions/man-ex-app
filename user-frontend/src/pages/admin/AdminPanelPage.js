@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ProSidebar, SidebarHeader, Menu, MenuItem } from 'react-pro-sidebar';
 import { FaGem, FaSwimmer } from 'react-icons/fa';
-import AdminExperiencesList from '../AdminExperiencesList/AdminExperiencesList';
+import AdminExperiencesList from './AdminExperiencesList';
 
 export default function AdminPanelPage() {
   const [index, setIndex] = useState(1);

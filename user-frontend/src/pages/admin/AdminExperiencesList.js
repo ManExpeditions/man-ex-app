@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
-import AdminExperiencePage from '../AdminExperiencePage';
+import { experiencesGet } from '../../slices/experience/experiencesGetSlice';
+import AdminExperiencePage from './AdminExperiencePage';
 
 export default function AdminExperiencesList() {
   const [experienceId, setExperienceId] = useState(null); // 0 means no active experience
