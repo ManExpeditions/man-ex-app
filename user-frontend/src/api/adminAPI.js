@@ -12,6 +12,17 @@ class adminAPI {
     return data;
   }
 
+  async updateExperience(experienceId, userToken, experienceData) {
+    const { data } = await Axios.put(
+      `/api/admin/v1/experience/${experienceId}`,
+      experienceData,
+      {
+        headers: { Authorization: `Bearer ${userToken}` }
+      }
+    );
+    return data;
+  }
+
   async createGroup(experienceId, userToken) {
     const { data } = await Axios.post(
       `/api/admin/v1/group/${experienceId}`,

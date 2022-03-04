@@ -11,6 +11,10 @@ import {
   resetAdminGroupCreate
 } from '../../slices/admin/adminGroupCreateSlice';
 import Spinner from '../../components/Spinner/Spinner';
+import {
+  adminExperienceUpdate,
+  resetAdminExperienceUpdate
+} from '../../slices/admin/adminExperienceUpdateSlice';
 
 export default function AdminExperiencePage({ experienceId }) {
   // Experience states
@@ -28,11 +32,22 @@ export default function AdminExperiencePage({ experienceId }) {
   const [video, setVideo] = useState('');
   const [heroImage, setHeroImage] = useState('');
   const [images, setImages] = useState(['']);
-  const [itinerary, setItinerary] = useState([{ activities: [{}] }]);
+  const [itinerary, setItinerary] = useState([
+    { day: 0, image: '', activities: [{ time: '', description: '' }] }
+  ]);
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { experience } = experienceGetSlice;
+
+  const adminExperienceUpdateSlice = useSelector(
+    (state) => state.adminExperienceUpdateSlice
+  );
+  const {
+    loading: updatedLoading,
+    experience: updatedExperience,
+    error: updatedError
+  } = adminExperienceUpdateSlice;
 
   const adminGroupCreateSlice = useSelector(
     (state) => state.adminGroupCreateSlice
@@ -59,6 +74,7 @@ export default function AdminExperiencePage({ experienceId }) {
       setHeroImage(experience.heroImage);
       setImages(experience.images.length > 0 ? experience.images : ['']);
       setGroups(experience.groups);
+      setItinerary(JSON.parse(JSON.stringify(experience.itinerary))); // Make a deep copy of the object
     }
   }, [dispatch, experienceId, experience, adminGroup]);
 
@@ -75,13 +91,51 @@ export default function AdminExperiencePage({ experienceId }) {
     return () => {
       dispatch(resetExperienceGet());
       dispatch(resetAdminGroupCreate());
+      dispatch(resetAdminExperienceUpdate());
     };
   }, [dispatch]);
+
+  const handleSaveExperienceClick = () => {
+    dispatch(
+      adminExperienceUpdate({
+        experienceId: id,
+        experienceData: {
+          isActive,
+          name,
+          description,
+          numberOfDays,
+          location,
+          continent,
+          season,
+          pricing,
+          deposit,
+          videoThumbnailImage,
+          video,
+          heroImage,
+          itinerary: encodeURIComponent(JSON.stringify(itinerary))
+        }
+      })
+    );
+  };
 
   return (
     <div>
       <div className="admin-input-box-wrapper">
-        <h1>Experience Id: {id}</h1>
+        <div className="flex-box space-between">
+          <h1>Experience Id: {id}</h1>
+          {updatedError && (
+            <span className="error-message">{updatedError}</span>
+          )}
+          {updatedExperience && (
+            <span className="success-message">Experience updated.</span>
+          )}
+          <button
+            className="admin-action-button"
+            onClick={handleSaveExperienceClick}
+          >
+            {updatedLoading ? <Spinner /> : 'Save Experience'}
+          </button>
+        </div>
         <div className="admin-input-box">
           <label>isActive</label>
           <select
@@ -268,7 +322,7 @@ export default function AdminExperiencePage({ experienceId }) {
                     </div>
                     <div>
                       {day.activities.map((activity, activityIdx) => (
-                        <div>
+                        <div key={activityIdx}>
                           <div className="admin-input-box">
                             <label>Time</label>
                             <input

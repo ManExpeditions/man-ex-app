@@ -57,8 +57,7 @@ export const experienceUpdateController = [
   body('description', 'Enter valid description')
     .optional()
     .isString()
-    .isLength({ min: 10 })
-    .escape(),
+    .isLength({ min: 10 }),
   body('numberOfDays', 'Enter valid number of days')
     .optional()
     .isNumeric()
@@ -75,7 +74,7 @@ export const experienceUpdateController = [
   body('video', 'Enter valid video').optional().isString().escape(),
   body('heroImage', 'Enter valid hero image').optional().isString().escape(),
   body('images', 'Enter valid images').optional().isArray().escape(),
-  body('itinerary', 'Enter valid itinerary').optional().isObject().escape(),
+  body('itinerary', 'Enter valid itinerary').optional().isString().escape(),
   body('accomodations', 'Enter valid accomodations')
     .optional()
     .isObject()

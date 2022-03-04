@@ -15,9 +15,9 @@ interface Experience {
   video: string;
   heroImage: string;
   images: string[];
-  itinerary: object;
+  itinerary: string; // string because it is sent as string on requests
   accomodations: object;
-  activities: object;
+  activities: [];
   whatsIncluded: object;
   terms: string;
   groups: [mongoose.Types.ObjectId];
@@ -38,9 +38,9 @@ const experienceSchema = new mongoose.Schema<Experience>(
     video: { type: String },
     heroImage: { type: String },
     images: { type: [String] },
-    itinerary: { type: Object },
+    itinerary: { type: Array },
     accomodations: { type: Object },
-    activities: { type: Object },
+    activities: { type: Array },
     whatsIncluded: { type: Object },
     terms: { type: String },
     groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]

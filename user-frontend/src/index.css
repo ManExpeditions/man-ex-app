@@ -473,7 +473,7 @@ input:-webkit-autofill {
 
 .admin-input-box {
   display: grid;
-  grid-template-columns: 180px auto;
+  grid-template-columns: 150px auto;
   gap: 1rem;
   align-items: center;
   margin: 0.5rem 0;
