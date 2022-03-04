@@ -19,6 +19,7 @@ import AboutPage from './pages/public/AboutPage/AboutPage';
 import PressPage from './pages/public/PressPage/PressPage';
 import OnboardingRoute from './routes/OnboardingRoute';
 import PrivateRoute from './routes/PrivateRoute';
+import AdminRoute from './routes/AdminRoute';
 import ExperiencesPage from './pages/mixed/ExperiencesPage/ExperiencesPage';
 import UserSettingsPage from './pages/private/UserProfilePages/UserSettingsPage/UserSettingsPage';
 import TravelSponsorshipsPage from './pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage';
@@ -30,6 +31,7 @@ import UpdatePhonePage from './pages/private/UserProfilePages/UpdatePhonePage/Up
 import UpdatePasswordPage from './pages/private/UserProfilePages/UpdatePasswordPage/UpdatePasswordPage';
 import ManageAccountPage from './pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage';
 import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
+import AdminPanelPage from './pages/admin/AdminPanelPage/AdminPanelPage';
 
 function App() {
   return (
@@ -130,6 +132,11 @@ function App() {
           path="/profile"
           component={UserProfilePage}
         ></PrivateRoute>
+        <AdminRoute
+          exact
+          path="/manexadmin"
+          component={AdminPanelPage}
+        ></AdminRoute>
       </Switch>
     </Router>
   );
