@@ -23,6 +23,16 @@ class adminAPI {
     return data;
   }
 
+  async deleteExperience(experienceId, userToken) {
+    const { data } = await Axios.delete(
+      `/api/admin/v1/experience/${experienceId}`,
+      {
+        headers: { Authorization: `Bearer ${userToken}` }
+      }
+    );
+    return data;
+  }
+
   async createGroup(experienceId, userToken) {
     const { data } = await Axios.post(
       `/api/admin/v1/group/${experienceId}`,

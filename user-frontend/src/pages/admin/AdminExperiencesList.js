@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../components/Spinner/Spinner';
 import {
@@ -6,11 +6,8 @@ import {
   resetAdminExperienceCreate
 } from '../../slices/admin/adminExperienceCreateSlice';
 import { experiencesGet } from '../../slices/experience/experiencesGetSlice';
-import AdminExperiencePage from './AdminExperiencePage';
 
-export default function AdminExperiencesList() {
-  const [experienceId, setExperienceId] = useState(null); // 0 means no active experience
-
+export default function AdminExperiencesList({ setSubPage }) {
   const experiencesGetSlice = useSelector((state) => state.experiencesGetSlice);
   const { experiences } = experiencesGetSlice;
 
@@ -36,20 +33,7 @@ export default function AdminExperiencesList() {
 
   return (
     <div>
-      {experienceId && (
-        <div>
-          <button
-            className="admin-back-button"
-            onClick={() => setExperienceId(null)}
-          >
-            Back
-          </button>
-          <AdminExperiencePage
-            experienceId={experienceId}
-          ></AdminExperiencePage>
-        </div>
-      )}
-      {!experienceId && experiences && (
+      {experiences && (
         <>
           <div className="flex-box space-between">
             <button
@@ -75,7 +59,14 @@ export default function AdminExperiencesList() {
               {experiences.map((experience, experienceIdx) => (
                 <tr
                   key={experienceIdx}
-                  onClick={() => setExperienceId(experience._id)}
+                  onClick={() =>
+                    setSubPage({
+                      path: 'experience',
+                      props: {
+                        experienceId: experience._id
+                      }
+                    })
+                  }
                 >
                   <td> {experience._id}</td>
                   <td>{experience.name}</td>

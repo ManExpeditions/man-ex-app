@@ -15,8 +15,13 @@ import {
   adminExperienceUpdate,
   resetAdminExperienceUpdate
 } from '../../slices/admin/adminExperienceUpdateSlice';
+import {
+  adminExperienceDelete,
+  resetAdminExperienceDelete
+} from '../../slices/admin/adminExperienceDeleteSlice';
+import MessageBox from '../../components/MessageBox/MessageBox';
 
-export default function AdminExperiencePage({ experienceId }) {
+export default function AdminExperiencePage({ experienceId, setSubPage }) {
   // Experience states
   const [id, setId] = useState(true);
   const [isActive, setIsActive] = useState(true);
@@ -48,6 +53,15 @@ export default function AdminExperiencePage({ experienceId }) {
     experience: updatedExperience,
     error: updatedError
   } = adminExperienceUpdateSlice;
+
+  const adminExperienceDeleteSlice = useSelector(
+    (state) => state.adminExperienceDeleteSlice
+  );
+  const {
+    loading: deletedLoading,
+    experience: deletedExperience,
+    error: deletedError
+  } = adminExperienceDeleteSlice;
 
   const adminGroupCreateSlice = useSelector(
     (state) => state.adminGroupCreateSlice
@@ -86,12 +100,22 @@ export default function AdminExperiencePage({ experienceId }) {
     }
   }, [experienceId, dispatch, adminGroup]);
 
+  // If experience is deleted go back
+  useEffect(() => {
+    if (deletedExperience) {
+      window.setTimeout(() => {
+        setSubPage({ path: 'experiences' });
+      }, 2000);
+    }
+  }, [deletedExperience, setSubPage]);
+
   // Cleanup when component is lifted
   useEffect(() => {
     return () => {
       dispatch(resetExperienceGet());
       dispatch(resetAdminGroupCreate());
       dispatch(resetAdminExperienceUpdate());
+      dispatch(resetAdminExperienceDelete());
     };
   }, [dispatch]);
 
@@ -118,267 +142,308 @@ export default function AdminExperiencePage({ experienceId }) {
     );
   };
 
+  const handleDeleteExperienceClick = () => {
+    if (window.confirm('Are you sure you want to delete this experience')) {
+      dispatch(adminExperienceDelete(id));
+    }
+  };
+
   return (
     <div>
-      <div className="admin-input-box-wrapper">
-        <div className="flex-box space-between">
-          <h1>Experience Id: {id}</h1>
-          {updatedError && (
-            <span className="error-message">{updatedError}</span>
-          )}
-          {updatedExperience && (
-            <span className="success-message">Experience updated.</span>
-          )}
-          <button
-            className="admin-action-button"
-            onClick={handleSaveExperienceClick}
-          >
-            {updatedLoading ? <Spinner /> : 'Save Experience'}
-          </button>
-        </div>
-        <div className="admin-input-box">
-          <label>isActive</label>
-          <select
-            value={isActive}
-            onChange={(e) => setIsActive(e.target.value)}
-            className="selectbox admin-selectbox"
-          >
-            <option value={true}>True</option>
-            <option value={false}>False</option>
-          </select>
-        </div>
-        <div className="admin-input-box">
-          <label>Name</label>
-          <input
-            className="input"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Description</label>
-          <TextareaAutosize
-            className="input"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Number of days</label>
-          <input
-            className="input"
-            type="number"
-            value={numberOfDays}
-            onChange={(e) => setNumberOfDays(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Location</label>
-          <input
-            className="input"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Continent</label>
-          <input
-            className="input"
-            value={continent}
-            onChange={(e) => setContinent(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Season</label>
-          <input
-            className="input"
-            value={season}
-            onChange={(e) => setSeason(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Pricing</label>
-          <input
-            className="input"
-            value={pricing}
-            onChange={(e) => setPricing(e.target.value)}
-          />
-        </div>
-
-        <div className="admin-input-box">
-          <label>Deposit</label>
-          <input
-            className="input"
-            value={deposit}
-            onChange={(e) => setDeposit(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Video Thumbnail Image</label>
-          <input
-            className="input"
-            value={videoThumbnailImage}
-            onChange={(e) => setVideoThumbnailImage(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Video Url</label>
-          <input
-            className="input"
-            value={video}
-            onChange={(e) => setVideo(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <label>Hero Image</label>
-          <input
-            className="input"
-            value={heroImage}
-            onChange={(e) => setHeroImage(e.target.value)}
-          />
-        </div>
-        <div className="admin-input-box">
-          <div>
-            <label>Images</label>{' '}
-            <button
-              className="admin-action-button"
-              onClick={() => setImages((prevImages) => [...prevImages, ''])}
-            >
-              +
-            </button>
-          </div>
-          <div className="margin-1">
-            {images.map((image, imageIdx) => (
-              <input
-                key={imageIdx}
-                className="input admin-input-box"
-                value={image}
-                onChange={(e) => {
-                  const _tempImages = [...images];
-                  _tempImages[imageIdx] = e.target.value;
-                  setImages(_tempImages);
-                }}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="admin-input-box">
-          <div>
-            <label>Itinerary</label>{' '}
-            <button
-              className="admin-action-button"
-              onClick={() =>
-                setItinerary((prevItinerary) => [
-                  ...prevItinerary,
-                  { activities: [] }
-                ])
-              }
-            >
-              +
-            </button>
-          </div>
-          <div>
-            {itinerary.map((day, dayIdx) => (
-              <div key={dayIdx} className="">
-                <div>
-                  <div className="admin-input-box">
-                    <label>Day</label>
-                    <input
-                      className="input admin-input-box"
-                      type="number"
-                      value={day.day}
-                      onChange={(e) => {
-                        const _tempItinerary = [...itinerary];
-                        _tempItinerary[dayIdx].day = e.target.value;
-                        setItinerary(_tempItinerary);
-                      }}
-                    />
-                  </div>
-                  <div className="admin-input-box">
-                    <label>Image</label>
-                    <input
-                      className="input admin-input-box"
-                      value={day.image}
-                      onChange={(e) => {
-                        const _tempItinerary = [...itinerary];
-                        _tempItinerary[dayIdx].image = e.target.value;
-                        setItinerary(_tempItinerary);
-                      }}
-                    />
-                  </div>
-                  <div className="admin-input-box">
-                    <div>
-                      <label>Activities</label>{' '}
-                      <button
-                        className="admin-action-button"
-                        onClick={() => {
-                          const _tempItinerary = [...itinerary];
-                          _tempItinerary[dayIdx].activities.push({});
-                          setItinerary(_tempItinerary);
-                        }}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div>
-                      {day.activities.map((activity, activityIdx) => (
-                        <div key={activityIdx}>
-                          <div className="admin-input-box">
-                            <label>Time</label>
-                            <input
-                              className="input admin-input-box"
-                              value={day.activities[activityIdx].time}
-                              onChange={(e) => {
-                                const _tempItinerary = [...itinerary];
-                                _tempItinerary[dayIdx].activities[
-                                  activityIdx
-                                ].time = e.target.value;
-                                setItinerary(_tempItinerary);
-                              }}
-                            />
-                          </div>
-                          <div className="admin-input-box">
-                            <label>Description</label>
-                            <TextareaAutosize
-                              className="input admin-input-box"
-                              value={day.activities[activityIdx].description}
-                              onChange={(e) => {
-                                const _tempItinerary = [...itinerary];
-                                _tempItinerary[dayIdx].activities[
-                                  activityIdx
-                                ].description = e.target.value;
-                                setItinerary(_tempItinerary);
-                              }}
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+      <button
+        className="admin-back-button"
+        onClick={() => setSubPage({ path: 'experiences' })}
+      >
+        Back
+      </button>
+      {deletedExperience ? (
+        <MessageBox variant="success">
+          Deleted Experience. Redirecting...
+          <div className="admin-spinner-wrapper">
+            <Spinner></Spinner>{' '}
+          </div>{' '}
+        </MessageBox>
+      ) : (
+        <>
+          <div className="admin-input-box-wrapper">
+            <div className="flex-box space-between">
+              <div>
+                <h1>Experience Id: {id}</h1>
+                {updatedError && (
+                  <span className="error-message">{updatedError}</span>
+                )}
+                {updatedExperience && (
+                  <span className="success-message">Experience updated.</span>
+                )}
+                {deletedError && (
+                  <span className="error-message">{deletedError}</span>
+                )}
+                {deletedExperience && (
+                  <span className="success-message">Experience updated.</span>
+                )}
               </div>
-            ))}
+              <div>
+                <button
+                  className="admin-action-button"
+                  onClick={handleSaveExperienceClick}
+                >
+                  {updatedLoading ? <Spinner /> : 'Save Experience'}
+                </button>{' '}
+                <button
+                  className="admin-action-button danger"
+                  onClick={handleDeleteExperienceClick}
+                >
+                  {deletedLoading ? <Spinner /> : 'Delete Experience'}
+                </button>
+              </div>
+            </div>
+            <div className="admin-input-box">
+              <label>isActive</label>
+              <select
+                value={isActive}
+                onChange={(e) => setIsActive(e.target.value)}
+                className="selectbox admin-selectbox"
+              >
+                <option value={true}>True</option>
+                <option value={false}>False</option>
+              </select>
+            </div>
+            <div className="admin-input-box">
+              <label>Name</label>
+              <input
+                className="input"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Description</label>
+              <TextareaAutosize
+                className="input"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Number of days</label>
+              <input
+                className="input"
+                type="number"
+                value={numberOfDays}
+                onChange={(e) => setNumberOfDays(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Location</label>
+              <input
+                className="input"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Continent</label>
+              <input
+                className="input"
+                value={continent}
+                onChange={(e) => setContinent(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Season</label>
+              <input
+                className="input"
+                value={season}
+                onChange={(e) => setSeason(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Pricing</label>
+              <input
+                className="input"
+                value={pricing}
+                onChange={(e) => setPricing(e.target.value)}
+              />
+            </div>
+
+            <div className="admin-input-box">
+              <label>Deposit</label>
+              <input
+                className="input"
+                value={deposit}
+                onChange={(e) => setDeposit(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Video Thumbnail Image</label>
+              <input
+                className="input"
+                value={videoThumbnailImage}
+                onChange={(e) => setVideoThumbnailImage(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Video Url</label>
+              <input
+                className="input"
+                value={video}
+                onChange={(e) => setVideo(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <label>Hero Image</label>
+              <input
+                className="input"
+                value={heroImage}
+                onChange={(e) => setHeroImage(e.target.value)}
+              />
+            </div>
+            <div className="admin-input-box">
+              <div>
+                <label>Images</label>{' '}
+                <button
+                  className="admin-action-button"
+                  onClick={() => setImages((prevImages) => [...prevImages, ''])}
+                >
+                  +
+                </button>
+              </div>
+              <div className="margin-1">
+                {images.map((image, imageIdx) => (
+                  <input
+                    key={imageIdx}
+                    className="input admin-input-box"
+                    value={image}
+                    onChange={(e) => {
+                      const _tempImages = [...images];
+                      _tempImages[imageIdx] = e.target.value;
+                      setImages(_tempImages);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="admin-input-box">
+              <div>
+                <label>Itinerary</label>{' '}
+                <button
+                  className="admin-action-button"
+                  onClick={() =>
+                    setItinerary((prevItinerary) => [
+                      ...prevItinerary,
+                      { activities: [] }
+                    ])
+                  }
+                >
+                  +
+                </button>
+              </div>
+              <div>
+                {itinerary.map((day, dayIdx) => (
+                  <div key={dayIdx} className="">
+                    <div>
+                      <div className="admin-input-box">
+                        <label>Day</label>
+                        <input
+                          className="input admin-input-box"
+                          type="number"
+                          value={day.day}
+                          onChange={(e) => {
+                            const _tempItinerary = [...itinerary];
+                            _tempItinerary[dayIdx].day = e.target.value;
+                            setItinerary(_tempItinerary);
+                          }}
+                        />
+                      </div>
+                      <div className="admin-input-box">
+                        <label>Image</label>
+                        <input
+                          className="input admin-input-box"
+                          value={day.image}
+                          onChange={(e) => {
+                            const _tempItinerary = [...itinerary];
+                            _tempItinerary[dayIdx].image = e.target.value;
+                            setItinerary(_tempItinerary);
+                          }}
+                        />
+                      </div>
+                      <div className="admin-input-box">
+                        <div>
+                          <label>Activities</label>{' '}
+                          <button
+                            className="admin-action-button"
+                            onClick={() => {
+                              const _tempItinerary = [...itinerary];
+                              _tempItinerary[dayIdx].activities.push({});
+                              setItinerary(_tempItinerary);
+                            }}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <div>
+                          {day.activities.map((activity, activityIdx) => (
+                            <div key={activityIdx}>
+                              <div className="admin-input-box">
+                                <label>Time</label>
+                                <input
+                                  className="input admin-input-box"
+                                  value={day.activities[activityIdx].time}
+                                  onChange={(e) => {
+                                    const _tempItinerary = [...itinerary];
+                                    _tempItinerary[dayIdx].activities[
+                                      activityIdx
+                                    ].time = e.target.value;
+                                    setItinerary(_tempItinerary);
+                                  }}
+                                />
+                              </div>
+                              <div className="admin-input-box">
+                                <label>Description</label>
+                                <TextareaAutosize
+                                  className="input admin-input-box"
+                                  value={
+                                    day.activities[activityIdx].description
+                                  }
+                                  onChange={(e) => {
+                                    const _tempItinerary = [...itinerary];
+                                    _tempItinerary[dayIdx].activities[
+                                      activityIdx
+                                    ].description = e.target.value;
+                                    setItinerary(_tempItinerary);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="flex-box space-between align-center">
-        <h1>Groups</h1>
-        <span className="error-message">{error}</span>
-        <div>
-          <button
-            onClick={() => dispatch(adminGroupCreate(experienceId))}
-            className="admin-action-button"
-          >
-            {loading ? <Spinner /> : 'Create Group'}
-          </button>
-        </div>
-      </div>
-      {groups.length > 0 && (
-        <div>
-          {groups.map((group, groupIdx) => (
-            <Group key={groupIdx} group={group} />
-          ))}
-        </div>
+          <div className="flex-box space-between align-center">
+            <h1>Groups</h1>
+            <span className="error-message">{error}</span>
+            <div>
+              <button
+                onClick={() => dispatch(adminGroupCreate(experienceId))}
+                className="admin-action-button"
+              >
+                {loading ? <Spinner /> : 'Create Group'}
+              </button>
+            </div>
+          </div>
+          {groups.length > 0 && (
+            <div>
+              {groups.map((group, groupIdx) => (
+                <Group key={groupIdx} group={group} />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
