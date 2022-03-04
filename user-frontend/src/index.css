@@ -74,6 +74,10 @@ code {
   align-items: center;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .display-block {
   display: block;
 }
@@ -409,10 +413,24 @@ input:-webkit-autofill {
 
 /* Admin general styles */
 .admin-back-button,
-.admin-dropdown-button {
+.admin-dropdown-button,
+.admin-action-button {
   outline: none;
   border: none;
   cursor: pointer;
+}
+
+.admin-action-button {
+  padding: 0.51rem 1rem;
+  background-color: #00f2a8;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  transition: 300ms ease-in-out;
+}
+
+.admin-action-button:hover,
+.admin-action-button:focus {
+  background-color: #0ec58e;
 }
 
 .admin-back-button {
@@ -427,7 +445,7 @@ input:-webkit-autofill {
   justify-content: space-between;
   align-items: center;
   font-size: 1.2rem;
-  max-width: max-content;
+  width: 600px;
   gap: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -490,11 +508,6 @@ input:-webkit-autofill {
   color: #fff;
   font-size: 0.9rem;
 }
-
-/* .admin-table tbody tr:nth-of-type(odd) {
-  background-color: #50d450;
-  color: #000;
-} */
 
 .admin-table td,
 .admin-table th {

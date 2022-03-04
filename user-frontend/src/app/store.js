@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import adminGroupCreateSlice from '../slices/admin/adminGroupCreateSlice';
+import adminExperienceCreateSlice from '../slices/admin/adminExperienceCreateSlice';
 import photoUploadSlice from '../slices/assets/photoUploadSlice';
 import emailRegisterSlice from '../slices/auth/emailRegisterSlice';
 import signinSlice from '../slices/auth/signinSlice';
@@ -30,6 +32,8 @@ export const store = configureStore({
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
     experiencesGetSlice: experiencesGetSlice,
-    experienceGetSlice: experienceGetSlice
+    experienceGetSlice: experienceGetSlice,
+    adminExperienceCreateSlice: adminExperienceCreateSlice,
+    adminGroupCreateSlice: adminGroupCreateSlice
   }
 });

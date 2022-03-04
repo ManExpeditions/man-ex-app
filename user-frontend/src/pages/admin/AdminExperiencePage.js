@@ -6,6 +6,11 @@ import {
   resetExperienceGet
 } from '../../slices/experience/experienceGetSlice';
 import Group from './components/Group';
+import {
+  adminGroupCreate,
+  resetAdminGroupCreate
+} from '../../slices/admin/adminGroupCreateSlice';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function AdminExperiencePage({ experienceId }) {
   // Experience states
@@ -27,6 +32,11 @@ export default function AdminExperiencePage({ experienceId }) {
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { experience } = experienceGetSlice;
 
+  const adminGroupCreateSlice = useSelector(
+    (state) => state.adminGroupCreateSlice
+  );
+  const { loading, adminGroup, error } = adminGroupCreateSlice;
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (!experience) {
@@ -47,12 +57,21 @@ export default function AdminExperiencePage({ experienceId }) {
       setHeroImage(experience.heroImage);
       setGroups(experience.groups);
     }
-  }, [dispatch, experienceId, experience]);
+  }, [dispatch, experienceId, experience, adminGroup]);
+
+  // When admin group is created, fetch experience again
+  useEffect(() => {
+    if (adminGroup) {
+      dispatch(resetAdminGroupCreate());
+      dispatch(experienceGet(experienceId));
+    }
+  }, [experienceId, dispatch, adminGroup]);
 
   // Cleanup when component is lifted
   useEffect(() => {
     return () => {
       dispatch(resetExperienceGet());
+      dispatch(resetAdminGroupCreate());
     };
   }, [dispatch]);
 
@@ -162,9 +181,20 @@ export default function AdminExperiencePage({ experienceId }) {
           />
         </div>
       </div>
+      <div className="flex-box space-between align-center">
+        <h1>Groups</h1>
+        <span className="error-message">{error}</span>
+        <div>
+          <button
+            onClick={() => dispatch(adminGroupCreate(experienceId))}
+            className="admin-action-button"
+          >
+            {loading ? <Spinner /> : 'Create Group'}
+          </button>
+        </div>
+      </div>
       {groups.length > 0 && (
         <div>
-          <h1>Groups</h1>
           {groups.map((group, groupIdx) => (
             <Group key={groupIdx} group={group} />
           ))}
