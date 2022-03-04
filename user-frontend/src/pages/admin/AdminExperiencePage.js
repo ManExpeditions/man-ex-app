@@ -133,9 +133,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           season,
           pricing,
           deposit,
-          videoThumbnailImage,
-          video,
-          heroImage,
+          videoThumbnailImage: encodeURIComponent(videoThumbnailImage),
+          video: encodeURIComponent(video),
+          heroImage: encodeURIComponent(heroImage),
           itinerary: encodeURIComponent(JSON.stringify(itinerary))
         }
       })
