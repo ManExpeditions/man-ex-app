@@ -24,7 +24,6 @@ export default function ExperiencePage() {
   const [isActivitiesVisible, setIsActivitiesVisible] = useState(false);
   const [isReviewsVisible, setIsReviewsVisible] = useState(false);
   const [isWhatsIncludedVisible, setIsWhatsIncludedVisible] = useState(false);
-  const [isPricingVisible, setIsPricingVisible] = useState(false);
   const [isTermsVisible, setIsTermsVisible] = useState(false);
 
   const [thriveCartReady, setThriveCartReady] = useState(false);
@@ -167,10 +166,12 @@ export default function ExperiencePage() {
                     <div className={styles.group_lead}>
                       <img
                         className={styles.group_profile}
-                        src={group.leadProfilepic}
+                        src={group.groupLead && group.groupLead.profilepic}
                         alt="Group Lead"
                       />
-                      <p className={styles.group_lead_name}>{group.leadName}</p>
+                      <p className={styles.group_lead_name}>
+                        {group.groupLead && group.groupLead.firstName}
+                      </p>
                     </div>
                     <div>
                       <h4 className={styles.group_name}>{group.name}</h4>
@@ -180,7 +181,6 @@ export default function ExperiencePage() {
                       </p>
                       <button
                         onClick={() => {
-                          console.log('clicks');
                           setShowCheckout(true);
                         }}
                         className={`btn btn-primary ${styles.book_button}`}
@@ -255,127 +255,129 @@ export default function ExperiencePage() {
                 )}
               </div>
               <div className={styles.description}>{experience.description}</div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsItineraryVisible((prev) => !prev)}
-                >
-                  <h2>Itinerary</h2>
-                  {isItineraryVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
-                </div>
-                <div className={styles.itinerary_container}>
-                  {isItineraryVisible &&
-                    experience.itinerary.map((day, idx) => (
-                      <div className={styles.itinerary_content} key={idx}>
-                        <span className={styles.circle}></span>
-                        <p className={styles.itinerary_day}>{day.title}</p>
-                        <img
-                          className={styles.itinerary_image}
-                          src={day.image}
-                          alt=""
-                        />
-                        <ul>
-                          {day.activities.map((activity, idx) => (
-                            <li className={styles.itinerary_activity} key={idx}>
-                              <p className={styles.itinerary_activity_time}>
-                                {activity.time}
-                              </p>
-                              <p
-                                className={
-                                  styles.itinerary_activity_description
-                                }
+              {experience.itinerary.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsItineraryVisible((prev) => !prev)}
+                  >
+                    <h2>Itinerary</h2>
+                    {isItineraryVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
+                  <div className={styles.itinerary_container}>
+                    {isItineraryVisible &&
+                      experience.itinerary.map((day, idx) => (
+                        <div className={styles.itinerary_content} key={idx}>
+                          <span className={styles.circle}></span>
+                          <p className={styles.itinerary_day}>{day.title}</p>
+                          <img
+                            className={styles.itinerary_image}
+                            src={day.image}
+                            alt=""
+                          />
+                          <ul>
+                            {day.activities.map((activity, idx) => (
+                              <li
+                                className={styles.itinerary_activity}
+                                key={idx}
                               >
-                                {activity.description}
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                                <p className={styles.itinerary_activity_time}>
+                                  {activity.time}
+                                </p>
+                                <p
+                                  className={
+                                    styles.itinerary_activity_description
+                                  }
+                                >
+                                  {activity.description}
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsAccomodationsVisible((prev) => !prev)}
-                >
-                  <h2>Accomodations</h2>
-                  {isAccomodationsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.accomodations.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsAccomodationsVisible((prev) => !prev)}
+                  >
+                    <h2>Accomodations</h2>
+                    {isAccomodationsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsActivitiesVisible((prev) => !prev)}
-                >
-                  <h2>Activities</h2>
-                  {isActivitiesVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.activities.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsActivitiesVisible((prev) => !prev)}
+                  >
+                    <h2>Activities</h2>
+                    {isActivitiesVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsReviewsVisible((prev) => !prev)}
-                >
-                  <h2>Reviews</h2>
-                  {isReviewsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.reviews > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsReviewsVisible((prev) => !prev)}
+                  >
+                    <h2>Reviews</h2>
+                    {isReviewsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsWhatsIncludedVisible((prev) => !prev)}
-                >
-                  <h2>What's Included</h2>
-                  {isWhatsIncludedVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.whatsIncluded && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsWhatsIncludedVisible((prev) => !prev)}
+                  >
+                    <h2>What's Included</h2>
+                    {isWhatsIncludedVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsPricingVisible((prev) => !prev)}
-                >
-                  <h2>Pricing</h2>
-                  {isPricingVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.terms && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsTermsVisible((prev) => !prev)}
+                  >
+                    <h2>Terms</h2>
+                    {isTermsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsTermsVisible((prev) => !prev)}
-                >
-                  <h2>Terms</h2>
-                  {isTermsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
-                </div>
-              </div>
+              )}
               <div className={styles.deposit_box}>
                 <div>
                   <p>Deposit</p>
