@@ -161,20 +161,25 @@ export default function ExperiencePage() {
                 </div>
               )}
               <div id="groups" className={styles.groups_section}>
+                <h2>Join a group</h2>
                 {experience.groups.map((group, groupIdx) => (
                   <div key={groupIdx} className={styles.group}>
                     <div className={styles.group_lead}>
-                      <img
-                        className={styles.group_profile}
-                        src={group.groupLead && group.groupLead.profilepic}
-                        alt="Group Lead"
-                      />
+                      <Link to={`/${group.groupLead && group.groupLead._id}`}>
+                        <img
+                          className={styles.group_profile}
+                          src={group.groupLead && group.groupLead.profilepic}
+                          alt="Group Lead"
+                        />
+                      </Link>
                       <p className={styles.group_lead_name}>
                         {group.groupLead && group.groupLead.firstName}
                       </p>
                     </div>
                     <div>
-                      <h4 className={styles.group_name}>{group.name}</h4>
+                      <h4 className={styles.group_name}>
+                        {group.groupLead && group.groupLead.firstName}'s Group
+                      </h4>
                       <h4 className={styles.group_date}>{group.date}</h4>
                       <p className={styles.group_description}>
                         "{group.description}"
@@ -187,7 +192,12 @@ export default function ExperiencePage() {
                       >
                         Book with this group
                       </button>
-                      <h4>Who's Going/Interested</h4>
+                      {group.goingUsers.length > 0 ||
+                        (group.interestedUsers.length > 0 && (
+                          <>
+                            <h4>Who's Going/Interested</h4>
+                          </>
+                        ))}
                       {group.goingUsers.map((goingUser, goingUserIdx) => (
                         <p key={goingUserIdx}>{goingUser._id}</p>
                       ))}
