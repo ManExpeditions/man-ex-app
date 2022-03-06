@@ -56,7 +56,6 @@ export const groupCreateController = [
       id: createdGroup._id,
       experience: createdGroup.experience,
       isActive: createdGroup.isActive,
-      name: createdGroup.name,
       startDate: createdGroup.startDate,
       endDate: createdGroup.endDate,
       registrationEndDate: createdGroup.registrationEndDate,

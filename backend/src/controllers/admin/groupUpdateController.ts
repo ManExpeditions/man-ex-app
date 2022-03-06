@@ -41,11 +41,6 @@ export const groupUpdateController = [
   // Sanitize and validate parms
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
-  body('name', 'Enter valid name')
-    .optional()
-    .isString()
-    .isLength({ min: 3 })
-    .escape(),
   body('isActive', 'Enter valid isActive value')
     .optional()
     .isBoolean()
@@ -118,7 +113,6 @@ export const groupUpdateController = [
       id: updatedGroup._id,
       experience: updatedGroup.experience,
       isActive: updatedGroup.isActive,
-      name: updatedGroup.name,
       startDate: updatedGroup.startDate,
       endDate: updatedGroup.endDate,
       registrationEndDate: updatedGroup.registrationEndDate,

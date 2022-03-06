@@ -31,7 +31,10 @@ class ExperienceDao {
   ): Promise<(Experience & mongoose.Document<Experience>) | null> {
     const experience = await Experience.findById(id).populate({
       path: 'groups',
-      populate: { path: 'groupLead', select: ['_id', 'profilepic'] }
+      populate: {
+        path: 'groupLead',
+        select: ['_id', 'profilepic', 'firstName']
+      }
     });
     return experience;
   }

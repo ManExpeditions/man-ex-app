@@ -49,7 +49,6 @@ class GroupDao {
     }
 
     group.isActive = groupInfo.isActive || group.isActive;
-    group.name = groupInfo.name || group.name;
     group.startDate = groupInfo.startDate || group.startDate;
     group.endDate = groupInfo.endDate || group.endDate;
     group.registrationEndDate =
