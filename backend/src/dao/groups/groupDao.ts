@@ -66,6 +66,11 @@ class GroupDao {
     const updatedGroup = await group.save();
     return updatedGroup;
   }
+
+  public async deleteGroupById(id: mongoose.Types.ObjectId | string) {
+    const deletedGroup = await Group.findByIdAndDelete(id);
+    return deletedGroup;
+  }
 }
 
 export default new GroupDao();

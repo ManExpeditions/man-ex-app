@@ -106,6 +106,18 @@ class ExperienceDao {
     await experience?.save();
   }
 
+  public async deleteGroupFromExperience(
+    experienceId: mongoose.Types.ObjectId | string,
+    groupId: string
+  ) {
+    const experience = await Experience.findById(experienceId);
+    const groupIdx = experience?.groups.indexOf(
+      mongoose.Types.ObjectId(groupId)
+    );
+    experience?.groups.splice(groupIdx as number, 1);
+    await experience?.save();
+  }
+
   // public async add_going_user_to_experience_group(
   //   label: string,
   //   userId: mongoose.Types.ObjectId
