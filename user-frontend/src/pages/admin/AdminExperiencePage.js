@@ -336,7 +336,19 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   }
                 >
                   +
-                </button>
+                </button>{' '}
+                {itinerary.length > 0 && (
+                  <button
+                    className="admin-action-button danger"
+                    onClick={() => {
+                      const _tempItinerary = [...itinerary];
+                      _tempItinerary.pop();
+                      setItinerary([..._tempItinerary]);
+                    }}
+                  >
+                    -
+                  </button>
+                )}
               </div>
               <div>
                 {itinerary.map((day, dayIdx) => (
@@ -346,7 +358,6 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                         <label>Day</label>
                         <input
                           className="input admin-input-box"
-                          type="number"
                           value={day.day}
                           onChange={(e) => {
                             const _tempItinerary = [...itinerary];
@@ -369,7 +380,6 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                       </div>
                       <div className="admin-input-box">
                         <div>
-                          <label>Activities</label>{' '}
                           <button
                             className="admin-action-button"
                             onClick={() => {
@@ -379,7 +389,19 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                             }}
                           >
                             +
-                          </button>
+                          </button>{' '}
+                          {day.activities.length > 1 && (
+                            <button
+                              className="admin-action-button danger"
+                              onClick={() => {
+                                const _tempItinerary = [...itinerary];
+                                _tempItinerary[dayIdx].activities.pop();
+                                setItinerary(_tempItinerary);
+                              }}
+                            >
+                              -
+                            </button>
+                          )}
                         </div>
                         <div>
                           {day.activities.map((activity, activityIdx) => (
@@ -388,7 +410,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                                 <label>Time</label>
                                 <input
                                   className="input admin-input-box"
-                                  value={day.activities[activityIdx].time}
+                                  value={activity.time}
                                   onChange={(e) => {
                                     const _tempItinerary = [...itinerary];
                                     _tempItinerary[dayIdx].activities[
@@ -402,9 +424,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                                 <label>Description</label>
                                 <TextareaAutosize
                                   className="input admin-input-box"
-                                  value={
-                                    day.activities[activityIdx].description
-                                  }
+                                  value={activity.description}
                                   onChange={(e) => {
                                     const _tempItinerary = [...itinerary];
                                     _tempItinerary[dayIdx].activities[
