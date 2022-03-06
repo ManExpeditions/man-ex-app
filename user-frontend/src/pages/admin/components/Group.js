@@ -20,7 +20,7 @@ export default function Group({ group }) {
   const [thriveCartScriptId, setThriveCartScriptId] = useState('');
   const [capacity, setCapacity] = useState(0);
   const [description, setDescription] = useState('');
-  const [groupLead, setGroupLead] = useState('');
+  const [groupLeadId, setGroupLeadId] = useState('');
   const [goingUsers, setGoingUsers] = useState([]);
   const [interestedUsers, setInterestedUsers] = useState([]);
 
@@ -50,7 +50,7 @@ export default function Group({ group }) {
       setThriveCartScriptId(group.thriveCartScriptId);
       setCapacity(group.capacity);
       setDescription(group.description);
-      setGroupLead(group.groupLead);
+      setGroupLeadId(group.groupLead ? group.groupLead._id : '');
       setGoingUsers(group.goingUsers);
       setInterestedUsers(group.interestedUsers);
     }
@@ -78,7 +78,7 @@ export default function Group({ group }) {
           thriveCartScriptId,
           capacity,
           description,
-          groupLead
+          groupLeadId
         }
       })
     );
@@ -190,11 +190,11 @@ export default function Group({ group }) {
               />
             </div>
             <div className="admin-input-box">
-              <label>Group Lead</label>
+              <label>Group Lead ID</label>
               <input
                 className="input"
-                value={groupLead}
-                onChange={(e) => setGroupLead(e.target.value)}
+                value={groupLeadId}
+                onChange={(e) => setGroupLeadId(e.target.value)}
               />
             </div>
             <div className="admin-input-box">
