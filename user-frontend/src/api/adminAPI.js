@@ -55,6 +55,16 @@ class adminAPI {
     );
     return data;
   }
+
+  async deleteGroup(experienceId, groupId, userToken) {
+    const { data } = await Axios.delete(
+      `/api/admin/v1/group/${experienceId}/${groupId}`,
+      {
+        headers: { Authorization: `Bearer ${userToken}` }
+      }
+    );
+    return data;
+  }
 }
 
 export default new adminAPI();

@@ -7,11 +7,14 @@ import {
   resetAdminGroupUpdate
 } from '../../../slices/admin/adminGroupUpdateSlice';
 import Spinner from '../../../components/Spinner/Spinner';
+import {
+  adminGroupDelete,
+  resetAdminGroupDelete
+} from '../../../slices/admin/adminGroupDeleteSlice';
 
-export default function Group({ group }) {
+export default function Group({ group, experienceId }) {
   const [groupId, setGroupId] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [name, setName] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [registrationEndDate, setRegistrationEndDate] = useState(new Date());
@@ -35,13 +38,21 @@ export default function Group({ group }) {
     error: updatedError
   } = adminGroupUpdateSlice;
 
+  const adminGroupDeleteSlice = useSelector(
+    (state) => state.adminGroupDeleteSlice
+  );
+  const {
+    loading: deletedLoading,
+    group: deletedGroup,
+    error: deletedError
+  } = adminGroupDeleteSlice;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (group) {
       setGroupId(group._id);
       setIsActive(group.isActive);
-      setName(group.name);
       setStartDate(new Date(group.startDate));
       setEndDate(new Date(group.endDate));
       setRegistrationEndDate(new Date(group.registrationEndDate));
@@ -60,6 +71,7 @@ export default function Group({ group }) {
   useEffect(() => {
     return () => {
       dispatch(resetAdminGroupUpdate());
+      dispatch(resetAdminGroupDelete());
     };
   }, [dispatch]);
 
@@ -69,7 +81,6 @@ export default function Group({ group }) {
         groupId,
         groupData: {
           isActive,
-          name,
           startDate,
           endDate,
           registrationEndDate,
@@ -84,6 +95,12 @@ export default function Group({ group }) {
     );
   };
 
+  const handleDeleteGroupClick = () => {
+    if (window.confirm('Are you sure you want to delete this group')) {
+      dispatch(adminGroupDelete({ experienceId, groupId }));
+    }
+  };
+
   return (
     <>
       <button
@@ -96,17 +113,31 @@ export default function Group({ group }) {
 
       {isGroupVisible && (
         <div>
-          <button
-            className="admin-action-button"
-            onClick={handleSaveExperienceClick}
-          >
-            {updatedLoading ? <Spinner /> : 'Save Group'}
-          </button>{' '}
+          <div>
+            <button
+              className="admin-action-button"
+              onClick={handleSaveExperienceClick}
+            >
+              {updatedLoading ? <Spinner /> : 'Save Group'}
+            </button>{' '}
+            <button
+              className="admin-action-button danger"
+              onClick={handleDeleteGroupClick}
+            >
+              {deletedLoading ? <Spinner /> : 'Delete Group'}
+            </button>
+          </div>
           {updatedError && (
             <span className="error-message">{updatedError}</span>
           )}
           {updatedGroup && (
             <span className="success-message">Experience updated.</span>
+          )}
+          {deletedError && (
+            <span className="error-message">{deletedError}</span>
+          )}
+          {deletedGroup && (
+            <span className="success-message">Group deleted.</span>
           )}
           <div className="admin-input-box-wrapper-group">
             <div className="admin-input-box">
@@ -119,14 +150,6 @@ export default function Group({ group }) {
                 <option value={true}>True</option>
                 <option value={false}>False</option>
               </select>
-            </div>
-            <div className="admin-input-box">
-              <label>Name</label>
-              <input
-                className="input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
             </div>
             <div className="admin-input-box">
               <label>Start Date</label>

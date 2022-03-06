@@ -57,11 +57,17 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   const adminExperienceDeleteSlice = useSelector(
     (state) => state.adminExperienceDeleteSlice
   );
+
   const {
     loading: deletedLoading,
     experience: deletedExperience,
     error: deletedError
   } = adminExperienceDeleteSlice;
+
+  const adminGroupDeleteSlice = useSelector(
+    (state) => state.adminGroupDeleteSlice
+  );
+  const { group: deletedGroup } = adminGroupDeleteSlice;
 
   const adminGroupCreateSlice = useSelector(
     (state) => state.adminGroupCreateSlice
@@ -108,6 +114,13 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       }, 2000);
     }
   }, [deletedExperience, setSubPage]);
+
+  // If group is deleted, re-rerender
+  useEffect(() => {
+    if (deletedGroup) {
+      dispatch(experienceGet(experienceId));
+    }
+  }, [dispatch, deletedGroup, experienceId]);
 
   // Cleanup when component is lifted
   useEffect(() => {
@@ -459,7 +472,11 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           {groups.length > 0 && (
             <div>
               {groups.map((group, groupIdx) => (
-                <Group key={groupIdx} group={group} />
+                <Group
+                  key={groupIdx}
+                  experienceId={experienceId}
+                  group={group}
+                />
               ))}
             </div>
           )}
