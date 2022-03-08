@@ -309,19 +309,20 @@
 
 .carousel_container,
 .slider_image {
-  height: 80vh;
+  height: 70vh;
 }
 
 .carousel_container {
   border-radius: 1rem;
   overflow: hidden;
-  width: 95vw;
+  width: 70vw;
   z-index: 3;
   cursor: default;
 }
 
 .slider_image {
   width: 100%;
+  border-radius: 1rem;
   object-fit: cover;
   object-position: top center;
 }
