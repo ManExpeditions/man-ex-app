@@ -40,6 +40,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   const [itinerary, setItinerary] = useState([
     { day: 0, image: '', activities: [{ time: '', description: '' }] }
   ]);
+  const [accomodations, setAccomodations] = useState([
+    { name: '', description: '', image: '' }
+  ]);
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
@@ -95,6 +98,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setImages(experience.images.length > 0 ? experience.images : ['']);
       setGroups(experience.groups);
       setItinerary(JSON.parse(JSON.stringify(experience.itinerary))); // Make a deep copy of the object
+      setAccomodations(JSON.parse(JSON.stringify(experience.accomodations)));
     }
   }, [dispatch, experienceId, experience, adminGroup]);
 
@@ -149,7 +153,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           videoThumbnailImage: encodeURIComponent(videoThumbnailImage),
           video: encodeURIComponent(video),
           heroImage: encodeURIComponent(heroImage),
-          itinerary: encodeURIComponent(JSON.stringify(itinerary))
+          itinerary: encodeURIComponent(JSON.stringify(itinerary)),
+          accomodations: encodeURIComponent(JSON.stringify(accomodations))
         }
       })
     );
@@ -448,7 +453,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                               <div className="admin-input-box">
                                 <label>Description</label>
                                 <TextareaAutosize
-                                  className="input admin-input-box"
+                                  className="input"
                                   value={activity.description}
                                   onChange={(e) => {
                                     const _tempItinerary = [...itinerary];
@@ -463,6 +468,79 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                           ))}
                         </div>
                       </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="admin-input-box">
+              <div>
+                <label>Accomodations</label>{' '}
+                <button
+                  className="admin-action-button"
+                  onClick={() =>
+                    setAccomodations((prevAccomodations) => [
+                      ...prevAccomodations,
+                      { name: '', description: '', image: '' }
+                    ])
+                  }
+                >
+                  +
+                </button>{' '}
+                {accomodations.length > 0 && (
+                  <button
+                    className="admin-action-button danger"
+                    onClick={() => {
+                      const _tempAccomodations = [...accomodations];
+                      _tempAccomodations.pop();
+                      setAccomodations([..._tempAccomodations]);
+                    }}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+              <div>
+                {accomodations.map((accomodation, accomodationIdx) => (
+                  <div key={accomodationIdx}>
+                    <div className="admin-input-box">
+                      <label>Name</label>
+                      <input
+                        className="input admin-input-box"
+                        value={accomodation.name}
+                        onChange={(e) => {
+                          const _tempAccomodations = [...accomodations];
+                          _tempAccomodations[accomodationIdx].name =
+                            e.target.value;
+                          setAccomodations(_tempAccomodations);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Description</label>
+                      <TextareaAutosize
+                        className="input admin-input-box"
+                        value={accomodation.description}
+                        onChange={(e) => {
+                          const _tempAccomodations = [...accomodations];
+                          _tempAccomodations[accomodationIdx].description =
+                            e.target.value;
+                          setAccomodations(_tempAccomodations);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Image</label>
+                      <input
+                        className="input admin-input-box"
+                        value={accomodation.image}
+                        onChange={(e) => {
+                          const _tempAccomodations = [...accomodations];
+                          _tempAccomodations[accomodationIdx].image =
+                            e.target.value;
+                          setAccomodations(_tempAccomodations);
+                        }}
+                      />
                     </div>
                   </div>
                 ))}
