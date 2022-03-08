@@ -281,11 +281,14 @@ export default function ExperiencePage() {
                   <div className={styles.itinerary_container}>
                     {isItineraryVisible &&
                       experience.itinerary.map((day, idx) => (
-                        <div className={styles.itinerary_content} key={idx}>
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.itinerary_content_box}`}
+                          key={idx}
+                        >
                           <span className={styles.circle}></span>
-                          <p className={styles.itinerary_day}>{day.title}</p>
+                          <p className={styles.itinerary_day}>{day.day}</p>
                           <img
-                            className={styles.itinerary_image}
+                            className={styles.dropdown_image}
                             src={day.image}
                             alt=""
                           />
@@ -325,6 +328,29 @@ export default function ExperiencePage() {
                     ) : (
                       <BsChevronCompactDown></BsChevronCompactDown>
                     )}
+                  </div>
+                  <div>
+                    {isAccomodationsVisible &&
+                      experience.accomodations.map(
+                        (accomodation, accomodationIdx) => (
+                          <div
+                            className={styles.dropdown_content_box}
+                            key={accomodationIdx}
+                          >
+                            <div>
+                              <img
+                                className={styles.dropdown_image}
+                                src={accomodation.image}
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <h3>{accomodation.name}</h3>
+                              <p>{accomodation.description}</p>
+                            </div>
+                          </div>
+                        )
+                      )}
                   </div>
                 </div>
               )}
