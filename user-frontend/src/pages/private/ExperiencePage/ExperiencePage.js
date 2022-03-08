@@ -11,6 +11,7 @@ import {
 } from '../../../slices/experience/experienceGetSlice';
 import OutsideAlerter from '../../../components/OutsideAlerter';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
+import Rating from '../../../components/Rating/Rating';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -403,7 +404,7 @@ export default function ExperiencePage() {
                   </div>
                 </div>
               )}
-              {experience.reviews > 0 && (
+              {experience.reviews.length > 0 && (
                 <div className={styles.info}>
                   <div
                     className={styles.card}
@@ -415,6 +416,36 @@ export default function ExperiencePage() {
                     ) : (
                       <BsChevronCompactDown></BsChevronCompactDown>
                     )}
+                  </div>
+                  <div>
+                    {isReviewsVisible &&
+                      experience.reviews.map((review, reviewIdx) => (
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.grid_content_box} ${styles.review_content_box}`}
+                          key={reviewIdx}
+                        >
+                          <div className={styles.reviewer_profile}>
+                            <Link to={`/${review.user._id}`}>
+                              <img
+                                className={styles.review_profile}
+                                src={review.user.profilepic}
+                                alt="Review"
+                              />
+                            </Link>
+                            <div>
+                              <h3 className={styles.reviewer_name}>
+                                {review.user.firstName} {review.user.lastName}{' '}
+                              </h3>
+                              <Rating rating={Number(review.stars)}></Rating>
+                            </div>
+                          </div>
+                          <div>
+                            <p className={styles.reviewer_description}>
+                              <em>"{review.description}"</em>
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               )}

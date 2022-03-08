@@ -46,6 +46,10 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   const [activities, setActivities] = useState([
     { name: '', info: '', description: '', image: '', link: '' }
   ]);
+  const [reviews, setReviews] = useState([
+    { user: { _id: '' }, stars: 0, description: '' }
+  ]);
+
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
@@ -103,6 +107,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setItinerary(JSON.parse(JSON.stringify(experience.itinerary))); // Make a deep copy of the object
       setAccomodations(JSON.parse(JSON.stringify(experience.accomodations)));
       setActivities(JSON.parse(JSON.stringify(experience.activities)));
+      setReviews(JSON.parse(JSON.stringify(experience.reviews)));
     }
   }, [dispatch, experienceId, experience, adminGroup]);
 
@@ -160,7 +165,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           heroImage: encodeURIComponent(heroImage),
           itinerary: encodeURIComponent(JSON.stringify(itinerary)),
           accomodations: encodeURIComponent(JSON.stringify(accomodations)),
-          activities: encodeURIComponent(JSON.stringify(activities))
+          activities: encodeURIComponent(JSON.stringify(activities)),
+          reviews: encodeURIComponent(JSON.stringify(reviews))
         }
       })
     );
@@ -445,7 +451,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                           {day.activities.map((activity, activityIdx) => (
                             <div key={activityIdx}>
                               <div className="admin-input-box">
-                              <label>Time</label>
+                                <label>Time</label>
                                 <input
                                   className="input admin-input-box"
                                   value={activity.time}
@@ -650,6 +656,87 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                           const _tempActivities = [...activities];
                           _tempActivities[activityIdx].link = e.target.value;
                           setActivities(_tempActivities);
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="admin-input-box">
+              <div>
+                <label>Reviews</label>
+                <br />
+                <button
+                  className="admin-action-button"
+                  onClick={() =>
+                    setReviews((prevReviews) => [
+                      ...prevReviews,
+                      {
+                        user: { _id: '' },
+                        stars: 0,
+                        description: ''
+                      }
+                    ])
+                  }
+                >
+                  +
+                </button>{' '}
+                {reviews.length > 0 && (
+                  <button
+                    className="admin-action-button danger"
+                    onClick={() => {
+                      const _tempReviews = [...reviews];
+                      _tempReviews.pop();
+                      setReviews([..._tempReviews]);
+                    }}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+              <div className="admin-field">
+                {reviews.map((review, reviewIdx) => (
+                  <div className="admin-subfield" key={reviewIdx}>
+                    <div className="admin-input-box">
+                      <label>UserId</label>
+                      <input
+                        className="input admin-input-box"
+                        value={review.user._id}
+                        onChange={(e) => {
+                          const _tempReviews = [...reviews];
+                          _tempReviews[reviewIdx].user._id = e.target.value;
+                          setReviews(_tempReviews);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Stars</label>
+                      <select
+                        className="input admin-input-box"
+                        value={review.stars}
+                        onChange={(e) => {
+                          const _tempReviews = [...reviews];
+                          _tempReviews[reviewIdx].stars = e.target.value;
+                          setReviews(_tempReviews);
+                        }}
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                      </select>
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Description</label>
+                      <TextareaAutosize
+                        className="input admin-input-box"
+                        value={review.description}
+                        onChange={(e) => {
+                          const _tempReviews = [...reviews];
+                          _tempReviews[reviewIdx].description = e.target.value;
+                          setReviews(_tempReviews);
                         }}
                       />
                     </div>

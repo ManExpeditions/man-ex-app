@@ -1,4 +1,10 @@
+.rating {
+  display: block;
+  width: max-content;
+}
+
 .rating span {
+  display: inline-block;
   color: #f0c040;
   margin: 0.1rem;
 }

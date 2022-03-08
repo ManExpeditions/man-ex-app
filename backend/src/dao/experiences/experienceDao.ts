@@ -29,13 +29,22 @@ class ExperienceDao {
   public async findExperienceById(
     id: mongoose.Types.ObjectId | string
   ): Promise<(Experience & mongoose.Document<Experience>) | null> {
-    const experience = await Experience.findById(id).populate({
-      path: 'groups',
-      populate: {
-        path: 'groupLead',
-        select: ['_id', 'profilepic', 'firstName']
-      }
-    });
+    const experience = await Experience.findById(id)
+      .populate({
+        path: 'groups',
+        populate: {
+          path: 'groupLead',
+          select: ['_id', 'profilepic', 'firstName']
+        }
+      })
+      .populate({
+        path: 'reviews',
+        populate: {
+          path: 'user',
+          select: ['profilepic', 'firstName', 'lastName']
+        }
+      });
+
     return experience;
   }
 
@@ -85,6 +94,9 @@ class ExperienceDao {
     experience.activities = experienceInfo.activities
       ? JSON.parse(decodeURIComponent(experienceInfo.activities))
       : experience.activities;
+    experience.reviews = experienceInfo.reviews
+      ? JSON.parse(decodeURIComponent(experienceInfo.reviews))
+      : experience.reviews;
     experience.whatsIncluded =
       experienceInfo.whatsIncluded || experience.whatsIncluded;
     experience.terms = experienceInfo.terms || experience.terms;
