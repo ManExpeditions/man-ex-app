@@ -319,7 +319,19 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   onClick={() => setImages((prevImages) => [...prevImages, ''])}
                 >
                   +
-                </button>
+                </button>{' '}
+                {images.length > 1 && (
+                  <button
+                    className="admin-action-button danger"
+                    onClick={() => {
+                      const _tempImages = [...images];
+                      _tempImages.pop();
+                      setImages(_tempImages);
+                    }}
+                  >
+                    -
+                  </button>
+                )}
               </div>
               <div className="margin-1">
                 {images.map((image, imageIdx) => (
