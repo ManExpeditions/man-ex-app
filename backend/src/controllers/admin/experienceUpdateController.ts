@@ -73,7 +73,7 @@ export const experienceUpdateController = [
     .escape(),
   body('video', 'Enter valid video').optional().isString().escape(),
   body('heroImage', 'Enter valid hero image').optional().isString().escape(),
-  body('images', 'Enter valid images').optional().isArray().escape(),
+  body('images', 'Enter valid images').optional().isString().escape(),
   body('itinerary', 'Enter valid itinerary').optional().isString().escape(),
   body('accomodations', 'Enter valid accomodations')
     .optional()

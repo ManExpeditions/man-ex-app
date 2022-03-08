@@ -95,7 +95,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setVideoThumbnailImage(experience.videoThumbnailImage);
       setVideo(experience.video);
       setHeroImage(experience.heroImage);
-      setImages(experience.images.length > 0 ? experience.images : ['']);
+      setImages(JSON.parse(JSON.stringify(experience.images)));
       setGroups(experience.groups);
       setItinerary(JSON.parse(JSON.stringify(experience.itinerary))); // Make a deep copy of the object
       setAccomodations(JSON.parse(JSON.stringify(experience.accomodations)));
@@ -152,6 +152,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           deposit,
           videoThumbnailImage: encodeURIComponent(videoThumbnailImage),
           video: encodeURIComponent(video),
+          images: encodeURIComponent(JSON.stringify(images)),
           heroImage: encodeURIComponent(heroImage),
           itinerary: encodeURIComponent(JSON.stringify(itinerary)),
           accomodations: encodeURIComponent(JSON.stringify(accomodations))
@@ -325,7 +326,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                 >
                   +
                 </button>{' '}
-                {images.length > 1 && (
+                {images.length > 0 && (
                   <button
                     className="admin-action-button danger"
                     onClick={() => {

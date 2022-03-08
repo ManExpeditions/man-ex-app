@@ -74,7 +74,7 @@ class ExperienceDao {
       ? decodeURIComponent(experienceInfo.heroImage)
       : experience.heroImage;
     experience.images = experienceInfo.images
-      ? experienceInfo.images.map((image) => decodeURIComponent(image))
+      ? JSON.parse(decodeURIComponent(experienceInfo.images))
       : experience.images;
     experience.itinerary = experienceInfo.itinerary
       ? JSON.parse(decodeURIComponent(experienceInfo.itinerary))

@@ -219,7 +219,7 @@ export default function ExperiencePage() {
                           items={experience.images.map((img, idx) => (
                             <img
                               className={styles.slider_image}
-                              src={img.url}
+                              src={img}
                               alt={`${experience.name}-${idx}`}
                             />
                           ))}
@@ -229,11 +229,11 @@ export default function ExperiencePage() {
                   </div>
                 ) : (
                   <div className={styles.images}>
-                    {experience.images.slice(0, 6).map((image, imageIdx) => (
+                    {experience.images.slice(0, 6).map((img, imageIdx) => (
                       <div key={imageIdx} className={styles.image_container}>
                         <img
                           className={styles.image}
-                          src={image.url}
+                          src={img}
                           onClick={() => handleImageClick(imageIdx)}
                           alt={`${experience.name}-${imageIdx}`}
                         />

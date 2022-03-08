@@ -14,7 +14,7 @@ interface Experience {
   videoThumbnailImage: string;
   video: string;
   heroImage: string;
-  images: string[];
+  images: string;
   itinerary: string; // string because it is sent as string on requests
   accomodations: string;
   activities: string;
