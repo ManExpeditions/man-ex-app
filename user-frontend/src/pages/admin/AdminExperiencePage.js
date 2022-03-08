@@ -43,6 +43,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   const [accomodations, setAccomodations] = useState([
     { name: '', description: '', image: '' }
   ]);
+  const [activities, setActivities] = useState([
+    { name: '', info: '', description: '', image: '', link: '' }
+  ]);
   const [groups, setGroups] = useState([]);
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
@@ -99,6 +102,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setGroups(experience.groups);
       setItinerary(JSON.parse(JSON.stringify(experience.itinerary))); // Make a deep copy of the object
       setAccomodations(JSON.parse(JSON.stringify(experience.accomodations)));
+      setActivities(JSON.parse(JSON.stringify(experience.activities)));
     }
   }, [dispatch, experienceId, experience, adminGroup]);
 
@@ -155,7 +159,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           images: encodeURIComponent(JSON.stringify(images)),
           heroImage: encodeURIComponent(heroImage),
           itinerary: encodeURIComponent(JSON.stringify(itinerary)),
-          accomodations: encodeURIComponent(JSON.stringify(accomodations))
+          accomodations: encodeURIComponent(JSON.stringify(accomodations)),
+          activities: encodeURIComponent(JSON.stringify(activities))
         }
       })
     );
@@ -319,7 +324,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
             </div>
             <div className="admin-input-box">
               <div>
-                <label>Images</label>{' '}
+                <label>Images</label>
+                <br />
                 <button
                   className="admin-action-button"
                   onClick={() => setImages((prevImages) => [...prevImages, ''])}
@@ -356,7 +362,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
             </div>
             <div className="admin-input-box">
               <div>
-                <label>Itinerary</label>{' '}
+                <label>Itinerary</label>
+                <br />
                 <button
                   className="admin-action-button"
                   onClick={() =>
@@ -381,9 +388,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   </button>
                 )}
               </div>
-              <div>
+              <div className="admin-field">
                 {itinerary.map((day, dayIdx) => (
-                  <div key={dayIdx} className="">
+                  <div key={dayIdx} className="admin-subfield">
                     <div>
                       <div className="admin-input-box">
                         <label>Day</label>
@@ -438,7 +445,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                           {day.activities.map((activity, activityIdx) => (
                             <div key={activityIdx}>
                               <div className="admin-input-box">
-                                <label>Time</label>
+                              <label>Time</label>
                                 <input
                                   className="input admin-input-box"
                                   value={activity.time}
@@ -476,7 +483,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
             </div>
             <div className="admin-input-box">
               <div>
-                <label>Accomodations</label>{' '}
+                <label>Accomodations</label>
+                <br />
                 <button
                   className="admin-action-button"
                   onClick={() =>
@@ -501,9 +509,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   </button>
                 )}
               </div>
-              <div>
+              <div className="admin-field">
                 {accomodations.map((accomodation, accomodationIdx) => (
-                  <div key={accomodationIdx}>
+                  <div className="admin-subfield" key={accomodationIdx}>
                     <div className="admin-input-box">
                       <label>Name</label>
                       <input
@@ -540,6 +548,108 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                           _tempAccomodations[accomodationIdx].image =
                             e.target.value;
                           setAccomodations(_tempAccomodations);
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="admin-input-box">
+              <div>
+                <label>Activities</label>
+                <br />
+                <button
+                  className="admin-action-button"
+                  onClick={() =>
+                    setActivities((prevActivities) => [
+                      ...prevActivities,
+                      {
+                        name: '',
+                        info: '',
+                        description: '',
+                        image: '',
+                        link: ''
+                      }
+                    ])
+                  }
+                >
+                  +
+                </button>{' '}
+                {activities.length > 0 && (
+                  <button
+                    className="admin-action-button danger"
+                    onClick={() => {
+                      const _tempActivities = [...activities];
+                      _tempActivities.pop();
+                      setActivities([..._tempActivities]);
+                    }}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+              <div className="admin-field">
+                {activities.map((activity, activityIdx) => (
+                  <div className="admin-subfield" key={activityIdx}>
+                    <div className="admin-input-box">
+                      <label>Name</label>
+                      <input
+                        className="input admin-input-box"
+                        value={activity.name}
+                        onChange={(e) => {
+                          const _tempActivities = [...activities];
+                          _tempActivities[activityIdx].name = e.target.value;
+                          setActivities(_tempActivities);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Info</label>
+                      <TextareaAutosize
+                        className="input admin-input-box"
+                        value={activity.info}
+                        onChange={(e) => {
+                          const _tempActivities = [...activities];
+                          _tempActivities[activityIdx].info = e.target.value;
+                          setActivities(_tempActivities);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Description</label>
+                      <TextareaAutosize
+                        className="input admin-input-box"
+                        value={activity.description}
+                        onChange={(e) => {
+                          const _tempActivities = [...activities];
+                          _tempActivities[activityIdx].description =
+                            e.target.value;
+                          setActivities(_tempActivities);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Image</label>
+                      <input
+                        className="input admin-input-box"
+                        value={activity.image}
+                        onChange={(e) => {
+                          const _tempActivities = [...activities];
+                          _tempActivities[activityIdx].image = e.target.value;
+                          setActivities(_tempActivities);
+                        }}
+                      />
+                    </div>
+                    <div className="admin-input-box">
+                      <label>Link</label>
+                      <input
+                        className="input admin-input-box"
+                        value={activity.link}
+                        onChange={(e) => {
+                          const _tempActivities = [...activities];
+                          _tempActivities[activityIdx].link = e.target.value;
+                          setActivities(_tempActivities);
                         }}
                       />
                     </div>

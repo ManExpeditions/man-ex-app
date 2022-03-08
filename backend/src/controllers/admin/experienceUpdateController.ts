@@ -79,7 +79,7 @@ export const experienceUpdateController = [
     .optional()
     .isString()
     .escape(),
-  body('activities', 'Enter valid activities').optional().isObject().escape(),
+  body('activities', 'Enter valid activities').optional().isString().escape(),
   body('whatsIncluded', 'Enter valid whats included')
     .optional()
     .isObject()

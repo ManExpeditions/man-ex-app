@@ -82,7 +82,9 @@ class ExperienceDao {
     experience.accomodations = experienceInfo.accomodations
       ? JSON.parse(decodeURIComponent(experienceInfo.accomodations))
       : experience.accomodations;
-    experience.activities = experienceInfo.activities || experience.activities;
+    experience.activities = experienceInfo.activities
+      ? JSON.parse(decodeURIComponent(experienceInfo.activities))
+      : experience.activities;
     experience.whatsIncluded =
       experienceInfo.whatsIncluded || experience.whatsIncluded;
     experience.terms = experienceInfo.terms || experience.terms;

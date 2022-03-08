@@ -334,12 +334,12 @@ export default function ExperiencePage() {
                       experience.accomodations.map(
                         (accomodation, accomodationIdx) => (
                           <div
-                            className={styles.dropdown_content_box}
+                            className={`${styles.dropdown_content_box} ${styles.grid_content_box}`}
                             key={accomodationIdx}
                           >
                             <div>
                               <img
-                                className={styles.dropdown_image}
+                                className={`${styles.dropdown_image} ${styles.no_margin}`}
                                 src={accomodation.image}
                                 alt=""
                               />
@@ -366,6 +366,40 @@ export default function ExperiencePage() {
                     ) : (
                       <BsChevronCompactDown></BsChevronCompactDown>
                     )}
+                  </div>
+                  <div>
+                    {isActivitiesVisible &&
+                      experience.activities.map((activity, activityIdx) => (
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.grid_content_box}`}
+                          key={activityIdx}
+                        >
+                          <div>
+                            <img
+                              className={`${styles.dropdown_image} ${styles.no_margin}`}
+                              src={activity.image}
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <h3>{activity.name}</h3>
+                            <p>{activity.info}</p>
+                            <br />
+                            <p>{activity.description}</p>
+                            {activity.link && (
+                              <>
+                                <br />
+                                <Link
+                                  className="link link-primary link-blue"
+                                  to={activity.link}
+                                >
+                                  Get Tickets
+                                </Link>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
               )}

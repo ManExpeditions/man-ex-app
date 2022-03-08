@@ -408,7 +408,7 @@
 .dropdown_content_box {
   position: relative;
   margin-top: 2rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .dropdown_image {
@@ -446,6 +446,30 @@
   width: max-content;
   white-space: nowrap;
   line-height: 1.7;
+}
+
+/* Activities */
+.dropdown_content_box.grid_content_box {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  align-items: start;
+  justify-content: start;
+  padding-bottom: 1rem;
+}
+
+.dropdown_content_box.grid_content_box:not(:last-of-type) {
+  border-bottom: 0.5px solid #fff;
+}
+
+.no_margin {
+  margin: 0;
+}
+
+@media (max-width: 850px) {
+  .dropdown_content_box.grid_content_box {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Deposit box */

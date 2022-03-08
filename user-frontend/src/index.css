@@ -412,6 +412,18 @@ input:-webkit-autofill {
 }
 
 /* Admin general styles */
+.admin-field,
+.admin-subfield {
+  border: 1px solid #1e1e1e;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.admin-subfield {
+  border: none;
+  border-top: 1px solid #1e1e1e;
+}
+
 .admin-spinner-wrapper {
   display: inline-block;
   max-width: max-content;
