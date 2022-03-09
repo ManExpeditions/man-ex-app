@@ -64,8 +64,13 @@ class ExperienceDao {
 
     experience.isActive = experienceInfo.isActive || experience.isActive;
     experience.name = experienceInfo.name || experience.name;
-    experience.description =
-      experienceInfo.description || experience.description;
+    // experience.description =
+    // experienceInfo.description || experience.description;
+
+    experience.description = experienceInfo.description
+      ? JSON.parse(decodeURIComponent(experienceInfo.description))
+      : experience.description;
+
     experience.numberOfDays =
       experienceInfo.numberOfDays || experience.numberOfDays;
     experience.location = experienceInfo.location || experience.location;

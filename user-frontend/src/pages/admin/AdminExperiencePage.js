@@ -20,13 +20,14 @@ import {
   resetAdminExperienceDelete
 } from '../../slices/admin/adminExperienceDeleteSlice';
 import MessageBox from '../../components/MessageBox/MessageBox';
+import TextEditor from './components/TextEditor';
 
 export default function AdminExperiencePage({ experienceId, setSubPage }) {
   // Experience states
   const [id, setId] = useState(true);
   const [isActive, setIsActive] = useState(true);
   const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState([]);
   const [numberOfDays, setNumberOfDays] = useState(0);
   const [location, setLocation] = useState('');
   const [continent, setContinent] = useState('');
@@ -92,7 +93,8 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setId(experience._id);
       setIsActive(experience.isActive);
       setName(experience.name);
-      setDescription(experience.description);
+      // setDescription(experience.description);
+      setDescription(JSON.parse(JSON.stringify(experience.description)));
       setNumberOfDays(experience.numberOfDays);
       setLocation(experience.location);
       setContinent(experience.continent);
@@ -146,13 +148,15 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   }, [dispatch]);
 
   const handleSaveExperienceClick = () => {
+    console.log(description.ops);
     dispatch(
       adminExperienceUpdate({
         experienceId: id,
         experienceData: {
           isActive,
           name,
-          description,
+          // description,
+          description: encodeURIComponent(JSON.stringify(description)),
           numberOfDays,
           location,
           continent,
@@ -177,6 +181,10 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       dispatch(adminExperienceDelete(id));
     }
   };
+
+  useEffect(() => {
+    console.log(description);
+  }, [description]);
 
   return (
     <div>
@@ -212,6 +220,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   <span className="success-message">Experience updated.</span>
                 )}
               </div>
+
               <div>
                 <button
                   className="admin-action-button"
@@ -248,11 +257,15 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
             </div>
             <div className="admin-input-box">
               <label>Description</label>
-              <TextareaAutosize
+              <TextEditor
+                value={description}
+                onChange={setDescription}
+              ></TextEditor>
+              {/* <TextareaAutosize
                 className="input"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              />
+              /> */}
             </div>
             <div className="admin-input-box">
               <label>Number of days</label>

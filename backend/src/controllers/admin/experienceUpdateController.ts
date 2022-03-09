@@ -54,10 +54,7 @@ export const experienceUpdateController = [
     .isString()
     .isLength({ min: 3 })
     .escape(),
-  body('description', 'Enter valid description')
-    .optional()
-    .isString()
-    .isLength({ min: 10 }),
+  body('description', 'Enter valid description').optional().isString().escape(),
   body('numberOfDays', 'Enter valid number of days')
     .optional()
     .isNumeric()
