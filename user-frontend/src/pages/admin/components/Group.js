@@ -24,6 +24,7 @@ export default function Group({ group, experienceId }) {
   const [capacity, setCapacity] = useState(0);
   const [description, setDescription] = useState('');
   const [groupLeadId, setGroupLeadId] = useState('');
+  const [groupLeadName, setGroupLeadName] = useState('');
   const [goingUsers, setGoingUsers] = useState([]);
   const [interestedUsers, setInterestedUsers] = useState([]);
 
@@ -62,6 +63,7 @@ export default function Group({ group, experienceId }) {
       setCapacity(group.capacity);
       setDescription(group.description);
       setGroupLeadId(group.groupLead ? group.groupLead._id : '');
+      setGroupLeadName(group.groupLead ? group.groupLead.firstName : '');
       setGoingUsers(group.goingUsers);
       setInterestedUsers(group.interestedUsers);
     }
@@ -107,7 +109,7 @@ export default function Group({ group, experienceId }) {
         className="admin-dropdown-button"
         onClick={() => setIsGroupVisible((prevValue) => !prevValue)}
       >
-        Group Id: {groupId}
+        {groupLeadName ? `${groupLeadName}'s group` : `Group Id: ${groupId}`}
         {isGroupVisible ? <BsChevronCompactUp /> : <BsChevronCompactDown />}
       </button>
 
@@ -140,6 +142,7 @@ export default function Group({ group, experienceId }) {
             <span className="success-message">Group deleted.</span>
           )}
           <div className="admin-input-box-wrapper-group">
+            Id: {groupId}
             <div className="admin-input-box">
               <label>isActive</label>
               <select
