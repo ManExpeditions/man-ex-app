@@ -4,10 +4,13 @@ export default function ChipCheckBox({
   checkboxState,
   setCheckboxState,
   label,
-  imageSrc
+  imageSrc,
+  notInteractive
 }) {
   return (
-    <div className={styles.chip}>
+    <div
+      className={`${styles.chip} ${notInteractive && styles.no_pointer_events}`}
+    >
       <input
         checked={checkboxState}
         onChange={(e) => setCheckboxState(!checkboxState)}

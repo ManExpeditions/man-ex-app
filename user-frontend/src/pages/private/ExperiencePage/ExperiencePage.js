@@ -168,7 +168,7 @@ export default function ExperiencePage() {
                       <Link
                         to={`/profile/${
                           group.groupLead && group.groupLead._id
-                        }`}
+                        }?back=/experiences/${id}`}
                       >
                         <img
                           className={styles.group_profile}
@@ -428,7 +428,9 @@ export default function ExperiencePage() {
                           key={reviewIdx}
                         >
                           <div className={styles.reviewer_profile}>
-                            <Link to={`/profile/${review.user._id}`}>
+                            <Link
+                              to={`/profile/${review.user._id}?back=/experiences/${id}`}
+                            >
                               <img
                                 className={styles.review_profile}
                                 src={review.user.profilepic}

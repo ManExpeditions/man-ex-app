@@ -182,3 +182,20 @@ export const parseInterestState = ({
 
   return interests;
 };
+
+export const InterestsToIconMapper = {
+  'Nature & Outdoors': '/assets/icons/rocks.png',
+  'Resort Vacations': '/assets/icons/coconut-tree.png',
+  Wildlife: '/assets/icons/lion.png',
+  'Luxury Get-aways': '/assets/icons/diamond.png',
+  'Active Get-aways': '/assets/icons/skiing.png',
+  Camping: '/assets/icons/camping-tent.png',
+  'Burning Man': '/assets/icons/fire.png',
+  'Music Festivals': '/assets/icons/music-notes.png',
+  'Arts & Culure': '/assets/icons/culture.png',
+  'Pride events': '/assets/icons/rainbow.png',
+  'Wellness Retreats': '/assets/icons/apple.png',
+  'Volunteering Trips': '/assets/icons/volunteer.png',
+  Cruises: '/assets/icons/cruise.png',
+  'Nudist Adventures': '/assets/icons/nudist.png'
+};
