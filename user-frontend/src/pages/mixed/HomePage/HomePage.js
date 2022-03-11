@@ -192,7 +192,10 @@ export default function HomePage() {
               alt=""
             />
           </Link>
-          <Link to="/register" className="link link-long">
+          <Link
+            to={user ? '/experiences' : '/register'}
+            className="link link-long"
+          >
             {user ? 'Explore the community' : 'Join the community'}
           </Link>
           {!user && (
