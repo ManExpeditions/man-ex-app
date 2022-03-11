@@ -120,7 +120,8 @@ export const groupUpdateController = [
       price: updatedGroup.price,
       thriveCartScriptId: updatedGroup.thriveCartScriptId,
       capacity: updatedGroup.capacity,
-      description: updatedGroup.description
+      description: updatedGroup.description,
+      groupLead: updatedGroup.groupLead
     });
     return;
   })

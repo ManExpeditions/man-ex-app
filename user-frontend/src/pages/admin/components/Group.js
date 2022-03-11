@@ -89,7 +89,7 @@ export default function Group({ group, experienceId }) {
           thriveCartScriptId,
           capacity,
           description,
-          groupLeadId
+          groupLead: groupLeadId
         }
       })
     );
