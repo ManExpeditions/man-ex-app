@@ -212,6 +212,7 @@
 }
 
 .group_profile,
+.going_interested_profilepic,
 .review_profile {
   cursor: pointer;
   position: relative;
@@ -226,6 +227,13 @@
   transition: 300ms ease-in-out;
 }
 
+.going_interested_profilepic {
+  width: 4rem;
+  height: 4rem;
+}
+
+.going_interested_profilepic:hover,
+.going_interested_profilepic:focus,
 .group_profile:hover,
 .group_profile:focus,
 .review_profile:hover,
@@ -242,6 +250,24 @@
   padding: 0.25rem 1rem;
   font-size: 0.9rem;
   margin: 1rem auto 1rem 0;
+}
+
+.going_interested_user {
+  margin: 1rem 0;
+  position: relative;
+  width: max-content;
+  text-align: center;
+}
+
+.going_interested_name {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+}
+
+.checkmark {
+  position: absolute;
+  right: 0;
+  bottom: 0.9rem;
 }
 
 @media (min-width: 800px) {

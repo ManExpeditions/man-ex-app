@@ -4,6 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactUp, BsChevronCompactDown } from 'react-icons/bs';
+import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 import styles from './ExperiencePage.module.css';
 import {
   experienceGet,
@@ -184,7 +185,7 @@ export default function ExperiencePage() {
                       <h4 className={styles.group_name}>
                         {group.groupLead && group.groupLead.firstName}'s Group
                       </h4>
-                      <h4 className={styles.group_date}>{group.date}</h4>
+                      <h2 className={styles.group_date}>{group.dateText}</h2>
                       <p className={styles.group_description}>
                         "{group.description}"
                       </p>
@@ -196,14 +197,34 @@ export default function ExperiencePage() {
                       >
                         Book with this group
                       </button>
-                      {group.goingUsers.length > 0 ||
-                        (group.interestedUsers.length > 0 && (
-                          <>
-                            <h4>Who's Going/Interested</h4>
-                          </>
-                        ))}
+                      {(group.goingUsers.length > 0 ||
+                        group.interestedUsers.length > 0) && (
+                        <>
+                          <h4>Who's Going/Interested</h4>
+                        </>
+                      )}
                       {group.goingUsers.map((goingUser, goingUserIdx) => (
-                        <p key={goingUserIdx}>{goingUser._id}</p>
+                        <div
+                          key={goingUserIdx}
+                          className={styles.going_interested_user}
+                        >
+                          <Link
+                            to={`/profile/${goingUser._id}?back=/experiences/${id}`}
+                          >
+                            <img
+                              className={styles.going_interested_profilepic}
+                              src={goingUser.profilepic}
+                              alt="Group Lead"
+                            />
+                          </Link>
+                          <IoCheckmarkCircleSharp
+                            style={{ color: '20a020' }}
+                            className={styles.checkmark}
+                          />
+                          <p className={styles.going_interested_name}>
+                            {goingUser.firstName}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>
