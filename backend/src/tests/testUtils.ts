@@ -9,12 +9,15 @@ export interface SupertestIndex extends supertest.SuperTest<supertest.Test> {
   [key: string]: any;
 }
 
-export const getUser = (): {
+export const getUser = (
+  admin = false
+): {
   user_id: mongoose.Types.ObjectId;
   user_email: string;
   user_pass: string;
   user_pass_encrypted: string;
   user_phone: string;
+  user_admin: boolean;
   user_token: string;
 } => {
   const userId = mongoose.Types.ObjectId();
@@ -24,6 +27,7 @@ export const getUser = (): {
     user_pass: 'CyKHe3kR',
     user_pass_encrypted: bcrypt.hashSync('CyKHe3kR', 8),
     user_phone: '+16289462243',
-    user_token: generateToken({ _id: userId })
+    user_admin: admin,
+    user_token: generateToken({ id: userId, adminUser: admin })
   };
 };

@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 import Experience from '../../models/experience';
 
 class ExperienceDao {
-  public async get_experiences(): Promise<Experience[] | null> {
+  public async getExperiences(): Promise<Experience[] | null> {
     const experiences = await Experience.find({});
     return experiences;
   }
 
-  public async create_new_experience(
+  public async createNewExperience(
     id?: mongoose.Types.ObjectId | string
   ): Promise<Experience> {
     const experience = new Experience({
@@ -20,32 +20,50 @@ class ExperienceDao {
       continent: 'Sample Continent',
       season: 'Sample Season',
       pricing: 0,
-      deposit: 0,
-      videoThumbnailImage: 'Sample thumbnail Image',
-      video: 'Sample url',
-      heroImage: 'Sample image',
-      images: ['Sample image']
+      deposit: 0
     });
     const createdExperience = await experience.save();
     return createdExperience;
   }
 
-  public async find_experience_by_id(
+  public async findExperienceById(
     id: mongoose.Types.ObjectId | string
-  ): Promise<Experience | null> {
-    const experience = await Experience.findById(id);
+  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
+    const experience = await Experience.findById(id)
+      .populate({
+        path: 'groups',
+        populate: {
+          path: 'groupLead',
+          select: ['_id', 'profilepic', 'firstName']
+        }
+      })
+      .populate({
+        path: 'groups',
+        populate: {
+          path: 'goingUsers',
+          select: ['_id', 'profilepic', 'firstName']
+        }
+      })
+      .populate({
+        path: 'reviews',
+        populate: {
+          path: 'user',
+          select: ['profilepic', 'firstName', 'lastName']
+        }
+      });
+
     return experience;
   }
 
-  public async delete_experience_by_id(id: mongoose.Types.ObjectId | string) {
+  public async deleteExperienceById(id: mongoose.Types.ObjectId | string) {
     const deletedExperience = await Experience.findByIdAndDelete(id);
     return deletedExperience;
   }
 
-  public async update_experience(
+  public async updateExperience(
     id: mongoose.Types.ObjectId | string,
     experienceInfo: Experience
-  ): Promise<Experience | null> {
+  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
     const experience = await Experience.findById(id);
     if (!experience) {
       return null;
@@ -72,12 +90,20 @@ class ExperienceDao {
       ? decodeURIComponent(experienceInfo.heroImage)
       : experience.heroImage;
     experience.images = experienceInfo.images
-      ? experienceInfo.images.map((image) => decodeURIComponent(image))
+      ? JSON.parse(decodeURIComponent(experienceInfo.images))
       : experience.images;
-    experience.itinerary = experienceInfo.itinerary || experience.itinerary;
-    experience.accomodations =
-      experienceInfo.accomodations || experience.accomodations;
-    experience.activities = experienceInfo.activities || experience.activities;
+    experience.itinerary = experienceInfo.itinerary
+      ? JSON.parse(decodeURIComponent(experienceInfo.itinerary))
+      : experience.itinerary;
+    experience.accomodations = experienceInfo.accomodations
+      ? JSON.parse(decodeURIComponent(experienceInfo.accomodations))
+      : experience.accomodations;
+    experience.activities = experienceInfo.activities
+      ? JSON.parse(decodeURIComponent(experienceInfo.activities))
+      : experience.activities;
+    experience.reviews = experienceInfo.reviews
+      ? JSON.parse(decodeURIComponent(experienceInfo.reviews))
+      : experience.reviews;
     experience.whatsIncluded =
       experienceInfo.whatsIncluded || experience.whatsIncluded;
     experience.terms = experienceInfo.terms || experience.terms;
@@ -93,19 +119,39 @@ class ExperienceDao {
     return experience;
   }
 
-  public async add_going_user_to_experience_group(
-    label: string,
-    userId: mongoose.Types.ObjectId
+  public async addGroupToExperience(
+    experience: Experience & mongoose.Document<Experience>,
+    groupId: mongoose.Types.ObjectId
   ) {
-    const experience = await this.find_experience_by_group_label(label);
-    experience?.groups
-      .find((group) => group.label === label)
-      ?.goingUsers.push({ userId: String(userId) });
-    const updatedExperience = await experience?.save();
-    return updatedExperience;
+    experience.groups.push(groupId);
+    await experience?.save();
   }
 
-  public async delete_all_experiences(): Promise<void> {
+  public async deleteGroupFromExperience(
+    experienceId: mongoose.Types.ObjectId | string,
+    groupId: string
+  ) {
+    const experience = await Experience.findById(experienceId);
+    const groupIdx = experience?.groups.indexOf(
+      mongoose.Types.ObjectId(groupId)
+    );
+    experience?.groups.splice(groupIdx as number, 1);
+    await experience?.save();
+  }
+
+  // public async add_going_user_to_experience_group(
+  //   label: string,
+  //   userId: mongoose.Types.ObjectId
+  // ) {
+  //   // const experience = await this.find_experience_by_group_label(label);
+  //   // experience?.groups
+  //   //   .find((group) => group.label === label)
+  //   //   ?.goingUsers.push({ userId: String(userId) });
+  //   // const updatedExperience = await experience?.save();
+  //   // return updatedExperience;
+  // }
+
+  public async deleteAllExperiences(): Promise<void> {
     await Experience.deleteMany();
   }
 }

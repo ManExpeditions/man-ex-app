@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import User from '../../models/user';
 
 class UserDao {
-  public async create_new_user_by_email(
+  public async createNewUserByEmail(
     email: string,
     encryptedPassword: string,
     id?: mongoose.Types.ObjectId | string
@@ -17,24 +17,24 @@ class UserDao {
     return createdUser;
   }
 
-  public async find_user_by_email(email: string): Promise<User | null> {
+  public async findUserByEmail(email: string): Promise<User | null> {
     const user = await User.findOne({ email });
     return user;
   }
 
-  public async find_user_by_id(
+  public async findUserById(
     id: mongoose.Types.ObjectId | string
   ): Promise<User | null> {
     const user = await User.findById(id);
     return user;
   }
 
-  public async delete_user_by_id(id: mongoose.Types.ObjectId | string) {
+  public async deleteUserById(id: mongoose.Types.ObjectId | string) {
     const deletedUser = await User.findByIdAndDelete(id);
     return deletedUser;
   }
 
-  public async update_user(
+  public async updateUser(
     id: mongoose.Types.ObjectId | string,
     userInfo: User
   ): Promise<User | null> {
@@ -83,27 +83,27 @@ class UserDao {
     return updatedUser;
   }
 
-  public async delete_all_users(): Promise<void> {
+  public async deleteAllUsers(): Promise<void> {
     await User.deleteMany();
   }
 
-  public async verify_user_email(
+  public async verifyUserEmail(
     user: User,
     email: string
   ): Promise<User | null> {
     user.email = email;
     user.emailVerified = true;
-    const updatedUser = await this.update_user(user._id, user);
+    const updatedUser = await this.updateUser(user._id, user);
     return updatedUser;
   }
 
-  public async verify_and_update_phone(
+  public async verifyAndUpdatePhone(
     user: User,
     phone: string
   ): Promise<User | null> {
     user.phone = phone;
     user.phoneVerified = true;
-    const updatedUser = await this.update_user(user._id, user);
+    const updatedUser = await this.updateUser(user._id, user);
     return updatedUser;
   }
 }

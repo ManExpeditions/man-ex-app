@@ -62,6 +62,15 @@ class userAPI {
     });
     return data;
   }
+
+  async getUserProfile(userId, userToken) {
+    const { data } = await Axios.get(`/api/user/v1/${userId}/profile`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    });
+    return data;
+  }
 }
 
 export default new userAPI();

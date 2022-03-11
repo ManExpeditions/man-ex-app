@@ -1,4 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-pro-sidebar/dist/css/styles.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import RegisterPage from './pages/public/RegisterPage/RegisterPage';
@@ -19,6 +21,7 @@ import AboutPage from './pages/public/AboutPage/AboutPage';
 import PressPage from './pages/public/PressPage/PressPage';
 import OnboardingRoute from './routes/OnboardingRoute';
 import PrivateRoute from './routes/PrivateRoute';
+import AdminRoute from './routes/AdminRoute';
 import ExperiencesPage from './pages/mixed/ExperiencesPage/ExperiencesPage';
 import UserSettingsPage from './pages/private/UserProfilePages/UserSettingsPage/UserSettingsPage';
 import TravelSponsorshipsPage from './pages/public/TravelSponsorshipsPage/TravelSponsorshipsPage';
@@ -30,6 +33,8 @@ import UpdatePhonePage from './pages/private/UserProfilePages/UpdatePhonePage/Up
 import UpdatePasswordPage from './pages/private/UserProfilePages/UpdatePasswordPage/UpdatePasswordPage';
 import ManageAccountPage from './pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage';
 import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
+import AdminPanelPage from './pages/admin/AdminPanelPage';
+import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplayProfilePage/UserDisplayProfilePage';
 
 function App() {
   return (
@@ -95,6 +100,7 @@ function App() {
           path="/privacy-and-serviceterms"
           component={PrivacyAndServiceTermsPage}
         ></Route>
+
         <PrivateRoute
           path="/profile/settings/email"
           component={UpdateEmailPage}
@@ -126,10 +132,20 @@ function App() {
           component={UserEditProfilePage}
         ></PrivateRoute>
         <PrivateRoute
+          path="/profile/:id"
+          exact
+          component={UserDisplayProfilePage}
+        ></PrivateRoute>
+        <PrivateRoute
           exact
           path="/profile"
           component={UserProfilePage}
         ></PrivateRoute>
+        <AdminRoute
+          exact
+          path="/manexadmin"
+          component={AdminPanelPage}
+        ></AdminRoute>
       </Switch>
     </Router>
   );

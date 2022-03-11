@@ -60,7 +60,7 @@ export const userVerificationCodeController = [
 
     // Check if user does not exist
     const userId = req.params.id;
-    const user = await userDao.find_user_by_id(userId);
+    const user = await userDao.findUserById(userId);
     if (!user) {
       const err = new Error(
         `User not found: User with id ${req.params.id} not found.`
@@ -92,7 +92,7 @@ export const userVerificationCodeController = [
 
     // We need to make sure that the email is not being used by another user
     if (type === 'email') {
-      const user = await userDao.find_user_by_email(email);
+      const user = await userDao.findUserByEmail(email);
       if (user) {
         const err = new Error('Invalid Request: Email already being used.');
         logger.error(err.message);

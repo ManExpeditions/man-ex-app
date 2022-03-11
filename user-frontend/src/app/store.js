@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import adminGroupCreateSlice from '../slices/admin/adminGroupCreateSlice';
+import adminExperienceCreateSlice from '../slices/admin/adminExperienceCreateSlice';
 import photoUploadSlice from '../slices/assets/photoUploadSlice';
 import emailRegisterSlice from '../slices/auth/emailRegisterSlice';
 import signinSlice from '../slices/auth/signinSlice';
@@ -10,6 +12,11 @@ import userUpdateSlice from '../slices/user/userUpdateSlice';
 import userValidateSlice from '../slices/user/userValidateSlice';
 import verificationCodeSlice from '../slices/user/verificationCodeSlice';
 import verifySlice from '../slices/user/verifySlice';
+import adminExperienceUpdateSlice from '../slices/admin/adminExperienceUpdateSlice';
+import adminGroupUpdateSlice from '../slices/admin/adminGroupUpdateSlice';
+import adminExperienceDeleteSlice from '../slices/admin/adminExperienceDeleteSlice';
+import adminGroupDeleteSlice from '../slices/admin/adminGroupDeleteSlice';
+import userGetProfileSlice from '../slices/user/userGetProfileSlice';
 
 export const store = configureStore({
   preloadedState: {
@@ -27,9 +34,16 @@ export const store = configureStore({
     userUpdateSlice: userUpdateSlice,
     userValidateSlice: userValidateSlice,
     userDeleteSlice: userDeleteSlice,
+    userGetProfileSlice: userGetProfileSlice,
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
     experiencesGetSlice: experiencesGetSlice,
-    experienceGetSlice: experienceGetSlice
+    experienceGetSlice: experienceGetSlice,
+    adminExperienceCreateSlice: adminExperienceCreateSlice,
+    adminGroupCreateSlice: adminGroupCreateSlice,
+    adminExperienceUpdateSlice: adminExperienceUpdateSlice,
+    adminExperienceDeleteSlice: adminExperienceDeleteSlice,
+    adminGroupUpdateSlice: adminGroupUpdateSlice,
+    adminGroupDeleteSlice: adminGroupDeleteSlice
   }
 });

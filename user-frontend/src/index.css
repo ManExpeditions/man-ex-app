@@ -74,6 +74,10 @@ code {
   align-items: center;
 }
 
+.space-between {
+  justify-content: space-between;
+}
+
 .display-block {
   display: block;
 }
@@ -387,4 +391,168 @@ input:-webkit-autofill {
 .modal-button.red {
   color: #fd5c52;
   border: 1px solid #fd5c52;
+}
+
+/* Admin Styles */
+.admin-container {
+  display: flex;
+}
+
+.admin-sidebar-header {
+  color: #56c1ff;
+  margin: 1rem;
+}
+
+.admin-main-content {
+  width: 100%;
+  height: 100vh;
+  padding: 1rem;
+  color: #fff;
+  overflow-y: scroll;
+}
+
+/* Admin general styles */
+.admin-field,
+.admin-subfield {
+  border: 1px solid #1e1e1e;
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.admin-subfield {
+  border: none;
+  border-top: 1px solid #1e1e1e;
+}
+
+.admin-spinner-wrapper {
+  display: inline-block;
+  max-width: max-content;
+}
+
+.admin-back-button,
+.admin-dropdown-button,
+.admin-action-button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-action-button {
+  padding: 0.51rem 1rem;
+  background-color: #00f2a8;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  transition: 300ms ease-in-out;
+}
+
+.admin-action-button.danger {
+  background-color: #a02020;
+}
+
+.admin-action-button:hover,
+.admin-action-button:focus {
+  background-color: #0ec58e;
+}
+
+.admin-action-button.danger:hover,
+.admin-action-button.danger:focus {
+  background-color: #6d1a1a;
+}
+
+.admin-back-button {
+  background-color: #56c1ff;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.admin-dropdown-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  width: 600px;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: left;
+  margin: 0.5rem 0;
+  background-color: #56c1ff;
+  color: #fff;
+}
+
+/* Admin input fields */
+.admin-input-box-wrapper,
+.admin-input-box-wrapper-group {
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border-radius: 1rem;
+}
+
+.admin-input-box-wrapper {
+  background-color: #000;
+}
+
+.admin-input-box-wrapper-group {
+  background-color: #000;
+}
+
+.admin-input-box {
+  display: grid;
+  grid-template-columns: 150px auto;
+  gap: 1rem;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.admin-selectbox {
+  max-width: max-content;
+}
+
+.admin-input-box textarea {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Admin table styles */
+.admin-table {
+  width: 100%;
+  border: 1px solid #fff;
+}
+
+.admin-table thead {
+  color: #1e1e1e;
+  background-color: #56c1ff;
+}
+
+.admin-table thead th {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.admin-table tbody {
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.admin-table td,
+.admin-table th {
+  text-align: left;
+  border: 0.1rem solid #1e1e1e;
+  padding: 0.25rem 0.5rem;
+}
+
+.admin-table tr {
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+}
+
+.admin-table tr:hover {
+  background-color: #5e5e5e;
+}
+
+.admin-table-link {
+  text-decoration: none;
+  color: #fff;
 }

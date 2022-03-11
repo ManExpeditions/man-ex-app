@@ -1,19 +1,23 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import ExperienceDao from '../../dao/experiences/experienceDao';
+import { isAdmin } from '../../middleware/adminMiddleware';
+import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /experience/v1 Create new experience
+ * @api {post} /admin/v1/experience Create new experience
  * @apiDescription Create a new experience
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0
  * @apiName CreateExperience
- * @apiGroup Experience
+ * @apiGroup Admin
  */
 export const experienceCreateController = [
+  isAuthenticated,
+  isAdmin,
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Create new experience
-    const createdExperience = await ExperienceDao.create_new_experience();
+    const createdExperience = await ExperienceDao.createNewExperience();
 
     res.status(200).json({
       id: createdExperience._id,
@@ -25,11 +29,7 @@ export const experienceCreateController = [
       continent: createdExperience.continent,
       season: createdExperience.season,
       pricing: createdExperience.pricing,
-      deposit: createdExperience.deposit,
-      videoThumbnailImage: createdExperience.videoThumbnailImage,
-      video: createdExperience.video,
-      heroImage: createdExperience.heroImage,
-      images: createdExperience.images
+      deposit: createdExperience.deposit
     });
     return;
   })

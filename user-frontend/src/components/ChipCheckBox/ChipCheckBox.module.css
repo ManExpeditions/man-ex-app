@@ -37,3 +37,7 @@
   color: #1e1e1e;
   border-color: #00f2a8;
 }
+
+.no_pointer_events {
+  pointer-events: none;
+}

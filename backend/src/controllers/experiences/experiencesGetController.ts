@@ -13,7 +13,7 @@ import ExperienceDao from '../../dao/experiences/experienceDao';
 export const experiencesGetController = [
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find all experiences
-    const experiences = await ExperienceDao.get_experiences();
+    const experiences = await ExperienceDao.getExperiences();
 
     res.status(200).json(experiences);
     return;

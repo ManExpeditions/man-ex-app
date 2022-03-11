@@ -197,24 +197,53 @@
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+  margin: 1rem 0;
 }
 
 .group_lead {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 1rem;
 }
 
 .group_lead_name {
   margin: 0 auto;
 }
 
-.group_profile {
+.group_profile,
+.going_interested_profilepic,
+.review_profile {
+  cursor: pointer;
+  position: relative;
+  display: block;
+  height: 100px;
   width: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px #56c1ff;
+  transition: 300ms ease-in-out;
+}
+
+.going_interested_profilepic {
+  width: 4rem;
+  height: 4rem;
+}
+
+.going_interested_profilepic:hover,
+.going_interested_profilepic:focus,
+.group_profile:hover,
+.group_profile:focus,
+.review_profile:hover,
+.review_profile:focus {
+  transform: scale(1.1);
 }
 
 .group_description {
   font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .book_button {
@@ -224,9 +253,36 @@
   margin: 1rem auto 1rem 0;
 }
 
+.already_booked {
+  background-color: #56c1ff;
+  width: max-content;
+  border-radius: 1rem;
+  padding: 0.2rem 1rem;
+  margin: 1rem 0;
+}
+
+.going_interested_user {
+  margin: 1rem 0;
+  position: relative;
+  width: max-content;
+  text-align: center;
+}
+
+.going_interested_name {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+}
+
+.checkmark {
+  position: absolute;
+  right: 0;
+  bottom: 0.9rem;
+}
+
 @media (min-width: 800px) {
   .group_profile {
-    width: 150px;
+    width: 120px;
+    height: 120px;
   }
 
   .group_name,
@@ -291,19 +347,20 @@
 
 .carousel_container,
 .slider_image {
-  height: 80vh;
+  height: 70vh;
 }
 
 .carousel_container {
   border-radius: 1rem;
   overflow: hidden;
-  width: 95vw;
+  width: 70vw;
   z-index: 3;
   cursor: default;
 }
 
 .slider_image {
   width: 100%;
+  border-radius: 1rem;
   object-fit: cover;
   object-position: top center;
 }
@@ -377,7 +434,7 @@
   height: 1rem;
 }
 
-/* Itinerary section */
+/* Dropdown sections */
 .info {
   margin: 1rem 0;
   background: #1e1e1e;
@@ -386,27 +443,33 @@
   font-size: 1.1rem;
 }
 
-.itinerary_container {
-  border-left: 1px solid #fff;
-}
-
-.itinerary_content {
+.dropdown_content_box {
   position: relative;
   margin-top: 2rem;
+  font-size: 1rem;
+}
+
+.dropdown_image {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  object-position: center;
+  max-width: 600px;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* Itinerary section */
+.dropdown_content_box.itinerary_content_box {
   padding-left: 1rem;
-  font-size: 1.1rem;
+}
+.itinerary_container {
+  border-left: 1px solid #fff;
 }
 
 .itinerary_day {
   line-height: 0.9;
   font-weight: 700;
-}
-
-.itinerary_image {
-  width: 100%;
-  max-height: 250px;
-  border-radius: 0.5rem;
-  margin: 1rem 0;
 }
 
 .itinerary_activity {
@@ -418,14 +481,62 @@
 }
 
 .itinerary_activity_time {
-  font-size: 0.8rem;
   width: max-content;
   white-space: nowrap;
   line-height: 1.7;
 }
 
-.itinerary_activity_description {
+/* Activities */
+.dropdown_content_box.grid_content_box {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1rem;
+  align-items: start;
+  justify-content: start;
+  padding-bottom: 1rem;
+}
+
+.dropdown_content_box.grid_content_box:not(:last-of-type) {
+  border-bottom: 0.5px solid #fff;
+}
+
+.no_margin {
+  margin: 0;
+}
+
+@media (max-width: 850px) {
+  .dropdown_content_box.grid_content_box {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reviews */
+.dropdown_content_box.grid_content_box.review_content_box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reviewer_profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: max-content;
+}
+
+.reviewer_name {
+  display: inline-block;
+  width: max-content;
+}
+
+.reviewer_description {
   font-size: 0.9rem;
+}
+
+@media (max-width: 850px) {
+  .dropdown_content_box.grid_content_box.review_content_box {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Deposit box */

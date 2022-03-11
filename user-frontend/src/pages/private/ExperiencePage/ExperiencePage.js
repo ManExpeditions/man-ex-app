@@ -4,6 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactUp, BsChevronCompactDown } from 'react-icons/bs';
+import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 import styles from './ExperiencePage.module.css';
 import {
   experienceGet,
@@ -11,6 +12,7 @@ import {
 } from '../../../slices/experience/experienceGetSlice';
 import OutsideAlerter from '../../../components/OutsideAlerter';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
+import Rating from '../../../components/Rating/Rating';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -24,11 +26,10 @@ export default function ExperiencePage() {
   const [isActivitiesVisible, setIsActivitiesVisible] = useState(false);
   const [isReviewsVisible, setIsReviewsVisible] = useState(false);
   const [isWhatsIncludedVisible, setIsWhatsIncludedVisible] = useState(false);
-  const [isPricingVisible, setIsPricingVisible] = useState(false);
   const [isTermsVisible, setIsTermsVisible] = useState(false);
 
   const [thriveCartReady, setThriveCartReady] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [checkoutIndex, setCheckoutIndex] = useState(-1);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -37,7 +38,6 @@ export default function ExperiencePage() {
   const { experience } = experienceGetSlice;
 
   const handleImageClick = (imageIdx) => {
-    console.log(imageIdx);
     setActiveIndex(imageIdx);
     setIsCarouselVisible(true);
   };
@@ -50,17 +50,24 @@ export default function ExperiencePage() {
   }, [dispatch, experience, id]);
 
   useEffect(() => {
-    const addThrivecartScript = () => {
+    const addThrivecartScript = (scriptId) => {
+      console.log('adding scriptid', scriptId);
       const script = document.createElement('script');
       script.async = true;
       script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
-      script.id = 'tc-guestlist-upmostexperiences-97-G6BK9Z';
+      script.id = scriptId;
       script.onload = () => {
         setThriveCartReady(true);
       };
       document.body.appendChild(script);
     };
-    addThrivecartScript();
+    if (experience && experience.groups.length > 0) {
+      experience.groups.map((group) => {
+        return addThrivecartScript(
+          group.thriveCartScriptId ? group.thriveCartScriptId : ''
+        );
+      });
+    }
   });
 
   const { ref, inView } = useInView({
@@ -68,10 +75,6 @@ export default function ExperiencePage() {
     threshold: 0,
     rootMargin: '-16px'
   });
-
-  useEffect(() => {
-    console.log(inView);
-  }, [inView]);
 
   // Cleanup
   useEffect(() => {
@@ -133,63 +136,101 @@ export default function ExperiencePage() {
                   {experience.location}
                 </p>
               </div>
-              {showCheckout && (
+              {checkoutIndex >= 0 && (
                 <div className={styles.checkout_form}>
                   <div className={styles.checkout_form_container}>
-                    <OutsideAlerter
-                      setState={setShowCheckout}
-                      stateValue={false}
-                    >
+                    <OutsideAlerter setState={setCheckoutIndex} stateValue={-1}>
                       {thriveCartReady && (
-                        <>
-                          <div
-                            data-thrivecart-account="guestlist-upmostexperiences"
-                            data-thrivecart-tpl="v2"
-                            data-thrivecart-product="97"
-                            data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
+                        <div
+                          data-thrivecart-account="guestlist-upmostexperiences"
+                          data-thrivecart-tpl="v2"
+                          data-thrivecart-product="97"
+                          data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
                                                       passthrough[customer_lastname]=${user.lastName}&
                                                       passthrough[customer_email]=${user.email}&
                                                       passthrough[customer_contactno]=${user.phone}&
                                                       passthrough[customer_address_state]=${user.state}&
                                                       passthrough[customer_address_city]=${user.city}&`}
-                            className="thrivecart-embeddable"
-                            data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
-                          ></div>
-                        </>
+                          className="thrivecart-embeddable"
+                          data-thrivecart-embeddable={
+                            experience.groups[checkoutIndex].thriveCartScriptId
+                          }
+                        ></div>
                       )}
                     </OutsideAlerter>
                   </div>
                 </div>
               )}
               <div id="groups" className={styles.groups_section}>
+                <h2>Join a group</h2>
                 {experience.groups.map((group, groupIdx) => (
                   <div key={groupIdx} className={styles.group}>
                     <div className={styles.group_lead}>
-                      <img
-                        className={styles.group_profile}
-                        src={group.leadProfilepic}
-                        alt="Group Lead"
-                      />
-                      <p className={styles.group_lead_name}>{group.leadName}</p>
+                      <Link
+                        to={`/profile/${
+                          group.groupLead && group.groupLead._id
+                        }?back=/experiences/${id}`}
+                      >
+                        <img
+                          className={styles.group_profile}
+                          src={group.groupLead && group.groupLead.profilepic}
+                          alt="Group Lead"
+                        />
+                      </Link>
+                      <p className={styles.group_lead_name}>
+                        {group.groupLead && group.groupLead.firstName}
+                      </p>
                     </div>
                     <div>
-                      <h4 className={styles.group_name}>{group.name}</h4>
-                      <h4 className={styles.group_date}>{group.date}</h4>
+                      <h4 className={styles.group_name}>
+                        {group.groupLead && group.groupLead.firstName}'s Group
+                      </h4>
+                      <h2 className={styles.group_date}>{group.dateText}</h2>
                       <p className={styles.group_description}>
                         "{group.description}"
                       </p>
-                      <button
-                        onClick={() => {
-                          console.log('clicks');
-                          setShowCheckout(true);
-                        }}
-                        className={`btn btn-primary ${styles.book_button}`}
-                      >
-                        Book with this group
-                      </button>
-                      <h4>Who's Going/Interested</h4>
+                      {!group.goingUsers.find(
+                        (goingUser) => goingUser._id === user.id
+                      ) ? (
+                        <button
+                          onClick={() => {
+                            setCheckoutIndex(groupIdx);
+                          }}
+                          className={`btn btn-primary ${styles.book_button}`}
+                        >
+                          Book with this group
+                        </button>
+                      ) : (
+                        <p className={styles.already_booked}>You are going</p>
+                      )}
+                      {(group.goingUsers.length > 0 ||
+                        group.interestedUsers.length > 0) && (
+                        <>
+                          <h4>Who's Going/Interested</h4>
+                        </>
+                      )}
                       {group.goingUsers.map((goingUser, goingUserIdx) => (
-                        <p key={goingUserIdx}>{goingUser._id}</p>
+                        <div
+                          key={goingUserIdx}
+                          className={styles.going_interested_user}
+                        >
+                          <Link
+                            to={`/profile/${goingUser._id}?back=/experiences/${id}`}
+                          >
+                            <img
+                              className={styles.going_interested_profilepic}
+                              src={goingUser.profilepic}
+                              alt="Group Lead"
+                            />
+                          </Link>
+                          <IoCheckmarkCircleSharp
+                            style={{ color: '20a020' }}
+                            className={styles.checkmark}
+                          />
+                          <p className={styles.going_interested_name}>
+                            {goingUser.firstName}
+                          </p>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -209,7 +250,7 @@ export default function ExperiencePage() {
                           items={experience.images.map((img, idx) => (
                             <img
                               className={styles.slider_image}
-                              src={img.url}
+                              src={img}
                               alt={`${experience.name}-${idx}`}
                             />
                           ))}
@@ -219,11 +260,11 @@ export default function ExperiencePage() {
                   </div>
                 ) : (
                   <div className={styles.images}>
-                    {experience.images.slice(0, 6).map((image, imageIdx) => (
+                    {experience.images.slice(0, 6).map((img, imageIdx) => (
                       <div key={imageIdx} className={styles.image_container}>
                         <img
                           className={styles.image}
-                          src={image.url}
+                          src={img}
                           onClick={() => handleImageClick(imageIdx)}
                           alt={`${experience.name}-${imageIdx}`}
                         />
@@ -255,127 +296,221 @@ export default function ExperiencePage() {
                 )}
               </div>
               <div className={styles.description}>{experience.description}</div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsItineraryVisible((prev) => !prev)}
-                >
-                  <h2>Itinerary</h2>
-                  {isItineraryVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
-                </div>
-                <div className={styles.itinerary_container}>
-                  {isItineraryVisible &&
-                    experience.itinerary.map((day, idx) => (
-                      <div className={styles.itinerary_content} key={idx}>
-                        <span className={styles.circle}></span>
-                        <p className={styles.itinerary_day}>{day.title}</p>
-                        <img
-                          className={styles.itinerary_image}
-                          src={day.image}
-                          alt=""
-                        />
-                        <ul>
-                          {day.activities.map((activity, idx) => (
-                            <li className={styles.itinerary_activity} key={idx}>
-                              <p className={styles.itinerary_activity_time}>
-                                {activity.time}
-                              </p>
-                              <p
-                                className={
-                                  styles.itinerary_activity_description
-                                }
+              {experience.itinerary.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsItineraryVisible((prev) => !prev)}
+                  >
+                    <h2>Itinerary</h2>
+                    {isItineraryVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
+                  <div className={styles.itinerary_container}>
+                    {isItineraryVisible &&
+                      experience.itinerary.map((day, idx) => (
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.itinerary_content_box}`}
+                          key={idx}
+                        >
+                          <span className={styles.circle}></span>
+                          <p className={styles.itinerary_day}>{day.day}</p>
+                          <img
+                            className={styles.dropdown_image}
+                            src={day.image}
+                            alt=""
+                          />
+                          <ul>
+                            {day.activities.map((activity, idx) => (
+                              <li
+                                className={styles.itinerary_activity}
+                                key={idx}
                               >
-                                {activity.description}
-                              </p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                                <p className={styles.itinerary_activity_time}>
+                                  {activity.time}
+                                </p>
+                                <p
+                                  className={
+                                    styles.itinerary_activity_description
+                                  }
+                                >
+                                  {activity.description}
+                                </p>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsAccomodationsVisible((prev) => !prev)}
-                >
-                  <h2>Accomodations</h2>
-                  {isAccomodationsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.accomodations.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsAccomodationsVisible((prev) => !prev)}
+                  >
+                    <h2>Accomodations</h2>
+                    {isAccomodationsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
+                  <div>
+                    {isAccomodationsVisible &&
+                      experience.accomodations.map(
+                        (accomodation, accomodationIdx) => (
+                          <div
+                            className={`${styles.dropdown_content_box} ${styles.grid_content_box}`}
+                            key={accomodationIdx}
+                          >
+                            <div>
+                              <img
+                                className={`${styles.dropdown_image} ${styles.no_margin}`}
+                                src={accomodation.image}
+                                alt=""
+                              />
+                            </div>
+                            <div>
+                              <h3>{accomodation.name}</h3>
+                              <p>{accomodation.description}</p>
+                            </div>
+                          </div>
+                        )
+                      )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsActivitiesVisible((prev) => !prev)}
-                >
-                  <h2>Activities</h2>
-                  {isActivitiesVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.activities.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsActivitiesVisible((prev) => !prev)}
+                  >
+                    <h2>Activities</h2>
+                    {isActivitiesVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
+                  <div>
+                    {isActivitiesVisible &&
+                      experience.activities.map((activity, activityIdx) => (
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.grid_content_box}`}
+                          key={activityIdx}
+                        >
+                          <div>
+                            <img
+                              className={`${styles.dropdown_image} ${styles.no_margin}`}
+                              src={activity.image}
+                              alt=""
+                            />
+                          </div>
+                          <div>
+                            <h3>{activity.name}</h3>
+                            <p>{activity.info}</p>
+                            <br />
+                            <p>{activity.description}</p>
+                            {activity.link && (
+                              <>
+                                <br />
+                                <Link
+                                  className="link link-primary link-blue"
+                                  to={activity.link}
+                                >
+                                  Get Tickets
+                                </Link>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsReviewsVisible((prev) => !prev)}
-                >
-                  <h2>Reviews</h2>
-                  {isReviewsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.reviews.length > 0 && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsReviewsVisible((prev) => !prev)}
+                  >
+                    <h2>Reviews</h2>
+                    {isReviewsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
+                  <div>
+                    {isReviewsVisible &&
+                      experience.reviews.map((review, reviewIdx) => (
+                        <div
+                          className={`${styles.dropdown_content_box} ${styles.grid_content_box} ${styles.review_content_box}`}
+                          key={reviewIdx}
+                        >
+                          <div className={styles.reviewer_profile}>
+                            <Link
+                              to={`/profile/${review.user._id}?back=/experiences/${id}`}
+                            >
+                              <img
+                                className={styles.review_profile}
+                                src={review.user.profilepic}
+                                alt="Review"
+                              />
+                            </Link>
+                            <div>
+                              <h3 className={styles.reviewer_name}>
+                                {review.user.firstName} {review.user.lastName}{' '}
+                              </h3>
+                              <Rating rating={Number(review.stars)}></Rating>
+                            </div>
+                          </div>
+                          <div>
+                            <p className={styles.reviewer_description}>
+                              <em>"{review.description}"</em>
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsWhatsIncludedVisible((prev) => !prev)}
-                >
-                  <h2>What's Included</h2>
-                  {isWhatsIncludedVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.whatsIncluded && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsWhatsIncludedVisible((prev) => !prev)}
+                  >
+                    <h2>What's Included</h2>
+                    {isWhatsIncludedVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsPricingVisible((prev) => !prev)}
-                >
-                  <h2>Pricing</h2>
-                  {isPricingVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
+              )}
+              {experience.terms && (
+                <div className={styles.info}>
+                  <div
+                    className={styles.card}
+                    onClick={() => setIsTermsVisible((prev) => !prev)}
+                  >
+                    <h2>Terms</h2>
+                    {isTermsVisible ? (
+                      <BsChevronCompactUp></BsChevronCompactUp>
+                    ) : (
+                      <BsChevronCompactDown></BsChevronCompactDown>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={styles.info}>
-                <div
-                  className={styles.card}
-                  onClick={() => setIsTermsVisible((prev) => !prev)}
-                >
-                  <h2>Terms</h2>
-                  {isTermsVisible ? (
-                    <BsChevronCompactUp></BsChevronCompactUp>
-                  ) : (
-                    <BsChevronCompactDown></BsChevronCompactDown>
-                  )}
-                </div>
-              </div>
+              )}
               <div className={styles.deposit_box}>
                 <div>
                   <p>Deposit</p>

@@ -5,14 +5,15 @@ import { isValidObjectId } from 'mongoose';
 import logger from '../../lib/logger';
 import experienceDao from '../../dao/experiences/experienceDao';
 import { isAuthenticated } from '../../middleware/authMiddleware';
+import { isAdmin } from '../../middleware/adminMiddleware';
 
 /**
- * @api {put} /experience/v1/:id Update experience
+ * @api {put} /admin/v1/experience/:id Update experience
  * @apiDescription Update an existing experience
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0
  * @apiName UpdateExperience
- * @apiGroup Experience
+ * @apiGroup Admin
  *
  * @apiParam {String} id Experience unique ID.
  *
@@ -39,6 +40,8 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
 export const experienceUpdateController = [
   // Requires authentication
   isAuthenticated,
+  // Needs to be admin
+  isAdmin,
   // Sanitize and validate parms
   param('id', 'Id param must be string').isString().escape(),
   // Sanitize and validate body params
@@ -51,11 +54,7 @@ export const experienceUpdateController = [
     .isString()
     .isLength({ min: 3 })
     .escape(),
-  body('description', 'Enter valid description')
-    .optional()
-    .isString()
-    .isLength({ min: 10 })
-    .escape(),
+  body('description', 'Enter valid description').optional().isString().escape(),
   body('numberOfDays', 'Enter valid number of days')
     .optional()
     .isNumeric()
@@ -71,13 +70,13 @@ export const experienceUpdateController = [
     .escape(),
   body('video', 'Enter valid video').optional().isString().escape(),
   body('heroImage', 'Enter valid hero image').optional().isString().escape(),
-  body('images', 'Enter valid images').optional().isArray().escape(),
-  body('itinerary', 'Enter valid itinerary').optional().isObject().escape(),
+  body('images', 'Enter valid images').optional().isString().escape(),
+  body('itinerary', 'Enter valid itinerary').optional().isString().escape(),
   body('accomodations', 'Enter valid accomodations')
     .optional()
-    .isObject()
+    .isString()
     .escape(),
-  body('activities', 'Enter valid activities').optional().isObject().escape(),
+  body('activities', 'Enter valid activities').optional().isString().escape(),
   body('whatsIncluded', 'Enter valid whats included')
     .optional()
     .isObject()
@@ -108,7 +107,7 @@ export const experienceUpdateController = [
       return;
     }
     // Check if experience does not exist
-    const experience = await experienceDao.find_experience_by_id(req.params.id);
+    const experience = await experienceDao.findExperienceById(req.params.id);
     if (!experience) {
       const err = new Error('Experience does not exist.');
       logger.error(err.message);
@@ -116,7 +115,7 @@ export const experienceUpdateController = [
       return;
     }
 
-    const updatedExperience = await experienceDao.update_experience(
+    const updatedExperience = await experienceDao.updateExperience(
       req.params.id,
       req.body
     );

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface experience {
+interface Experience {
   _id: mongoose.Types.ObjectId;
   isActive: boolean;
   name: string;
@@ -14,31 +14,17 @@ interface experience {
   videoThumbnailImage: string;
   video: string;
   heroImage: string;
-  images: string[];
-  itinerary: object;
-  accomodations: object;
-  activities: object;
-  whatsIncluded: object;
+  images: string;
+  itinerary: string; // string because it is sent as string on requests
+  accomodations: string;
+  activities: string;
+  reviews: string;
+  whatsIncluded: string;
   terms: string;
-  groups: [
-    {
-      label: string;
-      isActive: boolean;
-      name: string;
-      date: string;
-      registrationEndDate: Date;
-      price: number;
-      capacity: number;
-      description: string;
-      leadName: string;
-      leadProfilepic: string;
-      goingUsers: [{ userId: string }];
-      interestedUsers: [{ userId: string }];
-    }
-  ];
+  groups: [mongoose.Types.ObjectId];
 }
 
-const experienceSchema = new mongoose.Schema<experience>(
+const experienceSchema = new mongoose.Schema<Experience>(
   {
     isActive: { type: Boolean, default: true },
     name: { type: String },
@@ -52,38 +38,27 @@ const experienceSchema = new mongoose.Schema<experience>(
     videoThumbnailImage: { type: String },
     video: { type: String },
     heroImage: { type: String },
-    images: { type: [Object] },
-    itinerary: { type: Object },
-    accomodations: { type: Object },
-    activities: { type: Object },
-    whatsIncluded: { type: Object },
-    terms: { type: String },
-    groups: [
+    images: { type: [String] },
+    itinerary: { type: Array },
+    accomodations: { type: Array },
+    activities: { type: Array },
+    reviews: [
       {
-        label: { type: String },
-        isActive: { type: Boolean },
-        name: { type: String },
-        date: { type: String },
-        registrationEndDate: { type: Date },
-        price: { type: Number },
-        capacity: { type: Number },
-        description: { type: String },
-        leadName: { type: String },
-        leadProfilepic: { type: String },
-        goingUsers: [{ userId: String }],
-        interestedUsers: [{ userId: String }]
+        user: { type: mongoose.Types.ObjectId, ref: 'User' },
+        stars: { type: Number },
+        description: { type: String }
       }
-    ]
+    ],
+
+    whatsIncluded: { type: String },
+    terms: { type: String },
+    groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]
   },
   {
     timestamps: true
   }
 );
 
-const experience = mongoose.model<experience>(
-  'experience',
-  experienceSchema,
-  'manex_experience'
-);
+const Experience = mongoose.model<Experience>('Experience', experienceSchema);
 
-export default experience;
+export default Experience;
