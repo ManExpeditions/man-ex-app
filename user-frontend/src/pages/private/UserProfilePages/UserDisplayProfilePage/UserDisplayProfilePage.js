@@ -6,7 +6,10 @@ import { FaFacebook, FaLinkedinIn } from 'react-icons/fa';
 import { BsInstagram } from 'react-icons/bs';
 import { AiOutlineMail, AiOutlineClose } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go';
-import { userGetProfile } from '../../../../slices/user/userGetProfileSlice';
+import {
+  resetUserGetProfile,
+  userGetProfile
+} from '../../../../slices/user/userGetProfileSlice';
 import styles from './UserDisplayProfilePage.module.css';
 import ChipCheckBox from '../../../../components/ChipCheckBox/ChipCheckBox';
 import { InterestsToIconMapper } from '../../../../utils/common';
@@ -26,6 +29,13 @@ export default function UserDisplayProfilePage(props) {
       dispatch(userGetProfile(id));
     }
   }, [dispatch, id, userProfile]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      dispatch(resetUserGetProfile());
+    };
+  }, [dispatch]);
 
   return (
     <div>
