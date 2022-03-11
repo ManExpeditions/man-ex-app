@@ -34,6 +34,7 @@ import UpdatePasswordPage from './pages/private/UserProfilePages/UpdatePasswordP
 import ManageAccountPage from './pages/private/UserProfilePages/ManageAccountPage/ManageAccountPage';
 import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
 import AdminPanelPage from './pages/admin/AdminPanelPage';
+import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplayProfilePage/UserDisplayProfilePage';
 
 function App() {
   return (
@@ -99,6 +100,7 @@ function App() {
           path="/privacy-and-serviceterms"
           component={PrivacyAndServiceTermsPage}
         ></Route>
+
         <PrivateRoute
           path="/profile/settings/email"
           component={UpdateEmailPage}
@@ -128,6 +130,11 @@ function App() {
           exact
           path="/profile/edit"
           component={UserEditProfilePage}
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/profile/:id"
+          exact
+          component={UserDisplayProfilePage}
         ></PrivateRoute>
         <PrivateRoute
           exact

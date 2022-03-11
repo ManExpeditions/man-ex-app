@@ -6,10 +6,13 @@ import { userVerificationCodeController } from '../controllers/user/userVerifica
 import { userValidateController } from '../controllers/user/userValidateController';
 import { userDeleteController } from '../controllers/user/userDeleteController';
 
+import { userGetProfileController } from '../controllers/user/userGetProfileController';
+
 const router = express.Router();
 
 router.put('/:id', userUpdateController);
 router.delete('/:id', userDeleteController);
+router.get('/:id/profile', userGetProfileController);
 router.post('/:id/verify/email', userVerifyEmailController);
 router.post('/:id/verify/phone', userVerifyPhoneController);
 router.post('/:id/verify/code', userVerificationCodeController);

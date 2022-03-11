@@ -28,7 +28,7 @@ export default function ExperiencePage() {
   const [isTermsVisible, setIsTermsVisible] = useState(false);
 
   const [thriveCartReady, setThriveCartReady] = useState(false);
-  const [showCheckout, setShowCheckout] = useState(false);
+  const [checkoutIndex, setCheckoutIndex] = useState(-1);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -49,17 +49,24 @@ export default function ExperiencePage() {
   }, [dispatch, experience, id]);
 
   useEffect(() => {
-    const addThrivecartScript = () => {
+    const addThrivecartScript = (scriptId) => {
+      console.log('adding scriptid', scriptId);
       const script = document.createElement('script');
       script.async = true;
       script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
-      script.id = 'tc-guestlist-upmostexperiences-97-G6BK9Z';
+      script.id = scriptId;
       script.onload = () => {
         setThriveCartReady(true);
       };
       document.body.appendChild(script);
     };
-    addThrivecartScript();
+    if (experience && experience.groups.length > 0) {
+      experience.groups.map((group) => {
+        return addThrivecartScript(
+          group.thriveCartScriptId ? group.thriveCartScriptId : ''
+        );
+      });
+    }
   });
 
   const { ref, inView } = useInView({
@@ -128,29 +135,26 @@ export default function ExperiencePage() {
                   {experience.location}
                 </p>
               </div>
-              {showCheckout && (
+              {checkoutIndex >= 0 && (
                 <div className={styles.checkout_form}>
                   <div className={styles.checkout_form_container}>
-                    <OutsideAlerter
-                      setState={setShowCheckout}
-                      stateValue={false}
-                    >
+                    <OutsideAlerter setState={setCheckoutIndex} stateValue={-1}>
                       {thriveCartReady && (
-                        <>
-                          <div
-                            data-thrivecart-account="guestlist-upmostexperiences"
-                            data-thrivecart-tpl="v2"
-                            data-thrivecart-product="97"
-                            data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
+                        <div
+                          data-thrivecart-account="guestlist-upmostexperiences"
+                          data-thrivecart-tpl="v2"
+                          data-thrivecart-product="97"
+                          data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
                                                       passthrough[customer_lastname]=${user.lastName}&
                                                       passthrough[customer_email]=${user.email}&
                                                       passthrough[customer_contactno]=${user.phone}&
                                                       passthrough[customer_address_state]=${user.state}&
                                                       passthrough[customer_address_city]=${user.city}&`}
-                            className="thrivecart-embeddable"
-                            data-thrivecart-embeddable="tc-guestlist-upmostexperiences-97-3ONRWZ"
-                          ></div>
-                        </>
+                          className="thrivecart-embeddable"
+                          data-thrivecart-embeddable={
+                            experience.groups[checkoutIndex].thriveCartScriptId
+                          }
+                        ></div>
                       )}
                     </OutsideAlerter>
                   </div>
@@ -161,7 +165,11 @@ export default function ExperiencePage() {
                 {experience.groups.map((group, groupIdx) => (
                   <div key={groupIdx} className={styles.group}>
                     <div className={styles.group_lead}>
-                      <Link to={`/${group.groupLead && group.groupLead._id}`}>
+                      <Link
+                        to={`/profile/${
+                          group.groupLead && group.groupLead._id
+                        }`}
+                      >
                         <img
                           className={styles.group_profile}
                           src={group.groupLead && group.groupLead.profilepic}
@@ -182,7 +190,7 @@ export default function ExperiencePage() {
                       </p>
                       <button
                         onClick={() => {
-                          setShowCheckout(true);
+                          setCheckoutIndex(groupIdx);
                         }}
                         className={`btn btn-primary ${styles.book_button}`}
                       >
