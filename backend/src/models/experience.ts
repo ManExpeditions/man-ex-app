@@ -28,7 +28,7 @@ const experienceSchema = new mongoose.Schema<Experience>(
   {
     isActive: { type: Boolean, default: true },
     name: { type: String },
-    description: { type: Array },
+    description: { type: String },
     numberOfDays: { type: String },
     location: { type: String },
     continent: { type: String },

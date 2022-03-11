@@ -37,7 +37,6 @@ export default function ExperiencePage() {
   const { experience } = experienceGetSlice;
 
   const handleImageClick = (imageIdx) => {
-    console.log(imageIdx);
     setActiveIndex(imageIdx);
     setIsCarouselVisible(true);
   };
@@ -68,10 +67,6 @@ export default function ExperiencePage() {
     threshold: 0,
     rootMargin: '-16px'
   });
-
-  useEffect(() => {
-    console.log(inView);
-  }, [inView]);
 
   // Cleanup
   useEffect(() => {
@@ -425,7 +420,7 @@ export default function ExperiencePage() {
                           key={reviewIdx}
                         >
                           <div className={styles.reviewer_profile}>
-                            <Link to={`/${review.user._id}`}>
+                            <Link to={`/profile/${review.user._id}`}>
                               <img
                                 className={styles.review_profile}
                                 src={review.user.profilepic}
