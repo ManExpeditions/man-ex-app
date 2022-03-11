@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface Group {
+interface Group extends mongoose.Document {
   _id: mongoose.Types.ObjectId;
   experience: mongoose.Types.ObjectId;
   isActive: boolean;

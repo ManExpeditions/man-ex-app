@@ -42,7 +42,7 @@ class GroupDao {
   public async updateGroup(
     id: mongoose.Types.ObjectId | string,
     groupInfo: Group
-  ): Promise<(Group & mongoose.Document<Group>) | null> {
+  ): Promise<Group | null> {
     const group = await Group.findById(id);
     if (!group) {
       return null;
@@ -70,6 +70,25 @@ class GroupDao {
   public async deleteGroupById(id: mongoose.Types.ObjectId | string) {
     const deletedGroup = await Group.findByIdAndDelete(id);
     return deletedGroup;
+  }
+
+  public userExistsInGroupGoingUsers = (
+    userId: mongoose.Types.ObjectId | string,
+    group: Group
+  ): boolean => {
+    const userFound = group.goingUsers.find((user) => user === userId);
+    return userFound ? true : false;
+  };
+
+  public async addGoingUserToGroup(
+    group: Group,
+    userId: mongoose.Types.ObjectId | string
+  ) {
+    const userObjectId =
+      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+    group.goingUsers.push(userObjectId);
+    const updatedGroup = await group.save();
+    return updatedGroup;
   }
 }
 

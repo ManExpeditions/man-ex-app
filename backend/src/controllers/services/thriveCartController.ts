@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import experienceDao from '../../dao/experiences/experienceDao';
+import groupDao from '../../dao/groups/groupDao';
 import userDao from '../../dao/users/userDao';
 import logger from '../../lib/logger';
 import Order from '../../models/order';
 
 export const thriveCartController = [
-  // Requires user to be authenticated
   expressAsyncHandler(async function (req: Request, res: Response) {
     const body = req.body;
 
@@ -15,34 +14,40 @@ export const thriveCartController = [
       return;
     }
 
-    const experience = await experienceDao.find_experience_by_group_label(
-      body.base_product_label
-    );
-    if (!experience) {
-      const err = new Error('Experience not found');
+    // Check if group exists
+    const group = await groupDao.findGroupById(body.base_product_label);
+    if (!group) {
+      const err = new Error('No group found associated with the order');
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(400);
       return;
     }
 
-    const user = await userDao.find_user_by_email(body.customer.email);
+    // Check if user exists
+    const user = await userDao.findUserByEmail(body.customer.email);
     if (!user) {
       const err = new Error('User associated with product not found.');
       logger.error(err.message);
+      res.status(400);
       return;
     }
 
-    // const updatedExperience =
-    //   await experienceDao.add_going_user_to_experience_group(
-    //     body.base_product_label,
-    //     user._id
-    //   );
-    // if (!updatedExperience) {
-    //   const err = new Error('User not added to experience group.');
-    //   logger.error(err.message);
-    //   return;
-    // }
+    // Check if user already in goingList
+    const userAlreadyGoing = groupDao.userExistsInGroupGoingUsers(
+      user._id,
+      group
+    );
+    if (userAlreadyGoing) {
+      const err = new Error('User already in going list for this group');
+      logger.error(err.message);
+      res.status(400);
+      return;
+    }
 
+    // Add user to goingList
+    await groupDao.addGoingUserToGroup(group, user._id);
+
+    // Create an order
     const order = new Order({
       orderId: body.order_id,
       invoiceId: body.invoice_id,
