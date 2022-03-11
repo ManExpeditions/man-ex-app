@@ -189,14 +189,20 @@ export default function ExperiencePage() {
                       <p className={styles.group_description}>
                         "{group.description}"
                       </p>
-                      <button
-                        onClick={() => {
-                          setCheckoutIndex(groupIdx);
-                        }}
-                        className={`btn btn-primary ${styles.book_button}`}
-                      >
-                        Book with this group
-                      </button>
+                      {!group.goingUsers.find(
+                        (goingUser) => goingUser._id === user.id
+                      ) ? (
+                        <button
+                          onClick={() => {
+                            setCheckoutIndex(groupIdx);
+                          }}
+                          className={`btn btn-primary ${styles.book_button}`}
+                        >
+                          Book with this group
+                        </button>
+                      ) : (
+                        <p className={styles.already_booked}>You are going</p>
+                      )}
                       {(group.goingUsers.length > 0 ||
                         group.interestedUsers.length > 0) && (
                         <>
