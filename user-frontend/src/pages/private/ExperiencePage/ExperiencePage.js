@@ -162,78 +162,80 @@ export default function ExperiencePage() {
                 </div>
               )}
               <div id="groups" className={styles.groups_section}>
-                <h2>Join a group</h2>
                 {experience.groups.map((group, groupIdx) => (
-                  <div key={groupIdx} className={styles.group}>
-                    <div className={styles.group_lead}>
-                      <Link
-                        to={`/profile/${
-                          group.groupLead && group.groupLead._id
-                        }?back=/experiences/${id}`}
-                      >
-                        <img
-                          className={styles.group_profile}
-                          src={group.groupLead && group.groupLead.profilepic}
-                          alt="Group Lead"
-                        />
-                      </Link>
-                      <p className={styles.group_lead_name}>
-                        {group.groupLead && group.groupLead.firstName}
-                      </p>
-                    </div>
-                    <div>
-                      <h4 className={styles.group_name}>
-                        {group.groupLead && group.groupLead.firstName}'s Group
-                      </h4>
-                      <h2 className={styles.group_date}>{group.dateText}</h2>
-                      <p className={styles.group_description}>
-                        "{group.description}"
-                      </p>
-                      {!group.goingUsers.find(
-                        (goingUser) => goingUser._id === user.id
-                      ) ? (
-                        <button
-                          onClick={() => {
-                            setCheckoutIndex(groupIdx);
-                          }}
-                          className={`btn btn-primary ${styles.book_button}`}
+                  <>
+                    <h2>Join a group</h2>
+                    <div key={groupIdx} className={styles.group}>
+                      <div className={styles.group_lead}>
+                        <Link
+                          to={`/profile/${
+                            group.groupLead && group.groupLead._id
+                          }?back=/experiences/${id}`}
                         >
-                          Book with this group
-                        </button>
-                      ) : (
-                        <p className={styles.already_booked}>You are going</p>
-                      )}
-                      {(group.goingUsers.length > 0 ||
-                        group.interestedUsers.length > 0) && (
-                        <>
-                          <h4>Who's Going/Interested</h4>
-                        </>
-                      )}
-                      {group.goingUsers.map((goingUser, goingUserIdx) => (
-                        <div
-                          key={goingUserIdx}
-                          className={styles.going_interested_user}
-                        >
-                          <Link
-                            to={`/profile/${goingUser._id}?back=/experiences/${id}`}
-                          >
-                            <img
-                              className={styles.going_interested_profilepic}
-                              src={goingUser.profilepic}
-                              alt="Group Lead"
-                            />
-                          </Link>
-                          <IoCheckmarkCircleSharp
-                            style={{ color: '20a020' }}
-                            className={styles.checkmark}
+                          <img
+                            className={styles.group_profile}
+                            src={group.groupLead && group.groupLead.profilepic}
+                            alt="Group Lead"
                           />
-                          <p className={styles.going_interested_name}>
-                            {goingUser.firstName}
-                          </p>
-                        </div>
-                      ))}
+                        </Link>
+                        <p className={styles.group_lead_name}>
+                          {group.groupLead && group.groupLead.firstName}
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className={styles.group_name}>
+                          {group.groupLead && group.groupLead.firstName}'s Group
+                        </h4>
+                        <h2 className={styles.group_date}>{group.dateText}</h2>
+                        <p className={styles.group_description}>
+                          "{group.description}"
+                        </p>
+                        {!group.goingUsers.find(
+                          (goingUser) => goingUser._id === user.id
+                        ) ? (
+                          <button
+                            onClick={() => {
+                              setCheckoutIndex(groupIdx);
+                            }}
+                            className={`btn btn-primary ${styles.book_button}`}
+                          >
+                            Book with this group
+                          </button>
+                        ) : (
+                          <p className={styles.already_booked}>You are going</p>
+                        )}
+                        {(group.goingUsers.length > 0 ||
+                          group.interestedUsers.length > 0) && (
+                          <>
+                            <h4>Who's Going/Interested</h4>
+                          </>
+                        )}
+                        {group.goingUsers.map((goingUser, goingUserIdx) => (
+                          <div
+                            key={goingUserIdx}
+                            className={styles.going_interested_user}
+                          >
+                            <Link
+                              to={`/profile/${goingUser._id}?back=/experiences/${id}`}
+                            >
+                              <img
+                                className={styles.going_interested_profilepic}
+                                src={goingUser.profilepic}
+                                alt="Group Lead"
+                              />
+                            </Link>
+                            <IoCheckmarkCircleSharp
+                              style={{ color: '20a020' }}
+                              className={styles.checkmark}
+                            />
+                            <p className={styles.going_interested_name}>
+                              {goingUser.firstName}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </>
                 ))}
               </div>
               <div id="photos" className={styles.images_section}>
