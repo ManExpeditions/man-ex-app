@@ -152,7 +152,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
         experienceData: {
           isActive,
           name,
-          description: description,
+          description,
           numberOfDays,
           location,
           continent,
