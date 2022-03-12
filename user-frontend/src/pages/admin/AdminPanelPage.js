@@ -3,6 +3,7 @@ import { ProSidebar, SidebarHeader, Menu, MenuItem } from 'react-pro-sidebar';
 import { FaGem, FaSwimmer } from 'react-icons/fa';
 import AdminExperiencesList from './AdminExperiencesList';
 import AdminExperiencePage from './AdminExperiencePage';
+import AdminUsersList from './AdminUsersList';
 
 export default function AdminPanelPage() {
   const [subPage, setSubPage] = useState({});
@@ -19,6 +20,13 @@ export default function AdminPanelPage() {
             {...subPage.props}
             setSubPage={setSubPage}
           ></AdminExperiencePage>
+        );
+      case 'users':
+        return (
+          <AdminUsersList
+            {...subPage.props}
+            setSubPage={setSubPage}
+          ></AdminUsersList>
         );
       default:
         return 'Default';
@@ -38,6 +46,12 @@ export default function AdminPanelPage() {
               onClick={() => setSubPage({ path: 'default' })}
             >
               Dashboard
+            </MenuItem>
+            <MenuItem
+              icon={<FaSwimmer />}
+              onClick={() => setSubPage({ path: 'users' })}
+            >
+              Users
             </MenuItem>
             <MenuItem
               icon={<FaSwimmer />}
