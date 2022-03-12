@@ -5,9 +5,11 @@ import { experienceUpdateController } from '../controllers/admin/experienceUpdat
 import { groupCreateController } from '../controllers/admin/groupCreateController';
 import { groupDeleteController } from '../controllers/admin/groupDeleteController';
 import { groupUpdateController } from '../controllers/admin/groupUpdateController';
+import { usersGetController } from '../controllers/admin/usersGetController';
 
 const router = express.Router();
 
+router.get('/user', usersGetController);
 router.post('/experience', experienceCreateController);
 router.put('/experience/:id', experienceUpdateController);
 router.delete('/experience/:id', experienceDeleteController);
