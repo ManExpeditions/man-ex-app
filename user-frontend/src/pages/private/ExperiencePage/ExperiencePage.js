@@ -162,9 +162,9 @@ export default function ExperiencePage() {
                 </div>
               )}
               <div id="groups" className={styles.groups_section}>
+                {experience.groups.length > 0 && <h2>Join a group</h2>}
                 {experience.groups.map((group, groupIdx) => (
                   <>
-                    <h2>Join a group</h2>
                     <div key={groupIdx} className={styles.group}>
                       <div className={styles.group_lead}>
                         <Link
@@ -204,35 +204,52 @@ export default function ExperiencePage() {
                         ) : (
                           <p className={styles.already_booked}>You are going</p>
                         )}
-                        {(group.goingUsers.length > 0 ||
-                          group.interestedUsers.length > 0) && (
-                          <>
-                            <h4>Who's Going/Interested</h4>
-                          </>
-                        )}
-                        {group.goingUsers.map((goingUser, goingUserIdx) => (
-                          <div
-                            key={goingUserIdx}
-                            className={styles.going_interested_user}
-                          >
-                            <Link
-                              to={`/profile/${goingUser._id}?back=/experiences/${id}`}
-                            >
-                              <img
-                                className={styles.going_interested_profilepic}
-                                src={goingUser.profilepic}
-                                alt="Group Lead"
-                              />
-                            </Link>
-                            <IoCheckmarkCircleSharp
-                              style={{ color: '20a020' }}
-                              className={styles.checkmark}
-                            />
-                            <p className={styles.going_interested_name}>
-                              {goingUser.firstName}
-                            </p>
+                        <div>
+                          {(group.goingUsers.length > 0 ||
+                            group.interestedUsers.length > 0) && (
+                            <>
+                              <h4>Who's Going/Interested</h4>
+                            </>
+                          )}
+                          <div className={styles.going_interested_container}>
+                            {group.goingUsers
+                              .slice(0, 3)
+                              .map((goingUser, goingUserIdx) => (
+                                <div
+                                  key={goingUserIdx}
+                                  className={styles.going_interested_user}
+                                >
+                                  <Link
+                                    to={`/profile/${goingUser._id}?back=/experiences/${id}`}
+                                  >
+                                    <img
+                                      className={
+                                        styles.going_interested_profilepic
+                                      }
+                                      src={goingUser.profilepic}
+                                      alt="Group Lead"
+                                    />
+                                  </Link>
+                                  <IoCheckmarkCircleSharp
+                                    style={{ color: '20a020' }}
+                                    className={styles.checkmark}
+                                  />
+                                  <p className={styles.going_interested_name}>
+                                    {goingUser.firstName}
+                                  </p>
+                                </div>
+                              ))}
                           </div>
-                        ))}
+                          {group.goingUsers.length > 3 && (
+                            <button className={styles.see_more_long_button}>
+                              See {group.goingUsers.length - 3} more{' '}
+                              {group.goingUsers.length - 3 > 1
+                                ? 'profiles'
+                                : 'profile'}
+                              <BsChevronCompactDown />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </>

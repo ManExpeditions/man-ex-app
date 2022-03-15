@@ -261,6 +261,11 @@
   margin: 1rem 0;
 }
 
+.going_interested_container {
+  display: flex;
+  gap: 0.8rem;
+}
+
 .going_interested_user {
   margin: 1rem 0;
   position: relative;
@@ -271,6 +276,25 @@
 .going_interested_name {
   margin: 0.5rem 0 0 0;
   font-size: 0.8rem;
+}
+
+.see_more_long_button {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: #000;
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 1rem;
+  transition: 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.see_more_long_button:hover,
+.see_more_long_button:focus {
+  border: 1px solid #56c1ff;
 }
 
 .checkmark {
