@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 interface Experience {
   _id: mongoose.Types.ObjectId;
   isActive: boolean;
+  isFeatured: boolean;
   name: string;
   description: string;
   numberOfDays: string;
@@ -27,6 +28,7 @@ interface Experience {
 const experienceSchema = new mongoose.Schema<Experience>(
   {
     isActive: { type: Boolean, default: true },
+    isFeatured: { type: Boolean, default: false },
     name: { type: String },
     description: { type: String },
     numberOfDays: { type: String },

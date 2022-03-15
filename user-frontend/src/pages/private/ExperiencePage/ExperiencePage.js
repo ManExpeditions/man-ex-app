@@ -51,7 +51,6 @@ export default function ExperiencePage() {
 
   useEffect(() => {
     const addThrivecartScript = (scriptId) => {
-      console.log('adding scriptid', scriptId);
       const script = document.createElement('script');
       script.async = true;
       script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';

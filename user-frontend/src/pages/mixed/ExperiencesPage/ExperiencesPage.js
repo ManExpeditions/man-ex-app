@@ -26,7 +26,7 @@ export default function ExperiencesPage() {
 
   useEffect(() => {
     if (!experiences) {
-      dispatch(experiencesGet({}));
+      dispatch(experiencesGet({ isActive: true }));
     }
   }, [dispatch, experiences]);
 

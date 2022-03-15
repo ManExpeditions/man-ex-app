@@ -2,8 +2,11 @@ import mongoose from 'mongoose';
 import Experience from '../../models/experience';
 
 class ExperienceDao {
-  public async getExperiences(): Promise<Experience[] | null> {
-    const experiences = await Experience.find({});
+  public async getExperiences(filter: {
+    isActive?: boolean;
+    isFeatured?: boolean;
+  }): Promise<Experience[] | null> {
+    const experiences = await Experience.find(filter);
     return experiences;
   }
 
@@ -77,6 +80,7 @@ class ExperienceDao {
     }
 
     experience.isActive = experienceInfo.isActive || experience.isActive;
+    experience.isFeatured = experienceInfo.isFeatured || experience.isFeatured;
     experience.name = experienceInfo.name || experience.name;
     experience.description =
       experienceInfo.description || experience.description;
@@ -145,18 +149,6 @@ class ExperienceDao {
     experience?.groups.splice(groupIdx as number, 1);
     await experience?.save();
   }
-
-  // public async add_going_user_to_experience_group(
-  //   label: string,
-  //   userId: mongoose.Types.ObjectId
-  // ) {
-  //   // const experience = await this.find_experience_by_group_label(label);
-  //   // experience?.groups
-  //   //   .find((group) => group.label === label)
-  //   //   ?.goingUsers.push({ userId: String(userId) });
-  //   // const updatedExperience = await experience?.save();
-  //   // return updatedExperience;
-  // }
 
   public async deleteAllExperiences(): Promise<void> {
     await Experience.deleteMany();

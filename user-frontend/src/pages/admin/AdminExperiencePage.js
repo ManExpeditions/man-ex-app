@@ -25,6 +25,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   // Experience states
   const [id, setId] = useState(true);
   const [isActive, setIsActive] = useState(true);
+  const [isFeatured, setIsFeautured] = useState(true);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [numberOfDays, setNumberOfDays] = useState(0);
@@ -91,6 +92,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
     } else {
       setId(experience._id);
       setIsActive(experience.isActive);
+      setIsFeautured(experience.isFeatured);
       setName(experience.name);
       setDescription(experience.description);
       setNumberOfDays(experience.numberOfDays);
@@ -151,6 +153,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
         experienceId: id,
         experienceData: {
           isActive,
+          isFeatured,
           name,
           description,
           numberOfDays,
@@ -233,6 +236,17 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
               <select
                 value={isActive}
                 onChange={(e) => setIsActive(e.target.value)}
+                className="selectbox admin-selectbox"
+              >
+                <option value={true}>True</option>
+                <option value={false}>False</option>
+              </select>
+            </div>
+            <div className="admin-input-box">
+              <label>is Feautured</label>
+              <select
+                value={isFeatured}
+                onChange={(e) => setIsFeautured(e.target.value)}
                 className="selectbox admin-selectbox"
               >
                 <option value={true}>True</option>

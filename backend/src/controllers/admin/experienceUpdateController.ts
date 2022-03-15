@@ -49,6 +49,10 @@ export const experienceUpdateController = [
     .optional()
     .isBoolean()
     .escape(),
+  body('isFeatured', 'Enter valid isFeatured value')
+    .optional()
+    .isBoolean()
+    .escape(),
   body('name', 'Enter valid name')
     .optional()
     .isString()
@@ -129,6 +133,7 @@ export const experienceUpdateController = [
     res.status(200).json({
       id: updatedExperience._id,
       isActive: updatedExperience.isActive,
+      isFeatured: updatedExperience.isFeatured,
       name: updatedExperience.name,
       description: updatedExperience.description,
       numberOfDays: updatedExperience.numberOfDays,

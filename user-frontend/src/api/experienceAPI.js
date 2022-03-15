@@ -1,8 +1,18 @@
 import Axios from 'axios';
 
 class experienceAPI {
-  async getExperiences() {
-    const { data } = await Axios.get('/api/experience/v1/');
+  async getExperiences(filter) {
+    // handle parsing of filters
+    const isActiveFilter = filter.isActive
+      ? `isActive=${filter.isActive}&`
+      : '';
+    const isFeaturedFilter = filter.isFeatured
+      ? `isFeatured=${filter.isFeatured}&`
+      : '';
+
+    const { data } = await Axios.get(
+      `/api/experience/v1?${isActiveFilter}${isFeaturedFilter}`
+    );
     return data;
   }
 

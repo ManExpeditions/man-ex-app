@@ -9,9 +9,9 @@ const initialState = {
 
 export const experiencesGet = createAsyncThunk(
   'experiencesGet/experiencesGet',
-  async (_, { rejectWithValue }) => {
+  async (filter, { rejectWithValue }) => {
     try {
-      const data = await experienceAPI.getExperiences();
+      const data = await experienceAPI.getExperiences(filter);
       return data;
     } catch (err) {
       if (!err.response) {

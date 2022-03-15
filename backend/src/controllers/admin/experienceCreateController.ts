@@ -22,6 +22,7 @@ export const experienceCreateController = [
     res.status(200).json({
       id: createdExperience._id,
       isActive: createdExperience.isActive,
+      isFeatured: createdExperience.isFeatured,
       name: createdExperience.name,
       description: createdExperience.description,
       numberOfDays: createdExperience.numberOfDays,
