@@ -4,6 +4,7 @@ import { FaGem, FaSwimmer } from 'react-icons/fa';
 import AdminExperiencesList from './AdminExperiencesList';
 import AdminExperiencePage from './AdminExperiencePage';
 import AdminUsersList from './AdminUsersList';
+import AdminUserPage from './AdminUserPage';
 
 export default function AdminPanelPage() {
   const [subPage, setSubPage] = useState({});
@@ -27,6 +28,13 @@ export default function AdminPanelPage() {
             {...subPage.props}
             setSubPage={setSubPage}
           ></AdminUsersList>
+        );
+      case 'user':
+        return (
+          <AdminUserPage
+            {...subPage.props}
+            setSubPage={setSubPage}
+          ></AdminUserPage>
         );
       default:
         return 'Default';
