@@ -45,6 +45,13 @@ class ExperienceDao {
         }
       })
       .populate({
+        path: 'groups',
+        populate: {
+          path: 'interestedUsers',
+          select: ['_id', 'profilepic', 'firstName']
+        }
+      })
+      .populate({
         path: 'reviews',
         populate: {
           path: 'user',

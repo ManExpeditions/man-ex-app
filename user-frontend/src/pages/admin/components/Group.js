@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
 import DatePicker from 'react-datepicker';
+import Select from 'react-select';
 import {
   adminGroupUpdate,
   resetAdminGroupUpdate
@@ -11,6 +12,10 @@ import {
   adminGroupDelete,
   resetAdminGroupDelete
 } from '../../../slices/admin/adminGroupDeleteSlice';
+import {
+  adminUsersGet,
+  resetAdminUsersGet
+} from '../../../slices/admin/adminUsersGetSlice';
 
 export default function Group({ group, experienceId }) {
   const [groupId, setGroupId] = useState(false);
@@ -30,6 +35,8 @@ export default function Group({ group, experienceId }) {
 
   const [isGroupVisible, setIsGroupVisible] = useState(false);
 
+  const [usersOptions, setUsersOptions] = useState([]);
+
   const adminGroupUpdateSlice = useSelector(
     (state) => state.adminGroupUpdateSlice
   );
@@ -48,7 +55,23 @@ export default function Group({ group, experienceId }) {
     error: deletedError
   } = adminGroupDeleteSlice;
 
+  const adminUsersGetSlice = useSelector((state) => state.adminUsersGetSlice);
+  const { users } = adminUsersGetSlice;
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!users) {
+      dispatch(adminUsersGet({}));
+    } else {
+      setUsersOptions(
+        users.map((user) => ({
+          value: user._id,
+          label: user._id
+        }))
+      );
+    }
+  }, [dispatch, users]);
 
   useEffect(() => {
     if (group) {
@@ -64,14 +87,25 @@ export default function Group({ group, experienceId }) {
       setDescription(group.description);
       setGroupLeadId(group.groupLead ? group.groupLead._id : '');
       setGroupLeadName(group.groupLead ? group.groupLead.firstName : '');
-      setGoingUsers(group.goingUsers);
-      setInterestedUsers(group.interestedUsers);
+      setGoingUsers(
+        group.goingUsers.map((goingUser) => ({
+          value: goingUser._id,
+          label: goingUser._id
+        }))
+      );
+      setInterestedUsers(
+        group.interestedUsers.map((interestedUser) => ({
+          value: interestedUser._id,
+          label: interestedUser._id
+        }))
+      );
     }
   }, [group]);
 
   // Cleanup
   useEffect(() => {
     return () => {
+      dispatch(resetAdminUsersGet());
       dispatch(resetAdminGroupUpdate());
       dispatch(resetAdminGroupDelete());
     };
@@ -91,7 +125,15 @@ export default function Group({ group, experienceId }) {
           thriveCartScriptId,
           capacity,
           description,
-          groupLead: groupLeadId
+          groupLead: groupLeadId,
+          goingUsers:
+            goingUsers.length > 0
+              ? encodeURIComponent(goingUsers.map((user) => user.value))
+              : 'empty',
+          interestedUsers:
+            interestedUsers.length > 0
+              ? encodeURIComponent(interestedUsers.map((user) => user.value))
+              : 'empty'
         }
       })
     );
@@ -225,18 +267,20 @@ export default function Group({ group, experienceId }) {
             </div>
             <div className="admin-input-box">
               <label>Going Users</label>
-              <input
-                className="input"
-                value={goingUsers}
-                onChange={(e) => setGoingUsers(e.target.value)}
+              <Select
+                isMulti
+                defaultValue={goingUsers}
+                onChange={(e) => setGoingUsers(e)}
+                options={usersOptions}
               />
             </div>
             <div className="admin-input-box">
               <label>Interested Users</label>
-              <input
-                className="input"
-                value={interestedUsers}
-                onChange={(e) => setInterestedUsers(e.target.value)}
+              <Select
+                isMulti
+                defaultValue={interestedUsers}
+                onChange={(e) => setInterestedUsers(e)}
+                options={usersOptions}
               />
             </div>
           </div>

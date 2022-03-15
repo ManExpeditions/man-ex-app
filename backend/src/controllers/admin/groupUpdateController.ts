@@ -65,9 +65,10 @@ export const groupUpdateController = [
     .isString()
     .isLength({ min: 10 })
     .escape(),
-  body('groupLead', 'Enter valid groupdLead').optional().isString().escape(),
-  body('continent', 'Enter valid continent').optional().isString().escape(),
-  body('goingUsers', 'Enter valid goingUsers').optional().isArray(),
+  body('groupLead', 'Enter valid group lead').optional().isString().escape(),
+  body('continent', 'Enter valid continent').optional().isArray().escape(),
+  body('goingUsers', 'Enter valid going users').optional().isString(),
+  body('interestedUsers', 'Enter valid interested users').optional().isString(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.

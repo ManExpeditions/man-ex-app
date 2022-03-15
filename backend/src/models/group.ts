@@ -13,8 +13,8 @@ interface Group extends mongoose.Document {
   capacity: number;
   description: string;
   groupLead: mongoose.Types.ObjectId;
-  goingUsers: [mongoose.Types.ObjectId];
-  interestedUsers: [mongoose.Types.ObjectId];
+  goingUsers: any;
+  interestedUsers: any;
 }
 
 const groupSchema = new mongoose.Schema<Group>(

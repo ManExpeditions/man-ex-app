@@ -60,8 +60,28 @@ class GroupDao {
     group.capacity = groupInfo.capacity || group.capacity;
     group.description = groupInfo.description || group.description;
     group.groupLead = groupInfo.groupLead || group.groupLead;
-    group.goingUsers = groupInfo.goingUsers || group.goingUsers;
-    group.interestedUsers = groupInfo.interestedUsers || group.interestedUsers;
+
+    // Update going users
+    if (groupInfo.goingUsers) {
+      if (groupInfo.goingUsers === 'empty') {
+        group.goingUsers = [];
+      } else {
+        group.goingUsers = decodeURIComponent(groupInfo.goingUsers)
+          .split(',')
+          .map((id) => mongoose.Types.ObjectId(String(id)));
+      }
+    }
+
+    // Update interested users
+    if (groupInfo.interestedUsers) {
+      if (groupInfo.interestedUsers === 'empty') {
+        group.interestedUsers = [];
+      } else {
+        group.interestedUsers = decodeURIComponent(groupInfo.interestedUsers)
+          .split(',')
+          .map((id) => mongoose.Types.ObjectId(String(id)));
+      }
+    }
 
     const updatedGroup = await group.save();
     return updatedGroup;
@@ -76,7 +96,9 @@ class GroupDao {
     userId: mongoose.Types.ObjectId | string,
     group: Group
   ): boolean => {
-    const userFound = group.goingUsers.find((user) => user === userId);
+    const userFound = group.goingUsers.find(
+      (user: string | mongoose.Types.ObjectId) => user === userId
+    );
     return userFound ? true : false;
   };
 
