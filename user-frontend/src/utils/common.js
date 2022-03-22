@@ -199,3 +199,14 @@ export const InterestsToIconMapper = {
   Cruises: '/assets/icons/cruise.png',
   'Nudist Adventures': '/assets/icons/nudist.png'
 };
+
+export const continentFilter = (continentStates) => {
+  const filter = [];
+  continentStates.online && filter.push('Online');
+  continentStates.africa && filter.push('Africa');
+  continentStates.northAmerica && filter.push('North America');
+  continentStates.americas && filter.push('Americas');
+  continentStates.europe && filter.push('Europe');
+  continentStates.asia && filter.push('Asia');
+  return filter;
+};

@@ -17,7 +17,7 @@ export default function ChipCheckBox({
         type="checkbox"
         id={label}
       />
-      <label>
+      <label htmlFor={label}>
         <img className={styles.image} src={imageSrc} alt={label} />
         {label}
       </label>

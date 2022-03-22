@@ -37,8 +37,19 @@ export const experiencesGetController = [
     const isFeaturedFilter = req.query.isFeatured
       ? { isActive: req.query.isFeatured === 'true' ? true : false }
       : {};
+    const continentFilter = req.query.continent
+      ? {
+          continent: decodeURIComponent(req.query.continent as string).split(
+            ','
+          )
+        }
+      : {};
 
-    const filters = { ...isActiveFilter, ...isFeaturedFilter };
+    const filters = {
+      ...isActiveFilter,
+      ...isFeaturedFilter,
+      ...continentFilter
+    };
 
     // Find experiences
     const experiences = await ExperienceDao.getExperiences(filters);

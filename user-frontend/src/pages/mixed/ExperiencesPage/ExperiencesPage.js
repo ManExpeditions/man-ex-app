@@ -6,6 +6,7 @@ import ChipCheckBox from '../../../components/ChipCheckBox/ChipCheckBox';
 import Navbar from '../../../components/Navbar/Navbar';
 import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
 import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
+import { continentFilter } from '../../../utils/common';
 import styles from './ExperiencesPage.module.css';
 
 export default function ExperiencesPage() {
@@ -16,6 +17,8 @@ export default function ExperiencesPage() {
   const [europe, setEurope] = useState(false);
   const [asia, setAsia] = useState(false);
 
+  const [selectedContinents, setSelectedContinents] = useState([]);
+
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
@@ -25,10 +28,27 @@ export default function ExperiencesPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!experiences) {
-      dispatch(experiencesGet({ isActive: true }));
-    }
-  }, [dispatch, experiences]);
+    const continents = continentFilter({
+      online,
+      africa,
+      northAmerica,
+      americas,
+      europe,
+      asia
+    });
+    setSelectedContinents(continents);
+  }, [online, africa, northAmerica, americas, europe, asia]);
+
+  useEffect(() => {
+    dispatch(
+      experiencesGet({
+        isActive: true,
+        ...(selectedContinents.length > 0
+          ? { continent: selectedContinents }
+          : {})
+      })
+    );
+  }, [dispatch, selectedContinents]);
 
   return (
     <div className={`page ${styles.page_wrapper}`}>

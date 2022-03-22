@@ -9,8 +9,8 @@ class experienceAPI {
     const isFeaturedFilter = filter.isFeatured
       ? `isFeatured=${filter.isFeatured}&`
       : '';
-    const continentFilter = filter.continent
-      ? `continent=${filter.continent}&`
+    const continentFilter = filter.continent // expecting an array
+      ? `continent=${encodeURIComponent(filter.continent)}&`
       : '';
 
     const { data } = await Axios.get(
