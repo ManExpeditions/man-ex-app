@@ -1,3 +1,6 @@
+import withContinentOptions from '../../higherOrderComponents/withContinentOptions';
+import Select from 'react-select';
+
 export default function SelectBox({
   label,
   options,
@@ -23,3 +26,5 @@ export default function SelectBox({
     </div>
   );
 }
+
+export const SelectBoxContinents = withContinentOptions(Select);
