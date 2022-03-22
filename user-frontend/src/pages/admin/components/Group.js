@@ -85,7 +85,11 @@ export default function Group({ group, experienceId }) {
       setThriveCartScriptId(group.thriveCartScriptId);
       setCapacity(group.capacity);
       setDescription(group.description);
-      setGroupLeadId(group.groupLead ? group.groupLead._id : '');
+      setGroupLeadId(
+        group.groupLead
+          ? { label: group.groupLead._id, value: group.groupLead._id }
+          : {}
+      );
       setGroupLeadName(group.groupLead ? group.groupLead.firstName : '');
       setGoingUsers(
         group.goingUsers.map((goingUser) => ({
@@ -125,7 +129,7 @@ export default function Group({ group, experienceId }) {
           thriveCartScriptId,
           capacity,
           description,
-          groupLead: groupLeadId,
+          groupLead: groupLeadId.value,
           goingUsers:
             goingUsers.length > 0
               ? encodeURIComponent(goingUsers.map((user) => user.value))
@@ -259,10 +263,10 @@ export default function Group({ group, experienceId }) {
             </div>
             <div className="admin-input-box">
               <label>Group Lead ID</label>
-              <input
-                className="input"
+              <Select
                 value={groupLeadId}
-                onChange={(e) => setGroupLeadId(e.target.value)}
+                onChange={(e) => setGroupLeadId(e)}
+                options={usersOptions}
               />
             </div>
             <div className="admin-input-box">

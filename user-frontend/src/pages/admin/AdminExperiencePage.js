@@ -20,6 +20,7 @@ import {
   resetAdminExperienceDelete
 } from '../../slices/admin/adminExperienceDeleteSlice';
 import MessageBox from '../../components/MessageBox/MessageBox';
+import { SelectBoxContinents } from '../../components/SelectBox/SelectBox';
 
 export default function AdminExperiencePage({ experienceId, setSubPage }) {
   // Experience states
@@ -97,7 +98,10 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setDescription(experience.description);
       setNumberOfDays(experience.numberOfDays);
       setLocation(experience.location);
-      setContinent(experience.continent);
+      setContinent({
+        value: experience.continent,
+        label: experience.continent
+      });
       setSeason(experience.season);
       setPricing(experience.pricing);
       setDeposit(experience.deposit);
@@ -158,7 +162,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           description,
           numberOfDays,
           location,
-          continent,
+          continent: continent.value,
           season,
           pricing,
           deposit,
@@ -288,11 +292,10 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
             </div>
             <div className="admin-input-box">
               <label>Continent</label>
-              <input
-                className="input"
+              <SelectBoxContinents
                 value={continent}
-                onChange={(e) => setContinent(e.target.value)}
-              />
+                onChange={(e) => setContinent(e)}
+              ></SelectBoxContinents>
             </div>
             <div className="admin-input-box">
               <label>Season</label>
