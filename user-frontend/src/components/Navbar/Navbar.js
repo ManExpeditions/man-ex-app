@@ -15,10 +15,10 @@ export default function Navbar({ user, ...props }) {
             <ul className="flex-box">
               <li className={styles.hamburger_btn}>
                 <div
-                  className={hamburgerOpen && 'none-pointer'}
+                  className={hamburgerOpen ? 'none-pointer' : ''}
                   onClick={() => setHamburgerOpen(true)}
                 >
-                  <i class="fas fa-bars fa-2x"></i>
+                  <i className="fas fa-bars fa-2x"></i>
                 </div>
               </li>
               <li>

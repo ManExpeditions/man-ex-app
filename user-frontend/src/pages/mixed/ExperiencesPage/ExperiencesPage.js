@@ -9,12 +9,12 @@ import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
 import styles from './ExperiencesPage.module.css';
 
 export default function ExperiencesPage() {
-  const [online, setOnline] = useState();
-  const [africa, setAfrica] = useState();
-  const [northAmerica, setNorthAmerica] = useState();
-  const [americas, setAmericas] = useState();
-  const [europe, setEurope] = useState();
-  const [asia, setAsia] = useState();
+  const [online, setOnline] = useState(false);
+  const [africa, setAfrica] = useState(false);
+  const [northAmerica, setNorthAmerica] = useState(false);
+  const [americas, setAmericas] = useState(false);
+  const [europe, setEurope] = useState(false);
+  const [asia, setAsia] = useState(false);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;

@@ -13,11 +13,11 @@ export default function ChipCheckBox({
     >
       <input
         checked={checkboxState}
-        onChange={(e) => setCheckboxState(!checkboxState)}
+        onChange={() => setCheckboxState(!checkboxState)}
         type="checkbox"
         id={label}
       />
-      <label for={label}>
+      <label>
         <img className={styles.image} src={imageSrc} alt={label} />
         {label}
       </label>
