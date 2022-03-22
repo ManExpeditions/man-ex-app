@@ -87,7 +87,9 @@ class ExperienceDao {
     experience.numberOfDays =
       experienceInfo.numberOfDays || experience.numberOfDays;
     experience.location = experienceInfo.location || experience.location;
-    experience.continent = experienceInfo.continent || experience.continent;
+    experience.continent = experienceInfo.continent
+      ? decodeURIComponent(experienceInfo.continent)
+      : experience.continent;
     experience.season = experienceInfo.season || experience.season;
     experience.pricing = experienceInfo.pricing || experience.pricing;
     experience.deposit = experienceInfo.deposit || experience.deposit;

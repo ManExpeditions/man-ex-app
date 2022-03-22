@@ -162,7 +162,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           description,
           numberOfDays,
           location,
-          continent: continent.value,
+          continent: encodeURIComponent(continent.value),
           season,
           pricing,
           deposit,
