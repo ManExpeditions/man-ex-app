@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getOnboardingRedirectPage } from '../../../utils/common';
 import { toast } from 'react-toastify';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
@@ -10,6 +10,7 @@ import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
 import Toast from '../../../components/Toast/Toast';
 import styles from './HomePage.module.css';
 import BottomNav from '../../../components/BottomNav/BottomNav';
+import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
 
 const images = [
   <div>
@@ -143,6 +144,9 @@ export default function HomePage() {
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
+  const experiencesGetSlice = useSelector((state) => state.experiencesGetSlice);
+  const { experiences } = experiencesGetSlice;
+
   useEffect(() => {
     // If user has not completed onboarding, nudge them.
     if (user && !user.completedOnboarding) {
@@ -156,6 +160,18 @@ export default function HomePage() {
       );
     }
   }, [user]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!experiences) {
+      dispatch(
+        experiencesGet({
+          isActive: true,
+          isFeatured: true
+        })
+      );
+    }
+  }, [dispatch, experiences]);
 
   return (
     <div className="page">
@@ -178,7 +194,7 @@ export default function HomePage() {
               )}
               <h1 className={styles.hero_text_heading}>Welcome to</h1>
               <h1 className={styles.hero_text_subheading}>ManEx</h1>
-              <p class={styles.hero_text_info}>
+              <p className={styles.hero_text_info}>
                 Get matched with like-minded travel buddies, and create
                 extraordinary memories.
               </p>
@@ -283,43 +299,27 @@ export default function HomePage() {
                 <h1 className={styles.global_exp_subheading}>
                   Global Experiences
                 </h1>
+
                 <div className={styles.global_exp_section_videos_container}>
-                  <div className={styles.global_video_container}>
-                    <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                    <Link
-                      to="/register"
-                      className={`link btn-primary ${styles.btn_video_info}`}
-                    >
-                      Learn more
-                    </Link>
-                  </div>
-                  <div className={styles.global_video_container}>
-                    <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                    <Link
-                      to="/register"
-                      className={`link btn-primary ${styles.btn_video_info}`}
-                    >
-                      Learn more
-                    </Link>
-                  </div>
-                  <div className={styles.global_video_container}>
-                    <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                    <Link
-                      to="/register"
-                      className={`link btn-primary ${styles.btn_video_info}`}
-                    >
-                      Learn more
-                    </Link>
-                  </div>
-                  <div className={styles.global_video_container}>
-                    <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                    <Link
-                      to="/register"
-                      className={`link btn-primary ${styles.btn_video_info}`}
-                    >
-                      Learn more
-                    </Link>
-                  </div>
+                  {experiences &&
+                    experiences.map((experience) => (
+                      <div key={experience._id}>
+                        <VideoPlayer
+                          thumbnail={experience.videoThumbnailImage}
+                          src={experience.video}
+                        ></VideoPlayer>
+                        <Link
+                          to={
+                            user
+                              ? `/experiences/${experience._id}`
+                              : '/register'
+                          }
+                          className={`link btn-primary ${styles.btn_video_info}`}
+                        >
+                          Learn more
+                        </Link>
+                      </div>
+                    ))}
                 </div>
               </div>
             </>

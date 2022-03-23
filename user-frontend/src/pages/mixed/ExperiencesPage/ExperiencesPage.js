@@ -5,7 +5,10 @@ import BottomNav from '../../../components/BottomNav/BottomNav';
 import ChipCheckBox from '../../../components/ChipCheckBox/ChipCheckBox';
 import Navbar from '../../../components/Navbar/Navbar';
 import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
-import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
+import {
+  experiencesGet,
+  resetExperiencesGet
+} from '../../../slices/experience/experiencesGetSlice';
 import { continentFilter } from '../../../utils/common';
 import styles from './ExperiencesPage.module.css';
 
@@ -49,6 +52,12 @@ export default function ExperiencesPage() {
       })
     );
   }, [dispatch, selectedContinents]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetExperiencesGet());
+    };
+  }, [dispatch]);
 
   return (
     <div className={`page ${styles.page_wrapper}`}>
