@@ -189,6 +189,10 @@
 }
 
 /* Groups section */
+.summary_users_text {
+  font-size: 0.8rem;
+}
+
 .groups_section {
   margin: 2rem 0;
 }

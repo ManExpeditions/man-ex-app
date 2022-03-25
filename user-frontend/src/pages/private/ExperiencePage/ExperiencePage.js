@@ -118,6 +118,18 @@ export default function ExperiencePage() {
                 {experience.groups.length > 0 && (
                   <div>
                     <h2>Join a group</h2>
+                    <p className={styles.summary_users_text}>
+                      {experience.groups.reduce(
+                        (prev, group) => prev + group.goingUsers.length,
+                        0
+                      )}{' '}
+                      GOING/{' '}
+                      {experience.groups.reduce(
+                        (prev, group) => prev + group.interestedUsers.length,
+                        0
+                      )}{' '}
+                      INTERESTED
+                    </p>
                     <button
                       className={styles.view_all_groups_button}
                       onClick={() => setAreGroupsVisible((prev) => !prev)}
