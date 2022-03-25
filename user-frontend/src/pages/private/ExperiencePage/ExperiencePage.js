@@ -118,15 +118,6 @@ export default function ExperiencePage() {
                 {experience.groups.length > 0 && (
                   <div>
                     <h2>Join a group</h2>
-                    {areGroupsVisible &&
-                      experience.groups.map((group) => (
-                        <Group
-                          key={group._id}
-                          group={group}
-                          user={user}
-                          experienceId={id}
-                        />
-                      ))}
                     <button
                       className={styles.view_all_groups_button}
                       onClick={() => setAreGroupsVisible((prev) => !prev)}
@@ -138,6 +129,15 @@ export default function ExperiencePage() {
                         <BsChevronCompactDown></BsChevronCompactDown>
                       )}
                     </button>
+                    {areGroupsVisible &&
+                      experience.groups.map((group) => (
+                        <Group
+                          key={group._id}
+                          group={group}
+                          user={user}
+                          experienceId={id}
+                        />
+                      ))}
                   </div>
                 )}
               </div>

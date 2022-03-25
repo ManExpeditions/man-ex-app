@@ -400,6 +400,20 @@
 }
 
 /* Reviews */
+.review_profile {
+  cursor: pointer;
+  position: relative;
+  display: block;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px #56c1ff;
+  transition: 300ms ease-in-out;
+}
+
 .dropdown_content_box.grid_content_box.review_content_box {
   display: flex;
   justify-content: space-between;
