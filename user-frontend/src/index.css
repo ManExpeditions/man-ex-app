@@ -105,6 +105,10 @@ ul {
   text-align: right;
 }
 
+.gap-1 {
+  gap: 1rem;
+}
+
 /* Wrapper for each onboarding screens */
 .screen {
   padding: 1rem 2rem;
@@ -376,6 +380,18 @@ input:-webkit-autofill {
   max-width: 250px;
 }
 
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.7);
+}
+
 .modal-text {
   margin: 0 0 1rem;
   font-size: 1.02rem;
@@ -386,6 +402,11 @@ input:-webkit-autofill {
   padding: 0.5rem;
   font-size: 0.8rem;
   border-radius: 0.5rem;
+}
+
+.modal-button.blue {
+  color: #56c1ff;
+  border: 1px solid #56c1ff;
 }
 
 .modal-button.red {

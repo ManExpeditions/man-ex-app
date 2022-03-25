@@ -13,6 +13,7 @@ import OutsideAlerter from '../../../components/OutsideAlerter';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Rating from '../../../components/Rating/Rating';
 import Group from '../../../components/Group/Group';
+import Modal from '../../../components/Modal/Modal';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -22,6 +23,8 @@ export default function ExperiencePage() {
   const [activeIndex, setActiveIndex] = useState(false);
 
   const [areGroupsVisible, setAreGroupsVisible] = useState(false);
+  const [isInterestedUser, setIsInterestedUser] = useState(false);
+  const [showInterestedUserModal, setShowInterestedUserModal] = useState(false);
 
   const [isItineraryVisible, setIsItineraryVisible] = useState(false);
   const [isAccomodationsVisible, setIsAccomodationsVisible] = useState(false);
@@ -114,6 +117,33 @@ export default function ExperiencePage() {
                   {experience.location}
                 </p>
               </div>
+              {showInterestedUserModal && (
+                <div className="modal-wrapper">
+                  <Modal setIsOpen={setShowInterestedUserModal}>
+                    <div className="modal">
+                      <p className="modal-text">
+                        To see all groups, you must first indicate that you are
+                        interested in this experience.
+                      </p>
+                      <div className="flex-box gap-1">
+                        <button
+                          className="btn modal-button blue"
+                          // onClick={onDeactivateHandler}
+                        >
+                          I'm Interested
+                        </button>
+                        <button
+                          className="btn modal-button red"
+                          onClick={() => setShowInterestedUserModal(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </Modal>
+                </div>
+              )}
+
               <div id="groups" className={styles.groups_section}>
                 {experience.groups.length > 0 && (
                   <div>
@@ -132,7 +162,13 @@ export default function ExperiencePage() {
                     </p>
                     <button
                       className={styles.view_all_groups_button}
-                      onClick={() => setAreGroupsVisible((prev) => !prev)}
+                      onClick={() => {
+                        if (isInterestedUser) {
+                          setAreGroupsVisible((prev) => !prev);
+                        } else {
+                          setShowInterestedUserModal(true);
+                        }
+                      }}
                     >
                       {areGroupsVisible ? 'Hide' : 'View'} all groups
                       {areGroupsVisible ? (
@@ -434,6 +470,11 @@ export default function ExperiencePage() {
                   <p>${experience.deposit}</p>
                 </div>
                 <a
+                  onClick={(e) => {
+                    e.preventDefault();
+                    console.log('anchor tag clicked');
+                    areGroupsVisible(true);
+                  }}
                   className={`btn btn-primary ${styles.view_groups_link}`}
                   href="#groups"
                 >
