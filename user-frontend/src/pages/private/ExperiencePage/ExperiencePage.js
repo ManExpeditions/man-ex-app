@@ -4,7 +4,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactUp, BsChevronCompactDown } from 'react-icons/bs';
-import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 import styles from './ExperiencePage.module.css';
 import {
   experienceGet,
@@ -13,6 +12,7 @@ import {
 import OutsideAlerter from '../../../components/OutsideAlerter';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Rating from '../../../components/Rating/Rating';
+import Group from '../../../components/Group/Group';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -27,9 +27,6 @@ export default function ExperiencePage() {
   const [isReviewsVisible, setIsReviewsVisible] = useState(false);
   const [isWhatsIncludedVisible, setIsWhatsIncludedVisible] = useState(false);
   const [isTermsVisible, setIsTermsVisible] = useState(false);
-
-  const [thriveCartReady, setThriveCartReady] = useState(false);
-  const [checkoutIndex, setCheckoutIndex] = useState(-1);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -48,26 +45,6 @@ export default function ExperiencePage() {
       dispatch(experienceGet(id));
     }
   }, [dispatch, experience, id]);
-
-  useEffect(() => {
-    const addThrivecartScript = (scriptId) => {
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = '//tinder.thrivecart.com/embed/v1/thrivecart.js';
-      script.id = scriptId;
-      script.onload = () => {
-        setThriveCartReady(true);
-      };
-      document.body.appendChild(script);
-    };
-    if (experience && experience.groups.length > 0) {
-      experience.groups.map((group) => {
-        return addThrivecartScript(
-          group.thriveCartScriptId ? group.thriveCartScriptId : ''
-        );
-      });
-    }
-  });
 
   const { ref, inView } = useInView({
     /* Optional options */
@@ -135,124 +112,17 @@ export default function ExperiencePage() {
                   {experience.location}
                 </p>
               </div>
-              {checkoutIndex >= 0 && (
-                <div className={styles.checkout_form}>
-                  <div className={styles.checkout_form_container}>
-                    <OutsideAlerter setState={setCheckoutIndex} stateValue={-1}>
-                      {thriveCartReady && (
-                        <div
-                          data-thrivecart-account="guestlist-upmostexperiences"
-                          data-thrivecart-tpl="v2"
-                          data-thrivecart-product="97"
-                          data-thrivecart-querystring={`passthrough[customer_firstname]=${user.firstName}&
-                                                      passthrough[customer_lastname]=${user.lastName}&
-                                                      passthrough[customer_email]=${user.email}&
-                                                      passthrough[customer_contactno]=${user.phone}&
-                                                      passthrough[customer_address_state]=${user.state}&
-                                                      passthrough[customer_address_city]=${user.city}&`}
-                          className="thrivecart-embeddable"
-                          data-thrivecart-embeddable={
-                            experience.groups[checkoutIndex].thriveCartScriptId
-                          }
-                        ></div>
-                      )}
-                    </OutsideAlerter>
-                  </div>
-                </div>
-              )}
               <div id="groups" className={styles.groups_section}>
                 {experience.groups.length > 0 && <h2>Join a group</h2>}
-                {experience.groups.map((group, groupIdx) => (
-                  <>
-                    <div key={groupIdx} className={styles.group}>
-                      <div className={styles.group_lead}>
-                        <Link
-                          to={`/profile/${
-                            group.groupLead && group.groupLead._id
-                          }?back=/experiences/${id}`}
-                        >
-                          <img
-                            className={styles.group_profile}
-                            src={group.groupLead && group.groupLead.profilepic}
-                            alt="Group Lead"
-                          />
-                        </Link>
-                        <p className={styles.group_lead_name}>
-                          {group.groupLead && group.groupLead.firstName}
-                        </p>
-                      </div>
-                      <div>
-                        <h4 className={styles.group_name}>
-                          {group.groupLead && group.groupLead.firstName}'s Group
-                        </h4>
-                        <h2 className={styles.group_date}>{group.dateText}</h2>
-                        <p className={styles.group_description}>
-                          "{group.description}"
-                        </p>
-                        {!group.goingUsers.find(
-                          (goingUser) => goingUser._id === user.id
-                        ) ? (
-                          <button
-                            onClick={() => {
-                              setCheckoutIndex(groupIdx);
-                            }}
-                            className={`btn btn-primary ${styles.book_button}`}
-                          >
-                            Book with this group
-                          </button>
-                        ) : (
-                          <p className={styles.already_booked}>You are going</p>
-                        )}
-                        <div>
-                          {(group.goingUsers.length > 0 ||
-                            group.interestedUsers.length > 0) && (
-                            <>
-                              <h4>Who's Going/Interested</h4>
-                            </>
-                          )}
-                          <div className={styles.going_interested_container}>
-                            {group.goingUsers
-                              .slice(0, 3)
-                              .map((goingUser, goingUserIdx) => (
-                                <div
-                                  key={goingUserIdx}
-                                  className={styles.going_interested_user}
-                                >
-                                  <Link
-                                    to={`/profile/${goingUser._id}?back=/experiences/${id}`}
-                                  >
-                                    <img
-                                      className={
-                                        styles.going_interested_profilepic
-                                      }
-                                      src={goingUser.profilepic}
-                                      alt="Group Lead"
-                                    />
-                                  </Link>
-                                  <IoCheckmarkCircleSharp
-                                    style={{ color: '20a020' }}
-                                    className={styles.checkmark}
-                                  />
-                                  <p className={styles.going_interested_name}>
-                                    {goingUser.firstName}
-                                  </p>
-                                </div>
-                              ))}
-                          </div>
-                          {group.goingUsers.length > 3 && (
-                            <button className={styles.see_more_long_button}>
-                              See {group.goingUsers.length - 3} more{' '}
-                              {group.goingUsers.length - 3 > 1
-                                ? 'profiles'
-                                : 'profile'}
-                              <BsChevronCompactDown />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ))}
+                {experience.groups.length > 0 &&
+                  experience.groups.map((group) => (
+                    <Group
+                      key={group._id}
+                      group={group}
+                      user={user}
+                      experienceId={id}
+                    />
+                  ))}
               </div>
               <div id="photos" className={styles.images_section}>
                 {isCarouselVisible ? (
