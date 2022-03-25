@@ -193,164 +193,29 @@
   margin: 2rem 0;
 }
 
-.group {
+.view_all_groups_button {
   display: flex;
-  align-items: flex-start;
   gap: 1rem;
-  margin: 1rem 0;
-}
-
-.group_lead {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.group_lead_name {
-  margin: 0 auto;
-}
-
-.group_profile,
-.going_interested_profilepic,
-.review_profile {
-  cursor: pointer;
-  position: relative;
-  display: block;
-  height: 100px;
-  width: 100px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 50%;
-  border: 3px solid #fff;
-  box-shadow: 0 0 0 3px #56c1ff;
-  transition: 300ms ease-in-out;
-}
-
-.going_interested_profilepic {
-  width: 4rem;
-  height: 4rem;
-}
-
-.going_interested_profilepic:hover,
-.going_interested_profilepic:focus,
-.group_profile:hover,
-.group_profile:focus,
-.review_profile:hover,
-.review_profile:focus {
-  transform: scale(1.1);
-}
-
-.group_description {
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.book_button {
-  text-transform: none;
-  padding: 0.25rem 1rem;
-  font-size: 0.9rem;
-  margin: 1rem auto 1rem 0;
-}
-
-.already_booked {
-  background-color: #56c1ff;
-  width: max-content;
-  border-radius: 1rem;
-  padding: 0.2rem 1rem;
-  margin: 1rem 0;
-}
-
-.going_interested_container {
-  display: flex;
-  gap: 0.8rem;
-}
-
-.going_interested_user {
-  margin: 1rem 0;
-  position: relative;
-  width: max-content;
-  text-align: center;
-}
-
-.going_interested_name {
-  margin: 0.5rem 0 0 0;
-  font-size: 0.8rem;
-}
-
-.see_more_long_button {
-  display: flex;
   align-items: center;
-  gap: 0.3rem;
-  border: 1px solid #fff;
+  justify-content: center;
   outline: none;
-  background-color: #000;
+  border: 1px solid #5e5e5e;
   color: #fff;
-  padding: 0.3rem 1rem;
+  width: 300px;
+  padding: 0.5rem 2rem;
+  background: transparent;
   border-radius: 1rem;
-  transition: 300ms ease-in-out;
   cursor: pointer;
+  margin: 0.5rem 0 0 0;
+  transition: 300ms ease-in-out;
 }
 
-.see_more_long_button:hover,
-.see_more_long_button:focus {
-  border: 1px solid #56c1ff;
-}
-
-.checkmark {
-  position: absolute;
-  right: 0;
-  bottom: 0.9rem;
-}
-
-@media (min-width: 800px) {
-  .group_profile {
-    width: 120px;
-    height: 120px;
-  }
-
-  .group_name,
-  .group_date {
-    font-size: 1.2rem;
-  }
-
-  .group_description {
-    margin-top: 1rem;
-    font-size: 1rem;
-    max-width: 700px;
-    margin-right: auto;
-  }
-}
-
-/* checkout form */
-.checkout_form {
-  position: fixed;
-  display: grid;
-  place-items: center;
-  width: max-content;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  z-index: 3;
-  border-radius: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.checkout_form_container {
-  min-width: 60%;
-  height: 80%;
-  overflow: scroll;
+.view_all_groups_button:hover,
+.view_all_groups_button:focus {
   border: 1px solid #fff;
-  background-color: #000;
-  border-radius: 0.5rem;
 }
 
-/* Images section */
-
-/* Carousel */
+/* Images section */ /* Carousel */
 .images_section {
   margin: 1rem 0;
 }

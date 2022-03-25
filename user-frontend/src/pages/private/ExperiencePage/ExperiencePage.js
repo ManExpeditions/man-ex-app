@@ -21,6 +21,8 @@ export default function ExperiencePage() {
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(false);
 
+  const [areGroupsVisible, setAreGroupsVisible] = useState(false);
+
   const [isItineraryVisible, setIsItineraryVisible] = useState(false);
   const [isAccomodationsVisible, setIsAccomodationsVisible] = useState(false);
   const [isActivitiesVisible, setIsActivitiesVisible] = useState(false);
@@ -113,16 +115,31 @@ export default function ExperiencePage() {
                 </p>
               </div>
               <div id="groups" className={styles.groups_section}>
-                {experience.groups.length > 0 && <h2>Join a group</h2>}
-                {experience.groups.length > 0 &&
-                  experience.groups.map((group) => (
-                    <Group
-                      key={group._id}
-                      group={group}
-                      user={user}
-                      experienceId={id}
-                    />
-                  ))}
+                {experience.groups.length > 0 && (
+                  <div>
+                    <h2>Join a group</h2>
+                    {areGroupsVisible &&
+                      experience.groups.map((group) => (
+                        <Group
+                          key={group._id}
+                          group={group}
+                          user={user}
+                          experienceId={id}
+                        />
+                      ))}
+                    <button
+                      className={styles.view_all_groups_button}
+                      onClick={() => setAreGroupsVisible((prev) => !prev)}
+                    >
+                      {areGroupsVisible ? 'Hide' : 'View'} all groups
+                      {areGroupsVisible ? (
+                        <BsChevronCompactUp></BsChevronCompactUp>
+                      ) : (
+                        <BsChevronCompactDown></BsChevronCompactDown>
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
               <div id="photos" className={styles.images_section}>
                 {isCarouselVisible ? (
