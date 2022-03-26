@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 import {
   experienceGet,
   resetExperienceGet
@@ -21,6 +22,7 @@ import {
 } from '../../slices/admin/adminExperienceDeleteSlice';
 import MessageBox from '../../components/MessageBox/MessageBox';
 import { SelectBoxContinents } from '../../components/SelectBox/SelectBox';
+import { adminUsersGet } from '../../slices/admin/adminUsersGetSlice';
 
 export default function AdminExperiencePage({ experienceId, setSubPage }) {
   // Experience states
@@ -51,6 +53,9 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   const [reviews, setReviews] = useState([
     { user: { _id: '' }, stars: 0, description: '' }
   ]);
+  const [interestedUsers, setInterestedUsers] = useState([]);
+
+  const [usersOptions, setUsersOptions] = useState([]);
 
   const [groups, setGroups] = useState([]);
 
@@ -86,7 +91,24 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
   );
   const { loading, adminGroup, error } = adminGroupCreateSlice;
 
+  const adminUsersGetSlice = useSelector((state) => state.adminUsersGetSlice);
+  const { users } = adminUsersGetSlice;
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!users) {
+      dispatch(adminUsersGet({}));
+    } else {
+      setUsersOptions(
+        users.map((user) => ({
+          value: user._id,
+          label: user._id
+        }))
+      );
+    }
+  }, [dispatch, users]);
+
   useEffect(() => {
     if (!experience) {
       dispatch(experienceGet(experienceId));
@@ -114,6 +136,12 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
       setAccomodations(JSON.parse(JSON.stringify(experience.accomodations)));
       setActivities(JSON.parse(JSON.stringify(experience.activities)));
       setReviews(JSON.parse(JSON.stringify(experience.reviews)));
+      setInterestedUsers(
+        experience.interestedUsers.map((interestedUser) => ({
+          value: interestedUser._id,
+          label: interestedUser._id
+        }))
+      );
     }
   }, [dispatch, experienceId, experience, adminGroup]);
 
@@ -173,7 +201,11 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
           itinerary: encodeURIComponent(JSON.stringify(itinerary)),
           accomodations: encodeURIComponent(JSON.stringify(accomodations)),
           activities: encodeURIComponent(JSON.stringify(activities)),
-          reviews: encodeURIComponent(JSON.stringify(reviews))
+          reviews: encodeURIComponent(JSON.stringify(reviews)),
+          interestedUsers:
+            interestedUsers.length > 0
+              ? encodeURIComponent(interestedUsers.map((user) => user.value))
+              : 'empty'
         }
       })
     );
@@ -761,6 +793,15 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="admin-input-box">
+              <label>Interested Users</label>
+              <Select
+                isMulti
+                value={interestedUsers}
+                onChange={(e) => setInterestedUsers(e)}
+                options={usersOptions}
+              />
             </div>
           </div>
           <div className="flex-box space-between align-center">

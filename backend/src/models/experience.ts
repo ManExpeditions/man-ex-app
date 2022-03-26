@@ -23,7 +23,7 @@ interface Experience extends mongoose.Document {
   whatsIncluded: string;
   terms: string;
   groups: [mongoose.Types.ObjectId];
-  interestedUsers: [mongoose.Types.ObjectId];
+  interestedUsers: any;
 }
 
 const experienceSchema = new mongoose.Schema<Experience>(

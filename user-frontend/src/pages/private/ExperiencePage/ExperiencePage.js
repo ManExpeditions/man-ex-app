@@ -194,7 +194,6 @@ export default function ExperiencePage() {
                   </Modal>
                 </div>
               )}
-
               <div id="groups" className={styles.groups_section}>
                 {experience.groups.length > 0 && (
                   <div>
@@ -203,19 +202,28 @@ export default function ExperiencePage() {
                       {experience.interestedUsers.length} INTERESTED
                     </p>
                     <div className={styles.interested_users_images}>
-                      {experience.interestedUsers.map((interestedUser) => (
-                        <div key={interestedUser._id}>
-                          <Link
-                            to={`/profile/${interestedUser._id}?back=/experiences/${id}`}
+                      {experience.interestedUsers
+                        .slice(0, 4)
+                        .map((interestedUser, interestedIdx) => (
+                          <div
+                            className={styles.interested_user_wrapper}
+                            key={interestedUser._id}
                           >
-                            <img
-                              className={styles.interested_user_profile}
-                              src={interestedUser.profilepic}
-                              alt=""
-                            />
-                          </Link>
-                        </div>
-                      ))}
+                            <div
+                              className={
+                                interestedIdx === 3
+                                  ? styles.interested_user_wrapper_more
+                                  : ''
+                              }
+                            >
+                              <img
+                                className={styles.interested_user_profile}
+                                src={interestedUser.profilepic}
+                                alt="User profile"
+                              />
+                            </div>
+                          </div>
+                        ))}
                     </div>
                     <button
                       className={styles.view_all_groups_button}

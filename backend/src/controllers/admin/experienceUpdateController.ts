@@ -86,6 +86,7 @@ export const experienceUpdateController = [
     .isObject()
     .escape(),
   body('terms', 'Enter valid terms').optional().isString().escape(),
+  body('interestedUsers', 'Enter valid interested users').optional().isString(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.

@@ -125,6 +125,19 @@ class ExperienceDao {
       experienceInfo.whatsIncluded || experience.whatsIncluded;
     experience.terms = experienceInfo.terms || experience.terms;
 
+    // Update interested users
+    if (experienceInfo.interestedUsers) {
+      if (experienceInfo.interestedUsers === 'empty') {
+        experience.interestedUsers = [];
+      } else {
+        experience.interestedUsers = decodeURIComponent(
+          experienceInfo.interestedUsers
+        )
+          .split(',')
+          .map((id) => mongoose.Types.ObjectId(String(id)));
+      }
+    }
+
     const updatedExperience = await experience.save();
     return updatedExperience;
   }
