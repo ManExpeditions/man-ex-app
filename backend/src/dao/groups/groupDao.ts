@@ -96,8 +96,18 @@ class GroupDao {
     userId: mongoose.Types.ObjectId | string,
     group: Group
   ): boolean => {
-    const userFound = group.goingUsers.find(
-      (user: string | mongoose.Types.ObjectId) => user === userId
+    const userFound = group.goingUsers.find((user: mongoose.Types.ObjectId) =>
+      user.equals(userId)
+    );
+    return userFound ? true : false;
+  };
+
+  public userExistsInGroupInterestedUsers = (
+    userId: mongoose.Types.ObjectId | string,
+    group: Group
+  ): boolean => {
+    const userFound = group.interestedUsers.find(
+      (user: mongoose.Types.ObjectId) => user.equals(userId)
     );
     return userFound ? true : false;
   };
@@ -109,6 +119,17 @@ class GroupDao {
     const userObjectId =
       typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
     group.goingUsers.push(userObjectId);
+    const updatedGroup = await group.save();
+    return updatedGroup;
+  }
+
+  public async addInterestedUserToGroup(
+    group: Group,
+    userId: mongoose.Types.ObjectId | string
+  ) {
+    const userObjectId =
+      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+    group.interestedUsers.push(userObjectId);
     const updatedGroup = await group.save();
     return updatedGroup;
   }
