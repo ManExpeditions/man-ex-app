@@ -9,7 +9,7 @@ import userDao from '../../dao/users/userDao';
 import logger from '../../lib/logger';
 
 /**
- * @api {put} /group/v1/:id/interested Get group
+ * @api {put} /group/v1/:id/interested InterestedUserGroup
  * @apiDescription Add interested user to group
  * @apiPermission Authentication
  * @apiVersion 1.0.0
