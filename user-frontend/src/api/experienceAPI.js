@@ -23,6 +23,21 @@ class experienceAPI {
     const { data } = await Axios.get(`/api/experience/v1/${id}`);
     return data;
   }
+
+  async experienceInterestedUser(experienceId, userId, userToken) {
+    const { data } = await Axios.put(
+      `/api/experience/v1/${experienceId}/interested`,
+      {
+        userId
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      }
+    );
+    return data;
+  }
 }
 
 export default new experienceAPI();

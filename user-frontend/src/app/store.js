@@ -20,6 +20,7 @@ import userGetProfileSlice from '../slices/user/userGetProfileSlice';
 import adminUsersGetSlice from '../slices/admin/adminUsersGetSlice';
 import adminUserGetSlice from '../slices/admin/adminUserGetSlice';
 import groupInterestedUserSlice from '../slices/group/groupInterestedUserSlice';
+import experienceInterestedUserSlice from '../slices/experience/experienceInterestedUserSlice';
 
 export const store = configureStore({
   preloadedState: {
@@ -50,6 +51,7 @@ export const store = configureStore({
     adminGroupDeleteSlice: adminGroupDeleteSlice,
     adminUsersGetSlice: adminUsersGetSlice,
     adminUserGetSlice: adminUserGetSlice,
-    groupInterestedUserSlice: groupInterestedUserSlice
+    groupInterestedUserSlice: groupInterestedUserSlice,
+    experienceInterestedUserSlice: experienceInterestedUserSlice
   }
 });

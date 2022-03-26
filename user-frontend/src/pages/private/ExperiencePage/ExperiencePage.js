@@ -14,6 +14,11 @@ import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Rating from '../../../components/Rating/Rating';
 import Group from '../../../components/Group/Group';
 import Modal from '../../../components/Modal/Modal';
+import {
+  experienceInterestedUser,
+  resetExperienceInterestedUser
+} from '../../../slices/experience/experienceInterestedUserSlice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -39,21 +44,50 @@ export default function ExperiencePage() {
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { experience } = experienceGetSlice;
 
+  const experienceInterestedUserSlice = useSelector(
+    (state) => state.experienceInterestedUserSlice
+  );
+  const {
+    loading: loadingInterestedUser,
+    experience: experienceNewInterestedUser,
+    error: errorInterestedUser
+  } = experienceInterestedUserSlice;
+
   const handleImageClick = (imageIdx) => {
     setActiveIndex(imageIdx);
     setIsCarouselVisible(true);
   };
-
-  const onInterestedHandler = () => {
-    
-  }
-
   const dispatch = useDispatch();
+
+  const onExperienceInterestedHandler = () => {
+    dispatch(experienceInterestedUser(id));
+  };
+
   useEffect(() => {
     if (!experience) {
       dispatch(experienceGet(id));
+    } else {
+      const isUserInterested = experience.interestedUsers.find(
+        (userId) => userId === user.id
+      );
+      setIsInterestedUser(isUserInterested ? true : false);
     }
-  }, [dispatch, experience, id]);
+  }, [dispatch, experience, id, user]);
+
+  useEffect(() => {
+    if (experienceNewInterestedUser) {
+      setShowInterestedUserModal(false);
+      setAreGroupsVisible(true);
+      dispatch(experienceGet(id));
+      dispatch(resetExperienceInterestedUser());
+    }
+  }, [
+    areGroupsVisible,
+    dispatch,
+    experienceNewInterestedUser,
+    id,
+    showInterestedUserModal
+  ]);
 
   const { ref, inView } = useInView({
     /* Optional options */
@@ -65,6 +99,7 @@ export default function ExperiencePage() {
   useEffect(() => {
     return () => {
       dispatch(resetExperienceGet());
+      dispatch(resetExperienceInterestedUser());
     };
   }, [dispatch]);
 
@@ -132,16 +167,28 @@ export default function ExperiencePage() {
                       <div className="flex-box gap-1">
                         <button
                           className="btn modal-button blue"
-                          onClick={onInterestedHandler}
+                          onClick={onExperienceInterestedHandler}
                         >
-                          I'm Interested
+                          {loadingInterestedUser ? (
+                            <Spinner></Spinner>
+                          ) : (
+                            "I'm Interested"
+                          )}
                         </button>
                         <button
                           className="btn modal-button red"
-                          onClick={() => setShowInterestedUserModal(false)}
+                          onClick={() => {
+                            dispatch(resetExperienceInterestedUser());
+                            setShowInterestedUserModal(false);
+                          }}
                         >
                           Cancel
                         </button>
+                        {errorInterestedUser && (
+                          <span className="error-message display-block">
+                            {errorInterestedUser}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </Modal>
