@@ -68,7 +68,7 @@ export default function ExperiencePage() {
       dispatch(experienceGet(id));
     } else {
       const isUserInterested = experience.interestedUsers.find(
-        (userId) => userId === user.id
+        (interestedUser) => interestedUser._id === user.id
       );
       setIsInterestedUser(isUserInterested ? true : false);
     }
@@ -200,17 +200,23 @@ export default function ExperiencePage() {
                   <div>
                     <h2>Join a group</h2>
                     <p className={styles.summary_users_text}>
-                      {experience.groups.reduce(
-                        (prev, group) => prev + group.goingUsers.length,
-                        0
-                      )}{' '}
-                      GOING/{' '}
-                      {experience.groups.reduce(
-                        (prev, group) => prev + group.interestedUsers.length,
-                        0
-                      )}{' '}
-                      INTERESTED
+                      {experience.interestedUsers.length} INTERESTED
                     </p>
+                    <div className={styles.interested_users_images}>
+                      {experience.interestedUsers.map((interestedUser) => (
+                        <div key={interestedUser._id}>
+                          <Link
+                            to={`/profile/${interestedUser._id}?back=/experiences/${id}`}
+                          >
+                            <img
+                              className={styles.interested_user_profile}
+                              src={interestedUser.profilepic}
+                              alt=""
+                            />
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
                     <button
                       className={styles.view_all_groups_button}
                       onClick={() => {

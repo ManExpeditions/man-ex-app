@@ -34,6 +34,10 @@ class ExperienceDao {
   ): Promise<Experience | null> {
     const experience = await Experience.findById(id)
       .populate({
+        path: 'interestedUsers',
+        select: ['_id', 'profilepic', 'firstName']
+      })
+      .populate({
         path: 'groups',
         populate: {
           path: 'groupLead',
