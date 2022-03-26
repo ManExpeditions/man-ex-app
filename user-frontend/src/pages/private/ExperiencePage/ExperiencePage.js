@@ -44,6 +44,10 @@ export default function ExperiencePage() {
     setIsCarouselVisible(true);
   };
 
+  const onInterestedHandler = () => {
+    
+  }
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (!experience) {
@@ -128,7 +132,7 @@ export default function ExperiencePage() {
                       <div className="flex-box gap-1">
                         <button
                           className="btn modal-button blue"
-                          // onClick={onDeactivateHandler}
+                          onClick={onInterestedHandler}
                         >
                           I'm Interested
                         </button>

@@ -31,7 +31,7 @@ class ExperienceDao {
 
   public async findExperienceById(
     id: mongoose.Types.ObjectId | string
-  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
+  ): Promise<Experience | null> {
     const experience = await Experience.findById(id)
       .populate({
         path: 'groups',
@@ -73,7 +73,7 @@ class ExperienceDao {
   public async updateExperience(
     id: mongoose.Types.ObjectId | string,
     experienceInfo: Experience
-  ): Promise<(Experience & mongoose.Document<Experience>) | null> {
+  ): Promise<Experience | null> {
     const experience = await Experience.findById(id);
     if (!experience) {
       return null;
@@ -133,7 +133,7 @@ class ExperienceDao {
   }
 
   public async addGroupToExperience(
-    experience: Experience & mongoose.Document<Experience>,
+    experience: Experience,
     groupId: mongoose.Types.ObjectId
   ) {
     experience.groups.push(groupId);
@@ -150,6 +150,27 @@ class ExperienceDao {
     );
     experience?.groups.splice(groupIdx as number, 1);
     await experience?.save();
+  }
+
+  public userExistsInExperienceInterestedUsers = (
+    userId: mongoose.Types.ObjectId | string,
+    experience: Experience
+  ): boolean => {
+    const userFound = experience.interestedUsers.find(
+      (user: mongoose.Types.ObjectId) => user.equals(userId)
+    );
+    return userFound ? true : false;
+  };
+
+  public async addInterestedUserToExperience(
+    userId: mongoose.Types.ObjectId | string,
+    experience: Experience
+  ) {
+    const userObjectId =
+      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+    experience.interestedUsers.push(userObjectId);
+    const updatedExperience = await experience.save();
+    return updatedExperience;
   }
 
   public async deleteAllExperiences(): Promise<void> {

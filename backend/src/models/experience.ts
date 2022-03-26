@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface Experience {
+interface Experience extends mongoose.Document {
   _id: mongoose.Types.ObjectId;
   isActive: boolean;
   isFeatured: boolean;
@@ -23,6 +23,7 @@ interface Experience {
   whatsIncluded: string;
   terms: string;
   groups: [mongoose.Types.ObjectId];
+  interestedUsers: [mongoose.Types.ObjectId];
 }
 
 const experienceSchema = new mongoose.Schema<Experience>(
@@ -54,7 +55,8 @@ const experienceSchema = new mongoose.Schema<Experience>(
 
     whatsIncluded: { type: String },
     terms: { type: String },
-    groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]
+    groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }],
+    interestedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
   },
   {
     timestamps: true
