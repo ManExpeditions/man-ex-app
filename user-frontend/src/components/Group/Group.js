@@ -1,13 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import OutsideAlerter from '../OutsideAlerter';
-import { BsChevronCompactDown } from 'react-icons/bs';
+import { BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
 import { IoCheckmarkCircleSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import styles from './Group.module.css';
+import Modal from '../Modal/Modal';
+import { useDispatch, useSelector } from 'react-redux';
+import Spinner from '../Spinner/Spinner';
+import {
+  groupInterestedUser,
+  resetGroupInterestedUser
+} from '../../slices/group/groupInterestedUserSlice';
 
 export default function Group({ user, group, experienceId }) {
   const [thriveCartScriptReady, setThriveCartScriptReady] = useState(false);
   const [isCheckoutFormVisible, setIsCheckoutFormVisible] = useState(false);
+  const [showInterestedUserModal, setShowInterestedUserModal] = useState(false);
+  const [isInterestedUser, setIsInterestedUser] = useState(false);
+  const [areProfilesVisible, setAreProfilesVisible] = useState(false);
+
+  const groupInterestedUserSlice = useSelector(
+    (state) => state.groupInterestedUserSlice
+  );
+  const {
+    loading: loadingInterestedUser,
+    group: groupNewInterestedUser,
+    error: errorInterestedUser
+  } = groupInterestedUserSlice;
 
   useEffect(() => {
     const addThrivecartScript = (scriptId) => {
@@ -22,6 +41,27 @@ export default function Group({ user, group, experienceId }) {
     };
     return addThrivecartScript(group.thriveCartScriptId);
   });
+
+  const dispatch = useDispatch();
+  const onGroupInterestedHandler = () => {
+    dispatch(groupInterestedUser(group._id));
+  };
+
+  useEffect(() => {
+    const isUserInterested = group.interestedUsers.find(
+      (interestedUser) => interestedUser._id === user.id
+    );
+    setIsInterestedUser(isUserInterested ? true : false);
+  }, [group.interestedUsers, user.id]);
+
+  useEffect(() => {
+    if (groupNewInterestedUser) {
+      setIsInterestedUser(true);
+      setShowInterestedUserModal(false);
+      setAreProfilesVisible(true);
+      dispatch(resetGroupInterestedUser());
+    }
+  }, [dispatch, groupNewInterestedUser]);
 
   return (
     <div>
@@ -93,36 +133,93 @@ export default function Group({ user, group, experienceId }) {
                 <h4>Who's Going/Interested</h4>
               </>
             )}
+            {showInterestedUserModal && (
+              <div className="modal-wrapper">
+                <Modal setIsOpen={setShowInterestedUserModal}>
+                  <div className="modal">
+                    <p className="modal-text">
+                      To see the full list of attendees, you must first indicate
+                      that you are interested in joining this group.
+                    </p>
+                    <div className="flex-box gap-1">
+                      <button
+                        className="btn modal-button blue"
+                        onClick={onGroupInterestedHandler}
+                      >
+                        {loadingInterestedUser ? (
+                          <Spinner></Spinner>
+                        ) : (
+                          "I'm Interested"
+                        )}
+                      </button>
+                      <button
+                        className="btn modal-button red"
+                        onClick={() => {
+                          dispatch(resetGroupInterestedUser());
+                          setShowInterestedUserModal(false);
+                        }}
+                      >
+                        Cancel
+                      </button>
+                      {errorInterestedUser && (
+                        <span className="error-message display-block">
+                          {errorInterestedUser}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </Modal>
+              </div>
+            )}
             <div className={styles.going_interested_container}>
-              {group.goingUsers.slice(0, 3).map((goingUser, goingUserIdx) => (
-                <div
-                  key={goingUserIdx}
-                  className={styles.going_interested_user}
-                >
-                  <Link
-                    to={`/profile/${goingUser._id}?back=/experiences/${experienceId}`}
+              {group.goingUsers
+                .slice(0, areProfilesVisible ? 100 : 3)
+                .map((goingUser, goingUserIdx) => (
+                  <div
+                    key={goingUserIdx}
+                    className={styles.going_interested_user}
                   >
-                    <img
-                      className={styles.going_interested_profilepic}
-                      src={goingUser.profilepic}
-                      alt="Group Lead"
+                    <Link
+                      to={`/profile/${goingUser._id}?back=/experiences/${experienceId}`}
+                    >
+                      <img
+                        className={styles.going_interested_profilepic}
+                        src={goingUser.profilepic}
+                        alt="Group Lead"
+                      />
+                    </Link>
+                    <IoCheckmarkCircleSharp
+                      style={{ color: '20a020' }}
+                      className={styles.checkmark}
                     />
-                  </Link>
-                  <IoCheckmarkCircleSharp
-                    style={{ color: '20a020' }}
-                    className={styles.checkmark}
-                  />
-                  <p className={styles.going_interested_name}>
-                    {goingUser.firstName}
-                  </p>
-                </div>
-              ))}
+                    <p className={styles.going_interested_name}>
+                      {goingUser.firstName}
+                    </p>
+                  </div>
+                ))}
             </div>
             {group.goingUsers.length > 3 && (
-              <button className={styles.see_more_long_button}>
-                See {group.goingUsers.length - 3} more{' '}
-                {group.goingUsers.length - 3 > 1 ? 'profiles' : 'profile'}
-                <BsChevronCompactDown />
+              <button
+                className={styles.see_more_long_button}
+                onClick={() => {
+                  if (isInterestedUser) {
+                    setAreProfilesVisible((prev) => !prev);
+                  } else {
+                    setShowInterestedUserModal(true);
+                  }
+                }}
+              >
+                {areProfilesVisible ? (
+                  <>
+                    Hide profiles <BsChevronCompactUp />
+                  </>
+                ) : (
+                  <>
+                    See {group.goingUsers.length - 3} more{' '}
+                    {group.goingUsers.length - 3 > 1 ? 'profiles' : 'profile'}
+                    <BsChevronCompactDown />
+                  </>
+                )}
               </button>
             )}
           </div>

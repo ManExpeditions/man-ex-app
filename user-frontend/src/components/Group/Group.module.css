@@ -98,12 +98,13 @@
 }
 
 .going_interested_container {
+  margin: 1rem 0;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.8rem;
 }
 
 .going_interested_user {
-  margin: 1rem 0;
   position: relative;
   width: max-content;
   text-align: center;
@@ -118,7 +119,7 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  border: 1px solid #fff;
+  border: 1px solid #5e5e5e;
   outline: none;
   background-color: #000;
   color: #fff;
@@ -130,7 +131,7 @@
 
 .see_more_long_button:hover,
 .see_more_long_button:focus {
-  border: 1px solid #56c1ff;
+  border: 1px solid #fff;
 }
 
 .checkmark {
