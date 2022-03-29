@@ -97,6 +97,7 @@ export const userVerifyEmailController = [
             socials: updatedUser?.socials,
             authType: updatedUser?.authType,
             completedOnboarding: updatedUser?.completedOnboarding,
+            favorites: updatedUser?.favorites,
             adminUser: updatedUser?.adminUser
           });
           return;
