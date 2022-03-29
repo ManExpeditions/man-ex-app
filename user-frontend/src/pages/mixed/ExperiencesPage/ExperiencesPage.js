@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import BottomNav from '../../../components/BottomNav/BottomNav';
 import ChipCheckBox from '../../../components/ChipCheckBox/ChipCheckBox';
+import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 import Navbar from '../../../components/Navbar/Navbar';
-import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
 import {
   experiencesGet,
   resetExperiencesGet
@@ -106,18 +105,11 @@ export default function ExperiencesPage() {
         <section className={styles.exp_section}>
           {experiences &&
             experiences.map((experience) => (
-              <div key={experience._id}>
-                <VideoPlayer
-                  thumbnail={experience.videoThumbnailImage}
-                  src={experience.video}
-                ></VideoPlayer>
-                <Link
-                  to={user ? `/experiences/${experience._id}` : '/register'}
-                  className={`link btn-primary ${styles.btn_video_info}`}
-                >
-                  Learn more
-                </Link>
-              </div>
+              <ExperienceBox
+                key={experience._id}
+                experience={experience}
+                user={user}
+              />
             ))}
         </section>
       </div>
