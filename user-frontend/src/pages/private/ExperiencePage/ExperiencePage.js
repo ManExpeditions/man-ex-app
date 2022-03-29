@@ -242,6 +242,7 @@ export default function ExperiencePage() {
                         <BsChevronCompactDown></BsChevronCompactDown>
                       )}
                     </button>
+
                     {areGroupsVisible &&
                       experience.groups.map((group) => (
                         <Group
@@ -251,6 +252,17 @@ export default function ExperiencePage() {
                           experienceId={id}
                         />
                       ))}
+                    <div>
+                      <p>
+                        Not into group travel? Book privately{' '}
+                        <a
+                          href={`mailto:hello@manexpeditions.com?subject=Private booking request: ${experience.name}&body=Please let us know what dates you want to book and how many people are in your group`}
+                          className="link link-blue"
+                        >
+                          HERE
+                        </a>{' '}
+                      </p>
+                    </div>
                   </div>
                 )}
               </div>
