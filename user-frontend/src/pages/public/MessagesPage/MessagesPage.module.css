@@ -1,0 +1,8 @@
+.placeholder {
+  display: grid;
+  place-content: center;
+  font-size: 2rem;
+  height: 100vh;
+  background-color: #000;
+  color: #56c1ff;
+}

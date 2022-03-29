@@ -35,6 +35,7 @@ import ManageAccountPage from './pages/private/UserProfilePages/ManageAccountPag
 import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
 import AdminPanelPage from './pages/admin/AdminPanelPage';
 import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplayProfilePage/UserDisplayProfilePage';
+import MessagesPage from './pages/public/MessagesPage/MessagesPage';
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
         <Route path="/experiences/:id" exact component={ExperiencePage}></Route>
         <Route path="/experiences" exact component={ExperiencesPage}></Route>
         <Route path="/aboutus" component={AboutPage}></Route>
+        <Route path="/messages" component={MessagesPage}></Route>
         <Route path="/press" component={PressPage}></Route>
         <Route
           path="/travelsponsorships"

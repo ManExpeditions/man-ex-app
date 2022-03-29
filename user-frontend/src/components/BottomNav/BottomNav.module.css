@@ -34,6 +34,7 @@
   height: 18px;
   width: 18px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 @media (max-width: 800px) {

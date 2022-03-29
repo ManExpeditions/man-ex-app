@@ -82,7 +82,6 @@ export default function BottomNav({ user, ...props }) {
                     size={18}
                   ></BiUser>
                 )}
-
                 <span className={props.profile ? 'accent_color' : ''}>
                   Profile
                 </span>

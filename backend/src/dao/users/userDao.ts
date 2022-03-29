@@ -18,7 +18,7 @@ class UserDao {
   }
 
   public async getUsers(): Promise<User[] | null> {
-    const users = await User.find({});
+    const users = await User.find({}).populate('favorites');
     return users;
   }
 
@@ -30,7 +30,7 @@ class UserDao {
   public async findUserById(
     id: mongoose.Types.ObjectId | string
   ): Promise<User | null> {
-    const user = await User.findById(id);
+    const user = await User.findById(id).populate('favorites');
     return user;
   }
 

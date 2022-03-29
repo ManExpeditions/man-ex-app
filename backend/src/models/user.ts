@@ -28,6 +28,7 @@ interface User {
   };
   authType: string;
   completedOnboarding: boolean;
+  favorites: any;
   adminUser: boolean;
 }
 
@@ -59,6 +60,11 @@ const userSchema = new mongoose.Schema<User>(
     },
     authType: { type: String, default: 'email' },
     completedOnboarding: { type: Boolean, default: false },
+    favorites: {
+      members: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
+      experiences: [{ type: mongoose.Types.ObjectId, ref: 'Experience' }],
+      groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]
+    },
     adminUser: {
       type: Boolean,
       default: false
