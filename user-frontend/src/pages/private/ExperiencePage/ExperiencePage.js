@@ -19,6 +19,7 @@ import {
   resetExperienceInterestedUser
 } from '../../../slices/experience/experienceInterestedUserSlice';
 import Spinner from '../../../components/Spinner/Spinner';
+import ProfilesBox from '../../../components/ProfilesBox/ProfilesBox';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -201,30 +202,9 @@ export default function ExperiencePage() {
                     <p className={styles.summary_users_text}>
                       {experience.interestedUsers.length} INTERESTED
                     </p>
-                    <div className={styles.interested_users_images}>
-                      {experience.interestedUsers
-                        .slice(0, 4)
-                        .map((interestedUser, interestedIdx) => (
-                          <div
-                            className={styles.interested_user_wrapper}
-                            key={interestedUser._id}
-                          >
-                            <div
-                              className={
-                                interestedIdx === 3
-                                  ? styles.interested_user_wrapper_more
-                                  : ''
-                              }
-                            >
-                              <img
-                                className={styles.interested_user_profile}
-                                src={interestedUser.profilepic}
-                                alt="User profile"
-                              />
-                            </div>
-                          </div>
-                        ))}
-                    </div>
+                    <ProfilesBox
+                      users={experience.interestedUsers.slice(0, 4)}
+                    />
                     <button
                       className={styles.view_all_groups_button}
                       onClick={() => {
