@@ -6,7 +6,10 @@ class ExperienceDao {
     isActive?: boolean;
     isFeatured?: boolean;
   }): Promise<Experience[] | null> {
-    const experiences = await Experience.find(filter);
+    const experiences = await Experience.find(filter).populate({
+      path: 'interestedUsers',
+      select: ['_id', 'profilepic', 'firstName']
+    });
     return experiences;
   }
 

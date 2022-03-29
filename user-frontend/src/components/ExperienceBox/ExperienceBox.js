@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProfilesBox from '../ProfilesBox/ProfilesBox';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import styles from './ExperienceBox.module.css';
 
@@ -10,12 +11,31 @@ export default function ExperienceBox({ experience, user }) {
         thumbnail={experience.videoThumbnailImage}
         src={experience.video}
       ></VideoPlayer>
-      <Link
-        to={user ? `/experiences/${experience._id}` : '/register'}
-        className={`link btn-primary ${styles.btn_video_info}`}
-      >
-        Learn more
-      </Link>
+      <h1 className={styles.call_to_action}>Join a group</h1>
+      <div className={styles.bottom_container}>
+        {experience.groups.length > 0 &&
+        experience.interestedUsers.length > 0 ? (
+          <div className={styles.profiles_wrapper}>
+            <ProfilesBox
+              style={{ height: '50px', width: '50px' }}
+              users={experience.interestedUsers.slice(0, 4)}
+            />
+          </div>
+        ) : experience.groups.length === 0 ? (
+          <div className="flex-box gap-1">
+            <div className={styles.circle}></div>
+            Create a group
+          </div>
+        ) : (
+          ''
+        )}
+        <Link
+          to={user ? `/experiences/${experience._id}` : '/register'}
+          className={`link btn-primary ${styles.btn_video_info}`}
+        >
+          Learn more
+        </Link>
+      </div>
     </div>
   );
 }

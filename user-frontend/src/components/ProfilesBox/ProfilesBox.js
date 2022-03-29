@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ProfilesBox.module.css';
 
-export default function ProfilesBox({ users }) {
+export default function ProfilesBox({ users, ...props }) {
   return (
     <div className={styles.interested_users_images}>
       {users.map((user, interestedIdx) => (
@@ -14,6 +14,7 @@ export default function ProfilesBox({ users }) {
             }
           >
             <img
+              {...props}
               className={styles.interested_user_profile}
               src={user.profilepic}
               alt="User profile"
