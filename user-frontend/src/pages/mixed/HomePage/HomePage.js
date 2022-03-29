@@ -6,11 +6,11 @@ import { getOnboardingRedirectPage } from '../../../utils/common';
 import { toast } from 'react-toastify';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Navbar from '../../../components/Navbar/Navbar';
-import VideoPlayer from '../../../components/VideoPlayer/VideoPlayer';
 import Toast from '../../../components/Toast/Toast';
 import styles from './HomePage.module.css';
 import BottomNav from '../../../components/BottomNav/BottomNav';
 import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
+import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 
 const images = [
   <div>
@@ -174,7 +174,7 @@ export default function HomePage() {
   }, [dispatch, experiences]);
 
   return (
-    <div className="page">
+    <div className="page home-page">
       <Navbar user={user}></Navbar>
       <Toast></Toast>
       {!user && (
@@ -299,28 +299,6 @@ export default function HomePage() {
                 <h1 className={styles.global_exp_subheading}>
                   Global Experiences
                 </h1>
-
-                <div className={styles.global_exp_section_videos_container}>
-                  {experiences &&
-                    experiences.map((experience) => (
-                      <div key={experience._id}>
-                        <VideoPlayer
-                          thumbnail={experience.videoThumbnailImage}
-                          src={experience.video}
-                        ></VideoPlayer>
-                        <Link
-                          to={
-                            user
-                              ? `/experiences/${experience._id}`
-                              : '/register'
-                          }
-                          className={`link btn-primary ${styles.btn_video_info}`}
-                        >
-                          Learn more
-                        </Link>
-                      </div>
-                    ))}
-                </div>
               </div>
             </>
           ) : (
@@ -328,7 +306,7 @@ export default function HomePage() {
               <h1 className={styles.exp_section_heading}>
                 Popular Experiences
               </h1>
-              <div className={styles.exp_section_videos_container}>
+              {/* <div className={styles.exp_section_videos_container}>
                 <div className={styles.video_container}>
                   <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
                   <Link
@@ -347,9 +325,19 @@ export default function HomePage() {
                     Learn more
                   </Link>
                 </div>
-              </div>
+              </div> */}
             </>
           )}
+          <div className={styles.global_exp_section_videos_container}>
+            {experiences &&
+              experiences.map((experience) => (
+                <ExperienceBox
+                  key={experience._id}
+                  experience={experience}
+                  user={user}
+                />
+              ))}
+          </div>
 
           <Link to="/experiences" className="link link-long">
             See more experiences

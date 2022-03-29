@@ -238,11 +238,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  text-align: left;
 }
 
 .global_video_container {
   max-width: 450px;
-  justify-self: center;
+  /* justify-self: center; */
 }
 
 @media (max-width: 750px) {
