@@ -70,10 +70,19 @@ export default function BottomNav({ user, ...props }) {
                 to="/profile"
                 className={`link link-primary ${styles.nav_link}`}
               >
-                <BiUser
-                  className={props.profile ? 'accent_color' : ''}
-                  size={18}
-                ></BiUser>
+                {user.profilepic ? (
+                  <img
+                    src={user.profilepic}
+                    alt="User profile"
+                    className={styles.user_profilepic}
+                  />
+                ) : (
+                  <BiUser
+                    className={props.profile ? 'accent_color' : ''}
+                    size={18}
+                  ></BiUser>
+                )}
+
                 <span className={props.profile ? 'accent_color' : ''}>
                   Profile
                 </span>
