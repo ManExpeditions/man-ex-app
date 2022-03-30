@@ -69,10 +69,8 @@ export const emailSigninController = [
 
     // Make sure user isActive if signing in
     const userId = user._id;
-    const updatedUser = await userDao.updateUser(userId, {
-      ...user,
-      isActive: true
-    });
+    user.isActive = true;
+    const updatedUser = await userDao.updateUser(userId, user);
     if (!updatedUser) {
       const err = new Error('Unable to update user.');
       logger.error(err.message);

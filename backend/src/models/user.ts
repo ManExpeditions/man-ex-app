@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface User {
+interface User extends mongoose.Document {
   _id: mongoose.Types.ObjectId;
   isActive: boolean;
   firstName: string;

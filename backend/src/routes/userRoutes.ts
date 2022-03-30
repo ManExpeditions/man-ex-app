@@ -7,6 +7,7 @@ import { userValidateController } from '../controllers/user/userValidateControll
 import { userDeleteController } from '../controllers/user/userDeleteController';
 
 import { userGetProfileController } from '../controllers/user/userGetProfileController';
+import { userAddToFavoritesController } from '../controllers/user/userAddToFavoritesController';
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.post('/:id/verify/email', userVerifyEmailController);
 router.post('/:id/verify/phone', userVerifyPhoneController);
 router.post('/:id/verify/code', userVerificationCodeController);
 router.post('/:id/validate', userValidateController);
+router.patch('/:id/favorites/add', userAddToFavoritesController);
 
 export default router;

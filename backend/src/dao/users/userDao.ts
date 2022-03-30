@@ -111,6 +111,73 @@ class UserDao {
     const updatedUser = await this.updateUser(user._id, user);
     return updatedUser;
   }
+
+  public experienceExistsInFavorites = (
+    experienceId: mongoose.Types.ObjectId | string,
+    user: User
+  ): boolean => {
+    const experienceFound = user.favorites.experiences.find(
+      (experience: mongoose.Types.ObjectId) => experience.equals(experienceId)
+    );
+    return experienceFound ? true : false;
+  };
+
+  public memberExistsInFavorites = (
+    memberId: mongoose.Types.ObjectId | string,
+    user: User
+  ): boolean => {
+    const memberFound = user.favorites.members.find(
+      (member: mongoose.Types.ObjectId) => member.equals(memberId)
+    );
+    return memberFound ? true : false;
+  };
+
+  public groupExistsInFavorites = (
+    groupId: mongoose.Types.ObjectId | string,
+    user: User
+  ): boolean => {
+    const groupFound = user.favorites.members.find(
+      (group: mongoose.Types.ObjectId) => group.equals(groupId)
+    );
+    return groupFound ? true : false;
+  };
+
+  public async addExperienceToFavorites(
+    experienceId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const experienceObjectId =
+      typeof experienceId === 'string'
+        ? mongoose.Types.ObjectId(experienceId)
+        : experienceId;
+    user.favorites.experiences.push(experienceObjectId);
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
+
+  public async addMemberToFavorites(
+    memberId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const memberObjectId =
+      typeof memberId === 'string'
+        ? mongoose.Types.ObjectId(memberId)
+        : memberId;
+    user.favorites.members.push(memberObjectId);
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
+
+  public async addGroupToFavorites(
+    groupId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const groupObjectId =
+      typeof groupId === 'string' ? mongoose.Types.ObjectId(groupId) : groupId;
+    user.favorites.members.push(groupObjectId);
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
 }
 
 export default new UserDao();
