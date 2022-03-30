@@ -75,10 +75,8 @@ export const userVerifyPhoneController = [
     await TwilioServices.verifyService(phone, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
-          const updatedUser = await userDao.verifyAndUpdatePhone(
-            user,
-            req.body.phone
-          );
+          await userDao.verifyAndUpdatePhone(user, req.body.phone);
+          const updatedUser = await userDao.findUserByIdAndPopulate(userId);
           res.send({
             id: updatedUser?._id,
             isActive: updatedUser?.isActive,

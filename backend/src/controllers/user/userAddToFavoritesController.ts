@@ -78,8 +78,6 @@ export const userAddToFavoritesController = [
 
     const type = req.query.type;
 
-    let updatedUser;
-
     if (type === 'experience') {
       // Check if experience does not exist
       const experience = await experienceDao.findExperienceById(id);
@@ -98,7 +96,7 @@ export const userAddToFavoritesController = [
         return;
       }
       // Remove the experience from favorites
-      updatedUser = await userDao.addExperienceToFavorites(id, user);
+      await userDao.addExperienceToFavorites(id, user);
     } else if (type === 'group') {
       // Check if group does not exist
       const group = await groupDao.findGroupById(id);
@@ -117,7 +115,7 @@ export const userAddToFavoritesController = [
         return;
       }
       // Add the group to favorites
-      updatedUser = await userDao.addGroupToFavorites(id, user);
+      await userDao.addGroupToFavorites(id, user);
     } else if (type === 'member') {
       // Check if member does not exist
       const member = await userDao.findUserById(id);
@@ -136,8 +134,9 @@ export const userAddToFavoritesController = [
         return;
       }
       // Add the experience to favorites
-      updatedUser = await userDao.addMemberToFavorites(id, user);
+      await userDao.addMemberToFavorites(id, user);
     }
+    const updatedUser = await userDao.findUserByIdAndPopulate(userId);
     res.status(200).json({
       id: updatedUser?._id,
       isActive: updatedUser?.isActive,

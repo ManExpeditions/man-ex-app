@@ -145,7 +145,8 @@ export const userUpdateController = [
     }
 
     // Check if user does not exist
-    const user = await userDao.findUserById(req.params.id);
+    const userId = req.params.id;
+    const user = await userDao.findUserById(userId);
     if (!user) {
       const err = new Error('User does not exist.');
       logger.error(err.message);
@@ -153,7 +154,7 @@ export const userUpdateController = [
       return;
     }
 
-    const updatedUser = await userDao.updateUser(req.params.id, req.body);
+    const updatedUser = await userDao.updateUser(userId, req.body);
     if (!updatedUser) {
       const err = new Error('Unable to update user.');
       logger.error(err.message);
@@ -161,31 +162,33 @@ export const userUpdateController = [
       return;
     }
 
+    const populatedUpdatedUser = await userDao.findUserByIdAndPopulate(userId);
+
     res.status(200).json({
-      id: updatedUser._id,
-      isActive: updatedUser.isActive,
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      email: updatedUser.email,
-      phone: updatedUser.phone,
-      emailVerified: updatedUser.emailVerified,
-      phoneVerified: updatedUser.phoneVerified,
-      gender: updatedUser.gender,
-      language: updatedUser.language,
-      interests: updatedUser.interests,
-      continents: updatedUser.continents,
-      city: updatedUser.city,
-      state: updatedUser.state,
-      country: updatedUser.country,
-      profilepic: updatedUser.profilepic,
-      profilepicVerified: updatedUser.profilepicVerified,
-      verificationProfilepic: updatedUser.verificationProfilepic,
-      bio: updatedUser.bio,
-      socials: updatedUser.socials,
-      authType: updatedUser.authType,
-      completedOnboarding: updatedUser.completedOnboarding,
-      favorites: updatedUser.favorites,
-      adminUser: updatedUser.adminUser
+      id: populatedUpdatedUser?._id,
+      isActive: populatedUpdatedUser?.isActive,
+      firstName: populatedUpdatedUser?.firstName,
+      lastName: populatedUpdatedUser?.lastName,
+      email: populatedUpdatedUser?.email,
+      phone: populatedUpdatedUser?.phone,
+      emailVerified: populatedUpdatedUser?.emailVerified,
+      phoneVerified: populatedUpdatedUser?.phoneVerified,
+      gender: populatedUpdatedUser?.gender,
+      language: populatedUpdatedUser?.language,
+      interests: populatedUpdatedUser?.interests,
+      continents: populatedUpdatedUser?.continents,
+      city: populatedUpdatedUser?.city,
+      state: populatedUpdatedUser?.state,
+      country: populatedUpdatedUser?.country,
+      profilepic: populatedUpdatedUser?.profilepic,
+      profilepicVerified: populatedUpdatedUser?.profilepicVerified,
+      verificationProfilepic: populatedUpdatedUser?.verificationProfilepic,
+      bio: populatedUpdatedUser?.bio,
+      socials: populatedUpdatedUser?.socials,
+      authType: populatedUpdatedUser?.authType,
+      completedOnboarding: populatedUpdatedUser?.completedOnboarding,
+      favorites: populatedUpdatedUser?.favorites,
+      adminUser: populatedUpdatedUser?.adminUser
     });
     return;
   })

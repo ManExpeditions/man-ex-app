@@ -84,32 +84,34 @@ export const emailSigninController = [
       adminUser: updatedUser.adminUser
     });
 
+    const updatedUserPopulated = await userDao.findUserByIdAndPopulate(userId);
+
     res.status(200).json({
-      id: updatedUser._id,
+      id: updatedUserPopulated?._id,
       token: token,
-      isActive: updatedUser.isActive,
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      email: updatedUser.email,
-      phone: updatedUser.phone,
-      emailVerified: updatedUser.emailVerified,
-      phoneVerified: updatedUser.phoneVerified,
-      gender: updatedUser.gender,
-      language: updatedUser.language,
-      interests: updatedUser.interests,
-      continents: updatedUser.continents,
-      city: updatedUser.city,
-      state: updatedUser.state,
-      country: updatedUser.country,
-      profilepic: updatedUser.profilepic,
-      profilepicVerified: updatedUser.profilepicVerified,
-      verificationProfilepic: updatedUser.verificationProfilepic,
-      bio: updatedUser.bio,
-      socials: updatedUser.socials,
-      authType: updatedUser.authType,
-      completedOnboarding: updatedUser.completedOnboarding,
-      favorites: updatedUser.favorites,
-      adminUser: updatedUser.adminUser
+      isActive: updatedUserPopulated?.isActive,
+      firstName: updatedUserPopulated?.firstName,
+      lastName: updatedUserPopulated?.lastName,
+      email: updatedUserPopulated?.email,
+      phone: updatedUserPopulated?.phone,
+      emailVerified: updatedUserPopulated?.emailVerified,
+      phoneVerified: updatedUserPopulated?.phoneVerified,
+      gender: updatedUserPopulated?.gender,
+      language: updatedUserPopulated?.language,
+      interests: updatedUserPopulated?.interests,
+      continents: updatedUserPopulated?.continents,
+      city: updatedUserPopulated?.city,
+      state: updatedUserPopulated?.state,
+      country: updatedUserPopulated?.country,
+      profilepic: updatedUserPopulated?.profilepic,
+      profilepicVerified: updatedUserPopulated?.profilepicVerified,
+      verificationProfilepic: updatedUserPopulated?.verificationProfilepic,
+      bio: updatedUserPopulated?.bio,
+      socials: updatedUserPopulated?.socials,
+      authType: updatedUserPopulated?.authType,
+      completedOnboarding: updatedUserPopulated?.completedOnboarding,
+      favorites: updatedUserPopulated?.favorites,
+      adminUser: updatedUserPopulated?.adminUser
     });
     return;
   })

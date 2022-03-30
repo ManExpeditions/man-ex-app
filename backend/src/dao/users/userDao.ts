@@ -18,7 +18,7 @@ class UserDao {
   }
 
   public async getUsers(): Promise<User[] | null> {
-    const users = await User.find({}).populate('favorites');
+    const users = await User.find({});
     return users;
   }
 
@@ -30,7 +30,20 @@ class UserDao {
   public async findUserById(
     id: mongoose.Types.ObjectId | string
   ): Promise<User | null> {
-    const user = await User.findById(id).populate('favorites');
+    const user = await User.findById(id);
+    return user;
+  }
+
+  public async findUserByIdAndPopulate(
+    id: mongoose.Types.ObjectId | string
+  ): Promise<User | null> {
+    const user = await User.findById(id).populate({
+      path: 'favorites',
+      populate: {
+        path: 'experiences',
+        select: ['_id', 'videoThumbnailImage', 'video', 'firstName']
+      }
+    });
     return user;
   }
 
@@ -43,7 +56,7 @@ class UserDao {
     id: mongoose.Types.ObjectId | string,
     userInfo: User
   ): Promise<User | null> {
-    const user = await User.findById(id);
+    const user = await this.findUserById(id);
     if (!user) {
       return null;
     }

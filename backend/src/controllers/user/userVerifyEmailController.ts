@@ -73,7 +73,8 @@ export const userVerifyEmailController = [
     await TwilioServices.verifyService(email, req.body.verification_code)
       .then(async (verification_check) => {
         if (verification_check.status === 'approved') {
-          const updatedUser = await userDao.verifyUserEmail(user, email);
+          await userDao.verifyUserEmail(user, email);
+          const updatedUser = await userDao.findUserByIdAndPopulate(userId);
           res.send({
             id: updatedUser?._id,
             isActive: updatedUser?.isActive,
