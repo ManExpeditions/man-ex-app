@@ -103,9 +103,15 @@
   font-size: 0.9rem;
 }
 
+.favorites_checkbox {
+  display: block;
+  position: relative;
+}
+
 @media (min-width: 800px) {
   .days_continent_wrapper {
     max-width: 100%;
+    gap: 4rem;
     justify-content: flex-start;
   }
 

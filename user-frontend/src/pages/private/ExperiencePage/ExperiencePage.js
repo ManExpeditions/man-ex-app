@@ -188,11 +188,16 @@ export default function ExperiencePage() {
                       {experience.continent}
                     </span>
                   </div>
-                  <input
-                    checked={isExperienceFavorited}
-                    onChange={(e) => onFavoriteClicked(e.target.checked)}
-                    type="checkbox"
-                  />
+                  <div className={styles.favorites_checkbox}>
+                    <input
+                      checked={isExperienceFavorited}
+                      onChange={(e) => onFavoriteClicked(e.target.checked)}
+                      id="heart"
+                      type="checkbox"
+                      className="heart-checkbox"
+                    />
+                    <label className="heart-label" htmlFor="heart"></label>
+                  </div>
                 </div>
                 <h1 className={styles.name}>{experience.name}</h1>
                 <p className={styles.location}>

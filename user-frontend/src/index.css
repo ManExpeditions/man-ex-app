@@ -112,6 +112,42 @@ ul {
   gap: 1rem;
 }
 
+.heart-checkbox {
+  visibility: hidden;
+}
+
+.heart-checkbox:checked + .heart-label:before {
+  content: '';
+  color: #6d1a1a;
+}
+
+.heart-label {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 30px;
+  padding-left: 15px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.heart-label:before {
+  width: 31.5px;
+  height: 30px;
+  content: '';
+  position: absolute;
+  margin-left: -48px;
+  margin-top: 3px;
+  font-family: FontAwesome;
+  font-size: 30px;
+  content: '';
+  transition: all 0.3s;
+  color: #888;
+}
+
 /* Wrapper for each onboarding screens */
 .screen {
   padding: 1rem 2rem;
