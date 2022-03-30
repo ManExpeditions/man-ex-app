@@ -37,6 +37,7 @@ import AdminPanelPage from './pages/admin/AdminPanelPage';
 import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplayProfilePage/UserDisplayProfilePage';
 import MessagesPage from './pages/public/MessagesPage/MessagesPage';
 import FavoritesPage from './pages/private/FavoritesPage/FavoritesPage';
+import MembersPage from './pages/public/MembersPage/MembersPage';
 
 function App() {
   return (
@@ -94,6 +95,7 @@ function App() {
         <Route path="/experiences" exact component={ExperiencesPage}></Route>
         <Route path="/aboutus" component={AboutPage}></Route>
         <Route path="/messages" component={MessagesPage}></Route>
+        <Route path="/members" component={MembersPage}></Route>
         <Route path="/press" component={PressPage}></Route>
         <Route
           path="/travelsponsorships"
