@@ -77,6 +77,7 @@ export const userRemoveFromFavoritesController = [
     }
 
     const type = req.query.type;
+    let updatedUser;
 
     if (type === 'experience') {
       // Check if experience does not exist
@@ -96,9 +97,7 @@ export const userRemoveFromFavoritesController = [
         return;
       }
       // Add the experience to favorites
-      const updatedUser = await userDao.removeExperienceFromFavorites(id, user);
-      res.status(200).json(updatedUser);
-      return;
+      updatedUser = await userDao.removeExperienceFromFavorites(id, user);
     } else if (type === 'group') {
       // Check if group does not exist
       const group = await groupDao.findGroupById(id);
@@ -117,9 +116,7 @@ export const userRemoveFromFavoritesController = [
         return;
       }
       // Add the group to favorites
-      const updatedUser = await userDao.removeGroupFromFavorites(id, user);
-      res.status(200).json(updatedUser);
-      return;
+      updatedUser = await userDao.removeGroupFromFavorites(id, user);
     } else if (type === 'member') {
       // Check if member does not exist
       const member = await userDao.findUserById(id);
@@ -138,9 +135,34 @@ export const userRemoveFromFavoritesController = [
         return;
       }
       // Add the experience to favorites
-      const updatedUser = await userDao.removeMemberFromFavorites(id, user);
-      res.status(200).json(updatedUser);
-      return;
+      updatedUser = await userDao.removeMemberFromFavorites(id, user);
     }
+    res.status(200).json({
+      id: updatedUser?._id,
+      isActive: updatedUser?.isActive,
+      firstName: updatedUser?.firstName,
+      lastName: updatedUser?.lastName,
+      email: updatedUser?.email,
+      phone: updatedUser?.phone,
+      emailVerified: updatedUser?.emailVerified,
+      phoneVerified: updatedUser?.phoneVerified,
+      gender: updatedUser?.gender,
+      language: updatedUser?.language,
+      interests: updatedUser?.interests,
+      continents: updatedUser?.continents,
+      city: updatedUser?.city,
+      state: updatedUser?.state,
+      country: updatedUser?.country,
+      profilepic: updatedUser?.profilepic,
+      profilepicVerified: updatedUser?.profilepicVerified,
+      verificationProfilepic: updatedUser?.verificationProfilepic,
+      bio: updatedUser?.bio,
+      socials: updatedUser?.socials,
+      authType: updatedUser?.authType,
+      completedOnboarding: updatedUser?.completedOnboarding,
+      favorites: updatedUser?.favorites,
+      adminUser: updatedUser?.adminUser
+    });
+    return;
   })
 ];

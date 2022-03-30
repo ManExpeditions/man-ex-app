@@ -20,6 +20,8 @@ import {
 } from '../../../slices/experience/experienceInterestedUserSlice';
 import Spinner from '../../../components/Spinner/Spinner';
 import ProfilesBox from '../../../components/ProfilesBox/ProfilesBox';
+import { userAddToFavorites } from '../../../slices/user/userAddToFavoritesSlice';
+import { userRemoveFromFavorites } from '../../../slices/user/userRemoveFromFavoritesSlice';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -39,11 +41,23 @@ export default function ExperiencePage() {
   const [isWhatsIncludedVisible, setIsWhatsIncludedVisible] = useState(false);
   const [isTermsVisible, setIsTermsVisible] = useState(false);
 
+  const [isExperienceFavorited, setIsExperienceFavorited] = useState(false);
+
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
   const experienceGetSlice = useSelector((state) => state.experienceGetSlice);
   const { experience } = experienceGetSlice;
+
+  const userAddToFavoritesSlice = useSelector(
+    (state) => state.userAddToFavoritesSlice
+  );
+  const { user: addToFavoritesUser } = userAddToFavoritesSlice;
+
+  const userRemoveFromFavoritesSlice = useSelector(
+    (state) => state.userRemoveFromFavoritesSlice
+  );
+  const { user: removeFromFavoritesUser } = userRemoveFromFavoritesSlice;
 
   const experienceInterestedUserSlice = useSelector(
     (state) => state.experienceInterestedUserSlice
@@ -64,10 +78,32 @@ export default function ExperiencePage() {
     dispatch(experienceInterestedUser(id));
   };
 
+  const onFavoriteClicked = (value) => {
+    if (value) {
+      dispatch(userAddToFavorites({ type: 'experience', id }));
+    } else {
+      dispatch(userRemoveFromFavorites({ type: 'experience', id }));
+    }
+  };
+
+  useEffect(() => {
+    if (addToFavoritesUser) {
+      setIsExperienceFavorited(true);
+    } else if (removeFromFavoritesUser) {
+      setIsExperienceFavorited(false);
+    }
+  }, [addToFavoritesUser, removeFromFavoritesUser]);
+
   useEffect(() => {
     if (!experience) {
       dispatch(experienceGet(id));
     } else {
+      // Logic for checking if experience is already favorited
+      const IsExperienceInUserFavorites = user.favorites.experiences.find(
+        (experience) => experience === id
+      );
+      setIsExperienceFavorited(IsExperienceInUserFavorites ? true : false);
+
       const isUserInterested = experience.interestedUsers.find(
         (interestedUser) => interestedUser._id === user.id
       );
@@ -144,12 +180,19 @@ export default function ExperiencePage() {
             <div className={styles.container}>
               <div>
                 <div className={styles.days_continent_wrapper}>
-                  <p className={styles.days}>
-                    {experience.numberOfDays}-day experience
-                  </p>
-                  <span className={styles.continent}>
-                    {experience.continent}
-                  </span>
+                  <div className="flex-box">
+                    <p className={styles.days}>
+                      {experience.numberOfDays}-day experience
+                    </p>
+                    <span className={styles.continent}>
+                      {experience.continent}
+                    </span>
+                  </div>
+                  <input
+                    checked={isExperienceFavorited}
+                    onChange={(e) => onFavoriteClicked(e.target.checked)}
+                    type="checkbox"
+                  />
                 </div>
                 <h1 className={styles.name}>{experience.name}</h1>
                 <p className={styles.location}>

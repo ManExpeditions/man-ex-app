@@ -20,6 +20,8 @@ export const userRemoveFromFavorites = createAsyncThunk(
         type,
         id
       );
+      const token = user.token;
+      localStorage.setItem('user', JSON.stringify({ ...data, token }));
       return data;
     } catch (err) {
       if (!err.response) {
@@ -50,7 +52,7 @@ export const userRemoveFromFavoritesSlice = createSlice({
         if (action.id) {
           state.error = action.id;
         } else {
-          state.error = 'Verification code not sent. Try later.';
+          state.error = 'Failed. Try again later.';
         }
       })
       .addCase(userRemoveFromFavorites.fulfilled, (state, action) => {
@@ -60,7 +62,7 @@ export const userRemoveFromFavoritesSlice = createSlice({
   }
 });
 
-export const { resetVerificationCode, resetVerificationCodeErrors } =
+export const { resetRemoveFromFavorites } =
   userRemoveFromFavoritesSlice.actions;
 
 export default userRemoveFromFavoritesSlice.reducer;

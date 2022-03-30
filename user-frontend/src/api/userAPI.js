@@ -71,6 +71,32 @@ class userAPI {
     });
     return data;
   }
+
+  async userAddToFavorites(userId, userToken, type, id) {
+    const { data } = await Axios.patch(
+      `/api/user/v1/${userId}/favorites/add?type=${type}`,
+      { id },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      }
+    );
+    return data;
+  }
+
+  async userRemoveFromFavorites(userId, userToken, type, id) {
+    const { data } = await Axios.patch(
+      `/api/user/v1/${userId}/favorites/remove?type=${type}`,
+      { id },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      }
+    );
+    return data;
+  }
 }
 
 export default new userAPI();
