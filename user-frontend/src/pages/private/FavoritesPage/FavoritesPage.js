@@ -49,13 +49,13 @@ export default function FavoritesPage() {
             </button>
           </li>
         </ul>
-        <div
-          className={`${styles.content} ${
-            user.favorites.experiences.length === 0 ? styles.center : ''
-          }`}
-        >
+        <div className={styles.content}>
           {index === 0 ? (
-            <div>
+            <div
+              className={
+                user.favorites.members.length === 0 ? styles.center : ''
+              }
+            >
               {user.favorites.members.length === 0 && (
                 <div className={styles.no_favorites_container}>
                   You have no favorited members.{' '}
@@ -66,7 +66,11 @@ export default function FavoritesPage() {
               )}
             </div>
           ) : index === 1 ? (
-            <div>
+            <div
+              className={
+                user.favorites.experiences.length === 0 ? styles.center : ''
+              }
+            >
               {user.favorites.experiences.length === 0 ? (
                 <div className={styles.no_favorites_container}>
                   You have no favorited experiences.{' '}
@@ -86,7 +90,11 @@ export default function FavoritesPage() {
               )}
             </div>
           ) : (
-            <div>
+            <div
+              className={
+                user.favorites.groups.length === 0 ? styles.center : ''
+              }
+            >
               {user.favorites.groups.length === 0 && (
                 <div className={styles.no_favorites_container}>
                   You have no favorited groups.{' '}
