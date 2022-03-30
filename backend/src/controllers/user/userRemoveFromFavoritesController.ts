@@ -9,11 +9,11 @@ import experienceDao from '../../dao/experiences/experienceDao';
 import groupDao from '../../dao/groups/groupDao';
 
 /**
- * @api {patch} /user/v1/:id/favorites/add Add favorites to user
- * @apiDescription Add experiences, groups and members as favorites for a user
+ * @api {patch} /user/v1/:id/favorites/remove Remove favorites from user
+ * @apiDescription Remove experiences, groups and members as favorites from a user
  * @apiPermission Authentication
  * @apiVersion 1.0.0
- * @apiName addToFavorites
+ * @apiName removeFromFavorites
  * @apiGroup User
  *
  * @apiParam {String} id Users unique ID.
@@ -27,7 +27,7 @@ import groupDao from '../../dao/groups/groupDao';
  * @apiError UserDoesNotExist Cannot signin user that does not exist.
  * @apiError InvalidVerificationCode Cannot verify incorrect code.
  */
-export const userAddToFavoritesController = [
+export const userRemoveFromFavoritesController = [
   // Requires user to be authenticated
   isAuthenticated,
 
@@ -55,7 +55,7 @@ export const userAddToFavoritesController = [
       return;
     }
 
-    // Check if body id is valid
+    // Check if id is valid
     const id = req.body.id;
     if (!isValidObjectId(id)) {
       const err = new Error('Id is not valid');
@@ -87,16 +87,16 @@ export const userAddToFavoritesController = [
         res.status(404).json({ message: err.message });
         return;
       }
-      // Check if the experience already exist in the favorites
+      // Check the experience does not already exist in the favorites
       const experienceExists = userDao.experienceExistsInFavorites(id, user);
-      if (experienceExists) {
-        const err = new Error('Experience exists in favorites.');
+      if (!experienceExists) {
+        const err = new Error('Experience does not exist in favorites.');
         logger.error(err.message);
         res.status(404).json({ message: err.message });
         return;
       }
-      // Remove the experience from favorites
-      const updatedUser = await userDao.addExperienceToFavorites(id, user);
+      // Add the experience to favorites
+      const updatedUser = await userDao.removeExperienceFromFavorites(id, user);
       res.status(200).json(updatedUser);
       return;
     } else if (type === 'group') {
@@ -108,16 +108,16 @@ export const userAddToFavoritesController = [
         res.status(404).json({ message: err.message });
         return;
       }
-      // Check if the group already exist in the favorites
+      // Check the group does not already exist in the favorites
       const groupExists = userDao.groupExistsInFavorites(id, user);
-      if (groupExists) {
-        const err = new Error('Group exists in favorites.');
+      if (!groupExists) {
+        const err = new Error('Group does not exist in favorites.');
         logger.error(err.message);
         res.status(404).json({ message: err.message });
         return;
       }
       // Add the group to favorites
-      const updatedUser = await userDao.addGroupToFavorites(id, user);
+      const updatedUser = await userDao.removeGroupFromFavorites(id, user);
       res.status(200).json(updatedUser);
       return;
     } else if (type === 'member') {
@@ -129,16 +129,16 @@ export const userAddToFavoritesController = [
         res.status(404).json({ message: err.message });
         return;
       }
-      // Check if the member does exist in the favorites
+      // Check the member does not already exist in the favorites
       const memberExists = userDao.memberExistsInFavorites(id, user);
-      if (memberExists) {
-        const err = new Error('Member exists in favorites.');
+      if (!memberExists) {
+        const err = new Error('Member does not exist in favorites.');
         logger.error(err.message);
         res.status(404).json({ message: err.message });
         return;
       }
       // Add the experience to favorites
-      const updatedUser = await userDao.addMemberToFavorites(id, user);
+      const updatedUser = await userDao.removeMemberFromFavorites(id, user);
       res.status(200).json(updatedUser);
       return;
     }

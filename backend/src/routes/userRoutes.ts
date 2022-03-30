@@ -8,6 +8,7 @@ import { userDeleteController } from '../controllers/user/userDeleteController';
 
 import { userGetProfileController } from '../controllers/user/userGetProfileController';
 import { userAddToFavoritesController } from '../controllers/user/userAddToFavoritesController';
+import { userRemoveFromFavoritesController } from '../controllers/user/userRemoveFromFavoritesController';
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.post('/:id/verify/phone', userVerifyPhoneController);
 router.post('/:id/verify/code', userVerificationCodeController);
 router.post('/:id/validate', userValidateController);
 router.patch('/:id/favorites/add', userAddToFavoritesController);
+router.patch('/:id/favorites/remove', userRemoveFromFavoritesController);
 
 export default router;

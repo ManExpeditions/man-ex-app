@@ -178,6 +178,42 @@ class UserDao {
     const updatedUser = await user.save();
     return updatedUser;
   }
+
+  public async removeExperienceFromFavorites(
+    experienceId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const index = user.favorites.experiences.indexOf(experienceId);
+    if (index > -1) {
+      user.favorites.experiences.splice(index, 1);
+    }
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
+
+  public async removeMemberFromFavorites(
+    memberId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const index = user.favorites.members.indexOf(memberId);
+    if (index > -1) {
+      user.favorites.members.splice(index, 1);
+    }
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
+
+  public async removeGroupFromFavorites(
+    groupId: mongoose.Types.ObjectId | string,
+    user: User
+  ) {
+    const index = user.favorites.members.indexOf(groupId);
+    if (index > -1) {
+      user.favorites.members.splice(index, 1);
+    }
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
 }
 
 export default new UserDao();
