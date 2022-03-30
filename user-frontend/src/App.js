@@ -36,6 +36,7 @@ import ExperiencePage from './pages/private/ExperiencePage/ExperiencePage';
 import AdminPanelPage from './pages/admin/AdminPanelPage';
 import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplayProfilePage/UserDisplayProfilePage';
 import MessagesPage from './pages/public/MessagesPage/MessagesPage';
+import FavoritesPage from './pages/private/FavoritesPage/FavoritesPage';
 
 function App() {
   return (
@@ -102,7 +103,11 @@ function App() {
           path="/privacy-and-serviceterms"
           component={PrivacyAndServiceTermsPage}
         ></Route>
-
+        <PrivateRoute
+          path="/favorites"
+          component={FavoritesPage}
+          exact
+        ></PrivateRoute>
         <PrivateRoute
           path="/profile/settings/email"
           component={UpdateEmailPage}

@@ -4,16 +4,17 @@ import ProfilesBox from '../ProfilesBox/ProfilesBox';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import styles from './ExperienceBox.module.css';
 
-export default function ExperienceBox({ experience, user }) {
+export default function ExperienceBox({ experience, user, showGroup = true }) {
   return (
     <div key={experience._id}>
       <VideoPlayer
         thumbnail={experience.videoThumbnailImage}
         src={experience.video}
       ></VideoPlayer>
-      <h1 className={styles.call_to_action}>Join a group</h1>
+      {showGroup && <h1 className={styles.call_to_action}>Join a group</h1>}
       <div className={styles.bottom_container}>
-        {experience.groups.length > 0 &&
+        {experience.groups &&
+        experience.groups.length > 0 &&
         experience.interestedUsers.length > 0 ? (
           <div className={styles.profiles_wrapper}>
             <ProfilesBox
@@ -21,7 +22,7 @@ export default function ExperienceBox({ experience, user }) {
               users={experience.interestedUsers.slice(0, 4)}
             />
           </div>
-        ) : experience.groups.length === 0 ? (
+        ) : experience.groups && experience.groups.length === 0 ? (
           <div className="flex-box gap-1">
             <div className={styles.circle}></div>
             Create a group

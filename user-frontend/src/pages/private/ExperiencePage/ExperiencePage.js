@@ -79,6 +79,7 @@ export default function ExperiencePage() {
   };
 
   const onFavoriteClicked = (value) => {
+    console.log(value);
     if (value) {
       dispatch(userAddToFavorites({ type: 'experience', id }));
     } else {
@@ -100,7 +101,7 @@ export default function ExperiencePage() {
     } else {
       // Logic for checking if experience is already favorited
       const IsExperienceInUserFavorites = user.favorites.experiences.find(
-        (experience) => experience === id
+        (experience) => experience._id === id
       );
       setIsExperienceFavorited(IsExperienceInUserFavorites ? true : false);
 
