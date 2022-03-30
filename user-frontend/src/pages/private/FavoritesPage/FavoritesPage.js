@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import BottomNav from '../../../components/BottomNav/BottomNav';
 import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -12,7 +13,7 @@ export default function FavoritesPage() {
   const { user } = signinSlice;
 
   return (
-    <div className="page">
+    <div className={`page ${styles.page_wrapper}`}>
       <Navbar favorites user={user} />
       <div className={styles.container}>
         <h1 className={styles.page_heading}>Your Favorites</h1>
@@ -48,20 +49,53 @@ export default function FavoritesPage() {
             </button>
           </li>
         </ul>
-        <div className={styles.content}>
-          {index === 1 ? (
+        <div
+          className={`${styles.content} ${
+            user.favorites.experiences.length === 0 ? styles.center : ''
+          }`}
+        >
+          {index === 0 ? (
             <div>
-              {user.favorites.experiences.map((experience) => (
-                <ExperienceBox
-                  key={experience._id}
-                  showGroup={false}
-                  experience={experience}
-                  user={user}
-                />
-              ))}
+              {user.favorites.members.length === 0 && (
+                <div className={styles.no_favorites_container}>
+                  You have no favorited members.{' '}
+                  <Link className="link link-blue" to="/members">
+                    Explore Members
+                  </Link>
+                </div>
+              )}
+            </div>
+          ) : index === 1 ? (
+            <div>
+              {user.favorites.experiences.length === 0 ? (
+                <div className={styles.no_favorites_container}>
+                  You have no favorited experiences.{' '}
+                  <Link className="link link-blue" to="/experiences">
+                    Explore Experiences
+                  </Link>
+                </div>
+              ) : (
+                user.favorites.experiences.map((experience) => (
+                  <ExperienceBox
+                    key={experience._id}
+                    showGroup={false}
+                    experience={experience}
+                    user={user}
+                  />
+                ))
+              )}
             </div>
           ) : (
-            ''
+            <div>
+              {user.favorites.groups.length === 0 && (
+                <div className={styles.no_favorites_container}>
+                  You have no favorited groups.{' '}
+                  <Link className="link link-blue" to="/experiences">
+                    Explore Experiences
+                  </Link>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

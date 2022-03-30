@@ -1,3 +1,8 @@
+.page_wrapper {
+  min-height: calc(100vh - 4rem);
+  background-color: #000;
+}
+
 .container {
   position: relative;
   max-width: 50rem;
@@ -32,4 +37,15 @@
 
 .tab_button.active {
   border-bottom: 1px solid #56c1ff;
+}
+
+.center {
+  display: grid;
+  place-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.no_favorites_container {
+  margin-top: 3rem;
 }
