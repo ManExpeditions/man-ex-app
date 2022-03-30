@@ -79,7 +79,6 @@ export default function ExperiencePage() {
   };
 
   const onFavoriteClicked = (value) => {
-    console.log(value);
     if (value) {
       dispatch(userAddToFavorites({ type: 'experience', id }));
     } else {
