@@ -134,6 +134,40 @@
   border: 1px solid #fff;
 }
 
+.favorites_container {
+  position: relative;
+  height: max-content;
+  margin-bottom: 3rem;
+}
+
+.favorites_label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid #5e5e5e;
+  max-width: max-content;
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+}
+
+.favorite_button {
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  width: 11rem;
+  top: 0;
+  left: 0;
+  color: transparent;
+  background-color: transparent;
+  z-index: 3;
+  margin: 0.5rem 0;
+}
+
 .checkmark {
   position: absolute;
   right: 0;

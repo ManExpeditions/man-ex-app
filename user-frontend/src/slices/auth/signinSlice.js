@@ -33,6 +33,10 @@ export const signinSlice = createSlice({
   name: 'signin',
   initialState,
   reducers: {
+    saveUser: (state, action) => {
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      state.user = action.payload;
+    },
     resetSignin: (state) => {
       localStorage.removeItem('user');
       state.loading = false;
@@ -83,6 +87,6 @@ export const signinSlice = createSlice({
   }
 });
 
-export const { resetSignin, resetSigninErrors } = signinSlice.actions;
+export const { saveUser, resetSignin, resetSigninErrors } = signinSlice.actions;
 
 export default signinSlice.reducer;

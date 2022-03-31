@@ -20,8 +20,14 @@ import {
 } from '../../../slices/experience/experienceInterestedUserSlice';
 import Spinner from '../../../components/Spinner/Spinner';
 import ProfilesBox from '../../../components/ProfilesBox/ProfilesBox';
-import { userAddToFavorites } from '../../../slices/user/userAddToFavoritesSlice';
-import { userRemoveFromFavorites } from '../../../slices/user/userRemoveFromFavoritesSlice';
+import {
+  resetAddToFavorite,
+  userAddToFavorites
+} from '../../../slices/user/userAddToFavoritesSlice';
+import {
+  resetRemoveFromFavorites,
+  userRemoveFromFavorites
+} from '../../../slices/user/userRemoveFromFavoritesSlice';
 
 export default function ExperiencePage() {
   const { id } = useParams();
@@ -137,6 +143,8 @@ export default function ExperiencePage() {
     return () => {
       dispatch(resetExperienceGet());
       dispatch(resetExperienceInterestedUser());
+      dispatch(resetAddToFavorite());
+      dispatch(resetRemoveFromFavorites());
     };
   }, [dispatch]);
 

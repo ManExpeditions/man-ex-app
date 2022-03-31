@@ -37,13 +37,32 @@ class UserDao {
   public async findUserByIdAndPopulate(
     id: mongoose.Types.ObjectId | string
   ): Promise<User | null> {
-    const user = await User.findById(id).populate({
-      path: 'favorites',
-      populate: {
-        path: 'experiences',
-        select: ['_id', 'videoThumbnailImage', 'video', 'firstName']
-      }
-    });
+    const user = await User.findById(id)
+      .populate({
+        path: 'favorites',
+        populate: {
+          path: 'experiences',
+          select: ['_id', 'videoThumbnailImage', 'video', 'firstName']
+        }
+      })
+      .populate({
+        path: 'favorites',
+        populate: {
+          path: 'groups',
+          select: ['_id', 'dateText', 'description', 'price'],
+          populate: [
+            {
+              path: 'groupLead',
+              select: ['_id', 'firstName', 'profilepic']
+            },
+            {
+              path: 'experience',
+              select: ['_id', 'video', 'videoThumbnailImage']
+            }
+          ]
+        }
+      });
+
     return user;
   }
 
@@ -149,7 +168,7 @@ class UserDao {
     groupId: mongoose.Types.ObjectId | string,
     user: User
   ): boolean => {
-    const groupFound = user.favorites.members.find(
+    const groupFound = user.favorites.groups.find(
       (group: mongoose.Types.ObjectId) => group.equals(groupId)
     );
     return groupFound ? true : false;
@@ -187,7 +206,7 @@ class UserDao {
   ) {
     const groupObjectId =
       typeof groupId === 'string' ? mongoose.Types.ObjectId(groupId) : groupId;
-    user.favorites.members.push(groupObjectId);
+    user.favorites.groups.push(groupObjectId);
     const updatedUser = await user.save();
     return updatedUser;
   }
@@ -220,9 +239,9 @@ class UserDao {
     groupId: mongoose.Types.ObjectId | string,
     user: User
   ) {
-    const index = user.favorites.members.indexOf(groupId);
+    const index = user.favorites.groups.indexOf(groupId);
     if (index > -1) {
-      user.favorites.members.splice(index, 1);
+      user.favorites.groups.splice(index, 1);
     }
     const updatedUser = await user.save();
     return updatedUser;

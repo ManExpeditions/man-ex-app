@@ -7,10 +7,17 @@ import styles from './Group.module.css';
 import Modal from '../Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../Spinner/Spinner';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import {
   groupInterestedUser,
   resetGroupInterestedUser
 } from '../../slices/group/groupInterestedUserSlice';
+import { resetAddToFavorite } from '../../slices/user/userAddToFavoritesSlice';
+import { resetRemoveFromFavorites } from '../../slices/user/userRemoveFromFavoritesSlice';
+import userAPI from '../../api/userAPI';
+import useDidMountEffect from '../../customHooks/useDidMountEffect';
+import { saveUser } from '../../slices/auth/signinSlice';
+// import { saveUser } from '../../slices/auth/signinSlice';
 
 export default function Group({ user, group, experienceId }) {
   const [thriveCartScriptReady, setThriveCartScriptReady] = useState(false);
@@ -18,6 +25,11 @@ export default function Group({ user, group, experienceId }) {
   const [showInterestedUserModal, setShowInterestedUserModal] = useState(false);
   const [isInterestedUser, setIsInterestedUser] = useState(false);
   const [areProfilesVisible, setAreProfilesVisible] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const [favoriteBoxState, setFavoriteBoxState] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [erorr, setError] = useState('');
 
   const groupInterestedUserSlice = useSelector(
     (state) => state.groupInterestedUserSlice
@@ -48,6 +60,15 @@ export default function Group({ user, group, experienceId }) {
   };
 
   useEffect(() => {
+    // Logic for checking if group is already favorited
+    const IsGroupInUserFavorites = user.favorites.groups.find(
+      (userGroup) => userGroup._id === group._id
+    );
+    setIsFavorited(IsGroupInUserFavorites ? true : false);
+    setFavoriteBoxState(IsGroupInUserFavorites ? true : false);
+  }, [group._id, user.favorites.groups]);
+
+  useEffect(() => {
     const isUserInterested = group.interestedUsers.find(
       (interestedUser) => interestedUser._id === user.id
     );
@@ -62,6 +83,51 @@ export default function Group({ user, group, experienceId }) {
       dispatch(resetGroupInterestedUser());
     }
   }, [dispatch, groupNewInterestedUser]);
+
+  useDidMountEffect(() => {
+    const onFavoriteClicked = async (value) => {
+      if (value) {
+        try {
+          setIsLoading(true);
+          const data = await userAPI.userAddToFavorites(
+            user.id,
+            user.token,
+            'group',
+            group._id
+          );
+          setIsLoading(false);
+          setIsFavorited(true);
+          dispatch(saveUser({ ...data, token: user.token }));
+        } catch (err) {
+          setError(err);
+        }
+      } else {
+        try {
+          setIsLoading(true);
+          const data = await userAPI.userRemoveFromFavorites(
+            user.id,
+            user.token,
+            'group',
+            group._id
+          );
+          setIsLoading(false);
+          setIsFavorited(false);
+          dispatch(saveUser({ ...data, token: user.token }));
+        } catch (err) {
+          setError(err);
+        }
+      }
+    };
+    onFavoriteClicked(favoriteBoxState);
+  }, [favoriteBoxState]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      dispatch(resetAddToFavorite());
+      dispatch(resetRemoveFromFavorites());
+    };
+  }, [dispatch]);
 
   return (
     <div>
@@ -222,6 +288,29 @@ export default function Group({ user, group, experienceId }) {
                 )}
               </button>
             )}
+            <div className={styles.favorites_container}>
+              <span className={styles.favorites_label}>
+                {isFavorited ? (
+                  <>
+                    <AiFillHeart style={{ color: 'red' }} />
+                    Remove from favorites
+                  </>
+                ) : (
+                  <>
+                    <AiOutlineHeart />
+                    Add to favorites
+                  </>
+                )}
+              </span>
+              <button
+                className={styles.favorite_button}
+                onClick={() => {
+                  setFavoriteBoxState(!isFavorited);
+                }}
+              >
+                Add to favorites
+              </button>
+            </div>
           </div>
         </div>
       </div>
