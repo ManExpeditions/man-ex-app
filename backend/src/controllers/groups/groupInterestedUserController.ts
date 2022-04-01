@@ -49,7 +49,7 @@ export const groupInterestedUserController = [
     // Validate the user id
     const userId = req.body.userId;
     if (!isValidObjectId(userId)) {
-      const err = new Error('User id is not valid');
+      const err = new Error('User id is not valid.');
       logger.error(err.message);
       res.status(404).json({ message: err.message });
       return;
