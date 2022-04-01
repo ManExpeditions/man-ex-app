@@ -8,7 +8,7 @@ import { isAuthenticated } from '../../middleware/authMiddleware';
 import { isValidObjectId } from 'mongoose';
 
 /**
- * @api {post} /user/v1/:id/profile Get user profile
+ * @api {get} /user/v1/:id/profile Get user profile
  * @apiDescription Get profile of an existing user
  * @apiPermission Authentication
  * @apiVersion 1.0.0
@@ -41,7 +41,7 @@ export const userGetProfileController = [
     if (!isValidObjectId(userId)) {
       const err = new Error('User id is not valid');
       logger.error(err.message);
-      res.status(404).json({ message: err.message });
+      res.status(401).json({ message: err.message });
       return;
     }
 
