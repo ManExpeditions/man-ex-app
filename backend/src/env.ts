@@ -26,6 +26,9 @@ const config = {
     base_db_path: 'mongodb://localhost:27017/',
     user: {
       base_endpoint: '/api/user/v1/'
+    },
+    group: {
+      base_endpoint: '/api/group/v1/'
     }
   }
 };

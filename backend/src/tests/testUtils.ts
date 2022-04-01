@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import supertest from 'supertest';
 import generateToken from '../lib/jwt';
+import experienceDao from '../dao/experiences/experienceDao';
+import groupDao from '../dao/groups/groupDao';
 // Create interface to be able to index superTest dynamically
 
 export interface SupertestIndex extends supertest.SuperTest<supertest.Test> {
@@ -30,4 +32,13 @@ export const getUser = (
     user_admin: admin,
     user_token: generateToken({ id: userId, adminUser: admin })
   };
+};
+
+export const createGroup = async (
+  experienceId: mongoose.Types.ObjectId,
+  groupId: mongoose.Types.ObjectId
+) => {
+  const experience = await experienceDao.createNewExperience(experienceId);
+  const group = await groupDao.createNewGroup(String(experience?._id), groupId);
+  return group;
 };
