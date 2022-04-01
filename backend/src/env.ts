@@ -29,6 +29,9 @@ const config = {
     },
     group: {
       base_endpoint: '/api/group/v1/'
+    },
+    experience: {
+      base_endpoint: '/api/experience/v1/'
     }
   }
 };

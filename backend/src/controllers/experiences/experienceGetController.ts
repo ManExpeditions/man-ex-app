@@ -27,7 +27,7 @@ export const experienceGetController = [
 
     // Validate the id param
     if (!isValidObjectId(req.params.id)) {
-      const err = new Error('Experience id is not valid');
+      const err = new Error('Experience id is not valid.');
       logger.error(err.message);
       res.status(404).json({ message: err.message });
       return;
