@@ -28,7 +28,6 @@ export default function Group({ user, group, experienceId }) {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const [favoriteBoxState, setFavoriteBoxState] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [erorr, setError] = useState('');
 
   const groupInterestedUserSlice = useSelector(
@@ -88,14 +87,12 @@ export default function Group({ user, group, experienceId }) {
     const onFavoriteClicked = async (value) => {
       if (value) {
         try {
-          setIsLoading(true);
           const data = await userAPI.userAddToFavorites(
             user.id,
             user.token,
             'group',
             group._id
           );
-          setIsLoading(false);
           setIsFavorited(true);
           dispatch(saveUser({ ...data, token: user.token }));
         } catch (err) {
@@ -103,14 +100,12 @@ export default function Group({ user, group, experienceId }) {
         }
       } else {
         try {
-          setIsLoading(true);
           const data = await userAPI.userRemoveFromFavorites(
             user.id,
             user.token,
             'group',
             group._id
           );
-          setIsLoading(false);
           setIsFavorited(false);
           dispatch(saveUser({ ...data, token: user.token }));
         } catch (err) {

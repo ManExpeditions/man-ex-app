@@ -46,6 +46,45 @@
   text-align: center;
 }
 
+.experience_container {
+  margin: 0 0 1rem;
+}
+
 .no_favorites_container {
   margin-top: 3rem;
+}
+
+.group_name,
+.group_date {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.group_name {
+  font-size: 1.2rem;
+}
+
+.group_date {
+  font-size: 1.1rem;
+  border-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.group_container {
+  margin-bottom: 1rem;
+}
+
+.profile {
+  cursor: pointer;
+  position: relative;
+  display: block;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px #56c1ff;
+  margin: 1rem 0;
+  transition: 300ms ease-in-out;
 }

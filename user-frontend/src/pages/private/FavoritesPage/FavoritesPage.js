@@ -6,8 +6,11 @@ import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 import Navbar from '../../../components/Navbar/Navbar';
 import styles from './FavoritesPage.module.css';
 
-export default function FavoritesPage() {
-  const [index, setIndex] = useState(1);
+export default function FavoritesPage(props) {
+  const initialIndex = props.location.search
+    ? Number(props.location.search.split('-')[1])
+    : 1;
+  const [index, setIndex] = useState(initialIndex);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
@@ -80,12 +83,21 @@ export default function FavoritesPage() {
                 </div>
               ) : (
                 user.favorites.experiences.map((experience) => (
-                  <ExperienceBox
-                    key={experience._id}
-                    showGroup={false}
-                    experience={experience}
-                    user={user}
-                  />
+                  <div className={styles.experience_container}>
+                    <ExperienceBox
+                      key={experience._id}
+                      showGroup={false}
+                      showLearnMore={false}
+                      experience={experience}
+                      user={user}
+                    />
+                    <Link
+                      to={`/experiences/${experience._id}?back=/favorites?index-1`}
+                      className="link link-blue"
+                    >
+                      See experience and group
+                    </Link>
+                  </div>
                 ))
               )}
             </div>
@@ -95,13 +107,44 @@ export default function FavoritesPage() {
                 user.favorites.groups.length === 0 ? styles.center : ''
               }
             >
-              {user.favorites.groups.length === 0 && (
+              {user.favorites.groups.length === 0 ? (
                 <div className={styles.no_favorites_container}>
                   You have no favorited groups.{' '}
                   <Link className="link link-blue" to="/experiences">
                     Explore Experiences
                   </Link>
                 </div>
+              ) : (
+                user.favorites.groups.map((group) => (
+                  <div className={styles.group_container} key={group._id}>
+                    <div>
+                      <p className={styles.group_name}>
+                        {group.groupLead.firstName}'s Group
+                      </p>
+                      <p className={styles.group_date}>{group.dateText}</p>
+                      <ExperienceBox
+                        showGroup={false}
+                        showLearnMore={false}
+                        experience={group.experience}
+                        user={user}
+                      />
+                    </div>
+                    <div className="flex-box gap-1">
+                      <img
+                        className={styles.profile}
+                        src={group.groupLead.profilepic}
+                        alt="user profile"
+                      />
+                      <p>{group.groupLead.firstName} (Group Creator)</p>
+                    </div>
+                    <Link
+                      to={`/experiences/${group.experience._id}?back=/favorites?index-2`}
+                      className="link link-blue"
+                    >
+                      See experience and group
+                    </Link>
+                  </div>
+                ))
               )}
             </div>
           )}

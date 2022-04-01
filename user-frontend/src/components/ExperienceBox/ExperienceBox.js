@@ -4,7 +4,12 @@ import ProfilesBox from '../ProfilesBox/ProfilesBox';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 import styles from './ExperienceBox.module.css';
 
-export default function ExperienceBox({ experience, user, showGroup = true }) {
+export default function ExperienceBox({
+  experience,
+  user,
+  showGroup = true,
+  showLearnMore = true
+}) {
   return (
     <div key={experience._id}>
       <VideoPlayer
@@ -30,12 +35,14 @@ export default function ExperienceBox({ experience, user, showGroup = true }) {
         ) : (
           ''
         )}
-        <Link
-          to={user ? `/experiences/${experience._id}` : '/register'}
-          className={`link btn-primary ${styles.btn_video_info}`}
-        >
-          Learn more
-        </Link>
+        {showLearnMore && (
+          <Link
+            to={user ? `/experiences/${experience._id}` : '/register'}
+            className={`link btn-primary ${styles.btn_video_info}`}
+          >
+            Learn more
+          </Link>
+        )}
       </div>
     </div>
   );

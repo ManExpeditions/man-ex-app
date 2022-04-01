@@ -29,8 +29,11 @@ import {
   userRemoveFromFavorites
 } from '../../../slices/user/userRemoveFromFavoritesSlice';
 
-export default function ExperiencePage() {
+export default function ExperiencePage(props) {
   const { id } = useParams();
+  const back = props.location.search
+    ? props.location.search.split('=')[1]
+    : '/experiences';
 
   const [isSeeMoreImages, setIsSeeMoreImages] = useState(false);
   const [isCarouselVisible, setIsCarouselVisible] = useState(false);
@@ -150,7 +153,7 @@ export default function ExperiencePage() {
 
   return (
     <div className={styles.page_wrapper}>
-      <Link to="/experiences" className={styles.close_link}>
+      <Link to={back} className={styles.close_link}>
         <AiOutlineClose></AiOutlineClose>
       </Link>
       {experience && (
@@ -585,7 +588,6 @@ export default function ExperiencePage() {
                 <a
                   onClick={(e) => {
                     e.preventDefault();
-                    console.log('anchor tag clicked');
                     areGroupsVisible(true);
                   }}
                   className={`btn btn-primary ${styles.view_groups_link}`}
