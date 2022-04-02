@@ -35,7 +35,7 @@ export const experiencesGetController = [
       ? { isActive: req.query.isActive === 'true' ? true : false }
       : {};
     const isFeaturedFilter = req.query.isFeatured
-      ? { isActive: req.query.isFeatured === 'true' ? true : false }
+      ? { isFeatured: req.query.isFeatured === 'true' ? true : false }
       : {};
     const continentFilter = req.query.continent
       ? {
