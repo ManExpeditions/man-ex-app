@@ -5,6 +5,7 @@ import supertest from 'supertest';
 import generateToken from '../lib/jwt';
 import experienceDao from '../dao/experiences/experienceDao';
 import groupDao from '../dao/groups/groupDao';
+import { randomInt } from 'crypto';
 // Create interface to be able to index superTest dynamically
 
 export interface SupertestIndex extends supertest.SuperTest<supertest.Test> {
@@ -25,7 +26,7 @@ export const getUser = (
   const userId = mongoose.Types.ObjectId();
   return {
     user_id: userId,
-    user_email: 'john@example.com',
+    user_email: `john${randomInt(10)}@example.com`,
     user_pass: 'CyKHe3kR',
     user_pass_encrypted: bcrypt.hashSync('CyKHe3kR', 8),
     user_phone: '+16289462243',

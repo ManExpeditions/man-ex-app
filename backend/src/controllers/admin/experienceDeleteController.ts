@@ -8,7 +8,7 @@ import { isAdmin } from '../../middleware/adminMiddleware';
 import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /admin/v1/experience Delete an experience
+ * @api {delete} /admin/v1/experience/:id Delete an experience
  * @apiDescription Create a new experience
  * @apiPermission Authentication Admin
  * @apiVersion 1.0.0
@@ -31,7 +31,7 @@ export const experienceDeleteController = [
 
     // Validate the id param
     if (!isValidObjectId(req.params.id)) {
-      const err = new Error('Experience id is not valid');
+      const err = new Error('Experience id is not valid.');
       logger.error(err.message);
       res.status(404).json({ message: err.message });
       return;

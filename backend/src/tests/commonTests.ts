@@ -41,12 +41,13 @@ export const testParamObjectDoesNotExist = (
   requestType: string,
   requestEndpoint: string,
   requestBody: object,
-  objectName: string
+  objectName: string,
+  header = {}
 ) => {
   it(`should throw error if ${objectName} id does not exist`, async () => {
-    const response = await request[requestType as any](requestEndpoint).send(
-      requestBody
-    );
+    const response = await request[requestType as any](requestEndpoint)
+      .set(header)
+      .send(requestBody);
     expect(response.status).toBe(404);
     expect(response.body).toEqual({
       message: `${objectName} does not exist.`

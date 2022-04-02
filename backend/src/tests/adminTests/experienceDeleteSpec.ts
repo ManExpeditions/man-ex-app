@@ -4,15 +4,21 @@ import config from '../../env';
 import app from '../../app';
 import connect from '../../lib/mongoose';
 import experienceDao from '../../dao/experiences/experienceDao';
-import { testAdminUser, testAuthorization } from '../commonTests';
+import {
+  testAdminUser,
+  testAuthorization,
+  testParamObjectDoesNotExist
+} from '../commonTests';
 import { getUser } from '../testUtils';
 import userDao from '../../dao/users/userDao';
 
 // Wrap express app for testing
 const request = supertest(app);
 
-describe('Test experience create endpoint', () => {
+describe('Test experience delete endpoint', () => {
   const endpoint = config.test.admin.base_endpoint;
+
+  const experience_id = mongoose.Types.ObjectId();
 
   const { user_id, user_email, user_pass_encrypted, user_token } = getUser();
   const {
@@ -22,11 +28,9 @@ describe('Test experience create endpoint', () => {
     user_token: admin_user_token
   } = getUser(true);
 
-  const experience_id = mongoose.Types.ObjectId();
-
   beforeAll(async () => {
     // Connect to test database
-    const dbName = 'admin-experience-create';
+    const dbName = 'admin-experience-delete';
     connect(config.test.base_db_path + dbName);
     await experienceDao.createNewExperience(experience_id);
     await userDao.createNewUserByEmail(
@@ -43,16 +47,52 @@ describe('Test experience create endpoint', () => {
   });
 
   // Should throw error if user not authenticated
-  testAuthorization(request, 'post', endpoint + 'experience', {});
+  testAuthorization(
+    request,
+    'delete',
+    endpoint + `experience/${experience_id}`,
+    {}
+  );
 
   // Should throw error if user not admin
-  testAdminUser(request, 'post', endpoint + 'experience', {}, user_token);
+  testAdminUser(
+    request,
+    'delete',
+    endpoint + `experience/${experience_id}`,
+    {},
+    user_token
+  );
 
-  it('should create a new experience', async () => {
+  // Should throw error if experience does not exist
+  testParamObjectDoesNotExist(
+    request,
+    'delete',
+    endpoint + 'experience/619fa6092269ffea182c1b6a',
+    {},
+    'Experience',
+    { Authorization: `Bearer ${admin_user_token}` }
+  );
+
+  it('should throw error if experience id is not valid', async () => {
     const response = await request
-      .post(endpoint + 'experience')
+      .delete(endpoint + 'experience/randominvalidid')
+      .set({ Authorization: `Bearer ${admin_user_token}` });
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({
+      message: 'Experience id is not valid.'
+    });
+  });
+
+  it('should delete experience', async () => {
+    const response = await request
+      .delete(endpoint + `experience/${experience_id}`)
       .set({ Authorization: `Bearer ${admin_user_token}` });
     expect(response.status).toBe(200);
+
+    const deletedExperience = await experienceDao.findExperienceById(
+      experience_id
+    );
+    expect(deletedExperience);
   });
 
   afterAll(async () => {
