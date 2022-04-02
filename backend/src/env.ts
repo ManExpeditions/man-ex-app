@@ -32,6 +32,9 @@ const config = {
     },
     experience: {
       base_endpoint: '/api/experience/v1/'
+    },
+    admin: {
+      base_endpoint: '/api/admin/v1/'
     }
   }
 };

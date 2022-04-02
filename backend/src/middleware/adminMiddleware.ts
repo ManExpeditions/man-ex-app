@@ -9,6 +9,6 @@ export const isAdmin = (
   if (req.user && req.user.adminUser) {
     next();
   } else {
-    res.status(401).send({ message: "Forbidden: You don't have permission" });
+    res.status(401).send({ message: "Forbidden: You don't have permission." });
   }
 };

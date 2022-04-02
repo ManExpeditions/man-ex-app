@@ -18,6 +18,24 @@ export const testAuthorization = (
   });
 };
 
+export const testAdminUser = (
+  request: SupertestIndex,
+  requestType: string,
+  requestEndpoint: string,
+  requestBody: object,
+  token: string
+) => {
+  it('should throw error if not admin user', async () => {
+    const response = await request[requestType as any](requestEndpoint)
+      .set({ Authorization: `Bearer ${token}` })
+      .send(requestBody);
+    expect(response.status).toBe(401);
+    expect(response.body).toEqual({
+      message: "Forbidden: You don't have permission."
+    });
+  });
+};
+
 export const testParamObjectDoesNotExist = (
   request: SupertestIndex,
   requestType: string,

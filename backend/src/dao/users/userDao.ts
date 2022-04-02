@@ -6,7 +6,8 @@ class UserDao {
   public async createNewUserByEmail(
     email: string,
     encryptedPassword: string,
-    id?: mongoose.Types.ObjectId | string
+    id?: mongoose.Types.ObjectId | string,
+    isAdmin = false
   ): Promise<User> {
     const user = new User({
       ...(id ? { _id: id } : {}),
@@ -14,6 +15,12 @@ class UserDao {
       password: encryptedPassword
     });
     const createdUser = await user.save();
+    // If user is admin
+    if (isAdmin) {
+      createdUser.adminUser = true;
+      const adminUser = await createdUser.save();
+      return adminUser;
+    }
     return createdUser;
   }
 
