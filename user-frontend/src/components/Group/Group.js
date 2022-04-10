@@ -28,7 +28,7 @@ export default function Group({ user, group, experienceId }) {
   const [isFavorited, setIsFavorited] = useState(false);
 
   const [favoriteBoxState, setFavoriteBoxState] = useState(false);
-  const [erorr, setError] = useState('');
+  const [error, setError] = useState('');
 
   const groupInterestedUserSlice = useSelector(
     (state) => state.groupInterestedUserSlice
@@ -228,6 +228,7 @@ export default function Group({ user, group, experienceId }) {
                         </span>
                       )}
                     </div>
+                    {error && <span className="error-message">{error}</span>}
                   </div>
                 </Modal>
               </div>
