@@ -234,9 +234,12 @@ export default function useInputValidate(initialState) {
           value instanceof Array &&
           value.filter(Boolean).length >= thresholdContinents
         ) {
-          return { ...state, buttonDisabled: false };
+          return { ...state, continentErrors: '' };
         } else {
-          return { ...state, buttonDisabled: true };
+          return {
+            ...state,
+            continentErrors: `Select atleast ${thresholdContinents}.`
+          };
         }
 
       default:

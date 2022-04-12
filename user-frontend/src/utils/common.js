@@ -183,6 +183,24 @@ export const parseInterestState = ({
   return interests;
 };
 
+export const parseContinentState = ({
+  northAmerica,
+  africa,
+  europe,
+  asia,
+  southCentralAmerica
+}) => {
+  const continents = [
+    northAmerica && 'North America',
+    africa && 'Africa',
+    europe && 'Europe',
+    asia && 'Asia',
+    southCentralAmerica && 'South/Central America'
+  ].filter((value) => value !== false);
+
+  return continents;
+};
+
 export const InterestsToIconMapper = {
   'Nature & Outdoors': '/assets/icons/rocks.png',
   'Resort Vacations': '/assets/icons/coconut-tree.png',

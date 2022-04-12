@@ -24,7 +24,7 @@ export default function ContinentsPage(props) {
   const [southCentralAmerica, setSouthCentralAmerica] = useState(false);
 
   const [state, discharge] = useInputValidate(initialState);
-  let { buttonDisabled } = state;
+  let { continentErrors } = state;
 
   useEffect(() => {
     discharge({
@@ -121,7 +121,7 @@ export default function ContinentsPage(props) {
       </main>
       {error && <MessageBox variant="error">{error}</MessageBox>}
       <button
-        disabled={buttonDisabled}
+        disabled={continentErrors === '' ? false : true}
         className={`btn btn-primary ${styles.action_button}`}
         onClick={onCompleteHandler}
       >

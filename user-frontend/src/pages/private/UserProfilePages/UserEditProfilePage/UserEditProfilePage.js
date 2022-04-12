@@ -9,8 +9,10 @@ import validator from 'validator';
 import Input from '../../../../components/Input/Input';
 import useInputValidate from '../../../../customHooks/useInputValidate';
 import {
+  parseContinentState,
   parseInterestState,
   parseLocationState,
+  setContinentStates,
   setInterestStates,
   setLocationState
 } from '../../../../utils/common';
@@ -47,6 +49,7 @@ const initialState = {
   linkedin: '',
   linkedinError: '',
   interestErrors: '',
+  continentErrors: '',
   buttonDisabled: true
 };
 
@@ -66,6 +69,13 @@ export default function UserEditProfilePage() {
   const [volunteeringTrips, setVolunteeringTrips] = useState(false);
   const [cruises, setCruises] = useState(false);
   const [nudistAdventures, setNudistAdventures] = useState(false);
+
+  // States for continents
+  const [northAmerica, setNorthAmerica] = useState(false);
+  const [africa, setAfrica] = useState(false);
+  const [europe, setEurope] = useState(false);
+  const [asia, setAsia] = useState(false);
+  const [southCentralAmerica, setSouthCentralAmerica] = useState(false);
 
   const [gender, setGender] = useState('Male');
   const [photo, setPhoto] = useState('');
@@ -88,6 +98,7 @@ export default function UserEditProfilePage() {
     linkedin,
     linkedinError,
     interestErrors,
+    continentErrors,
     buttonDisabled
   } = state;
 
@@ -185,6 +196,14 @@ export default function UserEditProfilePage() {
       setWildlife,
       setActiveGetAway
     });
+    // Parse and set continents for user
+    setContinentStates(user.continents, {
+      setNorthAmerica,
+      setAfrica,
+      setEurope,
+      setAsia,
+      setSouthCentralAmerica
+    });
   }, [
     discharge,
     user.profilepic,
@@ -196,7 +215,8 @@ export default function UserEditProfilePage() {
     user.socials,
     user.interests,
     user.bio,
-    user.gender
+    user.gender,
+    user.continents
   ]);
 
   // Uploading profilepic logic
@@ -270,6 +290,18 @@ export default function UserEditProfilePage() {
     wildlife
   ]);
 
+  // Validate continents
+  useEffect(() => {
+    console.log('validating continents');
+    discharge({
+      type: 'VALIDATE_CONTINENTS',
+      payload: {
+        value: [northAmerica, africa, europe, asia, southCentralAmerica],
+        thresholdContinents: 2
+      }
+    });
+  }, [discharge, northAmerica, africa, europe, asia, southCentralAmerica]);
+
   // Ensure validation
   useEffect(() => {
     discharge({
@@ -284,6 +316,7 @@ export default function UserEditProfilePage() {
           facebookError,
           linkedinError,
           interestErrors,
+          continentErrors,
           !loadingPhoto ? '' : null
         ],
         notEmpty: [firstName, lastName, location]
@@ -303,7 +336,8 @@ export default function UserEditProfilePage() {
     lastNameError,
     linkedinError,
     placeError,
-    interestErrors
+    interestErrors,
+    continentErrors
   ]);
 
   // When save is clicked
@@ -337,6 +371,13 @@ export default function UserEditProfilePage() {
           volunteeringTrips,
           wellnessRetreats,
           wildlife
+        }),
+        continents: parseContinentState({
+          northAmerica,
+          africa,
+          europe,
+          asia,
+          southCentralAmerica
         }),
         profilepic: encodeURIComponent(
           profilepic
@@ -630,6 +671,46 @@ export default function UserEditProfilePage() {
                   className={`error-message ${styles.list_input_error_interests}`}
                 >
                   {interestErrors}
+                </span>
+              </div>
+            </li>
+            <li className={styles.list_item}>
+              <p>Continents</p>
+              <div className={styles.interests_container}>
+                <ChipCheckBox
+                  checkboxState={northAmerica}
+                  setCheckboxState={setNorthAmerica}
+                  label="North America"
+                  imageSrc="/assets/icons/north-america.png"
+                ></ChipCheckBox>
+                <ChipCheckBox
+                  checkboxState={africa}
+                  setCheckboxState={setAfrica}
+                  label="Africa"
+                  imageSrc="/assets/icons/africa.png"
+                ></ChipCheckBox>
+                <ChipCheckBox
+                  checkboxState={europe}
+                  setCheckboxState={setEurope}
+                  label="Europe"
+                  imageSrc="/assets/icons/europe.png"
+                ></ChipCheckBox>
+                <ChipCheckBox
+                  checkboxState={asia}
+                  setCheckboxState={setAsia}
+                  label="Asia"
+                  imageSrc="/assets/icons/asia.png"
+                ></ChipCheckBox>
+                <ChipCheckBox
+                  checkboxState={southCentralAmerica}
+                  setCheckboxState={setSouthCentralAmerica}
+                  label="South/Central America"
+                  imageSrc="/assets/icons/south-america.png"
+                ></ChipCheckBox>
+                <span
+                  className={`error-message ${styles.list_input_error_interests}`}
+                >
+                  {continentErrors}
                 </span>
               </div>
             </li>
