@@ -16,9 +16,11 @@ export default function AboutPage() {
           src="https://app.greenrope.com/users/myteam46998/Media383.jpg?202107301313"
           alt="Man looking at the hills."
         />
-        <Link to="/register" className="btn btn-primary btn-abs-tr">
-          Register for Free
-        </Link>
+        {!user && (
+          <Link to="/register" className="btn btn-primary btn-abs-tr">
+            Register for Free
+          </Link>
+        )}
       </section>
       <section className="bg-white">
         <main className={styles.main}>
