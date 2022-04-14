@@ -7,19 +7,6 @@
   margin: 0 auto;
 }
 
-.close_link {
-  position: fixed;
-  display: grid;
-  place-items: center;
-  margin: 1rem 1.2rem 0;
-  padding: 0.3rem;
-  width: 2rem;
-  height: 2rem;
-  color: #fff;
-  border-radius: 50%;
-  background-color: #56c1ff;
-}
-
 .page_heading {
   padding: 5rem 0 1rem;
   margin: 0 1.2rem;

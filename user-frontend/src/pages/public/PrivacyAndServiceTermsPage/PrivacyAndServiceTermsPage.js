@@ -1,16 +1,28 @@
 import React from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar/Navbar';
 import styles from './PrivacyAndServiceTermsPage.module.css';
 
-export default function PrivacyAndServiceTermsPage() {
+export default function PrivacyAndServiceTermsPage(props) {
+  const back = props.location.search
+    ? props.location.search.split('=')[1]
+    : null;
+
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
   return (
     <div className="bg-white">
-      <Navbar user={user}></Navbar>
-      <main class={styles.wrapper}>
+      {back ? (
+        <Link to={back} className="close-link">
+          <AiOutlineClose></AiOutlineClose>
+        </Link>
+      ) : (
+        <Navbar user={user}></Navbar>
+      )}
+      <main style={{ marginTop: back ? '0' : '' }} class={styles.wrapper}>
         <h1>Privacy Policy</h1>
         <p>
           By visiting or shopping at this web site, you accept the following

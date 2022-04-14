@@ -11,7 +11,7 @@ export default function UserSettingsPage() {
   return (
     <div className={`bg-white ${styles.page_wrapper}`}>
       <div className={styles.container}>
-        <Link to="/profile" className={styles.close_link}>
+        <Link to="/profile" className="close-link">
           <AiOutlineClose></AiOutlineClose>
         </Link>
         <h2 className={styles.page_heading}>Settings</h2>
@@ -89,7 +89,10 @@ export default function UserSettingsPage() {
           <h3 className={styles.section_heading}>Company</h3>
           <ul>
             <li className={styles.list_item}>
-              <Link to="/aboutus" className={`link ${styles.link}`}>
+              <Link
+                to="/aboutus?back=/profile/settings"
+                className={`link ${styles.link}`}
+              >
                 <div>
                   <h4>About Man Ex</h4>
                   <p>
@@ -101,7 +104,10 @@ export default function UserSettingsPage() {
               </Link>
             </li>
             <li className={styles.list_item}>
-              <Link to="/press" className={`link ${styles.link}`}>
+              <Link
+                to="/press?back=/profile/settings"
+                className={`link ${styles.link}`}
+              >
                 <div>
                   <h4>Press</h4>
                   <p>
@@ -113,7 +119,10 @@ export default function UserSettingsPage() {
               </Link>
             </li>
             <li className={styles.list_item}>
-              <Link to="/travelsponsorships" className={`link ${styles.link}`}>
+              <Link
+                to="/travelsponsorships?back=/profile/settings"
+                className={`link ${styles.link}`}
+              >
                 <div>
                   <h4>Travel Sponsorships</h4>
                   <p>
@@ -126,7 +135,7 @@ export default function UserSettingsPage() {
             </li>
             <li className={styles.list_item}>
               <Link
-                to="/privacy-and-serviceterms"
+                to="/privacy-and-serviceterms?back=/profile/settings"
                 className={`link ${styles.link}`}
               >
                 <div>

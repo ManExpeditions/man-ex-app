@@ -153,7 +153,7 @@ export default function ExperiencePage(props) {
 
   return (
     <div className={styles.page_wrapper}>
-      <Link to={back} className={styles.close_link}>
+      <Link to={back} className="close-link">
         <AiOutlineClose></AiOutlineClose>
       </Link>
       {experience && (

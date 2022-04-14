@@ -1,18 +1,30 @@
+import { AiOutlineClose } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar/Navbar';
 import styles from './AboutPage.module.css';
 
-export default function AboutPage() {
+export default function AboutPage(props) {
+  const back = props.location.search
+    ? props.location.search.split('=')[1]
+    : null;
+
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
   return (
     <div>
-      <Navbar user={user}></Navbar>
+      {back ? (
+        <Link to={back} className="close-link">
+          <AiOutlineClose></AiOutlineClose>
+        </Link>
+      ) : (
+        <Navbar user={user}></Navbar>
+      )}
       <section className={styles.hero_section}>
         <p className={styles.hero_heading}>About us</p>
         <img
           className={styles.hero_image}
+          style={{ marginTop: back ? '0' : '' }}
           src="https://app.greenrope.com/users/myteam46998/Media383.jpg?202107301313"
           alt="Man looking at the hills."
         />

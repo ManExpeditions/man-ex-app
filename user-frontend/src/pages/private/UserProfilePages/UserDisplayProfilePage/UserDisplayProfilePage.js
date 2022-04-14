@@ -40,7 +40,7 @@ export default function UserDisplayProfilePage(props) {
   return (
     <div>
       <section className={styles.container}>
-        <Link to={back} className={styles.close_link}>
+        <Link to={back} className="close-link">
           <AiOutlineClose></AiOutlineClose>
         </Link>
         {userProfile && (
