@@ -752,7 +752,7 @@ export default function AdminExperiencePage({ experienceId, setSubPage }) {
                       <label>UserId</label>
                       <input
                         className="input admin-input-box"
-                        value={review.user._id}
+                        value={review.user ? review.user._id : 'User'}
                         onChange={(e) => {
                           const _tempReviews = [...reviews];
                           _tempReviews[reviewIdx].user._id = e.target.value;

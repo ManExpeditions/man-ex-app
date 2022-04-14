@@ -28,6 +28,7 @@ import {
   resetRemoveFromFavorites,
   userRemoveFromFavorites
 } from '../../../slices/user/userRemoveFromFavoritesSlice';
+import { BiUser } from 'react-icons/bi';
 
 export default function ExperiencePage(props) {
   const { id } = useParams();
@@ -524,18 +525,24 @@ export default function ExperiencePage(props) {
                           key={reviewIdx}
                         >
                           <div className={styles.reviewer_profile}>
-                            <Link
-                              to={`/profile/${review.user._id}?back=/experiences/${id}`}
-                            >
-                              <img
-                                className={styles.review_profile}
-                                src={review.user.profilepic}
-                                alt="Review"
-                              />
-                            </Link>
+                            {review.user ? (
+                              <Link
+                                to={`/profile/${review.user._id}?back=/experiences/${id}`}
+                              >
+                                <img
+                                  className={styles.review_profile}
+                                  src={review.user.profilepic}
+                                  alt="Review"
+                                />
+                              </Link>
+                            ) : (
+                              <BiUser size={18}></BiUser>
+                            )}
                             <div>
                               <h3 className={styles.reviewer_name}>
-                                {review.user.firstName} {review.user.lastName}{' '}
+                                {review.user
+                                  ? `${review.user.firstName} ${review.user.lastName}`
+                                  : 'Deleted User'}
                               </h3>
                               <Rating rating={Number(review.stars)}></Rating>
                             </div>
