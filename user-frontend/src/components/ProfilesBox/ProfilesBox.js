@@ -4,11 +4,11 @@ import styles from './ProfilesBox.module.css';
 export default function ProfilesBox({ users, ...props }) {
   return (
     <div className={styles.interested_users_images}>
-      {users.map((user, interestedIdx) => (
+      {users.slice(0, 4).map((user, interestedIdx) => (
         <div className={styles.interested_user_wrapper} key={user._id}>
           <div
             className={
-              interestedIdx === users.length - 1
+              interestedIdx === users.length - 1 && users.length > 2
                 ? styles.interested_user_wrapper_more
                 : ''
             }
