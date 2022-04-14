@@ -28,10 +28,15 @@ export default function ExperienceBox({
             />
           </div>
         ) : experience.groups && experience.groups.length === 0 ? (
-          <div className="flex-box gap-1">
-            <div className={styles.circle}></div>
-            Create a group
-          </div>
+          <Link
+            className="link"
+            to={user ? `/experiences/${experience._id}` : '/register'}
+          >
+            <div className="flex-box">
+              <div className={styles.circle}></div>
+              Create a group
+            </div>
+          </Link>
         ) : (
           ''
         )}
