@@ -38,13 +38,14 @@ import UserDisplayProfilePage from './pages/private/UserProfilePages/UserDisplay
 import MessagesPage from './pages/public/MessagesPage/MessagesPage';
 import FavoritesPage from './pages/private/FavoritesPage/FavoritesPage';
 import MembersPage from './pages/public/MembersPage/MembersPage';
+import AuthRoute from './routes/AuthRoute';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/signin" component={SigninPage}></Route>
-        <Route path="/register" component={RegisterPage}></Route>
+        <AuthRoute path="/signin" component={SigninPage}></AuthRoute>
+        <AuthRoute path="/register" component={RegisterPage}></AuthRoute>
         <OnboardingRoute
           path="/onboarding/verify/email"
           component={VerifyEmailPage}
