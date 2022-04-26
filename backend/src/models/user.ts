@@ -30,6 +30,7 @@ interface User extends mongoose.Document {
   completedOnboarding: boolean;
   favorites: any;
   adminUser: boolean;
+  isFeaturedMember: boolean;
 }
 
 const userSchema = new mongoose.Schema<User>(
@@ -66,6 +67,10 @@ const userSchema = new mongoose.Schema<User>(
       groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }]
     },
     adminUser: {
+      type: Boolean,
+      default: false
+    },
+    isFeaturedMember: {
       type: Boolean,
       default: false
     }
