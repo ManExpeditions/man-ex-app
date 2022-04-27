@@ -3,7 +3,15 @@ import Order from '../../models/order';
 
 class OrderDao {
   public async getOrders(): Promise<Order[] | null> {
-    const orders = await Order.find({}).populate('user');
+    const orders = await Order.find({})
+      .populate({
+        path: 'group',
+        select: ['_id']
+      })
+      .populate({
+        path: 'user',
+        select: ['_id']
+      });
     return orders;
   }
 
@@ -53,13 +61,13 @@ class OrderDao {
       orderId: orderDetails.order_id,
       invoiceId: orderDetails.invoice_id,
       productName: orderDetails.base_product_name,
-      groupLabel: orderDetails.base_product_label,
       orderDate: orderDetails.order_date,
       orderTimestamp: orderDetails.order_timestamp,
       currency: orderDetails.currency,
       thrivecartCustomerId: orderDetails.customer.id,
       amount: orderDetails.order.total,
       user: userId,
+      group: orderDetails.base_product_label,
       status
     });
 
