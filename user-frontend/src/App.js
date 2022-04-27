@@ -39,6 +39,7 @@ import MessagesPage from './pages/public/MessagesPage/MessagesPage';
 import FavoritesPage from './pages/private/FavoritesPage/FavoritesPage';
 import MembersPage from './pages/public/MembersPage/MembersPage';
 import AuthRoute from './routes/AuthRoute';
+import ThankYouPage from './pages/private/ThankYouPage/ThankYouPage';
 
 function App() {
   return (
@@ -109,6 +110,11 @@ function App() {
         <PrivateRoute
           path="/favorites"
           component={FavoritesPage}
+          exact
+        ></PrivateRoute>
+        <PrivateRoute
+          path="/thankyou"
+          component={ThankYouPage}
           exact
         ></PrivateRoute>
         <PrivateRoute
