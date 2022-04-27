@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 import Order from '../../models/order';
 
 class OrderDao {
+  public async getOrders(): Promise<Order[] | null> {
+    const orders = await Order.find({}).populate('user');
+    return orders;
+  }
+
   public async findOrderByUserId(
     userId: mongoose.Types.ObjectId | string
   ): Promise<Order | null> {
