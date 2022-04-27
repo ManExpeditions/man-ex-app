@@ -38,7 +38,7 @@ export default function UserDisplayProfilePage(props) {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={styles.page_wrapper}>
       <section className={styles.container}>
         <Link to={back} className="close-link">
           <AiOutlineClose></AiOutlineClose>
