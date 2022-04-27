@@ -7,6 +7,13 @@ class OrderDao {
     return orders;
   }
 
+  public async findOrderById(
+    id: mongoose.Types.ObjectId | string
+  ): Promise<Order | null> {
+    const order = await Order.findById(id);
+    return order;
+  }
+
   public async findOrderByUserId(
     userId: mongoose.Types.ObjectId | string
   ): Promise<Order | null> {

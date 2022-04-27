@@ -5,6 +5,7 @@ import { experienceUpdateController } from '../controllers/admin/experienceUpdat
 import { groupCreateController } from '../controllers/admin/groupCreateController';
 import { groupDeleteController } from '../controllers/admin/groupDeleteController';
 import { groupUpdateController } from '../controllers/admin/groupUpdateController';
+import { orderGetController } from '../controllers/admin/orderGetController';
 import { ordersGetController } from '../controllers/admin/ordersGetController';
 import { userGetController } from '../controllers/admin/userGetController';
 import { usersGetController } from '../controllers/admin/usersGetController';
@@ -19,6 +20,7 @@ router.delete('/experience/:id', experienceDeleteController);
 router.delete('/group/:experienceId/:groupId', groupDeleteController);
 router.post('/group/:id', groupCreateController);
 router.put('/group/:id', groupUpdateController);
+router.get('/order/:id', orderGetController);
 router.get('/order', ordersGetController);
 
 export default router;
