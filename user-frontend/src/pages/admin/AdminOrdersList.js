@@ -57,8 +57,8 @@ export default function AdminOrdersList({ setSubPage }) {
                   <td>{order.orderDate}</td>
                   <td>{order.amount}</td>
                   <td>{order.status}</td>
-                  <td>{order.group}</td>
-                  <td>{order.user}</td>
+                  <td>{order.group && order.group._id}</td>
+                  <td>{order.user && order.user._id}</td>
                 </tr>
               ))}
             </tbody>
