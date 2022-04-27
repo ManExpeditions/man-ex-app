@@ -5,6 +5,7 @@ import AdminExperiencesList from './AdminExperiencesList';
 import AdminExperiencePage from './AdminExperiencePage';
 import AdminUsersList from './AdminUsersList';
 import AdminUserPage from './AdminUserPage';
+import AdminOrdersList from './AdminOrdersList';
 
 export default function AdminPanelPage() {
   const [subPage, setSubPage] = useState({});
@@ -36,6 +37,20 @@ export default function AdminPanelPage() {
             setSubPage={setSubPage}
           ></AdminUserPage>
         );
+      case 'order':
+        return (
+          <AdminOrdersList
+            {...subPage.props}
+            setSubPage={setSubPage}
+          ></AdminOrdersList>
+        );
+      case 'orders':
+        return (
+          <AdminOrdersList
+            {...subPage.props}
+            setSubPage={setSubPage}
+          ></AdminOrdersList>
+        );
       default:
         return 'Default';
     }
@@ -66,6 +81,12 @@ export default function AdminPanelPage() {
               onClick={() => setSubPage({ path: 'experiences' })}
             >
               Experiences
+            </MenuItem>
+            <MenuItem
+              icon={<FaSwimmer />}
+              onClick={() => setSubPage({ path: 'orders' })}
+            >
+              Orders
             </MenuItem>
           </Menu>
         </ProSidebar>
