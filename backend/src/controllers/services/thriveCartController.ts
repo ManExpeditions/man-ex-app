@@ -19,7 +19,7 @@ export const thriveCartController = [
     if (!group) {
       const err = new Error('No group found associated with the order');
       logger.error(err.message);
-      res.status(400);
+      res.status(400).send({ message: err.message });
       return;
     }
 
@@ -28,7 +28,7 @@ export const thriveCartController = [
     if (!user) {
       const err = new Error('User associated with product not found.');
       logger.error(err.message);
-      res.status(400);
+      res.status(400).send({ message: err.message });
       return;
     }
 
@@ -40,7 +40,7 @@ export const thriveCartController = [
     if (userAlreadyGoing) {
       const err = new Error('User already in going list for this group.');
       logger.error(err.message);
-      res.status(400);
+      res.status(400).send({ message: err.message });
       return;
     }
 
@@ -58,6 +58,7 @@ export const thriveCartController = [
     // There must be an error if order not created
     const err = new Error('Unable to create order.');
     logger.error(err.message);
-    res.status(500);
+    res.status(400).send({ message: err.message });
+    return;
   })
 ];
