@@ -4,13 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../../components/Navbar/Navbar';
 import styles from './ThankYouPage.module.css';
 
-export default function ThankYouPage(props) {
-  const params = props.location.search;
-  const parsed = new URLSearchParams(params);
-  for (let p of parsed) {
-    console.log(p);
-  }
-
+export default function ThankYouPage() {
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user } = signinSlice;
 
