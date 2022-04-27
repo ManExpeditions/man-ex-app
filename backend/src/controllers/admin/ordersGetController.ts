@@ -3,17 +3,21 @@ import { validationResult } from 'express-validator';
 import expressAsyncHandler from 'express-async-handler';
 import logger from '../../lib/logger';
 import orderDao from '../../dao/order/orderDao';
+import { isAdmin } from '../../middleware/adminMiddleware';
+import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {get} /order/v1 Get orders
+ * @api {get} /admin/v1/order Get orders
  * @apiDescription Get all orders
  * @apiPermission None
  * @apiVersion 1.0.0
  * @apiName GetOrders
- * @apiGroup Order
+ * @apiGroup Admin
  *
  */
 export const ordersGetController = [
+  isAuthenticated,
+  isAdmin,
   expressAsyncHandler(async function (req: Request, res: Response) {
     // Find the validation errors from the request.
     const errors = validationResult(req);
