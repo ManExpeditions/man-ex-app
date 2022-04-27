@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface Order {
+interface Order extends mongoose.Document {
   _id: mongoose.Types.ObjectId;
   invoiceId: string;
   productName: string;
@@ -9,6 +9,7 @@ interface Order {
   currency: string;
   thrivecartCustomerId: string;
   amount: string;
+  status: string;
   group: mongoose.Types.ObjectId;
   user: mongoose.Types.ObjectId;
 }
@@ -22,6 +23,7 @@ const orderSchema = new mongoose.Schema<Order>(
     currency: { type: String },
     thrivecartCustomerId: { type: String },
     amount: { type: String },
+    status: { type: String },
     group: { type: mongoose.Types.ObjectId, ref: 'Group' },
     user: { type: mongoose.Types.ObjectId, ref: 'User' }
   },

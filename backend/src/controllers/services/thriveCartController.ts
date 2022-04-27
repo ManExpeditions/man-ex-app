@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import groupDao from '../../dao/groups/groupDao';
+import orderDao from '../../dao/order/orderDao';
 import userDao from '../../dao/users/userDao';
 import logger from '../../lib/logger';
-import Order from '../../models/order';
 
 export const thriveCartController = [
   expressAsyncHandler(async function (req: Request, res: Response) {
@@ -38,7 +38,7 @@ export const thriveCartController = [
       group
     );
     if (userAlreadyGoing) {
-      const err = new Error('User already in going list for this group');
+      const err = new Error('User already in going list for this group.');
       logger.error(err.message);
       res.status(400);
       return;
@@ -47,24 +47,17 @@ export const thriveCartController = [
     // Add user to goingList
     await groupDao.addGoingUserToGroup(group, user._id);
 
-    // Create an order
-    const order = new Order({
-      orderId: body.order_id,
-      invoiceId: body.invoice_id,
-      productName: body.base_product_name,
-      groupLabel: body.base_product_label,
-      orderDate: body.order_date,
-      orderTimestamp: body.order_timestamp,
-      currency: body.currency,
-      thrivecartCustomerId: body.customer.id,
-      amount: body.order.total,
-      user: user._id
-    });
+    // Create a new order with status complete
+    const order = await orderDao.createNewOrder(body, user._id, 'complete');
 
-    // Save the new order
-    await order.save();
+    if (order) {
+      res.status(200).send({ message: 'success' });
+      return;
+    }
 
-    res.status(200).send({ message: 'success' });
-    return;
+    // There must be an error if order not created
+    const err = new Error('Unable to create order.');
+    logger.error(err.message);
+    res.status(500);
   })
 ];
