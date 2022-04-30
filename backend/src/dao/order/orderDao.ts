@@ -18,7 +18,19 @@ class OrderDao {
   public async findOrderById(
     id: mongoose.Types.ObjectId | string
   ): Promise<Order | null> {
-    const order = await Order.findById(id);
+    const order = await Order.findById(id)
+      .populate({
+        path: 'group',
+        select: ['_id'],
+        populate: {
+          path: 'groupLead',
+          select: ['_id', 'firstName', 'lastName']
+        }
+      })
+      .populate({
+        path: 'user',
+        select: ['_id']
+      });
     return order;
   }
 
