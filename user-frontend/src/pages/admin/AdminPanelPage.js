@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ProSidebar, SidebarHeader, Menu, MenuItem } from 'react-pro-sidebar';
-import { FaGem, FaSwimmer } from 'react-icons/fa';
+import { FaGem } from 'react-icons/fa';
+import { BsClipboardCheck, BsCalendar } from 'react-icons/bs';
+import { FiUsers } from 'react-icons/fi';
 import AdminExperiencesList from './AdminExperiencesList';
 import AdminExperiencePage from './AdminExperiencePage';
 import AdminUsersList from './AdminUsersList';
@@ -72,19 +74,19 @@ export default function AdminPanelPage() {
               Dashboard
             </MenuItem>
             <MenuItem
-              icon={<FaSwimmer />}
+              icon={<FiUsers />}
               onClick={() => setSubPage({ path: 'users' })}
             >
               Users
             </MenuItem>
             <MenuItem
-              icon={<FaSwimmer />}
+              icon={<BsCalendar />}
               onClick={() => setSubPage({ path: 'experiences' })}
             >
               Experiences
             </MenuItem>
             <MenuItem
-              icon={<FaSwimmer />}
+              icon={<BsClipboardCheck />}
               onClick={() => setSubPage({ path: 'orders' })}
             >
               Orders
