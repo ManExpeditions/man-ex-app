@@ -6,6 +6,7 @@ import AdminExperiencePage from './AdminExperiencePage';
 import AdminUsersList from './AdminUsersList';
 import AdminUserPage from './AdminUserPage';
 import AdminOrdersList from './AdminOrdersList';
+import AdminOrderPage from './AdminOrderPage';
 
 export default function AdminPanelPage() {
   const [subPage, setSubPage] = useState({});
@@ -39,10 +40,10 @@ export default function AdminPanelPage() {
         );
       case 'order':
         return (
-          <AdminOrdersList
+          <AdminOrderPage
             {...subPage.props}
             setSubPage={setSubPage}
-          ></AdminOrdersList>
+          ></AdminOrderPage>
         );
       case 'orders':
         return (

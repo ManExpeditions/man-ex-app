@@ -47,7 +47,7 @@ export default function AdminOrdersList({ setSubPage }) {
                     setSubPage({
                       path: 'order',
                       props: {
-                        userId: order._id
+                        orderId: order._id
                       }
                     })
                   }

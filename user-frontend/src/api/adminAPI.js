@@ -85,6 +85,13 @@ class adminAPI {
     });
     return data;
   }
+
+  async getOrder(orderId, userToken) {
+    const { data } = await Axios.get(`/api/admin/v1/order/${orderId}`, {
+      headers: { Authorization: `Bearer ${userToken}` }
+    });
+    return data;
+  }
 }
 
 export default new adminAPI();
