@@ -5,16 +5,17 @@ import { userVerifyPhoneController } from '../controllers/user/userVerifyPhoneCo
 import { userVerificationCodeController } from '../controllers/user/userVerificationCodeController';
 import { userValidateController } from '../controllers/user/userValidateController';
 import { userDeleteController } from '../controllers/user/userDeleteController';
-
 import { userGetProfileController } from '../controllers/user/userGetProfileController';
 import { userAddToFavoritesController } from '../controllers/user/userAddToFavoritesController';
 import { userRemoveFromFavoritesController } from '../controllers/user/userRemoveFromFavoritesController';
+import { userGetOrdersController } from '../controllers/user/userGetOrdersController';
 
 const router = express.Router();
 
 router.put('/:id', userUpdateController);
 router.delete('/:id', userDeleteController);
 router.get('/:id/profile', userGetProfileController);
+router.get('/:id/orders', userGetOrdersController);
 router.post('/:id/verify/email', userVerifyEmailController);
 router.post('/:id/verify/phone', userVerifyPhoneController);
 router.post('/:id/verify/code', userVerificationCodeController);

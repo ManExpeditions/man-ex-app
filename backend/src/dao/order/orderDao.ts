@@ -87,6 +87,26 @@ class OrderDao {
     await order.save();
     return order;
   }
+
+  public async getOrdersByUserId(
+    userId: mongoose.Types.ObjectId | string
+  ): Promise<Order[] | null> {
+    const orders = await Order.find({ user: userId }).populate({
+      path: 'group',
+      select: ['_id', 'dateText'],
+      populate: [
+        {
+          path: 'groupLead',
+          select: ['_id', 'firstName']
+        },
+        {
+          path: 'experience',
+          select: ['_id', 'videoThumbnailImage', 'video']
+        }
+      ]
+    });
+    return orders;
+  }
 }
 
 export default new OrderDao();
