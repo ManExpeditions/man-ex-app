@@ -79,7 +79,7 @@ export default function UserProfilePage() {
             <div>
               {userOrders &&
                 userOrders.map((order) => (
-                  <div key={order._id}>
+                  <div className={styles.order_wrapper} key={order._id}>
                     <ExperienceBox
                       user={user}
                       experience={order.group && order.group.experience}

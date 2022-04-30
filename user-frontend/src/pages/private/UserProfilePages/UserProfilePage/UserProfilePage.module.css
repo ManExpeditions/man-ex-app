@@ -93,10 +93,16 @@
   font-weight: 600;
   text-transform: uppercase;
   border: 3px solid transparent;
+  cursor: pointer;
 }
 
 .tab_button.active {
   border-bottom: 3px solid #56c1ff;
+}
+
+.order_wrapper {
+  max-width: 350px;
+  margin: 0 auto;
 }
 
 .order_container {
