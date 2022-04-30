@@ -25,6 +25,7 @@ import userAddToFavoritesSlice from '../slices/user/userAddToFavoritesSlice';
 import userRemoveFromFavoritesSlice from '../slices/user/userRemoveFromFavoritesSlice';
 import adminOrdersGetSlice from '../slices/admin/adminOrdersGetSlice';
 import adminOrderGetSlice from '../slices/admin/adminOrderGetSlice';
+import userGetOrdersSlice from '../slices/user/userGetOrdersSlice';
 
 export const store = configureStore({
   preloadedState: {
@@ -43,6 +44,7 @@ export const store = configureStore({
     userValidateSlice: userValidateSlice,
     userDeleteSlice: userDeleteSlice,
     userGetProfileSlice: userGetProfileSlice,
+    userGetOrdersSlice: userGetOrdersSlice,
     locationSlice: locationSlice,
     photoUploadSlice: photoUploadSlice,
     experiencesGetSlice: experiencesGetSlice,

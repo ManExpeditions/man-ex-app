@@ -72,6 +72,15 @@ class userAPI {
     return data;
   }
 
+  async getUserOrders(userId, userToken) {
+    const { data } = await Axios.get(`/api/user/v1/${userId}/orders`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    });
+    return data;
+  }
+
   async userAddToFavorites(userId, userToken, type, id) {
     const { data } = await Axios.patch(
       `/api/user/v1/${userId}/favorites/add?type=${type}`,

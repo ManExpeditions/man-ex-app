@@ -8,7 +8,8 @@ export default function ExperienceBox({
   experience,
   user,
   showGroup = true,
-  showLearnMore = true
+  showLearnMore = true,
+  back = ''
 }) {
   return (
     <div key={experience._id}>
@@ -30,7 +31,13 @@ export default function ExperienceBox({
         ) : experience.groups && experience.groups.length === 0 ? (
           <Link
             className="link"
-            to={user ? `/experiences/${experience._id}` : '/register'}
+            to={
+              user
+                ? `/experiences/${experience._id}${
+                    back ? `?back=${back}` : ''
+                  }?`
+                : '/register'
+            }
           >
             <div className="flex-box">
               <div className={styles.circle}></div>
@@ -42,7 +49,13 @@ export default function ExperienceBox({
         )}
         {showLearnMore && (
           <Link
-            to={user ? `/experiences/${experience._id}` : '/register'}
+            to={
+              user
+                ? `/experiences/${experience._id}${
+                    back ? `?back=${back}` : ''
+                  }?`
+                : '/register'
+            }
             className={`link btn-primary ${styles.btn_video_info}`}
           >
             Learn more
