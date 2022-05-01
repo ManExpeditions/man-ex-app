@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Order from '../../models/order';
+import Group from '../../models/group';
 
 class OrderDao {
   public async getOrders(): Promise<Order[] | null> {
@@ -89,11 +90,12 @@ class OrderDao {
   }
 
   public async getOrdersByUserId(
-    userId: mongoose.Types.ObjectId | string
+    userId: mongoose.Types.ObjectId | string,
+    status: string
   ): Promise<Order[] | null> {
     const orders = await Order.find({ user: userId }).populate({
       path: 'group',
-      select: ['_id', 'dateText'],
+      select: ['_id', 'dateText', 'startDate'],
       populate: [
         {
           path: 'groupLead',
@@ -105,7 +107,23 @@ class OrderDao {
         }
       ]
     });
-    return orders;
+
+    const currentDate = new Date().getTime();
+
+    switch (status) {
+      case 'upcoming':
+        return orders.filter(
+          (order) =>
+            (order.group as unknown as Group).startDate.getTime() > currentDate
+        );
+      case 'past':
+        return orders.filter(
+          (order) =>
+            (order.group as unknown as Group).startDate.getTime() < currentDate
+        );
+      default:
+        return orders;
+    }
   }
 }
 

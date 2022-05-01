@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import { param, validationResult } from 'express-validator';
+import { param, query, validationResult } from 'express-validator';
 
 import logger from '../../lib/logger';
 import userDao from '../../dao/users/userDao';
@@ -18,6 +18,8 @@ import orderDao from '../../dao/order/orderDao';
  *
  * @apiParam {String} id Users unique ID.
  *
+ * @apiQuery {String} status Should be one of: upcoming, past, all
+ *
  */
 export const userGetOrdersController = [
   // Has to be an authenticated request
@@ -26,6 +28,15 @@ export const userGetOrdersController = [
   param('id', 'Id param must be a string')
     .isLength({ min: 5 })
     .isString()
+    .escape(),
+
+  // Validate query params
+  query(
+    'status',
+    'Invalid value for query param status: type must be one of: upcoming, past, or all'
+  )
+    .isString()
+    .isIn(['upcoming', 'past', 'all'])
     .escape(),
 
   expressAsyncHandler(async function (req: Request, res: Response) {
@@ -55,7 +66,10 @@ export const userGetOrdersController = [
       return;
     }
 
-    const orders = await orderDao.getOrdersByUserId(user._id);
+    const orders = await orderDao.getOrdersByUserId(
+      user._id,
+      req.query.status as string
+    );
     res.status(200).json(orders || []);
     return;
   })
