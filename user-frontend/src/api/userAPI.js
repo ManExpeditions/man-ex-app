@@ -72,12 +72,15 @@ class userAPI {
     return data;
   }
 
-  async getUserOrders(userId, userToken) {
-    const { data } = await Axios.get(`/api/user/v1/${userId}/orders`, {
-      headers: {
-        Authorization: `Bearer ${userToken}`
+  async getUserOrders(userId, userToken, status) {
+    const { data } = await Axios.get(
+      `/api/user/v1/${userId}/orders?status=${status}`,
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
       }
-    });
+    );
     return data;
   }
 

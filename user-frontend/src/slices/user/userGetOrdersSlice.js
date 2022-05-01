@@ -9,12 +9,12 @@ const initialState = {
 
 export const userGetOrders = createAsyncThunk(
   'userGetOrders/userGetOrders',
-  async (_, { getState, rejectWithValue }) => {
+  async (status, { getState, rejectWithValue }) => {
     const {
       signinSlice: { user }
     } = getState();
     try {
-      const data = await userAPI.getUserOrders(user.id, user.token);
+      const data = await userAPI.getUserOrders(user.id, user.token, status);
       return data;
     } catch (err) {
       if (!err.response) {
