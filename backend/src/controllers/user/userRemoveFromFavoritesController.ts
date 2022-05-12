@@ -161,7 +161,8 @@ export const userRemoveFromFavoritesController = [
       authType: updatedUser?.authType,
       completedOnboarding: updatedUser?.completedOnboarding,
       favorites: updatedUser?.favorites,
-      adminUser: updatedUser?.adminUser
+      adminUser: updatedUser?.adminUser,
+      isFeaturedMember: updatedUser?.isFeaturedMember
     });
     return;
   })

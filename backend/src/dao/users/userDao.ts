@@ -122,6 +122,7 @@ class UserDao {
     user.socials = userInfo.socials || user.socials;
     user.completedOnboarding =
       userInfo.completedOnboarding || user.completedOnboarding;
+    user.isFeaturedMember = userInfo.isFeaturedMember || user.isFeaturedMember;
 
     const updatedUser = await user.save();
     return updatedUser;

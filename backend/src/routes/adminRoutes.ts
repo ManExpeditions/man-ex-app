@@ -9,11 +9,13 @@ import { orderGetController } from '../controllers/admin/orderGetController';
 import { ordersGetController } from '../controllers/admin/ordersGetController';
 import { userGetController } from '../controllers/admin/userGetController';
 import { usersGetController } from '../controllers/admin/usersGetController';
+import { userUpdateController } from '../controllers/admin/userUpdateController';
 
 const router = express.Router();
 
 router.get('/user', usersGetController);
 router.get('/user/:id', userGetController);
+router.put('/user/:id', userUpdateController);
 router.post('/experience', experienceCreateController);
 router.put('/experience/:id', experienceUpdateController);
 router.delete('/experience/:id', experienceDeleteController);

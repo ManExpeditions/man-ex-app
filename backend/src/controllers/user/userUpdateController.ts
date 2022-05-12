@@ -188,7 +188,8 @@ export const userUpdateController = [
       authType: populatedUpdatedUser?.authType,
       completedOnboarding: populatedUpdatedUser?.completedOnboarding,
       favorites: populatedUpdatedUser?.favorites,
-      adminUser: populatedUpdatedUser?.adminUser
+      adminUser: populatedUpdatedUser?.adminUser,
+      isFeaturedMember: updatedUser?.isFeaturedMember
     });
     return;
   })
