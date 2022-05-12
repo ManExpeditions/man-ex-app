@@ -1,6 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-pro-sidebar/dist/css/styles.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import RegisterPage from './pages/public/RegisterPage/RegisterPage';

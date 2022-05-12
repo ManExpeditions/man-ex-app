@@ -4,6 +4,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { useInView } from 'react-intersection-observer';
 import { Link, useParams } from 'react-router-dom';
 import { BsChevronCompactUp, BsChevronCompactDown } from 'react-icons/bs';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import styles from './ExperiencePage.module.css';
 import {
   experienceGet,
@@ -29,6 +30,8 @@ import {
   userRemoveFromFavorites
 } from '../../../slices/user/userRemoveFromFavoritesSlice';
 import { BiUser } from 'react-icons/bi';
+
+const placeholder = <div className="photo-placeholder"></div>;
 
 export default function ExperiencePage(props) {
   const { id } = useParams();
@@ -161,10 +164,11 @@ export default function ExperiencePage(props) {
         <>
           <div ref={ref} className={styles.hero_image_wrapper}>
             <div className={styles.vignette}></div>
-            <img
+            <LazyLoadImage
               className={styles.hero_image}
               src={experience.heroImage}
               alt="Experience"
+              placeholder={placeholder}
             />
           </div>
           <div className={styles.container_wrapper}>
@@ -318,8 +322,9 @@ export default function ExperiencePage(props) {
                           disableDots
                           activeIndex={activeIndex}
                           items={experience.images.map((img, idx) => (
-                            <img
+                            <LazyLoadImage
                               className={styles.slider_image}
+                              placeholder={placeholder}
                               src={img}
                               alt={`${experience.name}-${idx}`}
                             />
@@ -332,23 +337,25 @@ export default function ExperiencePage(props) {
                   <div className={styles.images}>
                     {experience.images.slice(0, 6).map((img, imageIdx) => (
                       <div key={imageIdx} className={styles.image_container}>
-                        <img
+                        <LazyLoadImage
                           className={styles.image}
                           src={img}
                           onClick={() => handleImageClick(imageIdx)}
                           alt={`${experience.name}-${imageIdx}`}
+                          placeholder={placeholder}
                         />
                       </div>
                     ))}
                     {isSeeMoreImages &&
                       experience.images.slice(6).map((image, idx) => (
                         <div className={styles.image_container}>
-                          <img
+                          <LazyLoadImage
                             className={`${styles.image}`}
                             key={idx}
                             src={image}
                             onClick={() => handleImageClick(idx + 6)}
                             alt={`${experience.name}-${idx + 6}`}
+                            placeholder={placeholder}
                           />
                         </div>
                       ))}
@@ -388,10 +395,11 @@ export default function ExperiencePage(props) {
                         >
                           <span className={styles.circle}></span>
                           <p className={styles.itinerary_day}>{day.day}</p>
-                          <img
+                          <LazyLoadImage
                             className={styles.dropdown_image}
                             src={day.image}
                             alt=""
+                            placeholder={placeholder}
                           />
                           <ul>
                             {day.activities.map((activity, idx) => (
@@ -439,10 +447,11 @@ export default function ExperiencePage(props) {
                             key={accomodationIdx}
                           >
                             <div>
-                              <img
+                              <LazyLoadImage
                                 className={`${styles.dropdown_image} ${styles.no_margin}`}
                                 src={accomodation.image}
                                 alt=""
+                                placeholder={placeholder}
                               />
                             </div>
                             <div>
@@ -476,10 +485,11 @@ export default function ExperiencePage(props) {
                           key={activityIdx}
                         >
                           <div>
-                            <img
+                            <LazyLoadImage
                               className={`${styles.dropdown_image} ${styles.no_margin}`}
                               src={activity.image}
                               alt=""
+                              placeholder={placeholder}
                             />
                           </div>
                           <div>
@@ -529,10 +539,11 @@ export default function ExperiencePage(props) {
                               <Link
                                 to={`/profile/${review.user._id}?back=/experiences/${id}`}
                               >
-                                <img
+                                <LazyLoadImage
                                   className={styles.review_profile}
                                   src={review.user.profilepic}
                                   alt="Review"
+                                  placeholder={placeholder}
                                 />
                               </Link>
                             ) : (
