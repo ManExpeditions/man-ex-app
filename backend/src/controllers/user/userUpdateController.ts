@@ -6,7 +6,7 @@ import userDao from '../../dao/users/userDao';
 import { isAuthenticated } from '../../middleware/authMiddleware';
 
 /**
- * @api {post} /auth/v1/signin/email Update user
+ * @api {put} /auth/v1/:id/ Update user
  * @apiDescription Update user information
  * @apiPermission Authentication
  * @apiVersion 1.0.0
