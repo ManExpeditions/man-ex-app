@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOnboardingRedirectPage } from '../../../utils/common';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { toast } from 'react-toastify';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -12,6 +13,7 @@ import BottomNav from '../../../components/BottomNav/BottomNav';
 import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
 import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 
+const placeholder = <div className="photo-placeholder"></div>;
 const images = [
   <div>
     <div className={styles.slider_text_container}>
@@ -22,10 +24,11 @@ const images = [
         memories.
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={styles.slider_image}
       src="https://app.greenrope.com/users/myteam46998/Media404.jpg?202108130749"
       alt="Men holding Man Expeditions logo in dessert."
+      placeholder={placeholder}
     />
     <div className={styles.slider_text_image_caption}>
       <p>Namibia Luxury Adventure</p>
@@ -44,7 +47,7 @@ const images = [
         receipts included with every booking.
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={styles.slider_image}
       src="https://app.greenrope.com/users/myteam46998/Media412.png?202108131224"
       alt="Man rescuing a rhino."
@@ -64,7 +67,7 @@ const images = [
         navigate the Covid-19 pandemic.
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={styles.slider_image}
       src="https://app.greenrope.com/users/myteam46998/Media409.jpg?202108131008"
       alt="Man doing yoga in greenery."
@@ -85,7 +88,7 @@ const images = [
         All trips support the Upmost Foundation 501(c)(3) Nonprofit
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={`${styles.slider_image} ${styles.slider_image_4}`}
       src="https://app.greenrope.com/users/myteam46998/Media407.jpg?202108131003"
       alt="Gorilla kissing man."
@@ -104,7 +107,7 @@ const images = [
         We bring awareness to great causes and celebrate positive change.
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={styles.slider_image}
       src="https://app.greenrope.com/users/myteam46998/Media410.jpg?202108131115"
       alt="Man with dreadlocks on a summit."
@@ -125,7 +128,7 @@ const images = [
         We forge meaningful friendships and strive for a diverse community
       </p>
     </div>
-    <img
+    <LazyLoadImage
       className={styles.slider_image}
       src="https://app.greenrope.com/users/myteam46998/Media406.jpg?202108130938"
       alt="Group of people watching beautiful scenery."
@@ -202,7 +205,7 @@ export default function HomePage() {
           )}
 
           <Link to={user ? '/members' : '/register'}>
-            <img
+            <LazyLoadImage
               className={styles.thumbnails_image}
               src="https://app.greenrope.com/users/myteam46998/Media411.jpg?202108131124"
               alt=""
@@ -248,7 +251,7 @@ export default function HomePage() {
               enjoy it with?!
             </h1>
             <div className={styles.how_section_container}>
-              <img
+              <LazyLoadImage
                 className={styles.how_section_image}
                 src="https://app.greenrope.com/users/myteam46998/Media243.jpg?202106241029"
                 alt="Men holding man expeditions symbol."
@@ -306,26 +309,6 @@ export default function HomePage() {
               <h1 className={styles.exp_section_heading}>
                 Popular Experiences
               </h1>
-              {/* <div className={styles.exp_section_videos_container}>
-                <div className={styles.video_container}>
-                  <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                  <Link
-                    to="/register"
-                    className={`link btn-primary ${styles.btn_video_info}`}
-                  >
-                    Learn more
-                  </Link>
-                </div>
-                <div className={styles.video_container}>
-                  <VideoPlayer src="https://res.cloudinary.com/man-expeditions/video/upload/v1640362481/Man_Ex_Cold_Shower_Challenge_-_720WebShareName_nsry8e.mov"></VideoPlayer>
-                  <Link
-                    to="/register"
-                    className={`link btn-primary ${styles.btn_video_info}`}
-                  >
-                    Learn more
-                  </Link>
-                </div>
-              </div> */}
             </>
           )}
           <div className={styles.global_exp_section_videos_container}>
@@ -410,7 +393,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className={styles.impact_section_blob}>
-                  <img
+                  <LazyLoadImage
                     className={styles.impact_section_blob_img}
                     src="https://app.greenrope.com/users/myteam46998/Media379.png?202107300909"
                     alt="Whale."
