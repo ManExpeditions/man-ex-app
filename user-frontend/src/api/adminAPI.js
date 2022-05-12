@@ -79,6 +79,13 @@ class adminAPI {
     return data;
   }
 
+  async updateUser(userId, userToken, userData) {
+    const { data } = await Axios.put(`/api/admin/v1/user/${userId}`, userData, {
+      headers: { Authorization: `Bearer ${userToken}` }
+    });
+    return data;
+  }
+
   async getOrders(userToken) {
     const { data } = await Axios.get('/api/admin/v1/order', {
       headers: { Authorization: `Bearer ${userToken}` }

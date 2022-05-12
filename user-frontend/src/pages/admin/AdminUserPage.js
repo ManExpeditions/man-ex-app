@@ -6,6 +6,11 @@ import {
   adminUserGet,
   resetAdminUserGet
 } from '../../slices/admin/adminUserGetSlice';
+import {
+  adminUserUpdate,
+  resetAdminUserUpdate
+} from '../../slices/admin/adminUserUpdateSlice';
+import Spinner from '../../components/Spinner/Spinner';
 
 export default function AdminUserPage({ userId, setSubPage }) {
   // Experience states
@@ -28,11 +33,21 @@ export default function AdminUserPage({ userId, setSubPage }) {
   const [authType, setAuthType] = useState('');
   const [completedOnboarding, setCompletedOnboarding] = useState('');
   const [adminUser, setAdminUser] = useState('');
+  const [isFeaturedMember, setIsFeaturedMember] = useState('');
 
   const [bio, setBio] = useState('');
 
   const adminUserGetSlice = useSelector((state) => state.adminUserGetSlice);
   const { user } = adminUserGetSlice;
+
+  const adminUserUpdateSlice = useSelector(
+    (state) => state.adminUserUpdateSlice
+  );
+  const {
+    loading: updatedLoading,
+    user: updatedUser,
+    error: updatedError
+  } = adminUserUpdateSlice;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -59,13 +74,26 @@ export default function AdminUserPage({ userId, setSubPage }) {
       setAuthType(user.authType);
       setCompletedOnboarding(user.completedOnboarding);
       setAdminUser(user.adminUser);
+      setIsFeaturedMember(user.isFeaturedMember);
     }
   }, [dispatch, user, userId]);
+
+  const handleSaveUserClick = () => {
+    dispatch(
+      adminUserUpdate({
+        userId: id,
+        userData: {
+          isFeaturedMember
+        }
+      })
+    );
+  };
 
   // Cleanup when component is lifted
   useEffect(() => {
     return () => {
       dispatch(resetAdminUserGet());
+      dispatch(resetAdminUserUpdate());
     };
   }, [dispatch]);
 
@@ -82,6 +110,23 @@ export default function AdminUserPage({ userId, setSubPage }) {
           <div className="flex-box space-between">
             <div>
               <h1>User Id: {id}</h1>
+              {updatedError && (
+                <span className="error-message">{updatedError}</span>
+              )}
+              {updatedUser && (
+                <span className="success-message">User updated.</span>
+              )}
+              {updatedError && (
+                <span className="error-message">{updatedError}</span>
+              )}
+            </div>
+            <div>
+              <button
+                className="admin-action-button"
+                onClick={handleSaveUserClick}
+              >
+                {updatedLoading ? <Spinner /> : 'Save User'}
+              </button>{' '}
             </div>
           </div>
           <div className="admin-input-box">
@@ -90,7 +135,7 @@ export default function AdminUserPage({ userId, setSubPage }) {
               disabled
               value={isActive}
               onChange={(e) => setIsActive(e.target.value)}
-              className="selectbox admin-selectbox"
+              className="selectbox isFeaturedMember-selectbox"
             >
               <option value={true}>True</option>
               <option value={false}>False</option>
@@ -283,6 +328,17 @@ export default function AdminUserPage({ userId, setSubPage }) {
               disabled
               value={adminUser}
               onChange={(e) => setAdminUser(e.target.value)}
+              className="selectbox admin-selectbox"
+            >
+              <option value={true}>True</option>
+              <option value={false}>False</option>
+            </select>
+          </div>
+          <div className="admin-input-box">
+            <label>Featured Member</label>
+            <select
+              value={isFeaturedMember}
+              onChange={(e) => setIsFeaturedMember(e.target.value)}
               className="selectbox admin-selectbox"
             >
               <option value={true}>True</option>
