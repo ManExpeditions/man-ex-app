@@ -10,6 +10,10 @@ Finding the perfect group of travel buddies to go on an adventure with has never
 ManEx is a platform where you can join travel groups or create your own to go on adventures with
 like-minded men you identify with the most.
 
+For 7 years, Man Expeditions has been building a vision that, through the support of our travel community, 
+allows us to run group trips and experiences that all help fund important wildlife and environmental 
+conservation efforts. 
+
 ## API documentation
 
 The API documentation is available [here](https://manexpeditions.github.io/man-ex-app/). Make sure to change the version to 1.0.0
