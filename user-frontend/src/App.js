@@ -94,7 +94,11 @@ function App() {
         ></OnboardingRoute>
         <Route path="/" exact component={HomePage}></Route>
         <Route path="/home" component={HomePage}></Route>
-        <Route path="/experiences/:id" exact component={ExperiencePage}></Route>
+        <PrivateRoute
+          path="/experiences/:id"
+          exact
+          component={ExperiencePage}
+        ></PrivateRoute>
         <Route path="/experiences" exact component={ExperiencesPage}></Route>
         <Route path="/aboutus" component={AboutPage}></Route>
         <Route path="/messages" component={MessagesPage}></Route>
