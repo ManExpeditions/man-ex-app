@@ -101,8 +101,8 @@ function App() {
         ></PrivateRoute>
         <Route path="/experiences" exact component={ExperiencesPage}></Route>
         <Route path="/aboutus" component={AboutPage}></Route>
-        <Route path="/messages" component={MessagesPage}></Route>
-        <Route path="/members" component={MembersPage}></Route>
+        <PrivateRoute path="/messages" component={MessagesPage}></PrivateRoute>
+        <PrivateRoute path="/members" component={MembersPage}></PrivateRoute>
         <Route path="/press" component={PressPage}></Route>
         <Route
           path="/travelsponsorships"

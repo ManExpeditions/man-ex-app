@@ -2,9 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOnboardingRedirectPage } from '../../../utils/common';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { toast } from 'react-toastify';
 import ImageSlider from '../../../components/ImageSlider/ImageSlider';
 import Navbar from '../../../components/Navbar/Navbar';
 import Toast from '../../../components/Toast/Toast';
@@ -12,6 +10,7 @@ import styles from './HomePage.module.css';
 import BottomNav from '../../../components/BottomNav/BottomNav';
 import { experiencesGet } from '../../../slices/experience/experiencesGetSlice';
 import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
+import useNotCompletedOnboarding from '../../../customHooks/useNotCompletedOnboarding';
 
 const placeholder = <div className="photo-placeholder"></div>;
 const images = [
@@ -150,19 +149,8 @@ export default function HomePage() {
   const experiencesGetSlice = useSelector((state) => state.experiencesGetSlice);
   const { experiences } = experiencesGetSlice;
 
-  useEffect(() => {
-    // If user has not completed onboarding, nudge them.
-    if (user && !user.completedOnboarding) {
-      const redirectPage = getOnboardingRedirectPage(user);
-      toast(
-        <div>
-          <Link to={redirectPage} className="link link-blue">
-            Complete your profile.
-          </Link>
-        </div>
-      );
-    }
-  }, [user]);
+  // If user has not completed onboarding, nudge them.
+  useNotCompletedOnboarding(user);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -179,7 +167,7 @@ export default function HomePage() {
   return (
     <div className="page home-page">
       <Navbar user={user}></Navbar>
-      <Toast></Toast>
+      <Toast autoClose={false} position="bottom-center"></Toast>
       {!user && (
         <div className={styles.slider_wrapper}>
           <ImageSlider items={images}></ImageSlider>

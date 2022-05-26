@@ -4,6 +4,8 @@ import BottomNav from '../../../components/BottomNav/BottomNav';
 import ChipCheckBox from '../../../components/ChipCheckBox/ChipCheckBox';
 import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
 import Navbar from '../../../components/Navbar/Navbar';
+import Toast from '../../../components/Toast/Toast';
+import useNotCompletedOnboarding from '../../../customHooks/useNotCompletedOnboarding';
 import {
   experiencesGet,
   resetExperiencesGet
@@ -28,6 +30,9 @@ export default function ExperiencesPage() {
   const { experiences } = experiencesGetSlice;
 
   const dispatch = useDispatch();
+
+  // If user has not completed onboarding, nudge them.
+  useNotCompletedOnboarding(user);
 
   useEffect(() => {
     const continents = continentFilter({
@@ -61,6 +66,7 @@ export default function ExperiencesPage() {
   return (
     <div className={`page ${styles.page_wrapper}`}>
       <Navbar experiences user={user}></Navbar>
+      <Toast autoClose={false}></Toast>
       <div className={styles.container}>
         <div className={styles.chips_wrapper}>
           <div className={styles.chips_container}>
