@@ -83,7 +83,7 @@ export const userVerificationCodeController = [
       logger.error(err.message);
       res.status(400).json({ message: err.message });
       return;
-    } else if (type === 'email' && email === user.email) {
+    } else if (type === 'email' && email === user.email && user.emailVerified) {
       const err = new Error('Invalid Request: Email already verified.');
       logger.error(err.message);
       res.status(400).json({ message: err.message });
@@ -92,8 +92,12 @@ export const userVerificationCodeController = [
 
     // We need to make sure that the email is not being used by another user
     if (type === 'email') {
-      const user = await userDao.findUserByEmail(email);
-      if (user) {
+      const existingEmailUser = await userDao.findUserByEmail(email);
+      if (
+        existingEmailUser &&
+        existingEmailUser.email === user.email &&
+        user.emailVerified
+      ) {
         const err = new Error('Invalid Request: Email already being used.');
         logger.error(err.message);
         res.status(400).json({ message: err.message });
