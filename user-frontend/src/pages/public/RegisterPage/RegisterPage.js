@@ -8,6 +8,7 @@ import useInputValidate from '../../../customHooks/useInputValidate';
 import { InputPassword } from '../../../components/Input/Input';
 import {
   emailRegisterUser,
+  resetEmailRegister,
   resetEmailRegisterErrors
 } from '../../../slices/auth/emailRegisterSlice';
 
@@ -58,6 +59,9 @@ export default function RegisterPage(props) {
     discharge
   ]);
 
+  const signinSlice = useSelector((state) => state.signinSlice);
+  const { user } = signinSlice;
+
   const emailRegisterSlice = useSelector((state) => state.emailRegisterSlice);
   const { createdUser, error } = emailRegisterSlice;
 
@@ -67,13 +71,21 @@ export default function RegisterPage(props) {
   };
 
   useEffect(() => {
-    if (createdUser) {
+    // Prevent logged in user from seeing this page
+    if (user) {
       props.history.push('/onboarding/verify/email');
     }
     return () => {
       dispatch(resetEmailRegisterErrors());
     };
-  }, [dispatch, createdUser, props.history]);
+  }, [user, dispatch, createdUser, props.history]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      dispatch(resetEmailRegister());
+    };
+  }, [dispatch]);
 
   return (
     <div className="screen">

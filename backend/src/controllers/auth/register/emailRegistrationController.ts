@@ -88,6 +88,7 @@ export const emailRegistrationController = [
       id: createdUser._id,
       email: createdUser.email,
       adminUser: createdUser.adminUser,
+      completedOnboarding: createdUser.completedOnboarding,
       token: token
     });
     return;

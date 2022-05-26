@@ -30,6 +30,11 @@ export const emailRegisterSlice = createSlice({
   reducers: {
     resetEmailRegisterErrors: (state) => {
       state.loading = false;
+    },
+    resetEmailRegister: (state) => {
+      state.loading = false;
+      state.createdUser = null;
+      state.error = null;
     }
   },
   extraReducers: (builder) => {
@@ -52,6 +57,7 @@ export const emailRegisterSlice = createSlice({
   }
 });
 
-export const { resetEmailRegisterErrors } = emailRegisterSlice.actions;
+export const { resetEmailRegisterErrors, resetEmailRegister } =
+  emailRegisterSlice.actions;
 
 export default emailRegisterSlice.reducer;

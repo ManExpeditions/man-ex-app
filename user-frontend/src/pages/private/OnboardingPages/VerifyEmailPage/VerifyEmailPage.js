@@ -33,6 +33,9 @@ export default function VerifyEmailPage(props) {
   let { buttonDisabled } = state;
 
   useEffect(() => {
+  }, []);
+
+  useEffect(() => {
     discharge({
       type: 'CHECK_ALL_FIELDS_VALID',
       payload: {

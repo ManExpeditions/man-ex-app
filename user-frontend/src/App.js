@@ -47,7 +47,7 @@ function App() {
     <Router>
       <Switch>
         <AuthRoute path="/signin" component={SigninPage}></AuthRoute>
-        <AuthRoute path="/register" component={RegisterPage}></AuthRoute>
+        <Route path="/register" component={RegisterPage}></Route>
         <OnboardingRoute
           path="/onboarding/verify/email"
           component={VerifyEmailPage}
