@@ -91,7 +91,7 @@ export default function BottomNav({ user, ...props }) {
         ) : (
           <li className={styles.nav_item}>
             <Link
-              to="/signin"
+              to="/register"
               className={`link link-primary ${styles.nav_link}`}
             >
               <BiUser
