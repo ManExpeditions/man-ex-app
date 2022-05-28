@@ -62,13 +62,7 @@ export default function SigninPage(props) {
         />
       </Link>
       <h1 className={styles.page_title}>Sign In</h1>
-      <button className={styles.facebook_button}>
-        <i class={`fab fa-facebook fa-lg ${styles.facebook_icon}`}></i>
-        Sign in with Facebook
-      </button>
-      <p className={styles.crossed_text}>
-        <span>or</span>
-      </p>
+      <p className={styles.crossed_text}></p>
       <main>
         {error && <MessageBox variant="error">{error}</MessageBox>}
         <div className={styles.input_wrapper}>
