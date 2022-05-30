@@ -80,7 +80,7 @@ export default function ContinentsPage(props) {
   return (
     <div className="screen">
       <Link to="/onboarding/interests" className="link link-back">
-        <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+        <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
       </Link>
       <h1 className={styles.page_title}>
         What continents do you want to travel within? (select atleast 2)

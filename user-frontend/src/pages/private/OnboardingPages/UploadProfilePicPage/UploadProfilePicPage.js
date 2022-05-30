@@ -75,7 +75,7 @@ export default function UploadProfilePicPage(props) {
     <>
       <div className="screen">
         <Link to="/onboarding/location" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Add Profile Picture</h1>
         <main>

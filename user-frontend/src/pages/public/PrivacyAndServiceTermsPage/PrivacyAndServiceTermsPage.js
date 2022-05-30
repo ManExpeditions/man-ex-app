@@ -22,7 +22,7 @@ export default function PrivacyAndServiceTermsPage(props) {
       ) : (
         <Navbar user={user}></Navbar>
       )}
-      <main style={{ marginTop: back ? '0' : '' }} class={styles.wrapper}>
+      <main style={{ marginTop: back ? '0' : '' }} className={styles.wrapper}>
         <h1>Privacy Policy</h1>
         <p>
           By visiting or shopping at this web site, you accept the following
@@ -639,12 +639,12 @@ export default function PrivacyAndServiceTermsPage(props) {
           Effective Date: 24 May 2018 © M21 Media, Inc. d.b.a Man Expeditions,
           All rights reserved.
         </p>
-        <h1 class="uppercase">Terms and conditions</h1>
+        <h1 className="uppercase">Terms and conditions</h1>
         <p>
           By visiting or shopping at this web site, you accept the following
           terms and conditions. Please read them carefully.
         </p>
-        <h2 class="uppercase">Copyright</h2>
+        <h2 className="uppercase">Copyright</h2>
         <p>
           All content included on this site, such as text, graphics, logos,
           button icons, images, audio clips, digital downloads, data
@@ -655,17 +655,17 @@ export default function PrivacyAndServiceTermsPage(props) {
           All software used on this site is the property of this site's owner or
           its software suppliers and protected by international copyright laws.
         </p>
-        <h2 class="uppercase">
+        <h2 className="uppercase">
           Disclaimer of warranties and limitation of liability
         </h2>
-        <p class="uppercase">
+        <p className="uppercase">
           THIS SITE IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS. NO
           REPRESENTATIONS OR WARRANTIES OF ANY KIND ARE MADE, EXPRESS OR
           IMPLIED, AS TO THE OPERATION OF THIS SITE OR THE INFORMATION, CONTENT,
           MATERIALS, OR PRODUCTS INCLUDED ON THIS SITE. YOU EXPRESSLY AGREE THAT
           YOUR USE OF THIS SITE IS AT YOUR SOLE RISK.
         </p>
-        <p class="upppercase">
+        <p className="upppercase">
           TO THE FULL EXTENT PERMISSIBLE BY APPLICABLE LAW, THIS SITE'S OWNER
           DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT
           LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
@@ -676,7 +676,7 @@ export default function PrivacyAndServiceTermsPage(props) {
           NOT LIMITED TO DIRECT, INDIRECT, INCIDENTAL, PUNITIVE, AND
           CONSEQUENTIAL DAMAGES.
         </p>
-        <p class="uppercase">
+        <p className="uppercase">
           CERTAIN STATE LAWS DO NOT ALLOW LIMITATIONS ON IMPLIED WARRANTIES OR
           THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF THESE LAWS APPLY TO
           YOU, SOME OR ALL OF THE ABOVE DISCLAIMERS, EXCLUSIONS, OR LIMITATIONS

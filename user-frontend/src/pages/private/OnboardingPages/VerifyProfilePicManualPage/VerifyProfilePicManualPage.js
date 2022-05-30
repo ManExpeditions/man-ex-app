@@ -17,7 +17,7 @@ export default function VerifyProfilePicManualPage(props) {
           to="/onboarding/verify/profilepic/social"
           className="link link-back"
         >
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Verify Profile Picture</h1>
         <main>

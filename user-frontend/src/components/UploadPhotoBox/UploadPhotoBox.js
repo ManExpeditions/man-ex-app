@@ -12,7 +12,7 @@ export default function UploadPhotoBox({ photoState, setPhotoState }) {
   return (
     <div>
       <div className={`${styles.container} ${photoState && styles.no_border}`}>
-        <i class="fas fa-plus"></i>
+        <i className="fas fa-plus"></i>
         <input
           className={styles.input}
           type="file"

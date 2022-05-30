@@ -62,7 +62,7 @@ export default function EnterPhonePage(props) {
     <>
       <div className="screen">
         <Link to="/onboarding/verify/email" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Enter Mobile Number</h1>
         <main>

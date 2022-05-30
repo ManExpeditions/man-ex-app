@@ -94,7 +94,7 @@ export default function LocationPage(props) {
     <>
       <div className="screen">
         <Link to="/onboarding/continents" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Where are you located?</h1>
         <main className={styles.main}>
@@ -103,7 +103,9 @@ export default function LocationPage(props) {
           </p>
           <div className={styles.location_wrapper}>
             <div className={styles.location_wrapper}>
-              <i class={`fas fa-map-marker-alt ${styles.location_icon}`}></i>
+              <i
+                className={`fas fa-map-marker-alt ${styles.location_icon}`}
+              ></i>
               <input
                 autoFocus
                 className={`input ${styles.location_input}`}

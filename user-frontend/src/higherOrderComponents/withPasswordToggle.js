@@ -18,7 +18,7 @@ const withPasswordToggle = (component) => {
         <Component type={inputType} {...props} ref={ref} />
         {type === 'password' && (
           <button className="eye-button" onClick={togglePasswordVisibility}>
-            <i class="fa fa-eye eye" aria-hidden="true"></i>
+            <i className="fa fa-eye eye" aria-hidden="true"></i>
           </button>
         )}
       </div>

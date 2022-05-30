@@ -66,7 +66,7 @@ export default function VerifyProfilePicSocialPage(props) {
     <>
       <div className="screen">
         <Link to="/onboarding/upload/profilepic" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Verify Profile Picture</h1>
         <main>
@@ -78,7 +78,7 @@ export default function VerifyProfilePicSocialPage(props) {
           </p>
           <div className={styles.verification_wrapper}>
             <div className={styles.social_media}>
-              <i class="fab fa-instagram fa-2x fa-fw"></i>instagram.com/
+              <i className="fab fa-instagram fa-2x fa-fw"></i>instagram.com/
               <input
                 placeholder="your username"
                 className="input"
@@ -87,7 +87,7 @@ export default function VerifyProfilePicSocialPage(props) {
               ></input>
             </div>
             <div className={styles.social_media}>
-              <i class="fab fa-facebook fa-2x fa-fw"></i>facebook.com/
+              <i className="fab fa-facebook fa-2x fa-fw"></i>facebook.com/
               <input
                 placeholder="your username"
                 className="input"
@@ -96,7 +96,7 @@ export default function VerifyProfilePicSocialPage(props) {
               ></input>
             </div>
             <div className={styles.social_media}>
-              <i class="fab fa-linkedin fa-2x fa-fw"></i>linkedin.com/
+              <i className="fab fa-linkedin fa-2x fa-fw"></i>linkedin.com/
               <input
                 placeholder="your username"
                 className="input"

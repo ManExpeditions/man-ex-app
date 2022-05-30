@@ -110,7 +110,7 @@ export default function VerifyPhonePage(props) {
     <>
       <div className="screen">
         <Link to="/onboarding/enter/phone" className="link link-back">
-          <i class="fas fa-chevron-left fa-fw fa-xs"></i> Back
+          <i className="fas fa-chevron-left fa-fw fa-xs"></i> Back
         </Link>
         <h1 className={styles.page_title}>Verify Mobile Number</h1>
         <main>
