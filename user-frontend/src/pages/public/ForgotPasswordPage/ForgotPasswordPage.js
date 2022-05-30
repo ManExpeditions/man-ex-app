@@ -6,6 +6,11 @@ import useInputValidate from '../../../customHooks/useInputValidate';
 import Input from '../../../components/Input/Input';
 import styles from './ForgotPasswordPage.module.css';
 import { IoChevronBackSharp } from 'react-icons/io5';
+import {
+  resetUserForgotPassword,
+  userForgotPassword
+} from '../../../slices/user/userForgotPasswordSlice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const initialState = {
   email: '',
@@ -34,19 +39,22 @@ export default function ForgotPasswordPage(props) {
     });
   }, [email, emailError, discharge]);
 
-  const signinSlice = useSelector((state) => state.signinSlice);
-  const { user, error } = signinSlice;
+  const userForgotPasswordSlice = useSelector(
+    (state) => state.userForgotPasswordSlice
+  );
+  const { message, loading, error } = userForgotPasswordSlice;
 
   const dispatch = useDispatch();
+
   const onForgotPassword = () => {
-    // dispatch(signin({ email }));
+    dispatch(userForgotPassword(email));
   };
 
   useEffect(() => {
-    if (user) {
-      props.history.push('/home');
-    }
-  }, [dispatch, user, props.history]);
+    return () => {
+      dispatch(resetUserForgotPassword());
+    };
+  }, [dispatch]);
 
   return (
     <div className="screen">
@@ -66,7 +74,6 @@ export default function ForgotPasswordPage(props) {
       <h1 className={styles.page_title}>Forgot Password</h1>
       <p className={styles.crossed_text}></p>
       <main>
-        {error && <MessageBox variant="error">{error}</MessageBox>}
         <div className={styles.input_wrapper}>
           <p className={styles.input_info}>
             Enter the email address associated with your account and we'll send
@@ -84,6 +91,10 @@ export default function ForgotPasswordPage(props) {
             actionType="SET_AND_VALIDATE_EMAIL"
           />
         </div>
+        {error && <MessageBox variant="error">{error}</MessageBox>}
+        {message && (
+          <MessageBox variant="success">{message.message}</MessageBox>
+        )}
       </main>
       <button
         disabled={buttonDisabled}
@@ -92,7 +103,7 @@ export default function ForgotPasswordPage(props) {
         }`}
         onClick={onForgotPassword}
       >
-        Continue
+        {loading ? <Spinner></Spinner> : 'Continue'}
       </button>
     </div>
   );

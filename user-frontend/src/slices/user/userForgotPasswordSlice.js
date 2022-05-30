@@ -26,7 +26,7 @@ export const userForgotPasswordSlice = createSlice({
   name: 'userForgotPassword',
   initialState,
   reducers: {
-    resetForgotPassword: (state) => {
+    resetUserForgotPassword: (state) => {
       state.loading = false;
       state.message = null;
       state.error = null;
@@ -56,6 +56,6 @@ export const userForgotPasswordSlice = createSlice({
   }
 });
 
-export const { resetForgotPassword } = userForgotPasswordSlice.actions;
+export const { resetUserForgotPassword } = userForgotPasswordSlice.actions;
 
 export default userForgotPasswordSlice.reducer;
