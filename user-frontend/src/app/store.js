@@ -27,6 +27,7 @@ import adminOrdersGetSlice from '../slices/admin/adminOrdersGetSlice';
 import adminOrderGetSlice from '../slices/admin/adminOrderGetSlice';
 import userGetOrdersSlice from '../slices/user/userGetOrdersSlice';
 import adminUserUpdateSlice from '../slices/admin/adminUserUpdateSlice';
+import userForgotPasswordSlice from '../slices/user/userForgotPasswordSlice';
 
 export const store = configureStore({
   preloadedState: {
@@ -64,6 +65,7 @@ export const store = configureStore({
     groupInterestedUserSlice: groupInterestedUserSlice,
     experienceInterestedUserSlice: experienceInterestedUserSlice,
     userAddToFavoritesSlice: userAddToFavoritesSlice,
-    userRemoveFromFavoritesSlice: userRemoveFromFavoritesSlice
+    userRemoveFromFavoritesSlice: userRemoveFromFavoritesSlice,
+    userForgotPasswordSlice: userForgotPasswordSlice
   }
 });

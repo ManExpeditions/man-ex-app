@@ -109,6 +109,13 @@ class userAPI {
     );
     return data;
   }
+
+  async userForgotPassword(email) {
+    const { data } = await Axios.post(`/api/user/v1/forgotpassword}`, {
+      email
+    });
+    return data;
+  }
 }
 
 export default new userAPI();
