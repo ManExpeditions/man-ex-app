@@ -31,6 +31,7 @@ export default function DigitVerificationBox({
         {boxes.map(([boxState, setBoxState], i) => (
           <>
             <input
+              key={i}
               autoFocus={i === 0 && isAutoFocus ? true : false}
               id={`box-${i + 1}`}
               value={boxState}
