@@ -50,17 +50,6 @@ describe('Test user verification code endpoint', () => {
     });
   });
 
-  it('should throw error if type is email but email already verified', async () => {
-    const response = await request
-      .post(endpoint + '?type=email')
-      .set('Authorization', `Bearer ${user_token}`)
-      .send({ email: user_email });
-    expect(response.status).toBe(400);
-    expect(response.body).toEqual({
-      message: 'Invalid Request: Email already verified.'
-    });
-  });
-
   it('should throw error if type is phone but phone not in body', async () => {
     const response = await request
       .post(endpoint + '?type=phone')
