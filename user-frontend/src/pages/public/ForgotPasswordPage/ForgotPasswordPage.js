@@ -1,22 +1,21 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './SigninPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { resetSigninErrors, signin } from '../../../slices/auth/signinSlice';
 import MessageBox from '../../../components/MessageBox/MessageBox';
 import useInputValidate from '../../../customHooks/useInputValidate';
-import Input, { InputPassword } from '../../../components/Input/Input';
+import Input from '../../../components/Input/Input';
+import styles from './ForgotPasswordPage.module.css';
+import { IoChevronBackSharp } from 'react-icons/io5';
 
 const initialState = {
   email: '',
   emailError: '',
-  password: '',
   buttonDisabled: false
 };
 
-export default function SigninPage(props) {
+export default function ForgotPasswordPage(props) {
   const [state, discharge] = useInputValidate(initialState);
-  let { email, emailError, password, buttonDisabled } = state;
+  let { email, emailError, buttonDisabled } = state;
 
   // Focus the email input on first render
   const focusRef = useRef(null);
@@ -30,30 +29,33 @@ export default function SigninPage(props) {
       type: 'CHECK_ALL_FIELDS_VALID',
       payload: {
         empty: [emailError],
-        notEmpty: [email, password]
+        notEmpty: [email]
       }
     });
-  }, [email, emailError, password, discharge]);
+  }, [email, emailError, discharge]);
 
   const signinSlice = useSelector((state) => state.signinSlice);
   const { user, error } = signinSlice;
 
   const dispatch = useDispatch();
-  const onSigninHandler = () => {
-    dispatch(signin({ email, password }));
+  const onForgotPassword = () => {
+    // dispatch(signin({ email }));
   };
 
   useEffect(() => {
     if (user) {
       props.history.push('/home');
     }
-    return () => {
-      dispatch(resetSigninErrors());
-    };
   }, [dispatch, user, props.history]);
 
   return (
     <div className="screen">
+      <div className={styles.top_links}>
+        <Link className={`link ${styles.back_link}`} to="/profile/settings">
+          <IoChevronBackSharp size={25}></IoChevronBackSharp>
+          Back
+        </Link>
+      </div>
       <Link to="/home">
         <img
           className={styles.logo}
@@ -61,11 +63,15 @@ export default function SigninPage(props) {
           alt="Man Expeditions Logo"
         />
       </Link>
-      <h1 className={styles.page_title}>Sign In</h1>
+      <h1 className={styles.page_title}>Forgot Password</h1>
       <p className={styles.crossed_text}></p>
       <main>
         {error && <MessageBox variant="error">{error}</MessageBox>}
         <div className={styles.input_wrapper}>
+          <p className={styles.input_info}>
+            Enter the email address associated with your account and we'll send
+            you a link to reset your password.
+          </p>
           <div className={styles.label_wrapper}>
             <label className="label">Email</label>
             <span className="error-message">{emailError}</span>
@@ -78,38 +84,16 @@ export default function SigninPage(props) {
             actionType="SET_AND_VALIDATE_EMAIL"
           />
         </div>
-        <div className={styles.input_wrapper}>
-          <div className={styles.label_wrapper}>
-            <label className="label">Password</label>
-          </div>
-          <InputPassword
-            type="password"
-            className="input"
-            value={password}
-            dispatch={discharge}
-            actionType="SET_AND_VALIDATE_PASSWORD"
-          />
-        </div>
       </main>
       <button
         disabled={buttonDisabled}
         className={`btn btn-primary ${styles.action_button} ${
           buttonDisabled && 'btn-primary-disabled'
         }`}
-        onClick={onSigninHandler}
+        onClick={onForgotPassword}
       >
-        Sign in
+        Continue
       </button>
-      <p className={styles.existing_account}>
-        Don't have an account?{' '}
-        <Link to="/register" className={`link ${styles.navigation_link}`}>
-          SIGN UP
-        </Link>
-        <br />
-        <Link to="/forgotpassword" className={`link link-blue`}>
-          Forgot password?
-        </Link>
-      </p>
     </div>
   );
 }

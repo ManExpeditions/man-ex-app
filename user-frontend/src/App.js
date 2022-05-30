@@ -41,12 +41,17 @@ import FavoritesPage from './pages/private/FavoritesPage/FavoritesPage';
 import MembersPage from './pages/public/MembersPage/MembersPage';
 import AuthRoute from './routes/AuthRoute';
 import ThankYouPage from './pages/private/ThankYouPage/ThankYouPage';
+import ForgotPasswordPage from './pages/public/ForgotPasswordPage/ForgotPasswordPage';
 
 function App() {
   return (
     <Router>
       <Switch>
         <AuthRoute path="/signin" component={SigninPage}></AuthRoute>
+        <AuthRoute
+          path="/forgotpassword"
+          component={ForgotPasswordPage}
+        ></AuthRoute>
         <Route path="/register" component={RegisterPage}></Route>
         <OnboardingRoute
           path="/onboarding/verify/email"
