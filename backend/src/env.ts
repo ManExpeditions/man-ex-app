@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
+  client_base_url: process.env.BASE_URL as string,
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUDNAME as string,
     apikey: process.env.CLOUDINARY_API_KEY as string,
@@ -20,7 +21,8 @@ const config = {
   twilio: {
     authToken: process.env.TWILIO_AUTH_TOKEN as string,
     accoundSid: process.env.TWILIO_ACCOUNT_SID as string,
-    verifySid: process.env.TWILIO_VERIFY_SERVICE_SID as string
+    verifySid: process.env.TWILIO_VERIFY_SERVICE_SID as string,
+    sendgridApiKey: process.env.SENDGRID_API_KEY as string
   },
   test: {
     base_db_path: 'mongodb://localhost:27017/',

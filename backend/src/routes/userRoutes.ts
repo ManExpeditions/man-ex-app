@@ -9,6 +9,7 @@ import { userGetProfileController } from '../controllers/user/userGetProfileCont
 import { userAddToFavoritesController } from '../controllers/user/userAddToFavoritesController';
 import { userRemoveFromFavoritesController } from '../controllers/user/userRemoveFromFavoritesController';
 import { userGetOrdersController } from '../controllers/user/userGetOrdersController';
+import { userForgotPasswordController } from '../controllers/user/userForgotPasswordController';
 
 const router = express.Router();
 
@@ -22,5 +23,6 @@ router.post('/:id/verify/code', userVerificationCodeController);
 router.post('/:id/validate', userValidateController);
 router.patch('/:id/favorites/add', userAddToFavoritesController);
 router.patch('/:id/favorites/remove', userRemoveFromFavoritesController);
+router.post('/forgotpassword', userForgotPasswordController);
 
 export default router;

@@ -17,6 +17,7 @@
   "author": "Ajaydip Singh",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "@types/morgan": "^1.9.3",
     "@types/multer": "^1.4.7",
     "bcrypt": "^5.0.1",
