@@ -17,7 +17,7 @@ export default function MembersPage() {
   const userGetFeaturedMembersSlice = useSelector(
     (state) => state.userGetFeaturedMembersSlice
   );
-  const { loading, users, error } = userGetFeaturedMembersSlice;
+  const { users } = userGetFeaturedMembersSlice;
 
   const dispatch = useDispatch();
   useEffect(() => {
