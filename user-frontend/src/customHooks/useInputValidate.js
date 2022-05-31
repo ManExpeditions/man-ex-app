@@ -114,7 +114,7 @@ export default function useInputValidate(initialState) {
           return {
             ...state,
             password: value,
-            passwordError: 'Password must have atleast one lower case letter.'
+            passwordError: 'Must have atleast one lower case letter.'
           };
         } else if (value === value.toLowerCase()) {
           return {
