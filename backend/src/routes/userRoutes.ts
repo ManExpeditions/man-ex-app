@@ -11,6 +11,7 @@ import { userRemoveFromFavoritesController } from '../controllers/user/userRemov
 import { userGetOrdersController } from '../controllers/user/userGetOrdersController';
 import { userForgotPasswordController } from '../controllers/user/userForgotPasswordController';
 import { userPasswordResetController } from '../controllers/user/userPasswordResetController';
+import { usersGetFeaturedMembersController } from '../controllers/user/usersGetFeaturedMembersController';
 
 const router = express.Router();
 
@@ -26,5 +27,6 @@ router.patch('/:id/favorites/add', userAddToFavoritesController);
 router.patch('/:id/favorites/remove', userRemoveFromFavoritesController);
 router.post('/forgotpassword', userForgotPasswordController);
 router.post('/resetpassword', userPasswordResetController);
+router.get('/featuredmembers', usersGetFeaturedMembersController);
 
 export default router;

@@ -29,6 +29,14 @@ class UserDao {
     return users;
   }
 
+  public async getFeaturedMembers(): Promise<User[] | null> {
+    const users = await User.find({
+      isFeaturedMember: true,
+      isActive: true
+    }).select(['firstName', 'profilepic']);
+    return users;
+  }
+
   public async findUserByEmail(email: string): Promise<User | null> {
     const user = await User.findOne({ email });
     return user;
