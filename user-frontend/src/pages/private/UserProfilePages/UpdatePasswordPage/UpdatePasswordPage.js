@@ -154,42 +154,44 @@ export default function UpdatePasswordPage(props) {
           </>
         ) : (
           <>
-            <div className={styles.input_wrapper}>
-              <div className={styles.label_wrapper}>
-                <label className="label">Password</label>
-                <span className="error-message">{passwordError}</span>
+            <div>
+              <div className={styles.input_wrapper}>
+                <div className={styles.label_wrapper}>
+                  <label className="label">Password</label>
+                  <span className="error-message">{passwordError}</span>
+                </div>
+                <InputPassword
+                  type="password"
+                  className={`input ${passwordError && 'input-error'}`}
+                  value={password}
+                  dispatch={discharge}
+                  actionType="SET_AND_VALIDATE_PASSWORD"
+                />
               </div>
-              <InputPassword
-                type="password"
-                className={`input ${passwordError && 'input-error'}`}
-                value={password}
-                dispatch={discharge}
-                actionType="SET_AND_VALIDATE_PASSWORD"
-              />
-            </div>
-            <div className={styles.input_wrapper}>
-              <div className={styles.label_wrapper}>
-                <label className="label">Confirm Password</label>
-                <span className="error-message">{confirmPasswordError}</span>
+              <div className={styles.input_wrapper}>
+                <div className={styles.label_wrapper}>
+                  <label className="label">Confirm Password</label>
+                  <span className="error-message">{confirmPasswordError}</span>
+                </div>
+                <InputPassword
+                  type="password"
+                  className={`input ${confirmPasswordError && 'input-error'}`}
+                  value={confirmPassword}
+                  dispatch={discharge}
+                  actionType="SET_AND_VALIDATE_CONFIRM_PASSWORD"
+                />
               </div>
-              <InputPassword
-                type="password"
-                className={`input ${confirmPasswordError && 'input-error'}`}
-                value={confirmPassword}
-                dispatch={discharge}
-                actionType="SET_AND_VALIDATE_CONFIRM_PASSWORD"
-              />
+              {errorUpdatedUser && (
+                <span className="error-message">{errorUpdatedUser}</span>
+              )}
+              <button
+                disabled={buttonDisabled}
+                className={`btn ${styles.action_button}`}
+                onClick={onPasswordUpdateHandler}
+              >
+                {loadingUpdatedUser ? <Spinner></Spinner> : 'Update Password'}
+              </button>
             </div>
-            {errorUpdatedUser && (
-              <span className="error-message">{errorUpdatedUser}</span>
-            )}
-            <button
-              disabled={buttonDisabled}
-              className={`btn ${styles.action_button}`}
-              onClick={onPasswordUpdateHandler}
-            >
-              {loadingUpdatedUser ? <Spinner></Spinner> : 'Update Password'}
-            </button>
           </>
         )}
       </div>

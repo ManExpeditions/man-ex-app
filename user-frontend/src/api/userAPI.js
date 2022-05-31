@@ -116,6 +116,19 @@ class userAPI {
     });
     return data;
   }
+
+  async userResetPassword(userToken, password) {
+    const { data } = await Axios.post(
+      '/api/user/v1/resetpassword',
+      { password },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      }
+    );
+    return data;
+  }
 }
 
 export default new userAPI();

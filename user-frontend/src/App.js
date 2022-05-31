@@ -42,6 +42,7 @@ import MembersPage from './pages/public/MembersPage/MembersPage';
 import AuthRoute from './routes/AuthRoute';
 import ThankYouPage from './pages/private/ThankYouPage/ThankYouPage';
 import ForgotPasswordPage from './pages/public/ForgotPasswordPage/ForgotPasswordPage';
+import ResetPasswordPage from './pages/public/ResetPasswordPage/ResetPasswordPage';
 
 function App() {
   return (
@@ -51,6 +52,10 @@ function App() {
         <AuthRoute
           path="/forgotpassword"
           component={ForgotPasswordPage}
+        ></AuthRoute>
+        <AuthRoute
+          path="/resetpassword/:token"
+          component={ResetPasswordPage}
         ></AuthRoute>
         <Route path="/register" component={RegisterPage}></Route>
         <OnboardingRoute
