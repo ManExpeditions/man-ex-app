@@ -10,6 +10,7 @@ import { userAddToFavoritesController } from '../controllers/user/userAddToFavor
 import { userRemoveFromFavoritesController } from '../controllers/user/userRemoveFromFavoritesController';
 import { userGetOrdersController } from '../controllers/user/userGetOrdersController';
 import { userForgotPasswordController } from '../controllers/user/userForgotPasswordController';
+import { userPasswordResetController } from '../controllers/user/userPasswordResetController';
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.post('/:id/validate', userValidateController);
 router.patch('/:id/favorites/add', userAddToFavoritesController);
 router.patch('/:id/favorites/remove', userRemoveFromFavoritesController);
 router.post('/forgotpassword', userForgotPasswordController);
+router.post('/resetpassword', userPasswordResetController);
 
 export default router;
