@@ -1,8 +1,15 @@
-.placeholder {
-  display: grid;
-  place-content: center;
-  font-size: 2rem;
-  height: 100vh;
+.wrapper {
   background-color: #000;
-  color: #56c1ff;
+  min-height: calc(100vh - 4rem);
+}
+
+.profiles_container {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  max-width: 25rem;
+  margin: 4rem auto 0;
 }

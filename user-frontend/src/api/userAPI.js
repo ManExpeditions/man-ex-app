@@ -84,6 +84,15 @@ class userAPI {
     return data;
   }
 
+  async getFeaturedMembers(userToken) {
+    const { data } = await Axios.get(`/api/user/v1/featuredmembers`, {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    });
+    return data;
+  }
+
   async userAddToFavorites(userId, userToken, type, id) {
     const { data } = await Axios.patch(
       `/api/user/v1/${userId}/favorites/add?type=${type}`,
