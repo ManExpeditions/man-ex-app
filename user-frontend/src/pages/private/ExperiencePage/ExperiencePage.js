@@ -99,6 +99,14 @@ export default function ExperiencePage(props) {
     }
   };
 
+  const handleViewGroups = () => {
+    if (isInterestedUser) {
+      setAreGroupsVisible((prev) => !prev);
+    } else {
+      setShowInterestedUserModal(true);
+    }
+  };
+
   useEffect(() => {
     if (addToFavoritesUser) {
       setIsExperienceFavorited(true);
@@ -271,13 +279,7 @@ export default function ExperiencePage(props) {
                     />
                     <button
                       className={styles.view_all_groups_button}
-                      onClick={() => {
-                        if (isInterestedUser) {
-                          setAreGroupsVisible((prev) => !prev);
-                        } else {
-                          setShowInterestedUserModal(true);
-                        }
-                      }}
+                      onClick={handleViewGroups}
                     >
                       {areGroupsVisible ? 'Hide' : 'View'} all groups
                       {areGroupsVisible ? (
@@ -604,10 +606,7 @@ export default function ExperiencePage(props) {
                   <p>${experience.deposit}</p>
                 </div>
                 <a
-                  onClick={(e) => {
-                    e.preventDefault();
-                    areGroupsVisible(true);
-                  }}
+                  onClick={handleViewGroups}
                   className={`btn btn-primary ${styles.view_groups_link}`}
                   href="#groups"
                 >
