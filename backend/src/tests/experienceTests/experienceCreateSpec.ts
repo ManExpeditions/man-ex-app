@@ -22,7 +22,7 @@ describe('Test experience create endpoint', () => {
     user_token: admin_user_token
   } = getUser(true);
 
-  const experience_id = mongoose.Types.ObjectId();
+  const experience_id = new mongoose.Types.ObjectId();
 
   beforeAll(async () => {
     // Connect to test database

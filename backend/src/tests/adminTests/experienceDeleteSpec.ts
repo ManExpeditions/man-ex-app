@@ -18,7 +18,7 @@ const request = supertest(app);
 describe('Test experience delete endpoint', () => {
   const endpoint = config.test.admin.base_endpoint;
 
-  const experience_id = mongoose.Types.ObjectId();
+  const experience_id = new mongoose.Types.ObjectId();
 
   const { user_id, user_email, user_pass_encrypted, user_token } = getUser();
   const {

@@ -26,7 +26,7 @@ class GroupDao {
       isActive: true,
       experience:
         typeof experienceId === 'string'
-          ? mongoose.Types.ObjectId(experienceId)
+          ? new mongoose.Types.ObjectId(experienceId)
           : experienceId,
       name: 'Sample group',
       startDate: Date.now(),
@@ -71,7 +71,7 @@ class GroupDao {
       } else {
         group.goingUsers = decodeURIComponent(groupInfo.goingUsers)
           .split(',')
-          .map((id) => mongoose.Types.ObjectId(String(id)));
+          .map((id) => new mongoose.Types.ObjectId(String(id)));
       }
     }
 
@@ -82,7 +82,7 @@ class GroupDao {
       } else {
         group.interestedUsers = decodeURIComponent(groupInfo.interestedUsers)
           .split(',')
-          .map((id) => mongoose.Types.ObjectId(String(id)));
+          .map((id) => new mongoose.Types.ObjectId(String(id)));
       }
     }
 
@@ -120,7 +120,7 @@ class GroupDao {
     userId: mongoose.Types.ObjectId | string
   ) {
     const userObjectId =
-      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+      typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
     group.goingUsers.push(userObjectId);
     const updatedGroup = await group.save();
     return updatedGroup;
@@ -131,7 +131,7 @@ class GroupDao {
     userId: mongoose.Types.ObjectId | string
   ) {
     const userObjectId =
-      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+      typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
     group.interestedUsers.push(userObjectId);
     const updatedGroup = await group.save();
     return updatedGroup;

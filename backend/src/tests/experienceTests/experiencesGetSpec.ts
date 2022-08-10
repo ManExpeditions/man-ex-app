@@ -11,7 +11,7 @@ const request = supertest(app);
 describe('Test experiences get endpoint', () => {
   const endpoint = config.test.experience.base_endpoint;
 
-  const experience_id = mongoose.Types.ObjectId();
+  const experience_id = new mongoose.Types.ObjectId();
 
   beforeAll(async () => {
     // Connect to test database

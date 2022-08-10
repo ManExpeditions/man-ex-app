@@ -16,8 +16,8 @@ describe('Test group interested user put endpoint', () => {
   const endpoint = config.test.group.base_endpoint;
 
   const { user_id, user_email, user_pass_encrypted } = getUser();
-  const experience_id = mongoose.Types.ObjectId();
-  const group_id = mongoose.Types.ObjectId();
+  const experience_id = new mongoose.Types.ObjectId();
+  const group_id = new mongoose.Types.ObjectId();
 
   beforeAll(async () => {
     // Connect to test database

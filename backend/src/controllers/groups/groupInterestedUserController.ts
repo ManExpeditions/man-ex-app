@@ -65,7 +65,7 @@ export const groupInterestedUserController = [
 
     // Check if user already in interested users
     const userExists = groupDao.userExistsInGroupInterestedUsers(
-      mongoose.Types.ObjectId(userId),
+      new mongoose.Types.ObjectId(userId),
       group
     );
     if (userExists) {
