@@ -55,6 +55,11 @@
   gap: 1rem 2rem;
 }
 
+.no_experiences_container {
+  margin: 12rem auto 0;
+  max-width: max-content;
+}
+
 @media (max-width: 700px) {
   .exp_section {
     grid-template-columns: 1fr;

@@ -394,6 +394,11 @@ input:-webkit-autofill {
   background-color: #e0e0ff;
 }
 
+.msg-box-primary {
+  color: #fff;
+  background-color: #56c1ff;
+}
+
 .msg-box-error {
   color: #000;
   background-color: #a02020;
