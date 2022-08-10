@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BottomNav from '../../../components/BottomNav/BottomNav';
 import ChipCheckBox from '../../../components/ChipCheckBox/ChipCheckBox';
 import ExperienceBox from '../../../components/ExperienceBox/ExperienceBox';
+import MessageBox from '../../../components/MessageBox/MessageBox';
 import Navbar from '../../../components/Navbar/Navbar';
 import Toast from '../../../components/Toast/Toast';
 import useNotCompletedOnboarding from '../../../customHooks/useNotCompletedOnboarding';
@@ -108,15 +109,22 @@ export default function ExperiencesPage() {
             ></ChipCheckBox>
           </div>
         </div>
-        <section className={styles.exp_section}>
-          {experiences &&
-            experiences.map((experience) => (
-              <ExperienceBox
-                key={experience._id}
-                experience={experience}
-                user={user}
-              />
-            ))}
+        <section>
+          {experiences && experiences.length > 0 ? (
+            <div className={styles.exp_section}>
+              {experiences.map((experience) => (
+                <ExperienceBox
+                  key={experience._id}
+                  experience={experience}
+                  user={user}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className={styles.no_experiences_container}>
+              <MessageBox variant="primary">No Experiences Found</MessageBox>
+            </div>
+          )}
         </section>
       </div>
       <BottomNav experiences user={user}></BottomNav>
