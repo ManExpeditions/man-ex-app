@@ -19,7 +19,7 @@ interface Group extends mongoose.Document {
 
 const groupSchema = new mongoose.Schema<Group>(
   {
-    experience: { type: mongoose.Types.ObjectId, ref: 'Experience' },
+    experience: { type: mongoose.Schema.Types.ObjectId, ref: 'Experience' },
     isActive: { type: Boolean },
     startDate: { type: Date },
     endDate: { type: Date },
@@ -29,9 +29,9 @@ const groupSchema = new mongoose.Schema<Group>(
     thriveCartScriptId: { type: String },
     capacity: { type: Number },
     description: { type: String },
-    groupLead: { type: mongoose.Types.ObjectId, ref: 'User' },
-    goingUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
-    interestedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+    groupLead: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    goingUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    interestedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
   },
   {
     timestamps: true

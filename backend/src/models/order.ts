@@ -24,8 +24,8 @@ const orderSchema = new mongoose.Schema<Order>(
     thrivecartCustomerId: { type: String },
     amount: { type: String },
     status: { type: String },
-    group: { type: mongoose.Types.ObjectId, ref: 'Group' },
-    user: { type: mongoose.Types.ObjectId, ref: 'User' }
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'Group' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
   },
   {
     timestamps: true

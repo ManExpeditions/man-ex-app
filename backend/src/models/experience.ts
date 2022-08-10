@@ -41,13 +41,13 @@ const experienceSchema = new mongoose.Schema<Experience>(
     videoThumbnailImage: { type: String },
     video: { type: String },
     heroImage: { type: String },
-    images: { type: [String] },
-    itinerary: { type: Array },
-    accomodations: { type: Array },
-    activities: { type: Array },
+    images: [{ type: String }],
+    itinerary: [{ type: Object }],
+    accomodations: [{ type: Object }],
+    activities: [{ type: Object }],
     reviews: [
       {
-        user: { type: mongoose.Types.ObjectId, ref: 'User' },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         stars: { type: Number },
         description: { type: String }
       }
@@ -55,8 +55,8 @@ const experienceSchema = new mongoose.Schema<Experience>(
 
     whatsIncluded: { type: String },
     terms: { type: String },
-    groups: [{ type: mongoose.Types.ObjectId, ref: 'Group' }],
-    interestedUsers: [{ type: mongoose.Types.ObjectId, ref: 'User' }]
+    groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
+    interestedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
   },
   {
     timestamps: true
