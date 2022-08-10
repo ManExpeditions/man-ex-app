@@ -61,7 +61,9 @@ export default function UserProfilePage() {
       </section>
       <section className={styles.reservation_section_wrapper}>
         <div className={styles.reservation_section}>
-          <h1 className={styles.reservation_section_heading}>Your status</h1>
+          <h1 className={styles.reservation_section_heading}>
+            Your reservations
+          </h1>
           <ul className={styles.tabs}>
             <li>
               <button
@@ -91,7 +93,7 @@ export default function UserProfilePage() {
             </li>
           </ul>
           <div>
-            {userOrders &&
+            {userOrders && userOrders.length > 0 ? (
               userOrders.map((order) => (
                 <div className={styles.order_wrapper} key={order._id}>
                   <ExperienceBox
@@ -123,7 +125,24 @@ export default function UserProfilePage() {
                     </Link>
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className={styles.no_reservations}>
+                <p>You don't have any upcoming reservations yet!</p>
+                <Link to="/experiences" className="link btn btn-primary">
+                  Find experiences
+                </Link>
+                <p>
+                  Can't find your reservation here? <br />
+                  <a
+                    href="mailto:hello@manexpeditions.com?subject=Contact us"
+                    className="link link-blue"
+                  >
+                    Email us HERE
+                  </a>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
