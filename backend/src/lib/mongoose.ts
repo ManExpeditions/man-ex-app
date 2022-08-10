@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 import logger from './logger';
 
 // MongoDB connection string.
@@ -14,7 +14,7 @@ const connect = async (dbURI: string): Promise<void> => {
   // Create database connection.
   uri = dbURI;
   try {
-    await mongoose.connect(dbURI, options);
+    await mongoose.connect(dbURI, options as ConnectOptions);
   } catch (err) {
     logger.error(`Mongoose connection failed at ${dbURI}: ${err}`);
   }

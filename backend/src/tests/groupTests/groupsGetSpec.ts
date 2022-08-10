@@ -13,8 +13,8 @@ const request = supertest(app);
 describe('Test groups get endpoint', () => {
   const endpoint = config.test.group.base_endpoint;
 
-  const experience_id = mongoose.Types.ObjectId();
-  const group_id = mongoose.Types.ObjectId();
+  const experience_id = new mongoose.Types.ObjectId();
+  const group_id = new mongoose.Types.ObjectId();
 
   beforeAll(async () => {
     // Connect to test database

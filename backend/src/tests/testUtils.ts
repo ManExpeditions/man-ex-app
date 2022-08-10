@@ -23,7 +23,7 @@ export const getUser = (
   user_admin: boolean;
   user_token: string;
 } => {
-  const userId = mongoose.Types.ObjectId();
+  const userId = new mongoose.Types.ObjectId();
   return {
     user_id: userId,
     user_email: `john${randomInt(10)}@example.com`,

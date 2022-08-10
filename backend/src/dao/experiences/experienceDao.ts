@@ -137,7 +137,7 @@ class ExperienceDao {
           experienceInfo.interestedUsers
         )
           .split(',')
-          .map((id) => mongoose.Types.ObjectId(String(id)));
+          .map((id) => new mongoose.Types.ObjectId(String(id)));
       }
     }
 
@@ -166,7 +166,7 @@ class ExperienceDao {
   ) {
     const experience = await Experience.findById(experienceId);
     const groupIdx = experience?.groups.indexOf(
-      mongoose.Types.ObjectId(groupId)
+      new mongoose.Types.ObjectId(groupId)
     );
     experience?.groups.splice(groupIdx as number, 1);
     await experience?.save();
@@ -187,7 +187,7 @@ class ExperienceDao {
     experience: Experience
   ) {
     const userObjectId =
-      typeof userId === 'string' ? mongoose.Types.ObjectId(userId) : userId;
+      typeof userId === 'string' ? new mongoose.Types.ObjectId(userId) : userId;
     experience.interestedUsers.push(userObjectId);
     const updatedExperience = await experience.save();
     return updatedExperience;

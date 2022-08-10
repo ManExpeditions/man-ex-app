@@ -196,7 +196,7 @@ class UserDao {
   ) {
     const experienceObjectId =
       typeof experienceId === 'string'
-        ? mongoose.Types.ObjectId(experienceId)
+        ? new mongoose.Types.ObjectId(experienceId)
         : experienceId;
     user.favorites.experiences.push(experienceObjectId);
     const updatedUser = await user.save();
@@ -209,7 +209,7 @@ class UserDao {
   ) {
     const memberObjectId =
       typeof memberId === 'string'
-        ? mongoose.Types.ObjectId(memberId)
+        ? new mongoose.Types.ObjectId(memberId)
         : memberId;
     user.favorites.members.push(memberObjectId);
     const updatedUser = await user.save();
@@ -221,7 +221,7 @@ class UserDao {
     user: User
   ) {
     const groupObjectId =
-      typeof groupId === 'string' ? mongoose.Types.ObjectId(groupId) : groupId;
+      typeof groupId === 'string' ? new mongoose.Types.ObjectId(groupId) : groupId;
     user.favorites.groups.push(groupObjectId);
     const updatedUser = await user.save();
     return updatedUser;

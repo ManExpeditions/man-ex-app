@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema<User>(
     country: { type: String },
     profilepic: { type: String },
     profilepicVerified: { type: Boolean, default: false },
-    verificationProfilepic: { type: Boolean },
+    verificationProfilepic: { type: String },
     bio: { type: String },
     socials: {
       facebook: { type: String },

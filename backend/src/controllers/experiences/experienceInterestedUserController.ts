@@ -64,7 +64,7 @@ export const experienceInterestedUserController = [
 
     // Check if user already in interested users
     const userExists = experienceDao.userExistsInExperienceInterestedUsers(
-      mongoose.Types.ObjectId(userId),
+      new mongoose.Types.ObjectId(userId),
       experience
     );
     if (userExists) {
