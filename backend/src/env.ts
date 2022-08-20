@@ -13,7 +13,7 @@ const config = {
   mongo:
     process.env.NODE_ENV == 'production'
       ? (process.env.MONGO_URI as string)
-      : 'mongodb://localhost:27017/manex',
+      : 'mongodb://0.0.0.0:27017/manex',
   jwt_secret:
     process.env.NODE_ENV == 'production'
       ? (process.env.JWT_SECRET as string)

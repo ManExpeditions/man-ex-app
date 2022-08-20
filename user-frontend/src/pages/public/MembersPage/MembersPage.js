@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BottomNav from '../../../components/BottomNav/BottomNav';
+import Filter from '../../../components/Filter/Filter';
 import Navbar from '../../../components/Navbar/Navbar';
 import ProfileBox from '../../../components/ProfileBox/ProfileBox';
 import {
@@ -35,9 +36,24 @@ export default function MembersPage() {
     <div>
       <Navbar user={user}></Navbar>
       <div className={styles.wrapper}>
-        <div className={styles.profiles_container}>
-          {users &&
-            users.map((user) => <ProfileBox key={user._id} user={user} />)}
+        <div className={styles.container}>
+          <div>
+            <h1 className={styles.hero_text_heading}>Discover</h1>
+            <h1 className={styles.hero_text_subheading}>
+              like-minded Travellers
+            </h1>
+            <p>
+              Get matched with like-minded travelers with upcoming trips/events
+              and create extraordinary memories together
+            </p>
+          </div>
+          <div className={styles.filter}>
+            <Filter></Filter>
+          </div>
+          <div className={styles.profiles_container}>
+            {users &&
+              users.map((user) => <ProfileBox key={user._id} user={user} />)}
+          </div>
         </div>
       </div>
       <BottomNav members user={user} />

@@ -279,7 +279,6 @@ ul {
 }
 
 .input,
-.PhoneInputInput,
 .selectbox {
   background-color: #363444;
   border-radius: 0.4rem;
@@ -457,6 +456,7 @@ input:-webkit-autofill {
 }
 
 .modal-button {
+  cursor: pointer;
   color: #000;
   padding: 0.5rem;
   font-size: 0.8rem;

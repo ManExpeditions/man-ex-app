@@ -1,6 +1,14 @@
 .wrapper {
   background-color: #000;
   min-height: calc(100vh - 4rem);
+  margin-top: 4rem;
+}
+
+.container {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
 }
 
 .profiles_container {
@@ -11,5 +19,23 @@
   justify-content: center;
   background-color: #000;
   max-width: 25rem;
-  margin: 4rem auto 0;
+  margin: 1rem auto;
+}
+
+.hero_text_heading {
+  font-size: 3rem;
+  font-family: 'FragileScript';
+  margin-bottom: 1rem;
+}
+
+.hero_text_subheading {
+  font-size: 1.5rem;
+  max-width: 53rem;
+  margin: 1rem auto;
+  line-height: 0.9;
+  font-weight: 700;
+}
+
+.filter {
+  margin: 1rem 0;
 }
