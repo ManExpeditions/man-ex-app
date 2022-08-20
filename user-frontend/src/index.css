@@ -456,6 +456,7 @@ input:-webkit-autofill {
 }
 
 .modal-button {
+  cursor: pointer;
   color: #000;
   padding: 0.5rem;
   font-size: 0.8rem;
